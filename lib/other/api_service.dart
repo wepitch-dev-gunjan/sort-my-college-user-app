@@ -12,6 +12,7 @@ import '../model/counsellor_data.dart';
 import '../model/counsellor_detail.dart';
 import '../model/counsellor_sessions.dart';
 import '../model/cousnellor_list_model.dart';
+import '../model/ep_model.dart';
 import '../model/response_model.dart';
 import 'constants.dart';
 import 'dart:developer' as console show log;
@@ -489,7 +490,10 @@ class ApiService {
       return data;
     } else if (response.statusCode == 404) {
       return {"error": "Something went wrong"};
-    } else {
+    }else if (response.statusCode == 500) {
+      return {"error": "Something went wrong"};
+    }
+    else {
       return {"error": "Something went wrong"};
     }
   }
@@ -609,6 +613,33 @@ class ApiService {
     }
     return [];
   }
+
+  static Future<List<EPModel>> getEPListData() async {
+    var url = Uri.parse("${AppConstants.baseUrl}/ep/institute/user");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+    final response = await http.get(url, headers: {
+      //"Content-Type": "application/json",
+      "Authorization": token,
+    });
+    var data;
+    //console.log("Counsellor List : ${response.body}");
+    if (response.statusCode == 200) {
+      data = jsonDecode(response.body.toString());
+      return List<EPModel>.from(
+          data.map((x) => EPModel.fromJson(x)));
+    }
+    if (response.statusCode == 404) {
+      return [
+        EPModel(
+          name: "none",
+          profilePic: "",
+        )
+      ];
+    }
+    return [];
+  }
+
 
   static Future<List<CounsellorData>> getCounsellor_() async {
     var url = Uri.parse("${AppConstants.baseUrl}/counsellor/");

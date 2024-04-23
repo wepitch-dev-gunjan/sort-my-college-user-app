@@ -21,6 +21,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../other/api_service.dart';
+import 'entrance_preparation/entrance_preparation_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -227,10 +228,10 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const ComingSoon()));
+                                    builder: (context) => const EntrancePreparationScreen()));
                           },
                           child: Visibility(
-                            visible: false,
+                            //visible: true,
                             child: Container(
                               width: 110 * fem,
                               height: 120 * fem,

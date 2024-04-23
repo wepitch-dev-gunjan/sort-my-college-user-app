@@ -19,13 +19,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../other/api_service.dart';
 
 class EntrancePreparationDetailsScreen extends StatefulWidget {
-  const EntrancePreparationDetailsScreen({
+   EntrancePreparationDetailsScreen({
+    required this.name,
     super.key,
   });
+  String name;
 
   @override
-  State<EntrancePreparationDetailsScreen> createState() =>
-      _EntrancePreparationDetailsScreenState();
+  State<EntrancePreparationDetailsScreen> createState() => _EntrancePreparationDetailsScreenState();
 }
 
 class _EntrancePreparationDetailsScreenState
@@ -66,7 +67,7 @@ class _EntrancePreparationDetailsScreenState
         titleSpacing: -16,
         title: Text(
           // anshikamehra7w6 (2608:501)
-          'Allen Career Institute',
+          widget.name,
           style: SafeGoogleFont(
             'Inter',
             fontSize: 17,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,6 +15,8 @@ class _HelpScreenState extends State<HelpScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController subjectController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  List<String> attachments = [];
+  String? platformResponse;
 
   @override
   void dispose() {
@@ -105,23 +109,16 @@ class _HelpScreenState extends State<HelpScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        String subject = subjectController.text;
-                        String description = descriptionController.text;
-                        String email = 'smcapp.official@gmail.com';
-                        final Uri emailLaunchUri = Uri(
-                          scheme: 'mailto',
-                          path: email,
-                          queryParameters: {
-                            'subject': subject,
-                            'body': description,
-                          },
-                        );
-                        launch(emailLaunchUri.toString());
-                        subjectController.clear();
-                        descriptionController.clear();
-                      }
+                    onPressed: () async {
+                      String subject = subjectController.text;
+                      String description = descriptionController.text;
+                      final Email email = Email(
+                        body: description,
+                        subject: subject,
+                        recipients: ['smcapp.official@gmail.com'],
+                        isHTML: false,
+                      );
+                      await FlutterEmailSender.send(email);
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(8),

@@ -366,14 +366,14 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                       padding: EdgeInsets.zero,
                                       backgroundColor: isFollowing
                                           ? Colors.white
-                                          : const Color(0xff1f0a68),
+                                          : const Color(0xff1f0a68) ,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(4),
                                       ),
                                     ),
                                     child: Center(
                                       child: Text(
-                                        isFollowing ? 'Follow' : 'Following',
+                                        isFollowing ? 'Following' : 'Follow',
                                         style: SafeGoogleFont(
                                           'Inter',
                                           fontSize: 14,
