@@ -17,21 +17,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../other/api_service.dart';
 
 class CounsellorDetailsScreen extends StatefulWidget {
-
   const CounsellorDetailsScreen({
     required this.id,
     required this.name,
     required this.designation,
-
     super.key,
   });
 
   final String id;
   final String name;
   final String designation;
-
-
-
 
   @override
   State<CounsellorDetailsScreen> createState() =>
@@ -53,7 +48,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
   bool hasFollowedBefore = false;
   double rating_val = 0;
   String feedback_msg = '';
-  int cnt=0;
+  int cnt = 0;
 
   @override
   void initState() {
@@ -63,8 +58,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
     //followUnfollow();
     //_loadData();
   }
-
-
 
   _loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -124,24 +117,23 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
 
-     if(cnt==0)
-     {
-       isFollowing =
-       (counsellorDetailController.cousnellorlist_detail.isNotEmpty &&
-           counsellorDetailController.cousnellorlist_detail[0].following !=
-               null)
-           ? counsellorDetailController.cousnellorlist_detail[0].following!
-           : false;
+    if (cnt == 0) {
+      isFollowing = (counsellorDetailController
+                  .cousnellorlist_detail.isNotEmpty &&
+              counsellorDetailController.cousnellorlist_detail[0].following !=
+                  null)
+          ? counsellorDetailController.cousnellorlist_detail[0].following!
+          : false;
 
-       followerCount = int.parse(
-           counsellorDetailController.cousnellorlist_detail.isNotEmpty &&
-               counsellorDetailController.cousnellorlist_detail[0].followers
-                   .toString() != null
-               ? counsellorDetailController.cousnellorlist_detail[0].followers
-               .toString()
-               : '0');
-
-     }
+      followerCount = int.parse(
+          counsellorDetailController.cousnellorlist_detail.isNotEmpty &&
+                  counsellorDetailController.cousnellorlist_detail[0].followers
+                          .toString() !=
+                      null
+              ? counsellorDetailController.cousnellorlist_detail[0].followers
+                  .toString()
+              : '0');
+    }
     // checkImageValidity(counsellorDetailController
     //     .cousnellorlist_detail[0].coverImage);
     return Scaffold(
@@ -201,9 +193,9 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                               borderRadius: BorderRadius.circular(10),
                               child: Image.network(
                                 (counsellorDetailController
-                                    .cousnellorlist_detail.isNotEmpty)
+                                        .cousnellorlist_detail.isNotEmpty)
                                     ? counsellorDetailController
-                                    .cousnellorlist_detail[0].coverImage
+                                        .cousnellorlist_detail[0].coverImage
                                     : '',
                                 fit: BoxFit.cover,
                                 errorBuilder: (BuildContext context,
@@ -253,8 +245,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                     const SizedBox(width: 6),
                                     Text(
                                       (counsellorDetailController
-                                          .cousnellorlist_detail
-                                          .isNotEmpty)
+                                              .cousnellorlist_detail.isNotEmpty)
                                           ? 'Total ${counsellorDetailController.cousnellorlist_detail[0].totalSessionsAttended} Session Attended'
                                           : '',
                                       style: TextStyle(fontSize: 12),
@@ -277,7 +268,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                         color: const Color(0xff1f0a68)),
                                     borderRadius: BorderRadius.circular(5),
                                   ),
-
                                   child: TextButton(
                                     onPressed: () async {
                                       if (isFollowing == true) {
@@ -285,7 +275,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                             .Unfollow_councellor(widget.id);
                                         if (value["message"] ==
                                             "User is now unfollowing the counsellor") {
-
                                           isFollowing = false;
                                           --followerCount;
                                           ++cnt;
@@ -294,14 +283,11 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                           EasyLoading.showToast(
                                               value["message"],
                                               toastPosition:
-                                              EasyLoadingToastPosition
-                                                  .bottom);
-
-                                        }
-                                        else if (value["error"] ==
+                                                  EasyLoadingToastPosition
+                                                      .bottom);
+                                        } else if (value["error"] ==
                                             "Follower not found") {
-
-                                         /* EasyLoading.showToast(value["error"],
+                                          /* EasyLoading.showToast(value["error"],
                                               toastPosition:
                                               EasyLoadingToastPosition
                                                   .bottom); */
@@ -313,23 +299,18 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                           ++followerCount;
                                           ++cnt;
                                           setState(() {});
-
-
                                         } else {
                                           EasyLoading.showToast(value["error"],
                                               toastPosition:
-                                              EasyLoadingToastPosition
-                                                  .bottom);
-
+                                                  EasyLoadingToastPosition
+                                                      .bottom);
                                         }
-                                      }
-                                      else {
+                                      } else {
                                         var value =
-                                        await ApiService.Follow_councellor(
-                                            widget.id);
+                                            await ApiService.Follow_councellor(
+                                                widget.id);
                                         if (value["message"] ==
                                             "User is now following the counsellor") {
-
                                           isFollowing = true;
                                           ++followerCount;
                                           ++cnt;
@@ -338,27 +319,22 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                           EasyLoading.showToast(
                                               value["message"],
                                               toastPosition:
-                                              EasyLoadingToastPosition
-                                                  .bottom);
-
-
-
+                                                  EasyLoadingToastPosition
+                                                      .bottom);
                                         } else if (value["error"] ==
                                             "Counsellor is already followed by the user") {
-
-                                          await ApiService.Unfollow_councellor(widget.id);
+                                          await ApiService.Unfollow_councellor(
+                                              widget.id);
 
                                           isFollowing = false;
                                           --followerCount;
                                           ++cnt;
                                           setState(() {});
-
-
                                         } else {
                                           EasyLoading.showToast(value["error"],
                                               toastPosition:
-                                              EasyLoadingToastPosition
-                                                  .bottom);
+                                                  EasyLoadingToastPosition
+                                                      .bottom);
                                         }
                                       }
                                     },
@@ -373,7 +349,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                     ),
                                     child: Center(
                                       child: Text(
-                                        isFollowing ? 'Follow' : 'Following',
+                                        isFollowing ? 'Following' : 'Follow',
                                         style: SafeGoogleFont(
                                           'Inter',
                                           fontSize: 14,
@@ -469,7 +445,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                     Text(
                                       // followingweY (2958:442)
                                       '$followerCount '
-                                          "Following",
+                                      "Following",
                                       style: SafeGoogleFont(
                                         'Inter',
                                         fontSize: 12,
@@ -497,12 +473,12 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                         color: ColorsConst.black54Color)),
                                 Text(
                                   (counsellorDetailController
-                                      .cousnellorlist_detail
-                                      .isNotEmpty &&
-                                      counsellorDetailController
-                                          .cousnellorlist_detail[0]
-                                          .experienceInYears !=
-                                          null)
+                                              .cousnellorlist_detail
+                                              .isNotEmpty &&
+                                          counsellorDetailController
+                                                  .cousnellorlist_detail[0]
+                                                  .experienceInYears !=
+                                              null)
                                       ? '${counsellorDetailController.cousnellorlist_detail[0].experienceInYears} + yrs'
                                       : '',
                                   style: const TextStyle(
@@ -527,12 +503,12 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                         color: ColorsConst.black54Color)),
                                 Text(
                                   (counsellorDetailController
-                                      .cousnellorlist_detail
-                                      .isNotEmpty &&
-                                      counsellorDetailController
-                                          .cousnellorlist_detail[0]
-                                          .totalSessionsAttended !=
-                                          null)
+                                              .cousnellorlist_detail
+                                              .isNotEmpty &&
+                                          counsellorDetailController
+                                                  .cousnellorlist_detail[0]
+                                                  .totalSessionsAttended !=
+                                              null)
                                       ? '${counsellorDetailController.cousnellorlist_detail[0].totalSessionsAttended}'
                                       : '',
                                   style: const TextStyle(
@@ -557,12 +533,12 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                         color: ColorsConst.black54Color)),
                                 Text(
                                   (counsellorDetailController
-                                      .cousnellorlist_detail
-                                      .isNotEmpty &&
-                                      counsellorDetailController
-                                          .cousnellorlist_detail[0]
-                                          .averageRating !=
-                                          null)
+                                              .cousnellorlist_detail
+                                              .isNotEmpty &&
+                                          counsellorDetailController
+                                                  .cousnellorlist_detail[0]
+                                                  .averageRating !=
+                                              null)
                                       ? '${counsellorDetailController.cousnellorlist_detail[0].averageRating}'
                                       : 'N/A',
                                   // Or any other placeholder text to indicate absence of rating
@@ -588,12 +564,12 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                         color: ColorsConst.black54Color)),
                                 Text(
                                   (counsellorDetailController
-                                      .cousnellorlist_detail
-                                      .isNotEmpty &&
-                                      counsellorDetailController
-                                          .cousnellorlist_detail[0]
-                                          .reviews !=
-                                          null)
+                                              .cousnellorlist_detail
+                                              .isNotEmpty &&
+                                          counsellorDetailController
+                                                  .cousnellorlist_detail[0]
+                                                  .reviews !=
+                                              null)
                                       ? '${counsellorDetailController.cousnellorlist_detail[0].reviews}'
                                       : 'No reviews',
                                   // Or any other placeholder text to indicate absence of reviews
@@ -785,18 +761,18 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                             const SizedBox(width: 6),
                             Text(
                               (counsellorDetailController
-                                  .cousnellorlist_detail.isNotEmpty &&
-                                  counsellorDetailController
-                                      .cousnellorlist_detail[0]
-                                      .qualifications !=
-                                      null &&
-                                  counsellorDetailController
-                                      .cousnellorlist_detail[0]
-                                      .qualifications
-                                      .isNotEmpty)
+                                          .cousnellorlist_detail.isNotEmpty &&
+                                      counsellorDetailController
+                                              .cousnellorlist_detail[0]
+                                              .qualifications !=
+                                          null &&
+                                      counsellorDetailController
+                                          .cousnellorlist_detail[0]
+                                          .qualifications
+                                          .isNotEmpty)
                                   ? counsellorDetailController
-                                  .cousnellorlist_detail[0].qualifications
-                                  .join(', ')
+                                      .cousnellorlist_detail[0].qualifications
+                                      .join(', ')
                                   : 'N/A',
                               style: const TextStyle(
                                 fontSize: 14,
@@ -819,18 +795,18 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                             const SizedBox(width: 6),
                             Text(
                               (counsellorDetailController
-                                  .cousnellorlist_detail.isNotEmpty &&
-                                  counsellorDetailController
-                                      .cousnellorlist_detail[0]
-                                      .languages !=
-                                      null &&
-                                  counsellorDetailController
-                                      .cousnellorlist_detail[0]
-                                      .languages!
-                                      .isNotEmpty)
+                                          .cousnellorlist_detail.isNotEmpty &&
+                                      counsellorDetailController
+                                              .cousnellorlist_detail[0]
+                                              .languages !=
+                                          null &&
+                                      counsellorDetailController
+                                          .cousnellorlist_detail[0]
+                                          .languages!
+                                          .isNotEmpty)
                                   ? counsellorDetailController
-                                  .cousnellorlist_detail[0].languages!
-                                  .join(",")
+                                      .cousnellorlist_detail[0].languages!
+                                      .join(",")
                                   : "N/A",
                               style: const TextStyle(
                                 fontSize: 14,
@@ -854,7 +830,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                             const SizedBox(width: 6),
                             Text(
                               counsellorDetailController
-                                  .cousnellorlist_detail.isNotEmpty
+                                      .cousnellorlist_detail.isNotEmpty
                                   ? '${counsellorDetailController.cousnellorlist_detail[0].location?.state ?? ''},${counsellorDetailController.cousnellorlist_detail[0].location?.city ?? ''},${counsellorDetailController.cousnellorlist_detail[0].location?.country ?? ''},${counsellorDetailController.cousnellorlist_detail[0].location?.pincode ?? ''}'
                                   : '',
                               style: const TextStyle(
@@ -879,13 +855,13 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                             const SizedBox(width: 6),
                             Text(
                               (counsellorDetailController
-                                  .cousnellorlist_detail.isNotEmpty &&
-                                  counsellorDetailController
-                                      .cousnellorlist_detail[0]
-                                      .gender !=
-                                      null)
+                                          .cousnellorlist_detail.isNotEmpty &&
+                                      counsellorDetailController
+                                              .cousnellorlist_detail[0]
+                                              .gender !=
+                                          null)
                                   ? counsellorDetailController
-                                  .cousnellorlist_detail[0].gender
+                                      .cousnellorlist_detail[0].gender
                                   : "N/A",
                               style: const TextStyle(
                                 fontSize: 14,
@@ -909,13 +885,13 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                             const SizedBox(width: 6),
                             Text(
                               (counsellorDetailController
-                                  .cousnellorlist_detail.isNotEmpty &&
-                                  counsellorDetailController
-                                      .cousnellorlist_detail[0].age !=
-                                      null)
+                                          .cousnellorlist_detail.isNotEmpty &&
+                                      counsellorDetailController
+                                              .cousnellorlist_detail[0].age !=
+                                          null)
                                   ? counsellorDetailController
-                                  .cousnellorlist_detail[0].age
-                                  .toString()
+                                      .cousnellorlist_detail[0].age
+                                      .toString()
                                   : "N/A",
                               style: const TextStyle(
                                 fontSize: 14,
@@ -997,21 +973,21 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                 suffixIcon: IconButton(
                                   onPressed: () async {
                                     var value =
-                                    await ApiService.Feedback_councellor(
-                                        widget.id,
-                                        rating_val,
-                                        feedback_msg);
+                                        await ApiService.Feedback_councellor(
+                                            widget.id,
+                                            rating_val,
+                                            feedback_msg);
                                     if (value["error"] ==
                                         "Feedback is already given by the user") {
                                       EasyLoading.showToast(value["error"],
                                           toastPosition:
-                                          EasyLoadingToastPosition.bottom);
+                                              EasyLoadingToastPosition.bottom);
                                     } else {
                                       (value["message"] ==
                                           "Feedback has been successfully added");
                                       EasyLoading.showToast(value["message"],
                                           toastPosition:
-                                          EasyLoadingToastPosition.bottom);
+                                              EasyLoadingToastPosition.bottom);
                                     }
                                     controller.clear();
                                   },
@@ -1070,7 +1046,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                   height: double.infinity,
                                   child: Row(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Container(
                                         // group345fBe (2936:458)
@@ -1136,9 +1112,9 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                                       'Inter',
                                                       fontSize: 12 * ffem,
                                                       fontWeight:
-                                                      FontWeight.w400,
+                                                          FontWeight.w400,
                                                       height:
-                                                      1.2125 * ffem / fem,
+                                                          1.2125 * ffem / fem,
                                                       color: const Color(
                                                           0xff000000),
                                                     ),
@@ -1241,9 +1217,9 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                                 CounsellingSessionPage(
                                                   id: widget.id,
                                                   name: widget.name,
-                                                  designation: widget.designation,
+                                                  designation:
+                                                      widget.designation,
                                                   selectedIndex_get: 1,
-
                                                 )));
                                   },
                                   child: Container(
@@ -1253,7 +1229,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                     decoration: BoxDecoration(
                                       color: const Color(0xff1f0a68),
                                       borderRadius:
-                                      BorderRadius.circular(5 * fem),
+                                          BorderRadius.circular(5 * fem),
                                     ),
                                     child: Center(
                                       child: Center(
@@ -1303,7 +1279,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                   height: double.infinity,
                                   child: Row(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Container(
                                         // autogroupvexiTSG (obZYj7WRacadntT6aVeXi)
@@ -1369,9 +1345,9 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                                       'Inter',
                                                       fontSize: 12 * ffem,
                                                       fontWeight:
-                                                      FontWeight.w400,
+                                                          FontWeight.w400,
                                                       height:
-                                                      1.2125 * ffem / fem,
+                                                          1.2125 * ffem / fem,
                                                       color: const Color(
                                                           0xff000000),
                                                     ),
@@ -1461,7 +1437,8 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                                 CounsellingSessionPage(
                                                   id: widget.id,
                                                   name: widget.name,
-                                                  designation: widget.designation,
+                                                  designation:
+                                                      widget.designation,
                                                   selectedIndex_get: 0,
                                                 )));
                                   },
@@ -1472,7 +1449,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                     decoration: BoxDecoration(
                                       color: const Color(0xff1f0a68),
                                       borderRadius:
-                                      BorderRadius.circular(5 * fem),
+                                          BorderRadius.circular(5 * fem),
                                     ),
                                     child: Center(
                                       child: Center(
@@ -1565,4 +1542,3 @@ void onTapBook(BuildContext context) {
   Navigator.push(context,
       MaterialPageRoute(builder: (context) => const PaymentGateAway()));
 }
-
