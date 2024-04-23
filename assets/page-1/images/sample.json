@@ -1,0 +1,15 @@
+[
+  {
+    "session_id": "65fbcbb563ee42338a08b939",
+    "sessionDate": "2024-03-22T00:00:00.000Z",
+    "sessionType": "Group",
+    "sessionFee": 1000,
+    "gstAmount": 180,
+    "feeWithGST": 1180,
+    "gatewayCharge": 59,
+    "totalAmount": 1239,
+    "counsellor_id": "65f97eaec5894941bf7c96eb",
+    "counsellor_name": "Gunjan Soral",
+    "counsellor_profile_pic": "abc.jpg"
+  }
+]

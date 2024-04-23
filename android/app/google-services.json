@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "469856705592",
+    "project_id": "sort-my-college",
+    "storage_bucket": "sort-my-college.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:469856705592:android:62abd4054977322cc19acd",
+        "android_client_info": {
+          "package_name": "com.sortmycollege"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDY3Ii5SzHDzbUe-dtqkCu9VnnLxQsBTGo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
