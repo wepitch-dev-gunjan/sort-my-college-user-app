@@ -51,18 +51,14 @@ class _HomePageState extends State<HomePage> {
     context.read<CounsellorDetailsProvider>().fetchTrendingWebinar();
     context.read<CounsellorDetailsProvider>().fetchPopularWorkShop();
     imgUrlList.clear();
-
-
-
   }
 
   void getAllInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     path = prefs.getString("profile_image_path") ?? " ";
 
-    ApiService.get_profile().whenComplete(() =>
-    username = prefs.getString("name") ?? ""
-    );
+    ApiService.get_profile()
+        .whenComplete(() => username = prefs.getString("name") ?? "");
   }
 
   void saveImagePathToPrefs(String path) async {
@@ -96,15 +92,14 @@ class _HomePageState extends State<HomePage> {
 
   //var imgUrl;
 
-
-
   @override
   Widget build(BuildContext context) {
     var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
     //imgUrlList.clear();
     if (counsellorSessionProvider.bannerImageList.isNotEmpty) {
-      for(int i=0; i < counsellorSessionProvider.bannerImageList.length; i++)
-      {
+      for (int i = 0;
+          i < counsellorSessionProvider.bannerImageList.length;
+          i++) {
         imgUrlList.add(counsellorSessionProvider.bannerImageList[i].url ?? '');
       }
     }
@@ -114,7 +109,7 @@ class _HomePageState extends State<HomePage> {
     double ffem = fem * 0.97;
     return PopScope(
       canPop: false,
-      onPopInvoked : (didPop){
+      onPopInvoked: (didPop) {
         // logic
         SystemNavigator.pop();
       },
@@ -160,7 +155,8 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           bottom: PreferredSize(
-              preferredSize: const Size(double.infinity, 12), child: Container()),
+              preferredSize: const Size(double.infinity, 12),
+              child: Container()),
           titleSpacing: 1,
           actions: [
             GestureDetector(
@@ -273,7 +269,8 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const ComingSoon()));
+                                      builder: (context) =>
+                                          const ComingSoon()));
                             },
                             child: Container(
                               width: 110 * fem,
@@ -355,25 +352,23 @@ class _HomePageState extends State<HomePage> {
                       BoxDecoration(borderRadius: BorderRadius.circular(12)),
                   width: 390 * fem,
                   height: 120 * fem,
-                  child:
-                  ImageSlideshow(
+                  child: ImageSlideshow(
                     autoPlayInterval: 6000,
                     isLoop: false,
                     indicatorColor: Colors.black,
                     indicatorBackgroundColor: Colors.white,
                     children: imgUrlList
-                      .map((e) => Container(
-                      width: 390 * fem,
-                      height: 120 * fem,
-                      decoration: BoxDecoration(
-                        borderRadius:
-                        const BorderRadius.all(Radius.circular(16)),
-                        image: DecorationImage(image: NetworkImage(e)),
-                      ),
-                    ))
+                        .map((e) => Container(
+                              width: 390 * fem,
+                              height: 120 * fem,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(16)),
+                                image: DecorationImage(image: NetworkImage(e)),
+                              ),
+                            ))
                         .toList(),
                   ),
-
                 ),
               ),
               const SizedBox(
@@ -435,14 +430,16 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.only(left: 14, right: 14, bottom: 0, top: 2),
+                padding: const EdgeInsets.only(
+                    left: 14, right: 14, bottom: 0, top: 2),
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: counsellorSessionProvider.trendingWebinarList.length,
+                    itemCount:
+                        counsellorSessionProvider.trendingWebinarList.length,
                     itemBuilder: (context, index) {
-                      TrandingWebinarModel trending = counsellorSessionProvider.trendingWebinarList[index];
+                      TrandingWebinarModel trending =
+                          counsellorSessionProvider.trendingWebinarList[index];
                       return Column(
                         children: [
                           Card(
@@ -461,8 +458,8 @@ class _HomePageState extends State<HomePage> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
-                                        image:
-                                            NetworkImage(trending.webinarImage!),
+                                        image: NetworkImage(
+                                            trending.webinarImage!),
                                         fit: BoxFit.fill),
                                   ),
                                 ),
@@ -470,7 +467,8 @@ class _HomePageState extends State<HomePage> {
                                   padding:
                                       const EdgeInsets.fromLTRB(10, 8, 20, 10),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         trending.webinarBy!,
@@ -530,7 +528,8 @@ class _HomePageState extends State<HomePage> {
                                         height: 14,
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 10),
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -572,7 +571,8 @@ class _HomePageState extends State<HomePage> {
                                                                 'Cancel'),
                                                           ),
                                                           TextButton(
-                                                            onPressed: () async {
+                                                            onPressed:
+                                                                () async {
                                                               if (trending
                                                                       .registered! &&
                                                                   trending.webinarStartingInDays ==
@@ -606,7 +606,8 @@ class _HomePageState extends State<HomePage> {
                                                                       .showToast(
                                                                           msg:
                                                                               'Registration completed Thanks for registration');
-                                                                  Navigator.push(
+                                                                  Navigator
+                                                                      .push(
                                                                     context,
                                                                     MaterialPageRoute(
                                                                       builder:
@@ -622,8 +623,8 @@ class _HomePageState extends State<HomePage> {
                                                               }
                                                               //await _updateRegistrationStatus(true);
                                                             },
-                                                            child:
-                                                                const Text('Yes'),
+                                                            child: const Text(
+                                                                'Yes'),
                                                           ),
                                                         ],
                                                       );
@@ -639,7 +640,8 @@ class _HomePageState extends State<HomePage> {
                                                       ? 'Join Now'
                                                       : 'Starting in ${trending.webinarStartingInDays} days')
                                                   : 'Join Now',
-                                              isRegisterNow: trending.registered!,
+                                              isRegisterNow:
+                                                  trending.registered!,
                                             ),
                                           ],
                                         ),
@@ -736,7 +738,7 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(
                         height: 3,
                       ),
-                       SizedBox(
+                      SizedBox(
                         width: 190.25,
                         child: Text(
                           popularWorkShopModel.sessionType!,
@@ -766,9 +768,11 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(
                             width: 121.13,
                             child: Text(
-                                popularWorkShopModel.sessionTime != null
-                                    ? DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(popularWorkShopModel.sessionTime!))
-                                    : 'N/A',
+                              popularWorkShopModel.sessionTime != null
+                                  ? DateFormat('h:mm a').format(
+                                      DateTime.fromMillisecondsSinceEpoch(
+                                          popularWorkShopModel.sessionTime!))
+                                  : 'N/A',
                               style: const TextStyle(
                                 color: Color(0xFF414040),
                                 fontSize: 12,
@@ -875,8 +879,7 @@ class _HomePageState extends State<HomePage> {
                                   id: popularWorkShopModel.sId!,
                                   designation: "designation",
                                   name: popularWorkShopModel.sessionUser ??
-                                      "N/A"
-                                  )));
+                                      "N/A")));
                     },
                     child: Container(
                       width: 120.14,
@@ -918,7 +921,9 @@ class _HomePageState extends State<HomePage> {
                           MaterialPageRoute(
                               builder: (context) => CounsellingSessionPage(
                                     name: 'N/A',
-                                    id: popularWorkShopModel.sId!, designation: '',selectedIndex_get: 0,
+                                    id: popularWorkShopModel.sId!,
+                                    designation: '',
+                                    selectedIndex_get: 0,
                                   )));
                     },
                     child: Container(

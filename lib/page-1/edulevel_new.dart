@@ -21,7 +21,7 @@ class _EducationLevelNewState extends State<EducationLevelNew> {
   static List<String> list = [
     "I'm in School",
     "I'm in College",
-    "I'm in Graduation",
+    "I'm Graduated",
   ];
   String selectedOption = list[0];
 
@@ -141,7 +141,8 @@ class _EducationLevelNewState extends State<EducationLevelNew> {
 
                         if (value["message"] ==
                             "User registered successfully") {
-                          Fluttertoast.showToast(msg: 'User registered successfully');
+                          Fluttertoast.showToast(
+                              msg: 'User registered successfully');
                           if (!mounted) return;
                           Future.delayed(const Duration(microseconds: 0), () {
                             Navigator.pushReplacement(
