@@ -151,9 +151,16 @@ class _BookingTodayState extends State<BookingToday> {
                                                                 FontWeight.w600,
                                                           ),
                                                         ),
-                                                        Text(details.bookedEntity!.qualifications!.isNotEmpty && details.bookedEntity!.qualifications![0] !=null ?
-                                                          details.bookedEntity!
-                                                              .qualifications![0] : 'N/A',
+                                                        Text(
+
+                                                          /* details.bookedEntity!.qualifications!.isNotEmpty && details.bookedEntity!.qualifications![0] !=null
+                                                              ?details.bookedEntity!.qualifications![0]
+                                                              : 'N/A',*/
+
+                                                          details.bookedEntity!.designation!.isNotEmpty
+                                                              ?details.bookedEntity!.designation!
+                                                              : 'N/A',
+
                                                           // textAlign: TextAlign.left,
 
                                                           style: SafeGoogleFont(
@@ -236,13 +243,14 @@ class _BookingTodayState extends State<BookingToday> {
                                                               context,
                                                               MaterialPageRoute(
                                                                   builder: (context) => BookingConfirmationPage(
-                                                                      remainingTime:
-                                                                      parseDuration(details.bookingData!.sessionTime.toString()),
+                                                                      remainingTimestr: details.bookingData!.sessionTime.toString(),
+                                                                      /*parseDuration(details.bookingData!.sessionTime.toString())*/
                                                                       isUpcoming:
                                                                           false,
                                                                       bookingData: details
                                                                               .bookingData ??
                                                                           BookingData(),
+                                                                      designation: details.bookedEntity!.designation!,
                                                                       counsellorDetails:
                                                                           details.bookedEntity ??
                                                                               BookedEntity(),

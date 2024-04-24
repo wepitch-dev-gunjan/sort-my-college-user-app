@@ -19,11 +19,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../other/api_service.dart';
 
 class EntrancePreparationDetailsScreen extends StatefulWidget {
-   EntrancePreparationDetailsScreen({
+  const EntrancePreparationDetailsScreen({
+    required this.id,
     required this.name,
+    required this.imgUrl,
+    required this.buildingNumber,
+    required this.area,
+    required this.city,
+    required this.state,
+    required this.pinCode,
     super.key,
   });
-  String name;
+  final String name;
+  final String id;
+  final String imgUrl;
+  final String buildingNumber;
+  final String area;
+  final String city;
+  final String state;
+  final String pinCode;
 
   @override
   State<EntrancePreparationDetailsScreen> createState() => _EntrancePreparationDetailsScreenState();
@@ -51,6 +65,7 @@ class _EntrancePreparationDetailsScreenState
     super.initState();
     _controller = TabController(length: 2, vsync: this, initialIndex: 0);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -115,16 +130,23 @@ class _EntrancePreparationDetailsScreenState
                             height: 201,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: Image.asset(
-                               'assets/page-1/images/book.jpg',
+                              child: Image.network(
+                                widget.imgUrl,
                                 fit: BoxFit.cover,
+                                errorBuilder: (BuildContext context,
+                                    Object exception, StackTrace? stackTrace) {
+                                  return Image.asset(
+                                    'assets/page-1/images/comming_soon.png',
+                                    fit: BoxFit.cover,
+                                  );
+                                },
                               ),
                             ),
                           ),
                         ),
                         Row(
                           children: [
-                            const Column(
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(height: 6),
@@ -134,13 +156,41 @@ class _EntrancePreparationDetailsScreenState
                                       Icons.location_on_sharp,
                                       size: 20,
                                     ),
-                                    Text(' C-Scheme Jaipur',
+                                    Text('${widget.buildingNumber} ',
                                         style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w400
+                                            color: Colors.black,
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.w400
 
-                                    ) ),
+                                        ) ),
+                                    Text('${widget.area} ',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.w400
+
+                                        ) ),
+                                    Text('${widget.state} ',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.w400
+
+                                        ) ),
+                                    Text('${widget.city} ',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.w400
+
+                                        ) ),
+                                    Text(widget.pinCode,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.w400
+
+                                        ) ),
                                   ],
                                 ),
                                 SizedBox(
@@ -213,7 +263,7 @@ class _EntrancePreparationDetailsScreenState
                                     ),
                                     child: Center(
                                       child: Text(
-                                         'Follow',
+                                        'Follow',
                                         style: SafeGoogleFont(
                                           'Inter',
                                           fontSize: 14,
@@ -574,12 +624,12 @@ class _EntrancePreparationDetailsScreenState
                           ),
                         ),
                         const SizedBox(height: 12),
-Text('Key Features', style: TextStyle(
-  fontSize: 18,
-  fontWeight: FontWeight.w700,
-  height: 1.2125,
-  color: Color(0xff000000),
-),),                        const SizedBox(height: 12),
+                        Text('Key Features', style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          height: 1.2125,
+                          color: Color(0xff000000),
+                        ),),                        const SizedBox(height: 12),
 
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -744,7 +794,7 @@ Text('Key Features', style: TextStyle(
                                 Expanded(
                                   child: GestureDetector(
                                     onTap: () {
-                                  
+
                                     },
                                     child: Container(
                                       // group349P36 (2936:462)
@@ -775,7 +825,7 @@ Text('Key Features', style: TextStyle(
                                 Expanded(
                                   child: GestureDetector(
                                     onTap: () {
-                                  
+
                                     },
                                     child: Container(
                                       // group349P36 (2936:462)
@@ -784,7 +834,7 @@ Text('Key Features', style: TextStyle(
                                       decoration: BoxDecoration(
                                         color: const Color(0xff1f0a68),
                                         borderRadius:
-                                            BorderRadius.circular(5 * fem),
+                                        BorderRadius.circular(5 * fem),
                                       ),
                                       child: Center(
                                         child: Center(

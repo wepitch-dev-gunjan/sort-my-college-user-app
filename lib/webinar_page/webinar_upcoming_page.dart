@@ -34,7 +34,14 @@ class _WebinarUpcomingPageState extends State<WebinarUpcomingPage> {
   @override
   Widget build(BuildContext context) {
     var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
-    return ListView.builder(
+    return counsellorSessionProvider.webinarList.isEmpty
+        ? Center(
+        child: Text(
+        "No Webinar",
+        style: SafeGoogleFont("Inter"),
+        ),
+     )
+    : ListView.builder(
         itemCount: counsellorSessionProvider.webinarList.length,
         itemBuilder: (context, index) {
           WebinarModel webinarModel =

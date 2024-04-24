@@ -13,12 +13,19 @@ class BookingConfirmationPage extends StatefulWidget {
         required this.isUpcoming,
         required this.isConfirmed,
         required this.time,
+        required this.designation,
         required this.bookingData,
+
         required this.counsellorDetails,
-        required this.remainingTime});
-  final Duration remainingTime;
+        required this.remainingTimestr});
+
+  //final Duration remainingTime;
+
+  final String remainingTimestr;
+
   final bool isUpcoming;
   final String time;
+  final String designation;
   final bool isConfirmed;
 
   final BookingData bookingData;
@@ -41,9 +48,10 @@ class _BookingConfirmationPageState extends State<BookingConfirmationPage> {
   bool isExpired = false;
   @override
   Widget build(BuildContext context) {
-    isExpired = (widget.remainingTime.inMinutes +
+
+    /* isExpired = (widget.remainingTime.inMinutes +
         (widget.bookingData.sessionDuration ?? 0)) <
-        0;
+        0;*/
 
     return PopScope(
       canPop: false,
@@ -151,7 +159,10 @@ class _BookingConfirmationPageState extends State<BookingConfirmationPage> {
                                   : Row(
                                 children: [
                                   Text(
-                                    "${widget.remainingTime.inHours < 0 ? "" : widget.remainingTime.inHours}:${widget.remainingTime.inMinutes.remainder(60) < 0 ? '0' : widget.remainingTime.inMinutes.remainder(60)}",
+                                    widget.remainingTimestr
+
+                                    /*  "${widget.remainingTime.inHours < 0 ? "" : widget.remainingTime.inHours}:${widget.remainingTime.inMinutes.remainder(60) < 0 ? '0' : widget.remainingTime.inMinutes.remainder(60)}" */,
+
                                     style: SafeGoogleFont(
                                       "Inter",
                                       fontSize: 18,
@@ -246,12 +257,14 @@ class _BookingConfirmationPageState extends State<BookingConfirmationPage> {
                                     height: 1),
                               ),
                               Text(
-                                widget.counsellorDetails.qualifications!
+                                /*widget.counsellorDetails.qualifications!
                                     .isNotEmpty &&
                                     widget.counsellorDetails
                                         .qualifications![0] != null
                                     ? widget.counsellorDetails.qualifications![0]
-                                    : 'N/A'.toString(),
+                                    : 'N/A'.toString()*/
+
+                                widget.designation,
                                 style: SafeGoogleFont(
                                   "Inter",
                                   fontSize: 13,

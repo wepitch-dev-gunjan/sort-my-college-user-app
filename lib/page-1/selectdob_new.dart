@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/page-1/select_gender_new.dart';
-import 'package:myapp/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectDobNew extends StatefulWidget {
@@ -24,8 +23,8 @@ class _SelectDobNewState extends State<SelectDobNew> {
 
   openDatePicker() async {
     var now = DateTime.now();
-    var twelveYearsAgo = now.subtract(const Duration(days: 12 * 365));
-    var firstDate = DateTime(twelveYearsAgo.year - 12);
+    var seventySevenYearsAgo = now.subtract(const Duration(days: 74 * 365));
+    var firstDate = seventySevenYearsAgo;
     showDatePicker(
       initialEntryMode: DatePickerEntryMode.calendarOnly,
       builder: (context, child) {
@@ -64,6 +63,7 @@ class _SelectDobNewState extends State<SelectDobNew> {
       }
     });
   }
+
 
   @override
   Widget build(BuildContext context) {

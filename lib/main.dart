@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
             create: (context) => NewsProvider1(newsService: NewsService())),
       ],
       child: GetMaterialApp(
-          title: 'Flutter',
+          title: 'SMC App',
           debugShowCheckedModeBanner: false,
           scrollBehavior: MyCustomScrollBehavior(),
           theme: ThemeData(

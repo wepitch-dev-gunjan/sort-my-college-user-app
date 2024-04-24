@@ -144,6 +144,7 @@ class BookedEntity {
   List<String>? locationsFocused;
   List<String>? coursesFocused;
   String? approachOfCounselling;
+  String? designation;
   int? groupSessionPrice;
   int? personalSessionPrice;
   bool? verified;
@@ -176,6 +177,7 @@ class BookedEntity {
       this.locationsFocused,
       this.coursesFocused,
       this.approachOfCounselling,
+      this.designation,
       this.groupSessionPrice,
       this.personalSessionPrice,
       this.verified,
@@ -218,6 +220,7 @@ class BookedEntity {
         ? null
         : List<String>.from(json["courses_focused"]);
     approachOfCounselling = json["approach_of_counselling"];
+    designation = json["designation"]  ;
     groupSessionPrice = json["group_session_price"];
     personalSessionPrice = json["personal_session_price"];
     verified = json["verified"];
@@ -272,6 +275,7 @@ class BookedEntity {
       data["courses_focused"] = coursesFocused;
     }
     data["approach_of_counselling"] = approachOfCounselling;
+    data["designation"] = designation;
     data["group_session_price"] = groupSessionPrice;
     data["personal_session_price"] = personalSessionPrice;
     data["verified"] = verified;
