@@ -74,10 +74,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   // }
 
   void handlePaymentSuccess(PaymentSuccessResponse response) async {
-    Fluttertoast.showToast(
+    
+   /* Fluttertoast.showToast(
         msg: "Payment Success ${response.paymentId!}",
-        toastLength: Toast.LENGTH_SHORT);
-    var value = await ApiService.counsellor_create_payment(
+        toastLength: Toast.LENGTH_SHORT);*/
+    
+     await ApiService.counsellor_create_payment(
       cid!,
       payment_from,
       oderId,
@@ -97,27 +99,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       'abc@gmail.com',
       phoneNumber,
       'session booking',
-    );
+    ).then((value) => checkpaymentsucess(value));
 
 
-    if (value.containsKey("error")) {
-      EasyLoading.showToast(value["error"],
-          toastPosition: EasyLoadingToastPosition.bottom);
-    }
-    else {
-      EasyLoading.showToast(value["message"],
-          toastPosition: EasyLoadingToastPosition.bottom);
-      var res = ApiService.updateBookingSession(sessionId);
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  CounsellingSessionPage(
-                    id: cid,
-                    name: name,
-                    designation: widget.designation,
-                    selectedIndex_get: 0,)));
-    }
+   
 
     /*if (value["error"] == "Order not successfully created") {
       EasyLoading.showToast(value["error"],
@@ -627,5 +612,31 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         ),
       ),
     );
+  }
+
+  checkpaymentsucess(Map<String, dynamic> value) async {
+    if (value.containsKey("error")) {
+      EasyLoading.showToast(value["error"],
+          toastPosition: EasyLoadingToastPosition.bottom);
+    }
+    else {
+      EasyLoading.showToast(value["message"],
+          toastPosition: EasyLoadingToastPosition.bottom);
+
+      await ApiService.updateBookingSession(sessionId).then((value) => MoveToSessionPage() );
+      
+    }
+  }
+
+  MoveToSessionPage() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                CounsellingSessionPage(
+                  id: cid,
+                  name: name,
+                  designation: widget.designation,
+                  selectedIndex_get: 0,)));
   }
 }

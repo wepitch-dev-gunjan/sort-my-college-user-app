@@ -102,7 +102,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
-    //imgUrlList.clear();
+    imgUrlList.clear();
+
     if (counsellorSessionProvider.bannerImageList.isNotEmpty) {
       for(int i=0; i < counsellorSessionProvider.bannerImageList.length; i++)
       {
