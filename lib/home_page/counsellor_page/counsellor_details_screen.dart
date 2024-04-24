@@ -49,7 +49,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
   late TabController _controller;
   List<CounsellorModel> counsellorModel = [];
   bool isFollowing = false;
-  int followerCount = 0;
+  late int followerCount ;
   bool hasFollowedBefore = false;
   double rating_val = 0;
   String feedback_msg = '';
@@ -73,12 +73,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
     });
   }
 
-  _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('followerCount', followerCount);
-    prefs.setBool('hasFollowedBefore', hasFollowedBefore);
-    prefs.setBool('isFollowing', isFollowing);
-  }
 
   void toggleFollowStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -109,11 +103,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
   //   }
   // }
 
-  Future<void> onPressedAction() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(widget.id, !isFollowing);
-    prefs.setInt('followerCount', followerCount);
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -280,60 +270,44 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
 
                                   child: TextButton(
                                     onPressed: () async {
-                                      if (isFollowing == true) {
+                                      if (isFollowing == true)
+                                      {
                                         var value = await ApiService
                                             .Unfollow_councellor(widget.id);
-                                        if (value["message"] ==
-                                            "User is now unfollowing the counsellor") {
 
-                                          isFollowing = false;
-                                          --followerCount;
+                                        if (value["data"]["followed"] == false)
+                                        {
+                                          //followed true
+                                          isFollowing = value["data"]["followed"];
+                                          followerCount = followerCount - 1 ;
                                           ++cnt;
-                                          setState(() {});
-
                                           EasyLoading.showToast(
                                               value["message"],
                                               toastPosition:
                                               EasyLoadingToastPosition
                                                   .bottom);
 
-                                        }
-                                        else if (value["error"] ==
-                                            "Follower not found") {
+                                           setState(() {});
 
-                                         /* EasyLoading.showToast(value["error"],
-                                              toastPosition:
-                                              EasyLoadingToastPosition
-                                                  .bottom); */
+                                         }
 
-                                          await ApiService.Follow_councellor(
-                                              widget.id);
-
-                                          isFollowing = true;
-                                          ++followerCount;
-                                          ++cnt;
-                                          setState(() {});
-
-
-                                        } else {
-                                          EasyLoading.showToast(value["error"],
+                                           else {
+                                            EasyLoading.showToast(value["error"],
                                               toastPosition:
                                               EasyLoadingToastPosition
                                                   .bottom);
-
-                                        }
+                                            }
                                       }
-                                      else {
+                                    else {
                                         var value =
                                         await ApiService.Follow_councellor(
                                             widget.id);
-                                        if (value["message"] ==
-                                            "User is now following the counsellor") {
+                                        if (value["data"]["followed"] == true
+                                            ) {
 
-                                          isFollowing = true;
-                                          ++followerCount;
+                                          isFollowing = value["data"]["followed"];
+                                          followerCount = followerCount + 1;
                                           ++cnt;
-                                          setState(() {});
 
                                           EasyLoading.showToast(
                                               value["message"],
@@ -341,20 +315,12 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                               EasyLoadingToastPosition
                                                   .bottom);
 
-
-
-                                        } else if (value["error"] ==
-                                            "Counsellor is already followed by the user") {
-
-                                          await ApiService.Unfollow_councellor(widget.id);
-
-                                          isFollowing = false;
-                                          --followerCount;
-                                          ++cnt;
                                           setState(() {});
 
 
-                                        } else {
+
+                                        }
+                                         else {
                                           EasyLoading.showToast(value["error"],
                                               toastPosition:
                                               EasyLoadingToastPosition
