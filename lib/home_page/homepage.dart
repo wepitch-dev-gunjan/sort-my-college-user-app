@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   CounsellorDetailsProvider counsellorDetailsProvider =
-      CounsellorDetailsProvider();
+  CounsellorDetailsProvider();
 
   @override
   void initState() {
@@ -61,8 +61,8 @@ class _HomePageState extends State<HomePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     path = prefs.getString("profile_image_path") ?? " ";
 
-    ApiService.get_profile().whenComplete(() =>
-    username = prefs.getString("name") ?? ""
+    await ApiService.get_profile().whenComplete(() =>
+     username = prefs.getString("name") ?? ""
     );
   }
 
@@ -117,7 +117,6 @@ class _HomePageState extends State<HomePage> {
     return PopScope(
       canPop: false,
       onPopInvoked : (didPop){
-        // logic
         SystemNavigator.pop();
       },
       child: Scaffold(
@@ -313,7 +312,7 @@ class _HomePageState extends State<HomePage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const ComingSoon()));
+                                            const ComingSoon()));
                                   },
                                   child: Container(
                                     width: 140 * fem,
@@ -354,7 +353,7 @@ class _HomePageState extends State<HomePage> {
                     maxWidth: 390,
                   ),
                   decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(12)),
+                  BoxDecoration(borderRadius: BorderRadius.circular(12)),
                   width: 390 * fem,
                   height: 120 * fem,
                   child:
@@ -364,7 +363,7 @@ class _HomePageState extends State<HomePage> {
                     indicatorColor: Colors.black,
                     indicatorBackgroundColor: Colors.white,
                     children: imgUrlList
-                      .map((e) => Container(
+                        .map((e) => Container(
                       width: 390 * fem,
                       height: 120 * fem,
                       decoration: BoxDecoration(
@@ -408,12 +407,12 @@ class _HomePageState extends State<HomePage> {
                     shrinkWrap: true,
                     physics: const PageScrollPhysics(),
                     itemCount:
-                        counsellorSessionProvider.popularWorkShopList.length,
+                    counsellorSessionProvider.popularWorkShopList.length,
                     itemBuilder: (context, index) {
                       PopularWorkShopModel popular =
-                          counsellorSessionProvider.popularWorkShopList[index];
+                      counsellorSessionProvider.popularWorkShopList[index];
                       return profileCard(popular, index,
-                          counsellorSessionProvider.popularWorkShopList.length);
+                        counsellorSessionProvider.popularWorkShopList.length,);
                     }),
               ),
               const SizedBox(
@@ -438,7 +437,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.only(left: 14, right: 14, bottom: 0, top: 2),
+                const EdgeInsets.only(left: 14, right: 14, bottom: 0, top: 2),
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -464,13 +463,13 @@ class _HomePageState extends State<HomePage> {
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
                                         image:
-                                            NetworkImage(trending.webinarImage!),
+                                        NetworkImage(trending.webinarImage!),
                                         fit: BoxFit.fill),
                                   ),
                                 ),
                                 Padding(
                                   padding:
-                                      const EdgeInsets.fromLTRB(10, 8, 20, 10),
+                                  const EdgeInsets.fromLTRB(10, 8, 20, 10),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
@@ -485,13 +484,13 @@ class _HomePageState extends State<HomePage> {
                                       const SizedBox(height: 4),
                                       Row(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           Column(
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 trending.webinarDate!,
@@ -535,7 +534,7 @@ class _HomePageState extends State<HomePage> {
                                         padding: const EdgeInsets.only(left: 10),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
                                             GestureDetector(
                                               onTap: () {
@@ -576,7 +575,7 @@ class _HomePageState extends State<HomePage> {
                                                           TextButton(
                                                             onPressed: () async {
                                                               if (trending
-                                                                      .registered! &&
+                                                                  .registered! &&
                                                                   trending.webinarStartingInDays ==
                                                                       0) {
                                                                 launchUrlString(
@@ -586,34 +585,34 @@ class _HomePageState extends State<HomePage> {
                                                                   .registered!) {
                                                                 Fluttertoast
                                                                     .showToast(
-                                                                        msg:
-                                                                            'Participant is already registered');
+                                                                    msg:
+                                                                    'Participant is already registered');
                                                               } else {
                                                                 var value = await ApiService
                                                                     .webinar_regiter(
-                                                                        trending
-                                                                            .id!);
+                                                                    trending
+                                                                        .id!);
 
                                                                 if (value[
-                                                                        "error"] ==
+                                                                "error"] ==
                                                                     "Participant is already registered") {
                                                                   Fluttertoast
                                                                       .showToast(
-                                                                          msg:
-                                                                              'Participant is already registered');
+                                                                      msg:
+                                                                      'Participant is already registered');
                                                                 } else if (value[
-                                                                        "message"] ==
+                                                                "message"] ==
                                                                     "Registration completed") {
                                                                   Fluttertoast
                                                                       .showToast(
-                                                                          msg:
-                                                                              'Registration completed Thanks for registration');
+                                                                      msg:
+                                                                      'Registration completed Thanks for registration');
                                                                   Navigator.push(
                                                                     context,
                                                                     MaterialPageRoute(
                                                                       builder:
                                                                           (context) =>
-                                                                              const HomePage(),
+                                                                      const HomePage(),
                                                                     ),
                                                                   );
                                                                 }
@@ -625,7 +624,7 @@ class _HomePageState extends State<HomePage> {
                                                               //await _updateRegistrationStatus(true);
                                                             },
                                                             child:
-                                                                const Text('Yes'),
+                                                            const Text('Yes'),
                                                           ),
                                                         ],
                                                       );
@@ -637,9 +636,9 @@ class _HomePageState extends State<HomePage> {
                                               },
                                               title: trending.registered!
                                                   ? (trending.webinarStartingInDays ==
-                                                          0
-                                                      ? 'Join Now'
-                                                      : 'Starting in ${trending.webinarStartingInDays} days')
+                                                  0
+                                                  ? 'Join Now'
+                                                  : 'Starting in ${trending.webinarStartingInDays} days')
                                                   : 'Join Now',
                                               isRegisterNow: trending.registered!,
                                             ),
@@ -664,8 +663,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   CustomWebinarCard buildCustomWebinarCard(
-    TrandingWebinarModel trending,
-  ) {
+      TrandingWebinarModel trending,
+      ) {
     return CustomWebinarCard(
       trandingWebinarModel: trending,
     );
@@ -673,6 +672,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget profileCard(PopularWorkShopModel popularWorkShopModel, int cardIndex,
       int totalCards) {
+    var width = MediaQuery.of(context).size.width;
     var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
     str = counsellorSessionProvider.popularWorkShopList[0].sessionDate
         ?.split('T');
@@ -718,7 +718,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.4,
+                            width: MediaQuery.of(context).size.width * 0.5,
                           ),
                           GestureDetector(
                             onTap: () {
@@ -738,7 +738,7 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(
                         height: 3,
                       ),
-                       SizedBox(
+                      SizedBox(
                         width: 190.25,
                         child: Text(
                           popularWorkShopModel.sessionType!,
@@ -768,9 +768,9 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(
                             width: 121.13,
                             child: Text(
-                                popularWorkShopModel.sessionTime != null
-                                    ? DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(popularWorkShopModel.sessionTime!))
-                                    : 'N/A',
+                              popularWorkShopModel.sessionTime != null
+                                  ? DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(popularWorkShopModel.sessionTime!))
+                                  : 'N/A',
                               style: const TextStyle(
                                 color: Color(0xFF414040),
                                 fontSize: 12,
@@ -827,7 +827,7 @@ class _HomePageState extends State<HomePage> {
                             decoration: const BoxDecoration(
                               image: DecorationImage(
                                 image:
-                                    AssetImage("assets/page-1/images/rate.png"),
+                                AssetImage("assets/page-1/images/rate.png"),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -859,7 +859,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Container(
                 height: 0.47,
-                width: 300,
+                width: width * 0.85,
                 color: const Color(0xffAFAFAF).withOpacity(.78),
               ),
               SizedBox(
@@ -878,7 +878,7 @@ class _HomePageState extends State<HomePage> {
                                   designation: "designation",
                                   name: popularWorkShopModel.sessionUser ??
                                       "N/A"
-                                  )));
+                              )));
                     },
                     child: Container(
                       width: 120.14,
@@ -919,9 +919,9 @@ class _HomePageState extends State<HomePage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => CounsellingSessionPage(
-                                    name: 'N/A',
-                                    id: popularWorkShopModel.sId!, designation: '',selectedIndex_get: 0,
-                                  )));
+                                name: 'N/A',
+                                id: popularWorkShopModel.sId!, designation: '',selectedIndex_get: 0,
+                              )));
                     },
                     child: Container(
                       width: 120,

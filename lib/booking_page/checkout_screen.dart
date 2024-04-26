@@ -37,6 +37,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   var amt_send;
   var name;
   var sessionId;
+  late String gst;
+  late String convinence_charge;
 
 
   void openCheckOut(var amountt) async {
@@ -99,6 +101,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       'abc@gmail.com',
       phoneNumber,
       'session booking',
+      gst,
+      convinence_charge
     ).then((value) => checkpaymentsucess(value));
 
 
@@ -141,13 +145,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    getAllInfo();
 
     razorpay = Razorpay();
     razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlePaymentSuccess);
     razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlePaymentError);
     razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handleExternalWallet);
-    getAllInfo();
+
   }
 
 
@@ -188,6 +192,19 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         amount = totalAmount.toString();
       }
     }
+
+
+       if (counsellorDetailController.checkOutDetailsList.isNotEmpty)
+       {
+         gst = counsellorDetailController.checkOutDetailsList[0].gstAmount.toString() ??
+          '0';
+       }
+
+      if (counsellorDetailController.checkOutDetailsList.isNotEmpty)
+      {
+        convinence_charge = counsellorDetailController.checkOutDetailsList[0].gatewayCharge.toString() ??
+          '0';
+      }
 
     name = '';
     if (counsellorDetailController.checkOutDetailsList.isNotEmpty) {
@@ -368,7 +385,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       children: [
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               'Session Type',
                               style: TextStyle(
                                   color: ColorsConst.black54Color,
@@ -376,12 +393,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             ),
                             Spacer(),
                             Text(
-                              '${counsellorDetailController.checkOutDetailsList
+                              counsellorDetailController.checkOutDetailsList
                                   .isNotEmpty
                                   ? counsellorDetailController
                                   .checkOutDetailsList[0].sessionType ?? "N/A"
-                                  : "N/A"}',
-                              style: TextStyle(
+                                  : "N/A",
+                              style: const TextStyle(
                                 color: ColorsConst.black54Color,
                                 fontSize: 13,
                               ),
@@ -390,20 +407,20 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               'Session Fees',
                               style: TextStyle(
                                   color: ColorsConst.black54Color,
                                   fontSize: 12),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Text(
                               '\u{20B9}${counsellorDetailController
                                   .checkOutDetailsList.isNotEmpty
                                   ? counsellorDetailController
                                   .checkOutDetailsList[0].sessionFee ?? "N/A"
                                   : "N/A"}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: ColorsConst.black54Color,
                                 fontSize: 13,
                               ),
@@ -412,7 +429,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               'GST',
                               style: TextStyle(
                                   color: ColorsConst.black54Color,
@@ -425,7 +442,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   ? counsellorDetailController
                                   .checkOutDetailsList[0].gstAmount ?? "N/A"
                                   : "N/A"}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: ColorsConst.black54Color,
                                 fontSize: 13,
                               ),
@@ -434,7 +451,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               'Fees With GST',
                               style: TextStyle(
                                   color: ColorsConst.black54Color,
@@ -447,7 +464,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   ? counsellorDetailController
                                   .checkOutDetailsList[0].feeWithGST ?? "N/A"
                                   : "N/A"}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: ColorsConst.black54Color,
                                 fontSize: 13,
                               ),

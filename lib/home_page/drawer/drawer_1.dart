@@ -38,8 +38,12 @@ class _Drawer1State extends State<Drawer1> {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
     return Drawer(
-      width: 262,
+      shape:  RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(4),
+      ),
+      width: width * 0.6,
       backgroundColor: Colors.white,
       child: Center(
         child: Column(
@@ -62,7 +66,7 @@ class _Drawer1State extends State<Drawer1> {
                       alignment: Alignment.bottomRight,
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(30), // Remove or set to zero
                           child: Container(
                             height: 60,
                             width: 60,
@@ -71,7 +75,7 @@ class _Drawer1State extends State<Drawer1> {
                             ),
                             child: path != " "
                                 ? Image.file(File(path), fit: BoxFit.cover)
-                                :  Image.asset(
+                                : Image.asset(
                               'assets/page-1/images/profilepic.jpg',
                             ),
                           ),
@@ -83,7 +87,7 @@ class _Drawer1State extends State<Drawer1> {
                     height: 11,
                   ),
                   Text(
-                  name,
+                    name,
                     style: SafeGoogleFont(
                       "Inter",
                       color: Color(0xff1F0A68),
@@ -124,8 +128,8 @@ class _Drawer1State extends State<Drawer1> {
                       ),
                       shape: Border(
                           bottom: BorderSide(
-                        color: Colors.black.withOpacity(0.09),
-                      )),
+                            color: Colors.black.withOpacity(0.09),
+                          )),
                     ),
                   ),
                 ],
@@ -185,8 +189,8 @@ class _Drawer1State extends State<Drawer1> {
                     ),
                     shape: Border(
                         bottom: BorderSide(
-                      color: Colors.black.withOpacity(0.09),
-                    )),
+                          color: Colors.black.withOpacity(0.09),
+                        )),
                   ),
                 ],
               ),
@@ -249,7 +253,7 @@ class _Drawer1State extends State<Drawer1> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const SplashScreenNew()));
+                                        const SplashScreenNew()));
                               }
                             },
                             child: const Text('Logout'),
@@ -286,7 +290,7 @@ class _Drawer1State extends State<Drawer1> {
             Image.asset(
               "assets/page-1/images/sortmycollege-logo-1.png",
               height: 61,
-              width: 229,
+              width: width * 0.57,
             ),
             const SizedBox(
               height: 60,
@@ -304,7 +308,7 @@ class _Drawer1State extends State<Drawer1> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const SplashScreenNew()),
-        (route) => false,
+            (route) => false,
       );
     }
   }

@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -49,6 +50,8 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
     double baseWidth = 460;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
+
+
     return Scaffold(
       backgroundColor: ColorsConst.whiteColor,
       appBar: AppBar(
@@ -271,51 +274,57 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
                                 ),
                               ),
                               Container(
-                                padding:  const EdgeInsets.only(left: 20),
+                                padding:  const EdgeInsets.fromLTRB(7,0,0,0),
                                 child: Column(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.start,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                                  mainAxisAlignment:MainAxisAlignment.start,
+                                  crossAxisAlignment:CrossAxisAlignment.start,
                                   children: [
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          listController
-                                              .epModelList[index].name
-                                              .toString(),
-                                          style: const TextStyle(
-                                              fontSize: 17,
-                                              fontWeight:
-                                              FontWeight.w600),
-                                        ),
-                                        // Spacer(),
-                                        const SizedBox(width: 72),
-                                        const Icon(
-                                          Icons.share,
-                                          color:
-                                          ColorsConst.appBarColor,
-                                          size: 20,
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(2,0,0,0),
+                                          child: Text(
+                                            listController
+                                                .epModelList[index].name
+                                                .toString(),
+                                            style: const TextStyle(
+                                                fontSize: 15,
+                                                fontWeight:
+                                                FontWeight.w500),
+                                          ),
                                         ),
                                       ],
                                     ),
-                                    const Row(
-                                      children: [
-                                        Icon(
-                                          Icons.star,
-                                          color: Colors.amber,
-                                          size: 14,
-                                        ),
-                                        SizedBox(width: 4),
-                                        Text(
-                                          '4.5',
-                                          style: TextStyle(
-                                              fontSize: 11,
-                                              fontWeight:
-                                              FontWeight.w500),
-                                        ),
-                                      ],
+                                    const Padding(
+                                      padding: EdgeInsets.fromLTRB(0,7,0,0),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.star,
+                                            color: Colors.amber,
+                                            size: 14,
+                                          ),
+                                          SizedBox(width: 4),
+                                          Text(
+                                            '4.5',
+                                            style: TextStyle(
+                                                fontSize: 11,
+                                                fontWeight:
+                                                FontWeight.w500),
+                                          ),
+
+                                          SizedBox(width: 160),
+
+                                          Icon(
+                                            Icons.share,
+                                            color:
+                                            ColorsConst.appBarColor,
+                                            size: 19,
+                                          ),
+
+                                        ],
+                                      ),
                                     ),
                                     const SizedBox(
                                       height: 8,
@@ -419,44 +428,17 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
                                             size: 20,
                                           ),
                                           Text(
-                                            ' ${listController.epModelList[index].address!.buildingNumber.toString()} ',
+                                            ' ${"${listController.epModelList[index].address!.buildingNumber} "
+                                                "${listController.epModelList[index].address!.area} "
+                                                "${listController.epModelList[index].address!.state} "
+                                                "${listController.epModelList[index].address!.city} "
+                                                "${listController.epModelList[index].address!.pinCode}"}  ',
                                             style: const TextStyle(
-                                                fontSize: 8,
+                                                fontSize: 9,
                                                 fontWeight:
-                                                FontWeight.w400),
+                                                FontWeight.w700),
                                           ),
-                                          Text(
-                                            '${listController.epModelList[index].address!.area.toString()} ',
-                                            style: const TextStyle(
-                                                fontSize: 8,
-                                                fontWeight:
-                                                FontWeight.w400),
-                                          ),
-                                          Text(
-                                            '${listController.epModelList[index].address!.state.toString()} ',
-                                            style: const TextStyle(
-                                                fontSize: 8,
-                                                fontWeight:
-                                                FontWeight.w400),
-                                          ),
-                                          Text(
-                                            '${listController.epModelList[index].address!.city.toString()} ',
-                                            style: const TextStyle(
-                                                fontSize: 8,
-                                                fontWeight:
-                                                FontWeight.w400),
-                                          ),
-                                          Text(
-                                            listController
-                                                .epModelList[index]
-                                                .address!
-                                                .pinCode
-                                                .toString(),
-                                            style: const TextStyle(
-                                                fontSize: 8,
-                                                fontWeight:
-                                                FontWeight.w400),
-                                          ),
+
                                         ],
                                       ),
                                     ),

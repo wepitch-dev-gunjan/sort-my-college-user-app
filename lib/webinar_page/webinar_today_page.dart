@@ -364,6 +364,11 @@ class _CustomWebinarCard1State extends State<CustomWebinarCard1> {
                                                           'Registration completed. Thanks for registering');
                                                   widget.webinarModel
                                                       .registered = true;
+
+                                                /*  setState(() {
+
+                                                  });*/
+
                                                   /*Navigator.push(
                                                     context,
                                                     MaterialPageRoute(

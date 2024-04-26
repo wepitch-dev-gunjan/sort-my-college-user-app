@@ -1,144 +1,79 @@
+class College {
+  final String id;
+  final String profilePic;
+  final String name;
+  final List<String> about;
+  final String email;
+  final Map<String, dynamic> instituteTimings; // Changed type to Map
+  final List<dynamic> modeOfStudy;
+  final List<dynamic> mediumOfStudy;
+  final List<dynamic> followers;
+  final String status;
+  final List<dynamic> instituteKeyFeatures;
+  final String createdAt;
+  final String updatedAt;
+  final int v;
+  final List<dynamic> timings;
+  final bool verified;
+  final String affiliations;
+  final String contactNumber;
+  final String directionUrl;
+  final String registrantContactNumber;
+  final String registrantDesignation;
+  final String registrantFullName;
+  final String yearEstablishedIn;
 
-import 'dart:convert';
-EpDetailsModel epDetailsModelFromJson(String str) => EpDetailsModel.fromJson(json.decode(str));
-String epDetailsModelToJson(EpDetailsModel data) => json.encode(data.toJson());
-
-class EpDetailsModel {
-  Address? address;
-  bool? verified;
-  String? id;
-  String? profilePic;
-  String? name;
-  List<dynamic>? about;
-  String? email;
-  List<dynamic>? modeOfStudy;
-  List<dynamic>? mediumOfStudy;
-  List<dynamic>? followers;
-  String? status;
-  List<dynamic>? instituteKeyFeatures;
-  List<Timing>? timings;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  int? v;
-
-  EpDetailsModel({
-    this.address,
-    this.verified,
-    this.id,
-    this.profilePic,
-    this.name,
-    this.about,
-    this.email,
-    this.modeOfStudy,
-    this.mediumOfStudy,
-    this.followers,
-    this.status,
-    this.instituteKeyFeatures,
-    this.timings,
-    this.createdAt,
-    this.updatedAt,
-    this.v,
+  College({
+    required this.id,
+    required this.profilePic,
+    required this.name,
+    required this.about,
+    required this.email,
+    required this.instituteTimings,
+    required this.modeOfStudy,
+    required this.mediumOfStudy,
+    required this.followers,
+    required this.status,
+    required this.instituteKeyFeatures,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.v,
+    required this.timings,
+    required this.verified,
+    required this.affiliations,
+    required this.contactNumber,
+    required this.directionUrl,
+    required this.registrantContactNumber,
+    required this.registrantDesignation,
+    required this.registrantFullName,
+    required this.yearEstablishedIn,
   });
 
-  factory EpDetailsModel.fromJson(Map<String, dynamic> json) => EpDetailsModel(
-    address: Address.fromJson(json["address"]),
-    verified: json["verified"],
-    id: json["_id"],
-    profilePic: json["profile_pic"],
-    name: json["name"],
-    about: List<dynamic>.from(json["about"].map((x) => x)),
-    email: json["email"],
-    modeOfStudy: List<dynamic>.from(json["mode_of_study"].map((x) => x)),
-    mediumOfStudy: List<dynamic>.from(json["medium_of_study"].map((x) => x)),
-    followers: List<dynamic>.from(json["followers"].map((x) => x)),
-    status: json["status"],
-    instituteKeyFeatures: List<dynamic>.from(json["institute_key_features"].map((x) => x)),
-    timings: List<Timing>.from(json["timings"].map((x) => Timing.fromJson(x))),
-    createdAt: DateTime.parse(json["createdAt"]),
-    updatedAt: DateTime.parse(json["updatedAt"]),
-    v: json["__v"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "address": address?.toJson(),
-    "verified": verified,
-    "_id": id,
-    "profile_pic": profilePic,
-    "name": name,
-    "about": List<dynamic>.from(about!.map((x) => x)),
-    "email": email,
-    "mode_of_study": List<dynamic>.from(modeOfStudy!.map((x) => x)),
-    "medium_of_study": List<dynamic>.from(mediumOfStudy!.map((x) => x)),
-    "followers": List<dynamic>.from(followers!.map((x) => x)),
-    "status": status,
-    "institute_key_features": List<dynamic>.from(instituteKeyFeatures!.map((x) => x)),
-    "timings": List<dynamic>.from(timings!.map((x) => x.toJson())),
-    "createdAt": createdAt?.toIso8601String(),
-    "updatedAt": updatedAt?.toIso8601String(),
-    "__v": v,
-  };
-}
-
-class Address {
-  String? buildingNumber;
-  String? area;
-  String? city;
-  String? state;
-  String? pinCode;
-
-  Address({
-    this.buildingNumber,
-    this.area,
-    this.city,
-    this.state,
-    this.pinCode,
-  });
-
-  factory Address.fromJson(Map<String, dynamic> json) => Address(
-    buildingNumber: json["building_number"],
-    area: json["area"],
-    city: json["city"],
-    state: json["state"],
-    pinCode: json["pin_code"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "building_number": buildingNumber,
-    "area": area,
-    "city": city,
-    "state": state,
-    "pin_code": pinCode,
-  };
-}
-
-class Timing {
-  String? day;
-  String? startTime;
-  String? endTime;
-  bool? isOpen;
-  String? id;
-
-  Timing({
-    this.day,
-    this.startTime,
-    this.endTime,
-    this.isOpen,
-    this.id,
-  });
-
-  factory Timing.fromJson(Map<String, dynamic> json) => Timing(
-    day: json["day"],
-    startTime: json["start_time"],
-    endTime: json["end_time"],
-    isOpen: json["is_open"],
-    id: json["_id"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "day": day,
-    "start_time": startTime,
-    "end_time": endTime,
-    "is_open": isOpen,
-    "_id": id,
-  };
+  factory College.fromJson(Map<String, dynamic> json) {
+    return College(
+      id: json['_id'],
+      profilePic: json['profile_pic'],
+      name: json['name'],
+      about: List<String>.from(json['about']),
+      email: json['email'],
+      instituteTimings: json['institute_timings'] ?? {}, // Set default value
+      modeOfStudy: List<dynamic>.from(json['mode_of_study']),
+      mediumOfStudy: List<dynamic>.from(json['medium_of_study']),
+      followers: List<dynamic>.from(json['followers']),
+      status: json['status'],
+      instituteKeyFeatures: List<dynamic>.from(json['institute_key_features']),
+      createdAt: json['createdAt'],
+      updatedAt: json['updatedAt'],
+      v: json['__v'],
+      timings: List<dynamic>.from(json['timings']),
+      verified: json['verified'],
+      affiliations: json['affilations'],
+      contactNumber: json['contact_number'],
+      directionUrl: json['direction_url'],
+      registrantContactNumber: json['registrant_contact_number'],
+      registrantDesignation: json['registrant_designation'],
+      registrantFullName: json['registrant_full_name'],
+      yearEstablishedIn: json['year_established_in'],
+    );
+  }
 }

@@ -28,17 +28,13 @@ class _WebinarPageState extends State<WebinarPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getAllInfo();
+    //getAllInfo();
     pageController = PageController(initialPage: selectedIndex);
     SessionDate.dateTimeDif();
   }
 
   void getAllInfo() async {
-    value = ApiService.get_profile();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("name", value["name"]);
-    username = prefs.getString("name") ?? "";
-    setState(() {});
+    await ApiService.get_profile().then((value) => getname_savedata());
   }
 
   @override
@@ -137,6 +133,13 @@ class _WebinarPageState extends State<WebinarPage> {
       ),
     );
   }
+
+  getname_savedata() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    username = prefs.getString("name") ?? "user";
+    setState(() {});
+  }
+
 }
 
 Widget customButton({

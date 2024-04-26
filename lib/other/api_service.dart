@@ -1,11 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:myapp/home_page/model/banner_image_model.dart';
 import 'package:myapp/home_page/model/popular_workshop_model.dart';
 import 'package:myapp/home_page/model/tranding_webinar_model.dart';
 import 'package:myapp/model/booking_model.dart';
 import 'package:myapp/model/check_out_details_model.dart';
+import 'package:myapp/model/ep_details_model.dart';
 import 'package:myapp/webinar_page/webinar_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/counsellor_data.dart';
@@ -56,7 +59,7 @@ class ApiService {
       return data;
     }
     else{
-       return {"error": "Something went wrong"};
+      return {"error": "Something went wrong"};
     }
   }
 
@@ -418,6 +421,8 @@ class ApiService {
       String email,
       String phoneNo,
       String description,
+      String gst,
+      String convcharge
       ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
@@ -429,9 +434,9 @@ class ApiService {
       "order_id": oderId,
       "payment_id": paymentId,
       "entity": entity,
-      "amount": amount,
-      "amount_paid": amountPaid,
-      "amount_due": amountDue,
+      "amount": int.parse(amount),
+      "amount_paid": int.parse(amountPaid),
+      "amount_due": int.parse(amountDue),
       "currency": currency,
       /*"email": receipt,*/
       /*"offer_id": offerId,*/
@@ -443,6 +448,9 @@ class ApiService {
       "email": email,
       "phone_no": phoneNo,
       "description": description,
+      "gst": double.parse(gst),
+      "convenience_charges": double.parse(convcharge)
+
     });
 
     final headers = {
@@ -522,9 +530,6 @@ class ApiService {
     print(response);
     if (response.statusCode == 200) {
       var value = jsonDecode(response.body.toString());
-
-
-
       if(value[0]['name'] == null)
       {
         prefs.setString('name', "user");
@@ -570,6 +575,14 @@ class ApiService {
 
 
     }
+    else{
+      Fluttertoast
+          .showToast(
+          msg:
+          'Something went wrong');
+    }
+
+
   }
 
   static Future<List<CounsellorModel>> getCounsellor_1() async {
@@ -614,6 +627,23 @@ class ApiService {
     return [];
   }
 
+  static Future<College> fetchCollegeData(String id) async {
+    var url = Uri.parse("${AppConstants.baseUrl}/ep/institute/user/$id");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+    final response = await http.get(url, headers: {
+      //"Content-Type": "application/json",
+      "Authorization": token,
+    });
+
+    if (response.statusCode == 200) {
+      return College.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load college data');
+    }
+  }
+
+
   static Future<List<EPModel>> getEPListData() async {
     var url = Uri.parse("${AppConstants.baseUrl}/ep/institute/user");
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -622,6 +652,7 @@ class ApiService {
       //"Content-Type": "application/json",
       "Authorization": token,
     });
+    print(token);
     var data;
     //console.log("Counsellor List : ${response.body}");
     if (response.statusCode == 200) {
@@ -629,7 +660,8 @@ class ApiService {
       return List<EPModel>.from(
           data.map((x) => EPModel.fromJson(x)));
     }
-    if (response.statusCode == 404) {
+    else if (response.statusCode == 404)
+    {
       return [
         EPModel(
           name: "none",
@@ -637,6 +669,8 @@ class ApiService {
         )
       ];
     }
+
+
     return [];
   }
 
