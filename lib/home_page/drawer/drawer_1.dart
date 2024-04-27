@@ -10,6 +10,7 @@ import 'package:myapp/page-1/splash_screen_n.dart';
 import 'package:myapp/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../other/api_service.dart';
 import '../homepagecontainer.dart';
 
 class Drawer1 extends StatefulWidget {
@@ -30,11 +31,25 @@ class _Drawer1State extends State<Drawer1> {
   }
 
   void getAllInfo() async {
+    ApiService.get_profile().then((value) => loadDefaultValue());
+  }
+
+  void loadDefaultValue() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    path = prefs.getString("profile_image_path") ?? " ";
     name = prefs.getString("name") ?? "N/A";
+    if(prefs.getString("profile_pic") == null)
+    {
+      // load local pic
+      path = prefs.getString("profile_pic_local")!;
+    }
+    else{
+      path = prefs.getString("profile_pic") ?? "N/A";
+    }
     setState(() {});
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -73,11 +88,21 @@ class _Drawer1State extends State<Drawer1> {
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                             ),
-                            child: path != " "
-                                ? Image.file(File(path), fit: BoxFit.cover)
-                                : Image.asset(
-                              'assets/page-1/images/profilepic.jpg',
-                            ),
+                            child: path != null
+                                ? path.toString().contains("https")
+                                ? Image.network(
+                                  path.toString(),
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace)
+                                  {
+                                    //print("Exception >> ${exception.toString()}");
+                                    return Image.asset(
+                                      'assets/page-1/images/profilepic.jpg',
+                                      fit: BoxFit.cover,
+                                    );
+                                  },
+                                  ): Image.file(File(path), fit: BoxFit.cover)
+                                : Image.asset('assets/page-1/images/profilepic.jpg'),
                           ),
                         ),
                       ],
@@ -311,158 +336,6 @@ class _Drawer1State extends State<Drawer1> {
             (route) => false,
       );
     }
+
   }
 }
-// Container(
-// padding: EdgeInsets.fromLTRB(
-// 23 * fem, 2 * fem, 0 * fem, 0 * fem),
-// height: double.infinity,
-// child: Row(
-// crossAxisAlignment: CrossAxisAlignment.end,
-// children: [
-// GestureDetector(
-// onTap: () {
-// EasyLoading.showToast("",
-// toastPosition:
-// EasyLoadingToastPosition.bottom);
-// },
-// child: Container(
-// margin: EdgeInsets.fromLTRB(
-// 0 * fem, 0 * fem, 23 * fem, 0 * fem),
-// padding: EdgeInsets.fromLTRB(
-// 15 * fem, 4 * fem, 9 * fem, 6 * fem),
-// width: 110 * fem,
-// height: 114 * fem,
-// clipBehavior: Clip.antiAlias,
-// decoration: BoxDecoration(
-// color: Colors.white,
-// borderRadius: BorderRadius.circular(5),
-// boxShadow: [
-// BoxShadow(
-// offset: const Offset(0, 4),
-// blurRadius: 4,
-// color: Colors.black.withOpacity(0.1),
-// ),
-// ],
-// ),
-// child: Column(
-// crossAxisAlignment:
-// CrossAxisAlignment.center,
-// children: [
-// Expanded(
-// child: Container(
-// margin: EdgeInsets.fromLTRB(0 * fem,
-// 0 * fem, 0 * fem, 7 * fem),
-// width: double.infinity,
-// height: 62 * fem,
-// child: Stack(
-// children: [
-// Align(
-// child: SizedBox(
-// width: 72 * fem,
-// height: 55 * fem,
-// child: TextButton(
-// onPressed: () {},
-// style: TextButton.styleFrom(
-// padding: EdgeInsets.zero,
-// ),
-// child: Container(),
-// ),
-// ),
-// ),
-// Align(
-// child: SizedBox(
-// width: 82 * fem,
-// height: 58 * fem,
-// child: Image.asset(
-// 'assets/page-1/images/untitled-design-6-1.png',
-// fit: BoxFit.cover,
-// ),
-// ),
-// ),
-// ],
-// ),
-// ),
-// ),
-// Container(
-// margin: EdgeInsets.fromLTRB(
-// 0 * fem, 0 * fem, 7 * fem, 0 * fem),
-// child: Text(
-// 'Entrance \nPreparation',
-// textAlign: TextAlign.center,
-// style: SafeGoogleFont(
-// 'Inter',
-// fontSize: 12 * ffem,
-// fontWeight: FontWeight.w700,
-// height: 1.2125 * ffem / fem,
-// color: const Color(0xff000000),
-// ),
-// ),
-// ),
-// ],
-// ),
-// ),
-// ),
-// TextButton(
-// onPressed: () {
-// EasyLoading.showToast("Coming Soon",
-// toastPosition:
-// EasyLoadingToastPosition.bottom);
-// },
-// style: TextButton.styleFrom(
-// padding: EdgeInsets.zero,
-// ),
-// child: Container(
-// padding: EdgeInsets.fromLTRB(
-// 20 * fem, 8 * fem, 20 * fem, 13 * fem),
-// width: 110 * fem,
-// height: 114 * fem,
-// clipBehavior: Clip.antiAlias,
-// decoration: BoxDecoration(
-// color: Colors.white,
-// borderRadius: BorderRadius.circular(5),
-// boxShadow: [
-// BoxShadow(
-// offset: const Offset(0, 4),
-// blurRadius: 4,
-// color: Colors.black.withOpacity(0.1),
-// ),
-// ],
-// ),
-// child: Column(
-// crossAxisAlignment:
-// CrossAxisAlignment.center,
-// children: [
-// Container(
-// margin: EdgeInsets.fromLTRB(
-// 0 * fem, 0 * fem, 0 * fem, 9 * fem),
-// width: 68 * fem,
-// height: 66 * fem,
-// child: Image.asset(
-// 'assets/page-1/images/mask-group-SbT.png',
-// width: 68 * fem,
-// height: 66 * fem,
-// ),
-// ),
-// Container(
-// margin: EdgeInsets.fromLTRB(
-// 0 * fem, 0 * fem, 1 * fem, 0 * fem),
-// child: Text(
-// 'Connect',
-// textAlign: TextAlign.center,
-// style: SafeGoogleFont(
-// 'Inter',
-// fontSize: 12 * ffem,
-// fontWeight: FontWeight.w700,
-// height: 1.2125 * ffem / fem,
-// color: const Color(0xff000000),
-// ),
-// ),
-// ),
-// ],
-// ),
-// ),
-// ),
-// ],
-// ),
-// ),

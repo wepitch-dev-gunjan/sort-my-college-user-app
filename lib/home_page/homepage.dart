@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/home_page/coming_soon.dart';
 import 'package:myapp/home_page/counsellor_page/counsellor_details_screen.dart';
@@ -35,6 +36,7 @@ class _HomePageState extends State<HomePage> {
   String username = "";
   String path = '';
   late var value;
+  bool isFetched = false;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -55,8 +57,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void getAllInfo() async {
-    await ApiService.get_profile().then(initPrefrence()
-    );
+    await ApiService.get_profile().then((value) => initPrefrence(value));
   }
 
   void saveImagePathToPrefs(String path) async {
@@ -95,12 +96,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
-    if (counsellorSessionProvider.bannerImageList.isNotEmpty) {
+    imgUrlList.clear();
+
+
+
+
+    if (counsellorSessionProvider.bannerImageList.isNotEmpty)
+    {
       for(int i=0; i < counsellorSessionProvider.bannerImageList.length; i++)
       {
-        imgUrlList.add(counsellorSessionProvider.bannerImageList[i].url ?? '');
+        imgUrlList.add(counsellorSessionProvider.bannerImageList[i].url ??
+            '');
       }
     }
+
 
     double baseWidth = 430;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -176,7 +185,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        body: SingleChildScrollView(
+        body: counsellorSessionProvider.isNull ? const CircularProgressIndicator() : SingleChildScrollView(
           child: Column(
             children: [
               Padding(
@@ -353,7 +362,7 @@ class _HomePageState extends State<HomePage> {
                     isLoop: false,
                     indicatorColor: Colors.black,
                     indicatorBackgroundColor: Colors.white,
-                    children: imgUrlList
+                    children:imgUrlList
                         .map((e) => Container(
                       width: 390 * fem,
                       height: 120 * fem,
@@ -362,8 +371,11 @@ class _HomePageState extends State<HomePage> {
                         const BorderRadius.all(Radius.circular(16)),
                         image: DecorationImage(image: NetworkImage(e)),
                       ),
-                    ))
-                        .toList(),
+                    )).toList()
+
+
+
+
                   ),
 
                 ),
@@ -967,10 +979,18 @@ class _HomePageState extends State<HomePage> {
         MaterialPageRoute(builder: (context) => const HomePageContainer_2()));
   }
 
-  initPrefrence() async {
+  initPrefrence(Map<String, dynamic> value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    path = prefs.getString("profile_image_path") ?? " ";
-    username = prefs.getString("name") ?? "";
+    if(value["message"] == "successfully get data")
+     {
+       path = prefs.getString("profile_image_path") ?? " ";
+       username = prefs.getString("name") ?? "";
+     }
+    else{
+      username="user";
+    }
+
+
   }
 
 

@@ -513,7 +513,8 @@ class ApiService {
     return data;
   }
 
-  static Future<void> get_profile() async {
+  static Future<Map<String, dynamic>> get_profile() async {
+    var data;
     String phoneNumber = "";
     String dob = '';
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -556,7 +557,6 @@ class ApiService {
       }
 
 
-
       if(value[0]['profile_pic'] == null)
       {
         prefs.setString('profile_pic', "");
@@ -566,12 +566,15 @@ class ApiService {
       }
 
 
+
       //prefs.setString('date_of_birth', value['date_of_birth']);
 
       prefs.setString('_id', value[0]['_id'].toString());
       prefs.setString('education_level', value[0]['education_level'].toString());
       phoneNumber = value[0]["phone_number"].toString().replaceAll("91", "");
       prefs.setString('phone_number', phoneNumber);
+
+      data = {"message": "successfully get data"};
 
 
       /*final strDob = value["date_of_birth"].split('-');
@@ -586,6 +589,7 @@ class ApiService {
         prefs.setString('date_of_birth', "01-01-2000");
       }*/
 
+       return data;
 
 
 
@@ -595,6 +599,9 @@ class ApiService {
           .showToast(
           msg:
           'Something went wrong');
+
+      data = {"message": "unsuccessfully not get data"};
+      return data;
 
     }
 
