@@ -528,7 +528,8 @@ class ApiService {
 
     final response = await http.get(url, headers: headers);
     print(response);
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200)
+    {
       var value = jsonDecode(response.body.toString());
       if(value[0]['name'] == null)
       {
@@ -553,6 +554,18 @@ class ApiService {
       else{
         prefs.setString('date_of_birth', value[0]['date_of_birth']);
       }
+
+
+
+      if(value[0]['profile_pic'] == null)
+      {
+        prefs.setString('profile_pic', "");
+      }
+      else{
+        prefs.setString('profile_pic', value[0]['profile_pic']);
+      }
+
+
       //prefs.setString('date_of_birth', value['date_of_birth']);
 
       prefs.setString('_id', value[0]['_id'].toString());
@@ -574,12 +587,15 @@ class ApiService {
       }*/
 
 
+
+
     }
     else{
       Fluttertoast
           .showToast(
           msg:
           'Something went wrong');
+
     }
 
 

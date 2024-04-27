@@ -52,17 +52,10 @@ class _HomePageState extends State<HomePage> {
     context.read<CounsellorDetailsProvider>().fetchTrendingWebinar();
     context.read<CounsellorDetailsProvider>().fetchPopularWorkShop();
     imgUrlList.clear();
-
-
-
   }
 
   void getAllInfo() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    path = prefs.getString("profile_image_path") ?? " ";
-
-    await ApiService.get_profile().whenComplete(() =>
-     username = prefs.getString("name") ?? ""
+    await ApiService.get_profile().then(initPrefrence()
     );
   }
 
@@ -102,8 +95,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
-    imgUrlList.clear();
-
     if (counsellorSessionProvider.bannerImageList.isNotEmpty) {
       for(int i=0; i < counsellorSessionProvider.bannerImageList.length; i++)
       {
@@ -975,4 +966,14 @@ class _HomePageState extends State<HomePage> {
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (context) => const HomePageContainer_2()));
   }
+
+  initPrefrence() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    path = prefs.getString("profile_image_path") ?? " ";
+    username = prefs.getString("name") ?? "";
+  }
+
+
+
+
 }
