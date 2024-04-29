@@ -13,11 +13,13 @@ class CounsellingSessionPage extends StatefulWidget {
       required this.name,
       required this.id,
       required this.designation,
-      required this.selectedIndex_get});
+      required this.selectedIndex_get,
+      required this.profileurl});
 
   final String name;
   final String id;
   final String designation;
+  final String profileurl;
   final int selectedIndex_get;
 
   @override
@@ -153,10 +155,13 @@ class _CounsellingSessionPageState extends State<CounsellingSessionPage> {
                   name: widget.name,
                   id: widget.id,
                   designation: widget.designation,
+                  profilepic:widget.profileurl
                 ),
                 Counseling_Session_Personnel(
-                  id: widget.id,
-                  name: widget.name,
+                    name: widget.name,
+                    id: widget.id,
+                    designation: widget.designation,
+                    profilepic:widget.profileurl
                 )
               ],
             ),

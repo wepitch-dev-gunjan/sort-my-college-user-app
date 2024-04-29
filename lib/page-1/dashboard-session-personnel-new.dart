@@ -19,10 +19,16 @@ import 'dart:developer' as console show log;
 
 class Counseling_Session_Personnel extends StatefulWidget {
   const Counseling_Session_Personnel(
-      {super.key, required this.name, required this.id});
+      {super.key,
+        required this.name,
+        required this.id,
+        required this.designation,
+        required this.profilepic});
 
   final String name;
   final String id;
+  final String designation;
+  final String profilepic;
 
   @override
   State<Counseling_Session_Personnel> createState() =>
@@ -592,9 +598,10 @@ class _Counseling_Session_PersonnelState
                                                                   MaterialPageRoute(
                                                                       builder: (context) =>
                                                                           CheckOutScreen(
-                                                                              name: widget
-                                                                                  .name,
-                                                                              id: id, designation: '',)));
+                                                                              name: widget.name,
+                                                                              id: id,
+                                                                              designation: widget.id,
+                                                                              profilepicurl: widget.profilepic, )));
                                                             }
                                                           },
                                                           child: const Text(

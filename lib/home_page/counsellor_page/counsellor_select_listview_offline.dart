@@ -629,11 +629,16 @@ class _CounsellorListPage_offlineState
                                                                                                 onTap: () {
                                                                                                   String id = listController.cousnellorlist_data[index].id;
                                                                                                   String name = listController.cousnellorlist_data[index].name;
+                                                                                                  String profilepicurl = listController.cousnellorlist_data[index].profilePic;
                                                                                                   String designation = listController.cousnellorlist_data[index].designation;
 
 
                                                                                                   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                                                                                                      CounsellorDetailsScreen(id: id, name: name, designation: designation,)));
+                                                                                                      CounsellorDetailsScreen(
+                                                                                                        id: id,
+                                                                                                        name: name,
+                                                                                                        profilepicurl: profilepicurl,
+                                                                                                        designation: designation,)));
                                                                                                 },
                                                                                                 child: const SizedBox(
                                                                                                   width: 130.85,
@@ -922,6 +927,7 @@ class _CounsellorListPage_offlineState
                                                                                                         CounsellorDetailsScreen(
                                                                                                             id: listController.cousnellorlist_data[index].id,
                                                                                                             name: listController.cousnellorlist_data[index].name,
+                                                                                                            profilepicurl: listController.cousnellorlist_data[index].profilePic,
                                                                                                             designation: listController.cousnellorlist_data[index].designation,  )));
                                                                                           },
                                                                                           child: Container(
@@ -967,7 +973,8 @@ class _CounsellorListPage_offlineState
                                                                                                     builder: (context) =>
                                                                                                         CounsellingSessionPage(
                                                                                                             id: listController.cousnellorlist_data[index].id,
-                                                                                                            name: name, designation: designation,selectedIndex_get: 0,)));
+                                                                                                            name: name, designation: designation,selectedIndex_get: 0,
+                                                                                                            profileurl: listController.cousnellorlist_data[index].profilePic)));
                                                                                           },
                                                                                           child: Container(
                                                                                             width: 120,

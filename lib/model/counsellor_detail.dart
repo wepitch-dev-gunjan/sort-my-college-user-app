@@ -35,6 +35,8 @@ class CounsellorDetail {
   int? reviews;
   bool? following;
 
+  List<ClientTestimonials>? clientTestimonials;
+
   CounsellorDetail({
     required this.howIWillHelpYou,
     required this.qualifications,
@@ -55,6 +57,7 @@ class CounsellorDetail {
     this.groupSessionPrice,
     this.reviews,
     this.following,
+    this.clientTestimonials,
   });
 
   factory CounsellorDetail.fromJson(Map<String, dynamic> json) =>
@@ -73,6 +76,7 @@ class CounsellorDetail {
           followers: json["followers"] ?? 0,
           languages: json["languages_spoken"] ?? '',
           age: json["age"] ?? 0,
+          clientTestimonials: List<ClientTestimonials>.from(json["client_testimonials"].map((x) => ClientTestimonials.fromJson(x))),
           reviews: json["reviews"] ?? 0,
           personalSessionPrice: json["personal_session_price"] ?? 0,
           groupSessionPrice: json["group_session_price"] ?? 0,
@@ -94,6 +98,7 @@ class CounsellorDetail {
     "followers" : followers,
     "reviews": reviews,
     "following" : following,
+    "client_testimonials": List<dynamic>.from(clientTestimonials!.map((x) => x.toJson())),
   };
 }
 
@@ -117,5 +122,58 @@ class Location {
     temp.add(location);
 
     return temp;
+  }
+}
+
+class ClientTestimonials {
+  String? sId;
+  String? feedbackTo;
+  String? feedbackFrom;
+  String? profilePic;
+  String? userName;
+  num? rating;
+  String? message;
+  String? createdAt;
+  String? updatedAt;
+  int? iV;
+
+  ClientTestimonials(
+      {this.sId,
+        this.feedbackTo,
+        this.feedbackFrom,
+        this.profilePic,
+        this.userName,
+        this.rating,
+        this.message,
+        this.createdAt,
+        this.updatedAt,
+        this.iV});
+
+  ClientTestimonials.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    feedbackTo = json['feedback_to'];
+    feedbackFrom = json['feedback_from'];
+    profilePic = json['profile_pic'];
+    userName = json['user_name'];
+    rating = json['rating'];
+    message = json['message'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    iV = json['__v'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['feedback_to'] = this.feedbackTo;
+    data['feedback_from'] = this.feedbackFrom;
+    data['profile_pic'] = this.profilePic;
+    data['user_name'] = this.userName;
+    data['rating'] = this.rating;
+    data['message'] = this.message;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    data['__v'] = this.iV;
+    return data;
   }
 }

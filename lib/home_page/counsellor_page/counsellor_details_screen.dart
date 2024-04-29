@@ -12,6 +12,7 @@ import 'package:myapp/page-1/payment_gateaway.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
 import 'package:provider/provider.dart';
+import 'package:readmore/readmore.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../other/api_service.dart';
@@ -21,7 +22,9 @@ class CounsellorDetailsScreen extends StatefulWidget {
   const CounsellorDetailsScreen({
     required this.id,
     required this.name,
+    required this.profilepicurl,
     required this.designation,
+
 
     super.key,
   });
@@ -29,6 +32,8 @@ class CounsellorDetailsScreen extends StatefulWidget {
   final String id;
   final String name;
   final String designation;
+  final String profilepicurl;
+
 
 
 
@@ -227,10 +232,23 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                 const SizedBox(
                                   height: 2,
                                 ),
-                                Image.asset(
-                                    'assets/page-1/images/group-MqT.png',
-                                    width: 15,
-                                    height: 15.35),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                        'assets/page-1/images/group-MqT.png',
+                                        width: 15,
+                                        height: 15.35),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      (counsellorDetailController
+                                          .cousnellorlist_detail.isNotEmpty)
+                                          ? '${counsellorDetailController.cousnellorlist_detail[0].averageRating}'
+                                          : '',
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+
                                 const SizedBox(width: 6),
                                 const SizedBox(height: 6),
                                 Row(
@@ -629,7 +647,8 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                         const SizedBox(
                           height: 10,
                         ),
-                        Row(
+
+                        /*Row(
                           children: [
                             Text(
                               '\u2022 ',
@@ -643,6 +662,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                             ),
                           ],
                         ),
+
                         Row(
                           children: [
                             Text(
@@ -698,16 +718,17 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                   fontWeight: FontWeight.w500, fontSize: 13),
                             ),
                           ],
-                        ),
-                        /*ReadMoreText(
-                          counsellorDetailController
-                              .cousnellorlist_detail[0].howIWillHelpYou
+                        ),*/
+
+                        ReadMoreText(
+                          counsellorDetailController.cousnellorlist_detail.isNotEmpty && counsellorDetailController.cousnellorlist_detail[0].howIWillHelpYou != null ?
+                          counsellorDetailController.cousnellorlist_detail[0].howIWillHelpYou
                               .map((e) => "\u2022 $e")
-                              .join("\n"),
+                              .join("\n"): '',
                           style: SafeGoogleFont(
                             'Inter',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
                             height: 2,
                             color: const Color(0xFF595959),
                           ),
@@ -729,7 +750,8 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                             height: 1.5549999555,
                             color: const Color(0xff040404),
                           ),
-                        ),*/
+                        ),
+
                         const SizedBox(height: 12),
                         const Text(
                           'More Information',
@@ -752,10 +774,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                             Text(
                               (counsellorDetailController
                                   .cousnellorlist_detail.isNotEmpty &&
-                                  counsellorDetailController
-                                      .cousnellorlist_detail[0]
-                                      .qualifications !=
-                                      null &&
                                   counsellorDetailController
                                       .cousnellorlist_detail[0]
                                       .qualifications
@@ -845,11 +863,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                             const SizedBox(width: 6),
                             Text(
                               (counsellorDetailController
-                                  .cousnellorlist_detail.isNotEmpty &&
-                                  counsellorDetailController
-                                      .cousnellorlist_detail[0]
-                                      .gender !=
-                                      null)
+                                  .cousnellorlist_detail.isNotEmpty)
                                   ? counsellorDetailController
                                   .cousnellorlist_detail[0].gender
                                   : "N/A",
@@ -903,16 +917,81 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                           ),
                         ),
                         const SizedBox(height: 12),
+
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.26,
-                          child: PageView(
-                            children: [
-                              buildPadding(),
-                              buildPadding(),
-                              buildPadding(),
-                            ],
+                          child: PageView.builder(
+                            //physics: const PageScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: counsellorDetailController.cousnellorlist_detail.isNotEmpty
+                                ? counsellorDetailController.cousnellorlist_detail[0].clientTestimonials?.length ?? 0
+                                : 0,
+                            itemBuilder: (context, index) {
+                              final testimonial = counsellorDetailController.cousnellorlist_detail[0].clientTestimonials![index];
+                              return Row(
+                                children: [
+                                  Icon(Icons.arrow_back_ios,size: 20,),
+                                  Expanded(
+                                    child: Card(
+                                      surfaceTintColor: ColorsConst.whiteColor,
+                                      color: Colors.white,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          const SizedBox(height: 14),
+                                          Center(
+                                            child: Container(
+                                              height: 46,
+                                              width: 46,
+                                              decoration: const BoxDecoration(
+                                                color: Colors.black26,
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: Center(
+                                                child: ClipOval(
+                                                  child: Image.network(
+                                                    testimonial.profilePic ?? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9b7ve9oIilsA8oz5bbsrKZvAe2oT7ESuFKKUO3eHWRL0LEnOQnzz4lRHYAg&s',
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 12),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Image.asset(
+                                                'assets/page-1/images/group-MqT.png',
+                                                width: 15,
+                                                height: 15.35,
+                                              ),
+                                              const SizedBox(width: 6),
+                                              Text(
+                                                testimonial.rating != null ? '${testimonial.rating}' : '1',
+                                                style: const TextStyle(fontSize: 12),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 12),
+                                          Center(
+                                            child: Text(
+                                              testimonial.message ?? 'good',
+                                              style: const TextStyle(fontSize: 12),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 14),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Icon(Icons.arrow_forward_ios,size: 20,),
+                                ],
+                              );
+                            },
                           ),
                         ),
+
                         const SizedBox(
                           height: 16,
                         ),
@@ -1208,6 +1287,8 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                                   id: widget.id,
                                                   name: widget.name,
                                                   designation: widget.designation,
+                                                  profileurl: counsellorDetailController
+                                                      .cousnellorlist_detail[0].coverImage,
                                                   selectedIndex_get: 1,
 
                                                 )));
@@ -1427,6 +1508,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                                 CounsellingSessionPage(
                                                   id: widget.id,
                                                   name: widget.name,
+                                                  profileurl: widget.profilepicurl,
                                                   designation: widget.designation,
                                                   selectedIndex_get: 0,
                                                 )));

@@ -19,9 +19,12 @@ class BookingModel {
 
   BookingModel.fromJson(Map<String, dynamic> json) {
     id = json["_id"];
+
+
+
     bookedEntity = json["booked_entity"] == null
         ? null
-        : BookedEntity.fromJson(json["booked_entity"]);
+          : BookedEntity.fromJson(  json["booked_entity"]);
     bookingType = json["booking_type"];
     bookingData = json["booking_data"] == null
         ? null

@@ -82,6 +82,7 @@ class _CounsellorFeedPageState extends State<CounsellorFeedPage>
                                     id: widget.id,
                                     name: widget.name,
                                     designation: "",
+                                    profilepicurl: "https://www.shutterstock.com/shutterstock/photos/1809858361/display_1500/stock-vector-photo-coming-soon-vector-image-picture-graphic-content-album-stock-photos-not-avaliable-1809858361.jpg",
                                   )));
                     }
                   },
@@ -306,6 +307,7 @@ Future<bool> _onBackPressed(
                 id: id,
                 name: name,
                 designation: "",
+                profilepicurl: "https://www.shutterstock.com/shutterstock/photos/1809858361/display_1500/stock-vector-photo-coming-soon-vector-image-picture-graphic-content-album-stock-photos-not-avaliable-1809858361.jpg",
               )));
   return true;
 }

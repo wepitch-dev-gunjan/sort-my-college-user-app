@@ -371,7 +371,7 @@ class ApiService {
   static Future<Map<String, dynamic>> counsellor_create_order(
       String name,
       String email,
-      dynamic? price,
+      num? price,
       String description,
       String number,
       ) async {

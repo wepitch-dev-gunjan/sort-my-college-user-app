@@ -14,11 +14,16 @@ import '../page-1/dashboard_session_page.dart';
 
 class CheckOutScreen extends StatefulWidget {
   CheckOutScreen(
-      {required this.designation, required this.name, required this.id, super.key});
+      {required this.designation,
+        required this.name,
+        required this.id,
+        required this.profilepicurl,
+        super.key});
 
   String name;
   String? id;
   String designation;
+  String profilepicurl;
 
   @override
   State<CheckOutScreen> createState() => _CheckOutScreenState();
@@ -77,9 +82,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   void handlePaymentSuccess(PaymentSuccessResponse response) async {
     
-   /* Fluttertoast.showToast(
+    Fluttertoast.showToast(
         msg: "Payment Success ${response.paymentId!}",
-        toastLength: Toast.LENGTH_SHORT);*/
+        toastLength: Toast.LENGTH_SHORT);
     
      await ApiService.counsellor_create_payment(
       cid!,
@@ -265,8 +270,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(36),
-                                  child: Image.network(
-                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlOmiLJ_x7F1jiNWtkFQ9Uwtjzp-WFE7KMyVsXPmeM_tcWwj25HDpTvyQ9tQ&s',
+                                  child:
+                                  Image.network(
+                                    widget.profilepicurl,
                                     height: 78,
                                     width: 76,
                                     fit: BoxFit.cover,
@@ -342,6 +348,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                 CounsellorDetailsScreen(
                                                     id: widget.id!,
                                                     designation: "designation",
+                                                    profilepicurl: widget.profilepicurl,
                                                     name: widget.name)));
                                   },
                                   child: Container(
@@ -580,8 +587,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   oderId = value["data"]["id"];
                                   print(key);
 
-                                  openCheckOut(counsellorDetailController
-                                      .checkOutDetailsList[0].totalAmount);
+                                  num price = counsellorDetailController
+                                      .checkOutDetailsList[0].totalAmount;
+                                  price =  price.toInt();
+
+                                  openCheckOut(price);
                                 }
                               }
                               else {
@@ -654,6 +664,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   id: cid,
                   name: name,
                   designation: widget.designation,
+                  profileurl: widget.profilepicurl,
                   selectedIndex_get: 0,)));
   }
 }

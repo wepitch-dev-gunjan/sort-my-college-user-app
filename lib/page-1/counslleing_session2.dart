@@ -113,10 +113,15 @@ class _CounsellingSessionPage2State extends State<CounsellingSessionPage2> {
               children: [
                 Counseling_Session_group(
                   name: widget.name,
-                  id: widget.id, designation: '',
+                  id: widget.id,
+                  profilepic: "https://www.shutterstock.com/shutterstock/photos/1809858361/display_1500/stock-vector-photo-coming-soon-vector-image-picture-graphic-content-album-stock-photos-not-avaliable-1809858361.jpg",
+                  designation: ''
+                  ,
                 ),
                 Counseling_Session_Personnel(
                   id: widget.id,
+                  designation: "",
+                  profilepic: "https://www.shutterstock.com/shutterstock/photos/1809858361/display_1500/stock-vector-photo-coming-soon-vector-image-picture-graphic-content-album-stock-photos-not-avaliable-1809858361.jpg",
                   name: widget.name,
                 )
               ],
