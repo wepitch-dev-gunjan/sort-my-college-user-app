@@ -10,6 +10,8 @@
 	<string>Sort My College App</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need access to your photo library to upload and share  photos within the app.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>we need camera app description.</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
