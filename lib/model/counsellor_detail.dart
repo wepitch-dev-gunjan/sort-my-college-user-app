@@ -69,7 +69,7 @@ class CounsellorDetail {
           averageRating: json["average_rating"] ?? 0,
           followersCount: json["followers_count"] ?? 0,
           experienceInYears: json["experience_in_years"] ?? 0,
-          totalSessionsAttended: json["total_sessions_attended"] ?? '',
+          totalSessionsAttended: json["total_appointed_sessions"] ?? '',
           gender: json["gender"] ?? '',
           qualifications: json["qualifications"] ?? '',
           howIWillHelpYou: json["how_will_i_help"] ?? '',

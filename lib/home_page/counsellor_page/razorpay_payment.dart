@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:myapp/booking_page/booking_page.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class RazorpayPaymentScreen extends StatefulWidget {
@@ -42,6 +43,9 @@ class _RazorpayPaymentScreenState extends State<RazorpayPaymentScreen> {
     Fluttertoast.showToast(
         msg: "Payment Success ${response.paymentId!}",
         toastLength: Toast.LENGTH_SHORT);
+
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const BookingPage()));
   }
 
   void handlePaymentError(PaymentFailureResponse response) {
@@ -80,7 +84,7 @@ class _RazorpayPaymentScreenState extends State<RazorpayPaymentScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
             // Image.asset(
@@ -91,7 +95,7 @@ class _RazorpayPaymentScreenState extends State<RazorpayPaymentScreen> {
             // SizedBox(
             //   height: 100,
             // ),
-            Text(
+            const Text(
               'Welcome to Eazorpay Payment Gateway Integration',
               style: TextStyle(
                   color: Colors.white,
@@ -99,16 +103,16 @@ class _RazorpayPaymentScreenState extends State<RazorpayPaymentScreen> {
                   fontSize: 18),
               textAlign: TextAlign.center,
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Padding(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child: TextFormField(
                 cursorColor: Colors.white,
                 autofocus: false,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
                   labelText: 'Enter Amount to be paid',
                   labelStyle: TextStyle(
                     fontSize: 15.0,
@@ -131,7 +135,7 @@ class _RazorpayPaymentScreenState extends State<RazorpayPaymentScreen> {
                 },
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             ElevatedButton(
