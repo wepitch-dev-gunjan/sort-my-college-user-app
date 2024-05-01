@@ -356,27 +356,27 @@ class _HomePageState extends State<HomePage> {
                   BoxDecoration(borderRadius: BorderRadius.circular(12)),
                   width: 390 * fem,
                   height: 120 * fem,
-                  child:
-                  ImageSlideshow(
-                    autoPlayInterval: 6000,
-                    isLoop: false,
-                    indicatorColor: Colors.black,
-                    indicatorBackgroundColor: Colors.white,
-                    children:imgUrlList
-                        .map((e) => Container(
-                      width: 390 * fem,
-                      height: 120 * fem,
-                      decoration: BoxDecoration(
-                        borderRadius:
-                        const BorderRadius.all(Radius.circular(16)),
-                        image: DecorationImage(image: NetworkImage(e)),
-                      ),
-                    )).toList()
+                  // child:
+                  // ImageSlideshow(
+                  //   autoPlayInterval: 6000,
+                  //   isLoop: false,
+                  //   indicatorColor: Colors.black,
+                  //   indicatorBackgroundColor: Colors.white,
+                  //   children:imgUrlList
+                  //       .map((e) => Container(
+                  //     width: 390 * fem,
+                  //     height: 120 * fem,
+                  //     decoration: BoxDecoration(
+                  //       borderRadius:
+                  //       const BorderRadius.all(Radius.circular(16)),
+                  //       image: DecorationImage(image: NetworkImage(e)),
+                  //     ),
+                  //   )).toList()
 
 
 
 
-                  ),
+                  // ),
 
                 ),
               ),
