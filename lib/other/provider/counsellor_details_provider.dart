@@ -4,19 +4,24 @@ import 'package:myapp/booking_page/checkout_screen.dart';
 import 'package:myapp/home_page/model/banner_image_model.dart';
 import 'package:myapp/home_page/model/popular_workshop_model.dart';
 import 'package:myapp/home_page/model/tranding_webinar_model.dart';
+import 'package:myapp/model/announcements_model.dart';
 import 'package:myapp/model/check_out_details_model.dart';
 import 'package:myapp/model/counsellor_data.dart';
 import 'package:myapp/model/counsellor_detail.dart';
 import 'package:myapp/model/counsellor_sessions.dart';
 import 'package:myapp/model/cousnellor_list_model.dart';
+import 'package:myapp/model/faculties_model.dart';
+import 'package:myapp/model/key_features_model.dart';
 import 'package:myapp/webinar_page/model/webinar_details_model.dart';
 import 'package:myapp/webinar_page/webinar_model.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
+import '../../model/course_model.dart';
 import '../api_service.dart';
 
 class CounsellorDetailsProvider extends ChangeNotifier {
   List<CounsellorDetail> cousnellorlist_detail = [];
+  List<ClientTestimonials> clientList = [];
   List<CounsellorModel> counsellorModel = [];
   List<CounsellorData> counsellorData = [];
   List<WebinarModel> webinarList = [];
@@ -25,8 +30,12 @@ class CounsellorDetailsProvider extends ChangeNotifier {
   List<BannerImageModel> bannerImageList = [];
   List<TrandingWebinarModel> trendingWebinarList = [];
   List<PopularWorkShopModel> popularWorkShopList = [];
+  List<KeyFeaturesModel> keyFeaturesList = [];
+  List<FacultiesModel> facultiesList = [];
+  List<AnnouncementsModel> announcementsList = [];
 
   List<CheckOutDetails> checkOutDetailsList = [];
+  List<CourseModel> courseList = [];
   // WebinarModel webinarModel = WebinarModel();
   late Razorpay razorpay;
 
@@ -42,6 +51,42 @@ class CounsellorDetailsProvider extends ChangeNotifier {
       isLoading = true;
     } else {
       cousnellorlist_detail = counsellor;
+      isLoading = false;
+    }
+    notifyListeners();
+  }
+
+  void fetchFaculties(String id) async {
+    var faculties = await ApiService.getFaculties(id);
+    isLoading = true;
+    if (faculties.isEmpty) {
+      isLoading = true;
+    } else {
+      facultiesList = faculties;
+      isLoading = false;
+    }
+    notifyListeners();
+  }
+
+  void fetchAnnouncements(String id) async {
+    var announcements = await ApiService.getAnnouncements(id);
+    isLoading = true;
+    if (announcements.isEmpty) {
+      isLoading = true;
+    } else {
+      announcementsList = announcements;
+      isLoading = false;
+    }
+    notifyListeners();
+  }
+
+  void fetchKeyFeatures_detail(String id) async {
+    var keyFeatures = await ApiService.getKeyFeatures(id);
+    isLoading = true;
+    if (keyFeatures.isEmpty) {
+      isLoading = true;
+    } else {
+      keyFeaturesList = keyFeatures;
       isLoading = false;
     }
     notifyListeners();
@@ -226,6 +271,23 @@ class CounsellorDetailsProvider extends ChangeNotifier {
   //     isLoading(false);
   //   }
   // }
+
+
+  void fetchCourses(String id) async {
+    var courses = await ApiService.getCourse(id)
+    ;
+    isLoading = true;
+    if (courses.isEmpty) {
+      isLoading = true;
+    } else {
+      courseList = courses;
+      isLoading = false;
+    }
+    notifyListeners();
+  }
+
+
+
 
    refresh() {
     return Future.delayed(const Duration(seconds: 1), () {

@@ -11,11 +11,15 @@ import 'package:myapp/model/check_out_details_model.dart';
 import 'package:myapp/model/ep_details_model.dart';
 import 'package:myapp/webinar_page/webinar_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../model/announcements_model.dart';
 import '../model/counsellor_data.dart';
 import '../model/counsellor_detail.dart';
 import '../model/counsellor_sessions.dart';
+import '../model/course_model.dart';
 import '../model/cousnellor_list_model.dart';
 import '../model/ep_model.dart';
+import '../model/faculties_model.dart';
+import '../model/key_features_model.dart';
 import '../model/response_model.dart';
 import 'constants.dart';
 import 'dart:developer' as console show log;
@@ -758,7 +762,7 @@ class ApiService {
             averageRating: 1,
             followersCount: 1,
             experienceInYears: 1,
-            totalSessionsAttended: 1,
+            totalSessionsAttended: "1",
             gender: "")
       ];
     } else {
@@ -1180,4 +1184,122 @@ class ApiService {
 
     return [];
   }
+
+
+  static Future<List<KeyFeaturesModel>> getKeyFeatures(String id) async {
+    var url = Uri.parse("${AppConstants.baseUrl}/ep/key-featuresForUser/$id");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+    final response = await http.get(url, headers: {
+      //"Content-Type": "application/json",
+      "Authorization": token,
+    });
+    print(token);
+    var data;
+    //console.log("Counsellor List : ${response.body}");
+    if (response.statusCode == 200) {
+      data = jsonDecode(response.body.toString());
+      return List<KeyFeaturesModel>.from(
+          data.map((x) => KeyFeaturesModel.fromJson(x)));
+    }
+    if (response.statusCode == 404) {
+      return [
+        KeyFeaturesModel(
+          name: "none",
+          keyFeaturesIcon: "",
+        ),
+      ];
+    }
+    return [];
+  }
+
+  static Future<List<FacultiesModel>> getFaculties(String id) async {
+    var url = Uri.parse("${AppConstants.baseUrl}/ep/facultiesForUsers/$id");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+    final response = await http.get(url, headers: {
+      //"Content-Type": "application/json",
+      "Authorization": token,
+    });
+    print(token);
+    var data;
+    //console.log("Counsellor List : ${response.body}");
+    if (response.statusCode == 200) {
+      data = jsonDecode(response.body.toString());
+      return List<FacultiesModel>.from(
+          data.map((x) => FacultiesModel.fromJson(x)));
+    }
+    if (response.statusCode == 404) {
+      return [
+        FacultiesModel(
+          name: "none",
+          displayPic: "",
+        ),
+      ];
+    }
+    return [];
+  }
+
+  static Future<List<AnnouncementsModel>> getAnnouncements(String id) async {
+    var url = Uri.parse("${AppConstants.baseUrl}/ep/announcements-for-user/$id");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+    final response = await http.get(url, headers: {
+      //"Content-Type": "application/json",
+      "Authorization": token,
+    });
+    print(token);
+    var data;
+    //console.log("Counsellor List : ${response.body}");
+    if (response.statusCode == 200) {
+      data = jsonDecode(response.body.toString());
+      return List<AnnouncementsModel>.from(
+          data.map((x) => AnnouncementsModel.fromJson(x)));
+    }
+    if (response.statusCode == 404) {
+      return [
+        AnnouncementsModel(
+            update: ""
+        ),
+      ];
+    }
+    return [];
+  }
+
+
+  static Future<List<CourseModel>> getCourse(String id) async {
+    var url = Uri.parse("${AppConstants.baseUrl}/ep/coursesForUser/$id");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+    final response = await http.get(url, headers: {
+      //"Content-Type": "application/json",
+      "Authorization": token,
+    });
+    print(token);
+    var data;
+    //console.log("Counsellor List : ${response.body}");
+    if (response.statusCode == 200) {
+      data = jsonDecode(response.body.toString());
+      return List<CourseModel>.from(
+          data.map((x) => CourseModel.fromJson(x)));
+    }
+    if (response.statusCode == 404) {
+      return [
+        CourseModel(
+          name: "",
+          image: "",
+          type: "",
+        ),
+      ];
+    }
+    return [];
+  }
+
+
+
+
+
+
+
+
 }

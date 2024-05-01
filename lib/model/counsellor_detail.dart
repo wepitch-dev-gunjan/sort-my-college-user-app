@@ -22,7 +22,7 @@ class CounsellorDetail {
   int averageRating;
   int followersCount;
   int experienceInYears;
-  int totalSessionsAttended;
+  String totalSessionsAttended;
   String gender;
   List qualifications;
   List howIWillHelpYou;

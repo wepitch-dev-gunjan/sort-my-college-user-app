@@ -660,6 +660,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         context,
         MaterialPageRoute(
             builder: (context) =>
+
                 CounsellingSessionPage(
                   id: cid,
                   name: name,
