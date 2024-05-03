@@ -618,17 +618,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   MoveToSessionPage() {
     Navigator.push(
         context,
-<<<<<<< HEAD
-        MaterialPageRoute(
-            builder: (context) =>
 
-                CounsellingSessionPage(
-                  id: cid,
-                  name: name,
-                  designation: widget.designation,
-                  profileurl: widget.profilepicurl,
-                  selectedIndex_get: 0,)));
-=======
         MaterialPageRoute(builder: (context) => BookingPage()
             // CounsellingSessionPage(
             //   id: cid,
@@ -638,6 +628,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             //   selectedIndex_get: 0,)
 
             ));
->>>>>>> 4358405a49639571848e30850ff9dab937e47dd1
+
   }
+
 }

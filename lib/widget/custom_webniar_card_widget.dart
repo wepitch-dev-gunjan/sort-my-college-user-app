@@ -273,11 +273,19 @@ Widget registerNowWidget({
   required String title,
   required bool isRegisterNow,
 }) {
-  Color buttonColor =
+
+ /* Color buttonColor =
+
       isRegisterNow ? const Color(0xFF1F0A68) : const Color(0xFF1F0A68);
       /*isRegisterNow ? ColorsConst.grayColor : ColorsConst.grayColor;*/
 
-  Color textColor = isRegisterNow ? Colors.white : Colors.white;
+      Color textColor = isRegisterNow ? Colors.white : Colors.white; */
+
+  Color buttonColor =
+  //isRegisterNow ? const Color(0xFF1F0A68) : const Color(0xFFFFFFFF);
+
+  isRegisterNow ? const Color(0xFF1F0A68) : ColorsConst.grayColor;
+  Color textColor = isRegisterNow ? Colors.white : Colors.black;
 
   return SizedBox(
     height: 35,
@@ -615,8 +623,14 @@ Widget customRegisterNow({
   required String title,
   required bool isRegisterNow,
 }) {
-  Color buttonColor = isRegisterNow ? Colors.white : Colors.white;
-  Color textColor = isRegisterNow ? Colors.black : Colors.black;
+
+ /* Color buttonColor = isRegisterNow ? Colors.white : Colors.white;
+  Color textColor = isRegisterNow ? Colors.black : Colors.black; */
+
+  Color buttonColor =
+  /*isRegisterNow ? const Color(0xFF1F0A68) : const Color(0xFFFFFFFF);*/
+  isRegisterNow ? const Color(0xFF1F0A68) : ColorsConst.grayColor;
+  Color textColor = isRegisterNow ? Colors.white : Colors.white;
 
   return SizedBox(
     height: 35,

@@ -1,11 +1,7 @@
 // ignore_for_file: prefer_const_constructors
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:myapp/home_page/entrance_preparation/announcements_screen.dart';
-import 'package:myapp/main.dart';
 import 'package:myapp/model/cousnellor_list_model.dart';
 import 'package:myapp/model/ep_details_model.dart';
 import 'package:myapp/model/follower_model.dart';
@@ -52,6 +48,8 @@ class _EntrancePreparationDetailsScreenState
   late FollowerProvider followerProvider;
   FollowerModel followerModel = FollowerModel();
   TextEditingController controller = TextEditingController();
+  bool showFullContent = false;
+
 
   bool visible = false;
   late TabController _controller;
@@ -379,77 +377,47 @@ class _EntrancePreparationDetailsScreenState
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: college!.about.map((aboutItem) {
-                          return Row(
-                            children: [
-                              const Text(
-                                '\u2022 ',
+                        children: [
+                          if (college != null && college!.about.isNotEmpty)
+                            for (int i = 0; i < (showFullContent ? college!.about.length : 1); i++)
+                              Row(
+                                children: [
+                                  const Text(
+                                    '\u2022 ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      college!.about[i],
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 13,
+                                      ),
+                                      softWrap: true,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                          const SizedBox(height: 12),
+                          if (college != null && college!.about.length > 1)
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  showFullContent = !showFullContent;
+                                });
+                              },
+                              child: Text(
+                                showFullContent ? 'Read less....' : 'Read more....',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 20,
+                                  fontSize: 14,
                                 ),
                               ),
-                              Flexible(
-                                child: Text(
-                                  aboutItem,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 13,
-                                  ),
-                                  softWrap: true,
-                                ),
-                              ),
-                            ],
-                          );
-                        }).toList(),
-                      ),
-                      // const Row(
-                      //   children: [
-                      //     Text(
-                      //       '\u2022 ',
-                      //       style: TextStyle(
-                      //           fontWeight: FontWeight.bold, fontSize: 20),
-                      //     ),
-                      //     Text(
-                      //       "Typesetting industry. Lorem Ipsum has been the ",
-                      //       style: TextStyle(
-                      //           fontWeight: FontWeight.w500, fontSize: 13),
-                      //     ),
-                      //   ],
-                      // ),
-                      // const Row(
-                      //   children: [
-                      //     Text(
-                      //       '\u2022 ',
-                      //       style: TextStyle(
-                      //           fontWeight: FontWeight.bold, fontSize: 20),
-                      //     ),
-                      //     Text(
-                      //       "Industry's standard dummy text ever since the 1500s",
-                      //       style: TextStyle(
-                      //           fontWeight: FontWeight.w500, fontSize: 13),
-                      //     ),
-                      //   ],
-                      // ),
-                      // const Row(
-                      //   children: [
-                      //     Text(
-                      //       '\u2022 ',
-                      //       style: TextStyle(
-                      //           fontWeight: FontWeight.bold, fontSize: 20),
-                      //     ),
-                      //     Text(
-                      //       "Industry's standard dummy text ever since the 1500s",
-                      //       style: TextStyle(
-                      //           fontWeight: FontWeight.w500, fontSize: 13),
-                      //     ),
-                      //   ],
-                      // ),
-                      const SizedBox(height: 12),
-                      const Text(
-                        'Read more....',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14),
+                            ),
+                        ],
                       ),
                       const SizedBox(height: 14),
                       const Text(
@@ -475,7 +443,6 @@ class _EntrancePreparationDetailsScreenState
                           itemCount: counsellorDetailController.courseList.length,
                           itemBuilder: (context, index) {
                             var course = counsellorDetailController.courseList[index];
-                            String displayName = course.name!.substring(0, 8);
 
                             if (course.type == 'UG') {
                               return GestureDetector(
@@ -580,183 +547,60 @@ class _EntrancePreparationDetailsScreenState
                         ],
                       ),
                       const SizedBox(height: 12),
-                      // SingleChildScrollView(
-                      //   scrollDirection: Axis.horizontal,
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.start,
-                      //     crossAxisAlignment: CrossAxisAlignment.start,
-                      //     children: [
-                      //       Card(
-                      //         color: ColorsConst.whiteColor,
-                      //         surfaceTintColor: ColorsConst.whiteColor,
-                      //         elevation: 1,
-                      //         child: Container(
-                      //           padding: const EdgeInsets.only(
-                      //               left: 0, top: 10, right: 0),
-                      //           width: 220,
-                      //           height: 70,
-                      //           decoration: const BoxDecoration(),
-                      //           child: const Row(
-                      //             mainAxisAlignment:
-                      //                 MainAxisAlignment.spaceEvenly,
-                      //             children: [
-                      //               Column(
-                      //                 children: [
-                      //                   Text(
-                      //                     'Dr.kumar',
-                      //                     style: TextStyle(
-                      //                         fontSize: 15,
-                      //                         fontWeight: FontWeight.w500),
-                      //                   ),
-                      //                   Text(
-                      //                     'MBBS and MS in',
-                      //                     style: TextStyle(
-                      //                         fontSize: 15,
-                      //                         fontWeight: FontWeight.w500),
-                      //                   ),
-                      //                 ],
-                      //               ),
-                      //               Icon(
-                      //                 Icons.account_circle,
-                      //                 size: 50,
-                      //                 color: ColorsConst.blueColor,
-                      //               ),
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       ),
-                      //       Card(
-                      //         color: ColorsConst.whiteColor,
-                      //         surfaceTintColor: ColorsConst.whiteColor,
-                      //         child: Container(
-                      //           padding: EdgeInsets.only(
-                      //               left: 20, top: 12, right: 20),
-                      //           width: 328,
-                      //           height: 70,
-                      //           decoration: BoxDecoration(),
-                      //           child: const Row(
-                      //             mainAxisAlignment:
-                      //                 MainAxisAlignment.spaceAround,
-                      //             children: [
-                      //               Column(
-                      //                 children: [
-                      //                   Text(
-                      //                     'Dr.kumar',
-                      //                     style: TextStyle(
-                      //                         fontSize: 16,
-                      //                         fontWeight: FontWeight.w600),
-                      //                   ),
-                      //                   Text(
-                      //                     'MBBS and MS in',
-                      //                     style: TextStyle(
-                      //                         fontSize: 16,
-                      //                         fontWeight: FontWeight.w600),
-                      //                   ),
-                      //                 ],
-                      //               ),
-                      //               Icon(
-                      //                 Icons.account_circle,
-                      //                 size: 50,
-                      //                 color: ColorsConst.blueColor,
-                      //               ),
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       ),
-                      //       Card(
-                      //         color: ColorsConst.whiteColor,
-                      //         surfaceTintColor: ColorsConst.whiteColor,
-                      //         child: Container(
-                      //           padding: const EdgeInsets.only(
-                      //               left: 20, top: 12, right: 20),
-                      //           width: 328,
-                      //           height: 70,
-                      //           decoration: const BoxDecoration(),
-                      //           child: const Row(
-                      //             mainAxisAlignment:
-                      //                 MainAxisAlignment.spaceAround,
-                      //             children: [
-                      //               Column(
-                      //                 children: [
-                      //                   Text(
-                      //                     'Dr.kumar',
-                      //                     style: TextStyle(
-                      //                         fontSize: 16,
-                      //                         fontWeight: FontWeight.w600),
-                      //                   ),
-                      //                   Text(
-                      //                     'MBBS and MS in',
-                      //                     style: TextStyle(
-                      //                         fontSize: 16,
-                      //                         fontWeight: FontWeight.w600),
-                      //                   ),
-                      //                 ],
-                      //               ),
-                      //               Icon(
-                      //                 Icons.account_circle,
-                      //                 size: 50,
-                      //                 color: ColorsConst.blueColor,
-                      //               ),
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
+
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.13,
-                        child: PageView.builder(
+                        child: counsellorDetailController.facultiesList.isEmpty
+                            ? Center(
+                          child: Text(
+                            "No Faculties",
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        )
+                            : PageView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount:
-                          counsellorDetailController.facultiesList.length,
+                          itemCount: counsellorDetailController.facultiesList.length,
                           itemBuilder: (context, index) {
-                            var faculties =
-                            counsellorDetailController.facultiesList[index];
+                            var faculties = counsellorDetailController.facultiesList[index];
                             return Card(
-                                color: ColorsConst.whiteColor,
-                                surfaceTintColor: ColorsConst.whiteColor,
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          faculties.qualifications.toString(),
-                                          style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w600),
+                              color: ColorsConst.whiteColor,
+                              surfaceTintColor: ColorsConst.whiteColor,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        faculties.qualifications.toString(),
+                                        style: const TextStyle(
+                                            fontSize: 16, fontWeight: FontWeight.w600),
+                                      ),
+                                      Text(faculties.name.toString()),
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        height: 54,
+                                        width: 60,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              faculties.displayPic.toString(),
+                                            ),
+                                          ),
+                                          shape: BoxShape.circle,
                                         ),
-                                        Text(faculties.name.toString()),
-                                      ],
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          height: 54,
-                                          width: 60,
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: NetworkImage(
-                                                  faculties.displayPic
-                                                      .toString(),
-                                                ),
-                                              ),
-                                              shape: BoxShape.circle),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ));
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
                           },
                         ),
                       ),
@@ -789,11 +633,9 @@ class _EntrancePreparationDetailsScreenState
                                       counsellorDetailController
                                           .keyFeaturesList.length)
                                     Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 4, vertical: 6),
-                                      width: MediaQuery.of(context).size.width /
-                                          3 -
-                                          16,
+                                      padding: EdgeInsets.all(4),
+                                      margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
+                                      width: MediaQuery.of(context).size.width / 3 - 16,
                                       height: 90,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
@@ -807,14 +649,16 @@ class _EntrancePreparationDetailsScreenState
                                         mainAxisAlignment:
                                         MainAxisAlignment.center,
                                         children: [
-                                          Image.asset('assets/page-1/images/imagekey.png'),
+                                          Image.asset(imgUrl[i],width: 30,height: 30,),
                                           const SizedBox(height: 8),
-                                          Text(
-                                            counsellorDetailController
-                                                .keyFeaturesList[i].name
-                                                .toString(),
-                                            textAlign: TextAlign.center,
-                                            style: const TextStyle(fontSize: 12),
+                                          Center(
+                                            child: Text(
+                                              counsellorDetailController
+                                                  .keyFeaturesList[i].name
+                                                  .toString(),
+                                              textAlign: TextAlign.center,
+                                              style: const TextStyle(fontSize: 10),
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -824,7 +668,6 @@ class _EntrancePreparationDetailsScreenState
                           },
                         ),
                       ),
-
                       const SizedBox(height: 12),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.26,
@@ -1057,6 +900,15 @@ class _EntrancePreparationDetailsScreenState
       ),
     );
   }
+
+  List<String> imgUrl =[
+    "assets/page-1/images/imagekey.png",
+    "assets/page-1/images/image 35.png",
+    "assets/page-1/images/image 36.png",
+    "assets/page-1/images/image 39 (1).png",
+    "assets/page-1/images/image 38 (1).png",
+    "assets/page-1/images/image 37.png",
+  ];
 
   init_collegedata(dynamic data) {
     if (data is College) {
