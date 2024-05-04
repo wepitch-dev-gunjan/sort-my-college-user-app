@@ -37,8 +37,7 @@ class _Drawer1State extends State<Drawer1> {
   void loadDefaultValue() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     name = prefs.getString("name") ?? "N/A";
-    if(prefs.getString("profile_pic") == null)
-    {
+    if(prefs.getString("profile_pic") == null) {
       // load local pic
       path = prefs.getString("profile_pic_local")!;
     }
@@ -58,7 +57,7 @@ class _Drawer1State extends State<Drawer1> {
       shape:  RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),
       ),
-      width: width * 0.6,
+      width: width * 0.63,
       backgroundColor: Colors.white,
       child: Center(
         child: Column(
@@ -91,17 +90,17 @@ class _Drawer1State extends State<Drawer1> {
                             child: path != null
                                 ? path.toString().contains("https")
                                 ? Image.network(
-                                  path.toString(),
+                              path.toString(),
+                              fit: BoxFit.cover,
+                              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace)
+                              {
+                                //print("Exception >> ${exception.toString()}");
+                                return Image.asset(
+                                  'assets/page-1/images/profilepic.jpg',
                                   fit: BoxFit.cover,
-                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace)
-                                  {
-                                    //print("Exception >> ${exception.toString()}");
-                                    return Image.asset(
-                                      'assets/page-1/images/profilepic.jpg',
-                                      fit: BoxFit.cover,
-                                    );
-                                  },
-                                  ): Image.file(File(path), fit: BoxFit.cover)
+                                );
+                              },
+                            ): Image.file(File(path), fit: BoxFit.cover)
                                 : Image.asset('assets/page-1/images/profilepic.jpg'),
                           ),
                         ),
@@ -125,7 +124,7 @@ class _Drawer1State extends State<Drawer1> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Column(
                 children: [
                   GestureDetector(
@@ -188,7 +187,7 @@ class _Drawer1State extends State<Drawer1> {
             //   ),
             // ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Column(
                 children: [
                   ListTile(
@@ -255,7 +254,7 @@ class _Drawer1State extends State<Drawer1> {
             //   ),
             // ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14.0),
+              padding: const EdgeInsets.symmetric(horizontal: 9.0),
               child: GestureDetector(
                 onTap: () {
                   showDialog(
@@ -311,6 +310,58 @@ class _Drawer1State extends State<Drawer1> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 7.0),
+              child: GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text('Alert!'),
+                        content: const Text('Are you sure want to delete account!'),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('No')),
+                          TextButton(
+                            onPressed: () async {
+                              await _accountDelete();
+                              if (mounted) {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                        const SplashScreenNew()));
+                              }
+                            },
+                            child: const Text('Yes'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                child: ListTile(
+                  leading: const Icon(Icons.delete_forever_outlined,size: 26,),
+                  title: Text(
+                    'Delete account',
+                    style: SafeGoogleFont(
+                      "Inter",
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  shape: Border(
+                    bottom: BorderSide(
+                      color: Colors.black.withOpacity(0.09),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             const Spacer(),
             Image.asset(
               "assets/page-1/images/sortmycollege-logo-1.png",
@@ -326,6 +377,18 @@ class _Drawer1State extends State<Drawer1> {
     );
   }
 
+  Future _accountDelete() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+    if (mounted) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const SplashScreenNew()),
+            (route) => false,
+      );
+    }
+  }
+
   Future _logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
@@ -336,6 +399,5 @@ class _Drawer1State extends State<Drawer1> {
             (route) => false,
       );
     }
-
   }
 }

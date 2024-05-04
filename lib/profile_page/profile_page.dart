@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:myapp/other/api_service.dart';
+import 'package:myapp/other/constants.dart';
 import 'package:myapp/profile_page/widget/profile_edit_dialog.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
@@ -15,6 +16,7 @@ import 'package:http/http.dart' as http;
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -29,41 +31,44 @@ class _ProfilePageState extends State<ProfilePage> {
   String eduLevel = "";
   var value;
 
+
   @override
   void initState() {
     super.initState();
     getAllInfo();
   }
 
-  void getAllInfo() async {
-    ApiService.get_profile().then((value) => loadDefaultValue());
+  getAllInfo() async {
+    await ApiService.get_profile().then((value) => loadDefaultValue());
   }
 
-  void loadDefaultValue() async {
+  loadDefaultValue() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     username = prefs.getString("name") ?? "N/A";
     phoneNumber = prefs.getString("phone_number") ?? "N/A";
     dob = prefs.getString("date_of_birth") ?? "N/A";
     gender = prefs.getString("gender") ?? "N/A";
     eduLevel = prefs.getString("education_level") ?? "N/A";
+    if(prefs.getString("profile_pic") == null) {
+      // load local pic
+      setState(() {
+        path = prefs.getString("profile_pic_local");
+      });
+    } else{
+      setState(() {
+        path = prefs.getString("profile_pic") ?? "N/A";
+      });
 
-    if(prefs.getString("profile_pic") == null)
-     {
-       // load local pic
-       path = prefs.getString("profile_pic_local");
-     }
-    else{
-      path = prefs.getString("profile_pic") ?? "N/A";
     }
-    setState(() {});
+    setState(() {
+      showSpinner = false;
+    });
   }
 
   void saveImagePathToPrefs(String path) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("profile_pic_local", path);
-    setState(() {
-    });
-
+    setState(() {});
   }
 
   File? image ;
@@ -78,54 +83,58 @@ class _ProfilePageState extends State<ProfilePage> {
     if (xFile != null) {
       path = xFile.path;
       image = File(xFile.path);
-      saveimgmethod();
-
-
-      //await uploadImage().then((value) => saveimgmethod());
-
+      // saveimgmethod();
+      await uploadImage().then((value) => saveimgmethod());
+      //await uploadImage();
     }
-
-
   }
 
 
-  Future<void> uploadImage ()async{
-
+  Future<void> uploadImage() async {
     setState(() {
-      showSpinner = true ;
+      showSpinner = true;
     });
 
-    var stream  = http.ByteStream(image!.openRead());
+    var stream = http.ByteStream(image!.openRead());
     stream.cast();
     var length = await image!.length();
-    var uri = Uri.parse('https://fakestoreapi.com/products');
-    var request = http.MultipartRequest('POST', uri);
+    var uri = Uri.parse('${AppConstants.baseUrl}/user/');
 
+    /// Save token in shared preferences
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+    var request = http.MultipartRequest('PUT', uri);
+
+    /// Add token to headers
+    request.headers['Authorization'] = token;
 
     var multiport = http.MultipartFile(
-        'profile_pic',
-        stream,
-        length);
+      'profile_pic',
+      stream,
+      length,
+    );
 
     request.files.add(multiport);
-    var response = await request.send() ;
 
-    print(response.stream.toString());
+    try {
+      var response = await request.send();
+      if (response.statusCode == 200) {
 
-    if(response.statusCode == 200){
+        Fluttertoast.showToast(msg: 'Image uploaded successfully');
+        await ApiService.get_profile().then((value) => loadDefaultValue());
+
+      } else {
+        Fluttertoast.showToast(msg: 'Something went wrong while uploading image');
+        setState(() {
+          showSpinner = false;
+        });
+        saveimgmethod();
+      }
+    } catch (e) {
+      print('Error uploading image: $e');
+      Fluttertoast.showToast(msg: 'Error uploading image');
       setState(() {
-        showSpinner = false ;
-      });
-
-      //print('image uploaded');
-      Fluttertoast.showToast(msg: 'image uploaded successfully');
-
-    }
-    else {
-      //print('failed');
-      Fluttertoast.showToast(msg: 'Something went wrong while uploading image');
-      setState(() {
-        showSpinner = false ;
+        showSpinner = false;
       });
     }
   }
@@ -174,18 +183,17 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: path != null
                                 ?  path.toString().contains("https")
                                 ?  Image.network(
-                                    path.toString(),
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace)
-                                   {
-                                    //print("Exception >> ${exception.toString()}");
-                                    return Image.asset(
-                                    'assets/page-1/images/profilepic.jpg',
-                                     fit: BoxFit.cover,
-                                    );
+                              path.toString(),
+                              fit: BoxFit.cover,
+                              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                //print("Exception >> ${exception.toString()}");
+                                return Image.asset(
+                                  'assets/page-1/images/book.jpg',
+                                  fit: BoxFit.cover,
+                                );
                               },
                             )
-                             : Image.file(File(path!), fit: BoxFit.cover)
+                                : Image.file(File(path!), fit: BoxFit.cover)
                                 : Image.asset('assets/page-1/images/profilepic.jpg'),
                           ),
                         ),
@@ -207,10 +215,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                } */
 
                               await getImage();
-                               
-
-                              
-                               
                             },
                             child: Container(
                               padding: const EdgeInsets.all(6),
@@ -228,7 +232,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                   ),
+
                   itemProfile('Name', username, CupertinoIcons.person),
+
                   const Divider(),
                   itemProfile('Phone Number', phoneNumber, CupertinoIcons.phone),
                   const Divider(),
@@ -250,7 +256,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             await showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return const ProfileEditDialog();
+                                  return  ProfileEditDialog(name:username);
                                 });
                             getAllInfo();
                           },
@@ -274,7 +280,8 @@ class _ProfilePageState extends State<ProfilePage> {
       String title,
       String subtitle,
       IconData iconData,
-      ) {
+      )
+  {
     return Container(
       height: MediaQuery.of(context).size.height * 0.08,
       decoration: BoxDecoration(
@@ -291,7 +298,5 @@ class _ProfilePageState extends State<ProfilePage> {
 
   saveimgmethod() {
     saveImagePathToPrefs(path!);
-
   }
-
 }

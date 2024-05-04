@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/other/api_service.dart';
@@ -6,10 +7,16 @@ import 'package:myapp/profile_page/widget/drop_down_dialog.dart';
 import 'package:myapp/profile_page/widget/edit_dob_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfileEditDialog extends StatefulWidget {
-  const ProfileEditDialog({super.key});
+import '../../utils.dart';
 
-  @override
+class ProfileEditDialog extends StatefulWidget {
+
+  ProfileEditDialog({super.key,
+    required this.name});
+
+  String name;
+
+ @override
   State<ProfileEditDialog> createState() => _ProfileEditDialogState();
 }
 
@@ -17,12 +24,18 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
   String? currentEducation;
   String? currentGender;
   String? currentDob;
+  String username = "";
+
+
+  TextEditingController _namecontroller = TextEditingController();
+
 
 
   @override
-  void initState() {
+   void initState()  {
     // TODO: implement initState
     super.initState();
+    _namecontroller.text = widget.name;
     loaddefaultValue();
 
   }
@@ -32,18 +45,48 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
     currentEducation = prefs.getString('education_level');
     currentGender = prefs.getString('gender');
     currentDob = prefs.getString('date_of_birth');
-
+    username = prefs.getString("name") ?? "N/A";
   }
 
 
 
   @override
   Widget build(BuildContext context) {
+    double baseWidth = 430;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double ffem = fem * 0.97;
+
+
     return AlertDialog(
       title: const Text('Edit User Detail'),
       content: SingleChildScrollView(
         child: Column(
           children: [
+
+            SizedBox(
+              height: 70,
+              child: TextFormField(
+                cursorColor: Colors.black,
+                controller: _namecontroller,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(40),
+                ],
+                decoration: const InputDecoration(
+                  hintStyle:
+                  TextStyle(color: Colors.black, fontSize: 15.0),
+                  hintText: "Enter Your Full Name",
+                  border:  OutlineInputBorder(),
+                ),
+                style: SafeGoogleFont(
+                  'Roboto',
+                  fontSize: 18 * ffem,
+                  fontWeight: FontWeight.w400,
+                  height: 1.1810 * ffem / fem,
+                  color: const Color(0xff000000),
+                ),
+              ),
+            ),
+
             TextField(
               readOnly: true,
               controller: TextEditingController(text: currentEducation),
@@ -101,6 +144,8 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool valueSaved = false;
 
+    prefs.setString('name', _namecontroller.text.toString());
+
     if (currentEducation != null) {
       prefs.setString('education_level', currentEducation!);
       valueSaved = true;
@@ -118,7 +163,7 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
 
 
     ApiService.save_profile(
-        prefs.getString("name"),
+        prefs.getString('name'),
         prefs.getString("date_of_birth"),
         prefs.getString("gender"),
         prefs.getString("education_level")).then((value) => Navigator.pop(context));
@@ -176,4 +221,27 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
       },
     );
   }
+
+  itemProfile(
+      String title,
+      String subtitle,
+      IconData iconData,
+      )
+  {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.08,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: ListTile(
+        title: Text(title),
+        subtitle: Text(subtitle),
+        leading: Icon(iconData),
+      ),
+    );
+  }
+
+
+
 }

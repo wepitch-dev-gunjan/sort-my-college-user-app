@@ -19,9 +19,9 @@ class EducationLevelNew extends StatefulWidget {
 class _EducationLevelNewState extends State<EducationLevelNew> {
   int selectedIndex = 0;
   static List<String> list = [
-    "I'm in School",
-    "I'm in College",
-    "I'm in Graduated",
+    "I'm in School",//student
+    "I'm in College",//college
+    "I'm in Graduation",//graduated
   ];
   String selectedOption = list[0];
 
@@ -71,16 +71,23 @@ class _EducationLevelNewState extends State<EducationLevelNew> {
                                   onPressed: () {
                                     setState(() {
                                       if (index == 0) {
-                                        selectedOption = "I'm in Student";
+                                        selectedOption = "Student";
                                         selectedIndex = index;
-                                        selectedOption = selectedOption
-                                            .replaceAll("I'm in ", '');
-                                      } else if (index == 2) {
-                                        selectedOption = "I'm in Graduated";
+                                        selectedOption = selectedOption;
+
+                                      }else if (index == 1) {
+                                        selectedOption = "College";
                                         selectedIndex = index;
-                                        selectedOption = selectedOption
-                                            .replaceAll("I'm in ", '');
-                                      } else {
+                                        selectedOption = selectedOption;
+
+                                      }
+                                      else if (index == 2) {
+                                        selectedOption = "Graduated";
+                                        selectedIndex = index;
+                                        selectedOption = selectedOption;
+                                      }
+
+                                      else {
                                         selectedOption = title;
                                         selectedIndex = index;
                                         selectedOption = selectedOption

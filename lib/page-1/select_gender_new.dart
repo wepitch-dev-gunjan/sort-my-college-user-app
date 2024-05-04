@@ -17,7 +17,7 @@ class SelectGenderNew extends StatefulWidget {
 
 class _SelectGenderNewState extends State<SelectGenderNew> {
   int selectedIndex = 0;
-  static List<String> list = ["Male", "Female", "Others"];
+  static List<String> list = ["Male", "Female", "Other"];
   String selectedOption = list[0];
 
 
