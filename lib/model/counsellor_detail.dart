@@ -22,7 +22,7 @@ class CounsellorDetail {
   int averageRating;
   int followersCount;
   int experienceInYears;
-  String totalSessionsAttended;
+  int totalSessionsAttended;
   String gender;
   List qualifications;
   List howIWillHelpYou;
@@ -65,7 +65,8 @@ class CounsellorDetail {
           id: json["_id"] ?? 0,
           name: json["name"] ?? "",
           email: json["email"] ?? '',
-          coverImage: json["cover_image"] ?? "https://media.gettyimages.com/id/1334712074/vector/coming-soon-message.jpg?s=612x612&w=0&k=20&c=0GbpL-k_lXkXC4LidDMCFGN_Wo8a107e5JzTwYteXaw=",
+          coverImage: json["cover_image"] ??
+              "https://media.gettyimages.com/id/1334712074/vector/coming-soon-message.jpg?s=612x612&w=0&k=20&c=0GbpL-k_lXkXC4LidDMCFGN_Wo8a107e5JzTwYteXaw=",
           averageRating: json["average_rating"] ?? 0,
           followersCount: json["followers_count"] ?? 0,
           experienceInYears: json["experience_in_years"] ?? 0,
@@ -76,7 +77,9 @@ class CounsellorDetail {
           followers: json["followers"] ?? 0,
           languages: json["languages_spoken"] ?? '',
           age: json["age"] ?? 0,
-          clientTestimonials: List<ClientTestimonials>.from(json["client_testimonials"].map((x) => ClientTestimonials.fromJson(x))),
+          clientTestimonials: List<ClientTestimonials>.from(
+              json["client_testimonials"]
+                  .map((x) => ClientTestimonials.fromJson(x))),
           reviews: json["reviews"] ?? 0,
           personalSessionPrice: json["personal_session_price"] ?? 0,
           groupSessionPrice: json["group_session_price"] ?? 0,
@@ -86,20 +89,21 @@ class CounsellorDetail {
           ));
 
   Map<String, dynamic> toJson() => {
-    "_id": id,
-    "name": name,
-    "email": email,
-    "cover_image": coverImage,
-    "average_rating": averageRating,
-    "followers_count": followersCount,
-    "experience_in_years": experienceInYears,
-    "total_sessions_attended": totalSessionsAttended,
-    "gender": gender,
-    "followers" : followers,
-    "reviews": reviews,
-    "following" : following,
-    "client_testimonials": List<dynamic>.from(clientTestimonials!.map((x) => x.toJson())),
-  };
+        "_id": id,
+        "name": name,
+        "email": email,
+        "cover_image": coverImage,
+        "average_rating": averageRating,
+        "followers_count": followersCount,
+        "experience_in_years": experienceInYears,
+        "total_sessions_attended": totalSessionsAttended,
+        "gender": gender,
+        "followers": followers,
+        "reviews": reviews,
+        "following": following,
+        "client_testimonials":
+            List<dynamic>.from(clientTestimonials!.map((x) => x.toJson())),
+      };
 }
 
 class Location {
@@ -139,15 +143,15 @@ class ClientTestimonials {
 
   ClientTestimonials(
       {this.sId,
-        this.feedbackTo,
-        this.feedbackFrom,
-        this.profilePic,
-        this.userName,
-        this.rating,
-        this.message,
-        this.createdAt,
-        this.updatedAt,
-        this.iV});
+      this.feedbackTo,
+      this.feedbackFrom,
+      this.profilePic,
+      this.userName,
+      this.rating,
+      this.message,
+      this.createdAt,
+      this.updatedAt,
+      this.iV});
 
   ClientTestimonials.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
