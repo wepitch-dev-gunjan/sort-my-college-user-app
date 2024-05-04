@@ -23,16 +23,33 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   bool isChecked = false;
+  var phone = '';
+  bool isLoading = false;
+  String code = '';
+
 
   @override
   void initState() {
     super.initState();
-    //configLoading();
+    configLoading();
   }
 
-  var phone = '';
-  bool isLoading = false;
-  String code = '';
+  void configLoading() {
+    EasyLoading.instance
+      ..displayDuration = const Duration(milliseconds: 2000)
+      ..loadingStyle = EasyLoadingStyle.custom
+      ..indicatorSize = 60
+      ..textColor = Colors.black
+      ..radius = 20
+      ..backgroundColor = Colors.transparent
+      ..maskColor = Colors.white
+      ..indicatorColor = Color(0xff1f0a68)
+      ..userInteractions = false
+      ..dismissOnTap = false
+      ..boxShadow = <BoxShadow>[]
+      ..indicatorType = EasyLoadingIndicatorType.circle;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -222,7 +239,7 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
   }
 
   void onTapGettingstarted(BuildContext context, String phoneNumber) async {
-    await EasyLoading.show(
+   await EasyLoading.show(
       dismissOnTap: false,
     );
 
@@ -325,21 +342,7 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
   //   return isvaluevalid;
   // }
 
-  void configLoading() {
-    EasyLoading.instance
-      ..displayDuration = const Duration(milliseconds: 2000)
-      ..loadingStyle = EasyLoadingStyle.custom
-      ..indicatorSize = 60
-      ..textColor = Colors.black
-      ..radius = 20
-      ..backgroundColor = Colors.transparent
-      ..maskColor = Colors.white
-      ..indicatorColor = Color(0xff1f0a68)
-      ..userInteractions = false
-      ..dismissOnTap = false
-      ..boxShadow = <BoxShadow>[]
-      ..indicatorType = EasyLoadingIndicatorType.circle;
-  }
+
 
   bool isEmail(String em) {
     bool isvaluevalid = false;

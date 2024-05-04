@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/home_page/homepagecontainer.dart';
 import 'package:myapp/page-1/selectdob_new.dart';
 import 'package:myapp/page-1/selectgender.dart';
@@ -22,10 +23,14 @@ class SplashScreen1 extends StatefulWidget {
   State<SplashScreen1> createState() => _SplashScreen1State();
 }
 
+
 class _SplashScreen1State extends State<SplashScreen1> {
   @override
   void initState() {
-    Future.delayed(const Duration(milliseconds: 20), () async {
+    configLoading();
+
+    Future.delayed(const Duration(milliseconds: 20), () async
+    {
       bool? isLoggedIn = await SplashScreen1.loggIn();
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -84,6 +89,22 @@ class _SplashScreen1State extends State<SplashScreen1> {
      
     });
     super.initState();
+  }
+
+  void configLoading() {
+    EasyLoading.instance
+      ..displayDuration = const Duration(milliseconds: 2000)
+      ..loadingStyle = EasyLoadingStyle.custom
+      ..indicatorSize = 60
+      ..textColor = Colors.black
+      ..radius = 20
+      ..backgroundColor = Colors.transparent
+      ..maskColor = Colors.white
+      ..indicatorColor = Color(0xff1f0a68)
+      ..userInteractions = false
+      ..dismissOnTap = false
+      ..boxShadow = <BoxShadow>[]
+      ..indicatorType = EasyLoadingIndicatorType.circle;
   }
 
   @override

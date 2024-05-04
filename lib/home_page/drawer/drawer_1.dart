@@ -1,6 +1,8 @@
 // ignore_for_file: unnecessary_null_comparison
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:myapp/home_page/coming_soon.dart';
 import 'package:myapp/home_page/drawer/image_saved_screen.dart';
 import 'package:myapp/home_page/help_screen.dart';
 import 'package:myapp/home_page/homepage.dart';
@@ -11,6 +13,7 @@ import 'package:myapp/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../other/api_service.dart';
+import '../../page-1/account_delete.dart';
 import '../homepagecontainer.dart';
 
 class Drawer1 extends StatefulWidget {
@@ -319,7 +322,7 @@ class _Drawer1State extends State<Drawer1> {
                     builder: (context) {
                       return AlertDialog(
                         title: const Text('Alert!'),
-                        content: const Text('Are you sure want to delete account!'),
+                        content: const Text('Are you sure want to Delete account!'),
                         actions: [
                           TextButton(
                               onPressed: () {
@@ -378,15 +381,25 @@ class _Drawer1State extends State<Drawer1> {
   }
 
   Future _accountDelete() async {
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
-    if (mounted) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const SplashScreenNew()),
-            (route) => false,
-      );
-    }
+    await EasyLoading.show(
+      dismissOnTap: false,
+    );
+
+    Future.delayed(const Duration(seconds: 2), () async
+    {
+      await prefs.clear();
+      EasyLoading.dismiss();
+      if (mounted) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const ComingSoon()),
+              (route) => false,
+        );
+      }
+    });
+
   }
 
   Future _logout() async {
@@ -395,7 +408,7 @@ class _Drawer1State extends State<Drawer1> {
     if (mounted) {
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const SplashScreenNew()),
+        MaterialPageRoute(builder: (context) => const AccountDelete()),
             (route) => false,
       );
     }
