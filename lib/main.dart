@@ -10,14 +10,11 @@ import 'package:myapp/other/provider/counsellor_details_provider.dart';
 import 'package:myapp/other/dependency_injection.dart';
 import 'package:myapp/other/provider/follower_provider.dart';
 import 'package:myapp/other/provider/user_booking_provider.dart';
-import 'package:myapp/page-1/select_gender_new.dart';
-import 'package:myapp/page-1/selectdob_new.dart';
 import 'package:myapp/page-1/shared.dart';
 import 'package:myapp/page-1/splash_screen_1.dart';
 import 'package:myapp/utils.dart';
 import 'package:provider/provider.dart';
 
-import 'home_page/entrance_preparation/entrance_preparation_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,6 +53,7 @@ class MyApp extends StatelessWidget {
           title: 'SMC App',
           debugShowCheckedModeBanner: false,
           scrollBehavior: MyCustomScrollBehavior(),
+          scaffoldMessengerKey: snackbarKey,
           theme: ThemeData(
             primarySwatch: Colors.grey,
           ),
@@ -64,4 +62,19 @@ class MyApp extends StatelessWidget {
           builder: EasyLoading.init()),
     );
   }
+}
+
+
+
+
+final GlobalKey<ScaffoldMessengerState> snackbarKey =
+    GlobalKey<ScaffoldMessengerState>();
+
+void ShowSnackBarMsg(String message, {Color? color}) {
+  final snackBar = SnackBar(
+    content: Text(message),
+    duration: const Duration(seconds: 3),
+    backgroundColor: color,
+  );
+  snackbarKey.currentState?.showSnackBar(snackBar);
 }

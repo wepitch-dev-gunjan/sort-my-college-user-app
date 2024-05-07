@@ -565,6 +565,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             },
                             child: const Text(
                               'Pay Now',
+                              // "book now"
                               style: TextStyle(color: ColorsConst.whiteColor),
                             )),
                       ),
@@ -632,3 +633,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
 
 }
+
+
+// order create 
+
+// Razerpay

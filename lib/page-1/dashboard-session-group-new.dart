@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:myapp/booking_page/checkout_screen.dart';
 import 'package:myapp/home_page/homepagecontainer_2.dart';
+import 'package:myapp/main.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/shared/app_const.dart';
 import 'package:myapp/utils.dart';
@@ -14,6 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../booking_page/booking_page.dart';
 import '../model/counsellor_sessions.dart';
 import '../other/provider/counsellor_details_provider.dart';
 import 'dart:developer' as console show log;
@@ -21,10 +23,10 @@ import 'dart:developer' as console show log;
 class Counseling_Session_group extends StatefulWidget {
   const Counseling_Session_group(
       {super.key,
-        required this.name,
-        required this.id,
-        required this.designation,
-        required this.profilepic});
+      required this.name,
+      required this.id,
+      required this.designation,
+      required this.profilepic});
 
   final String name;
   final String id;
@@ -234,7 +236,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
     configLoading();
     fetchDataFromApi();
 
-   // Fluttertoast.showToast(msg: "abc");
+    // Fluttertoast.showToast(msg: "abc");
 
     //fetchDataFromApiAll();
     context
@@ -487,7 +489,13 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                   physics: const ScrollPhysics(),
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
-                                   dynamic  bookedslot =  counsellorSessionProvider.details.sessions![index].sessionSlots - counsellorSessionProvider.details.sessions![index].sessionAvailableSlots;
+                                    dynamic bookedslot =
+                                        counsellorSessionProvider.details
+                                                .sessions![index].sessionSlots -
+                                            counsellorSessionProvider
+                                                .details
+                                                .sessions![index]
+                                                .sessionAvailableSlots;
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 16.0),
@@ -540,9 +548,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                     ),
                                                     child: Center(
                                                       child: Text(
-
                                                         ' ${bookedslot.toString()} / ${counsellorSessionProvider.details.sessions![index].sessionSlots}',
-
                                                         style: const TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 13,
@@ -590,36 +596,49 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                         height: 5,
                                                       ),
                                                       Text(
-                                                        counsellorSessionProvider.details.sessions?[index].sessionTime != null
-                                                            ? DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(counsellorSessionProvider.details.sessions![index].sessionTime!))
+                                                        counsellorSessionProvider
+                                                                    .details
+                                                                    .sessions?[
+                                                                        index]
+                                                                    .sessionTime !=
+                                                                null
+                                                            ? DateFormat(
+                                                                    'h:mm a')
+                                                                .format(DateTime.fromMillisecondsSinceEpoch(
+                                                                    counsellorSessionProvider
+                                                                        .details
+                                                                        .sessions![
+                                                                            index]
+                                                                        .sessionTime!))
                                                             : 'N/A',
                                                         style: const TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 12,
                                                           fontFamily: 'Inter',
-                                                          fontWeight: FontWeight.w400,
-                                                          height: 0,
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                      Text(
-                                                        'Price - ${counsellorSessionProvider.details.sessions?[index].sessionPrice} /-',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: const TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 12,
-                                                          fontFamily: 'Inter',
                                                           fontWeight:
-                                                              FontWeight.w500,
+                                                              FontWeight.w400,
                                                           height: 0,
                                                         ),
                                                       ),
                                                       const SizedBox(
                                                         height: 5,
                                                       ),
+                                                      // Text(
+                                                      //   'Price - ${counsellorSessionProvider.details.sessions?[index].sessionPrice} /-',
+                                                      //   textAlign:
+                                                      //       TextAlign.center,
+                                                      //   style: const TextStyle(
+                                                      //     color: Colors.black,
+                                                      //     fontSize: 12,
+                                                      //     fontFamily: 'Inter',
+                                                      //     fontWeight:
+                                                      //         FontWeight.w500,
+                                                      //     height: 0,
+                                                      //   ),
+                                                      // ),
+                                                      // const SizedBox(
+                                                      //   height: 5,
+                                                      // ),
                                                       GestureDetector(
                                                         onTap: () {
                                                           isExpanded =
@@ -695,8 +714,15 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                       SharedPreferences sPref =
                                                           await SharedPreferences
                                                               .getInstance();
-                                                      var id = counsellorSessionProvider.details.sessions?[index].id;
-                                                      sPref.setString('sessionid', id!);
+
+                                                      var id =
+                                                          counsellorSessionProvider
+                                                              .details
+                                                              .sessions?[index]
+                                                              .id;
+                                                      sPref.setString(
+                                                          'sessionid', id!);
+
                                                       /*Navigator.push(
                                                           context,
                                                           MaterialPageRoute(
@@ -707,19 +733,26 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                                           .name,
                                                                       id: id)));*/
 
-                                                       var sessionSlots = counsellorSessionProvider.details.sessions![index].sessionSlots!;
-                                                       var sessionAvailableSlots = counsellorSessionProvider.details.sessions![index].sessionAvailableSlots!;
+                                                      var sessionSlots =
+                                                          counsellorSessionProvider
+                                                              .details
+                                                              .sessions![index]
+                                                              .sessionSlots!;
+                                                      var sessionAvailableSlots =
+                                                          counsellorSessionProvider
+                                                              .details
+                                                              .sessions![index]
+                                                              .sessionAvailableSlots!;
 
-                                                      if (sessionAvailableSlots <= 0!) {
+                                                      if (sessionAvailableSlots <=
+                                                          0!) {
                                                         EasyLoading.showToast(
                                                             'There are no booking slots available in this session, please book another session',
                                                             toastPosition:
                                                                 EasyLoadingToastPosition
                                                                     .bottom);
-
-                                                      }
-                                                      else {
-                                                        Navigator.push(
+                                                      } else {
+                                                        /* Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
                                                                 builder: (context) =>
@@ -727,7 +760,17 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                                         designation: widget.designation,
                                                                         name: widget.name,
                                                                         profilepicurl: widget.profilepic,
-                                                                        id: id)));
+                                                                        id: id))); */
+
+                                                        await ApiService
+                                                                .updateBookingSession(
+                                                                    id)
+                                                            .then((value) =>
+                                                                MoveToSessionPage());
+                                                        ShowSnackBarMsg(
+                                                            "You have register successfully",
+                                                            color:
+                                                                Colors.green);
                                                       }
                                                     },
                                                     child: Container(
@@ -755,7 +798,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                       ),
                                                       child: const Center(
                                                         child: Text(
-                                                          'Book',
+                                                          'Register',
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: TextStyle(
@@ -1132,6 +1175,20 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
     await Future.delayed(const Duration(seconds: 3));
     const CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.red));
+  }
+
+  MoveToSessionPage() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => BookingPage()
+            // CounsellingSessionPage(
+            //   id: cid,
+            //   name: name,
+            //   designation: widget.designation,
+            //   profileurl: widget.profilepicurl,
+            //   selectedIndex_get: 0,)
+
+            ));
   }
 
   Future<bool> _onBackPressed() async {
