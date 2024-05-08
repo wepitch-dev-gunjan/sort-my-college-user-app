@@ -30,10 +30,12 @@ class _AccountDelete extends State<AccountDelete> {
   Widget build(BuildContext context) {
     double baseWidth = 430;
     double fem = MediaQuery.of(context).size.width / baseWidth;
-    return WillPopScope(
-      onWillPop: () {
-        return _onBackPressed(context);
+    return PopScope(
+      canPop: false,
+      onPopInvoked : (didPop){
+        _onBackPressed(context);
       },
+
 
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -54,7 +56,7 @@ class _AccountDelete extends State<AccountDelete> {
               const Text('We Have Received Account Delete Request Your Account Will Be Delete in 48 hours',
                 style:TextStyle(
                     fontWeight: FontWeight.w600,
-                    fontSize: 18,
+                    fontSize: 15,
                     color: Colors.black
                 ),),
 

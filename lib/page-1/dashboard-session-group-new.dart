@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../booking_page/booking_page.dart';
 import '../model/counsellor_sessions.dart';
 import '../other/provider/counsellor_details_provider.dart';
 import 'dart:developer' as console show log;
@@ -695,8 +696,10 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                       SharedPreferences sPref =
                                                           await SharedPreferences
                                                               .getInstance();
+
                                                       var id = counsellorSessionProvider.details.sessions?[index].id;
                                                       sPref.setString('sessionid', id!);
+
                                                       /*Navigator.push(
                                                           context,
                                                           MaterialPageRoute(
@@ -719,7 +722,8 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
 
                                                       }
                                                       else {
-                                                        Navigator.push(
+
+                                                         Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
                                                                 builder: (context) =>
@@ -728,7 +732,13 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                                         name: widget.name,
                                                                         profilepicurl: widget.profilepic,
                                                                         id: id)));
+
+                                                        /* await ApiService.updateBookingSession(id)
+                                                            .then((value) => MoveToSessionPage()); */
+
                                                       }
+
+
                                                     },
                                                     child: Container(
                                                       width: 96,
@@ -1128,10 +1138,28 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
           );
   }
 
+
+
   callme() async {
     await Future.delayed(const Duration(seconds: 3));
     const CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.red));
+  }
+
+
+  MoveToSessionPage() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => BookingPage()
+          // CounsellingSessionPage(
+          //   id: cid,
+          //   name: name,
+          //   designation: widget.designation,
+          //   profileurl: widget.profilepicurl,
+          //   selectedIndex_get: 0,)
+
+        ));
+
   }
 
   Future<bool> _onBackPressed() async {

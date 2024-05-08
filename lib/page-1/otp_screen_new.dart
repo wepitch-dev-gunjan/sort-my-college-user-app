@@ -192,14 +192,19 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                                   EasyLoading.showToast(AppConstants.otperror,
                                       toastPosition: EasyLoadingToastPosition.bottom);
                                 } else {
+
                                   await EasyLoading.show(dismissOnTap: false);
                                   ApiService()
                                       .verify_otp_phone_2(
                                       otp: otp.toString().trim(), number: widget.phoneNumber)
                                       .then((value) async {
-                                    if (value["message"] == "OTP verified successfully" && value["already_registered"] == true) {
+                                    if (value["message"] == "OTP verified successfully" && value["already_registered"] == true)
+                                    {
                                       EasyLoading.showToast("You are already registered user please go to login page",
                                           toastPosition: EasyLoadingToastPosition.bottom );
+
+                                      EasyLoading.dismiss();
+
                                       /*SharedPreferences prefs = await SharedPreferences.getInstance();
                                       prefs.setString("phone_number", widget.phoneNumber);
                                       prefs.setBool("authLogin", true);
@@ -217,6 +222,8 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                                     }
                                     else if(value["message"] == "OTP verified successfully" && value["already_registered"] == false)
                                     {
+                                      EasyLoading.dismiss();
+
                                       EasyLoading.showToast(value["message"],
                                           toastPosition: EasyLoadingToastPosition.bottom );
 
@@ -230,8 +237,8 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                                           MaterialPageRoute(builder: (context) =>  QNAScreen()));
 
                                     }
-
                                     else {
+                                      EasyLoading.dismiss();
                                       EasyLoading.showToast(value["message"],
                                           toastPosition: EasyLoadingToastPosition.bottom);
                                     }

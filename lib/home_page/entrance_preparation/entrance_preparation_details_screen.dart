@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/home_page/entrance_preparation/announcements_screen.dart';
 import 'package:myapp/model/cousnellor_list_model.dart';
 import 'package:myapp/model/ep_details_model.dart';
@@ -776,7 +777,10 @@ class _EntrancePreparationDetailsScreenState
                             children: [
                               Expanded(
                                 child: GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Fluttertoast.showToast(
+                                        msg: 'Thanks For Inquiry will contact you soon. ');
+                                  },
                                   child: Container(
                                     // group349P36 (2936:462)
                                     width: 116 * fem,
@@ -1025,6 +1029,7 @@ showAlertDialog(BuildContext context, String? type, int? courseFee, int? courseD
         child: GestureDetector(
           onTap: (){
             showAlertDialog1(context);
+
           },
           child: Container(
             height: 36,
@@ -1069,6 +1074,8 @@ showAlertDialog1(BuildContext context,)
       Center(
         child: GestureDetector(
           onTap: (){
+            Fluttertoast.showToast(
+                msg: 'ENQUIRY SUBMITTED TO ADMIN Will CONTACT YOU SOON ');
           },
           child: const Center(
               child: Text(

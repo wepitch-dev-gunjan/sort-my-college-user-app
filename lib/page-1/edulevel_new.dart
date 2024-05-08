@@ -140,6 +140,7 @@ class _EducationLevelNewState extends State<EducationLevelNew> {
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
                         prefs.setString("education_level", selectedOption);
+
                         var value = await ApiService.save_profile(
                             prefs.getString("name"),
                             prefs.getString("date_of_birth"),
@@ -158,8 +159,12 @@ class _EducationLevelNewState extends State<EducationLevelNew> {
                                         const HomePageContainer()));
                           });
                         } else {
+
                           EasyLoading.showToast(value["error"],
                               toastPosition: EasyLoadingToastPosition.bottom);
+
+                          prefs.clear();
+
                         }
                       },
                       child: const Padding(

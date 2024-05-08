@@ -530,19 +530,19 @@ class ApiService {
     if (response.statusCode == 200) {
       var value = jsonDecode(response.body.toString());
       if (value[0]['name'] == null) {
-        prefs.setString('name', "user");
+        prefs.setString('name', "NA");
       } else {
         prefs.setString('name', value[0]['name'].toString());
       }
 
       if (value[0]['gender'] == null) {
-        prefs.setString('gender', "Male");
+        prefs.setString('gender', "NA");
       } else {
         prefs.setString('gender', value[0]['gender']);
       }
 
       if (value[0]['date_of_birth'] == null) {
-        prefs.setString('date_of_birth', "01-01-2000");
+        prefs.setString('date_of_birth', "NA");
       } else {
         prefs.setString('date_of_birth', value[0]['date_of_birth']);
       }

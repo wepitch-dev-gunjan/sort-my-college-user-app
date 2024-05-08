@@ -332,13 +332,6 @@ class _Drawer1State extends State<Drawer1> {
                           TextButton(
                             onPressed: () async {
                               await _accountDelete();
-                              if (mounted) {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                        const SplashScreenNew()));
-                              }
                             },
                             child: const Text('Yes'),
                           ),
@@ -387,14 +380,14 @@ class _Drawer1State extends State<Drawer1> {
       dismissOnTap: false,
     );
 
-    Future.delayed(const Duration(seconds: 2), () async
+    Future.delayed(const Duration(seconds: 1), () async
     {
       await prefs.clear();
       EasyLoading.dismiss();
       if (mounted) {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const ComingSoon()),
+          MaterialPageRoute(builder: (context) => const AccountDelete()),
               (route) => false,
         );
       }
