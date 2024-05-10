@@ -34,10 +34,6 @@ class CounsellorDetailsScreen extends StatefulWidget {
   final String designation;
   final String profilepicurl;
 
-
-
-
-
   @override
   State<CounsellorDetailsScreen> createState() =>
       _CounsellorDetailsScreenState();
@@ -146,7 +142,10 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
         titleSpacing: -16,
         title: Text(
           // anshikamehra7w6 (2608:501)
-          widget.name,
+          (counsellorDetailController
+              .cousnellorlist_detail.isNotEmpty)
+              ? counsellorDetailController.cousnellorlist_detail[0].name
+              : 'NA',
           style: SafeGoogleFont(
             'Inter',
             fontSize: 18,
@@ -221,7 +220,12 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                 Row(
                                   children: [
                                     Text(
-                                      widget.name,
+
+                                      (counsellorDetailController
+                                          .cousnellorlist_detail.isNotEmpty)
+                                          ? counsellorDetailController.cousnellorlist_detail[0].name
+                                          : 'NA',
+
                                       style: const TextStyle(
                                           fontSize: 14,
                                           color: Color(0xff1f0a68),

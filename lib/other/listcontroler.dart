@@ -16,7 +16,7 @@ class ListController extends GetxController
     super.onInit();
     //fetchCounsellor();
     fetchCounsellor_data();
-    fetchEpList_data();
+    //fetchEpList_data();
 
   }
 

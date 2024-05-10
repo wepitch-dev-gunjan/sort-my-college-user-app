@@ -618,7 +618,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   MoveToSessionPage() {
     Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => BookingPage()
+        MaterialPageRoute(builder: (context) => const BookingPage()
+
             // CounsellingSessionPage(
             //   id: cid,
             //   name: name,

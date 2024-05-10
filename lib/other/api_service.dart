@@ -126,8 +126,17 @@ class ApiService {
     var data;
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-      return List<BannerImageModel>.from(
-          data.map((x) => BannerImageModel.fromJson(x)));
+
+      if(data.length() == 0)
+      {
+        return [];
+      }
+      else{
+        return List<BannerImageModel>.from(
+            data.map((x) => BannerImageModel.fromJson(x)));
+      }
+
+
     }
     return [];
   }
@@ -178,9 +187,16 @@ class ApiService {
     var data;
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-      return List<TrandingWebinarModel>.from(
-          data.map((x) => TrandingWebinarModel.fromJson(x)));
-    }
+      if(data.length==0)
+        {
+          return [];
+        }
+       else{
+        return List<TrandingWebinarModel>.from(
+            data.map((x) => TrandingWebinarModel.fromJson(x)));
+        }
+      }
+
     return [];
   }
 
@@ -197,8 +213,15 @@ class ApiService {
     var data;
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-      return List<PopularWorkShopModel>.from(
-          data.map((x) => PopularWorkShopModel.fromJson(x)));
+
+        if(data.length == 0)
+        {
+          return [];
+        }
+       else{
+         return List<PopularWorkShopModel>.from(
+             data.map((x) => PopularWorkShopModel.fromJson(x)));
+       }
     }
     return [];
   }
@@ -656,13 +679,9 @@ class ApiService {
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
       return List<EPModel>.from(data.map((x) => EPModel.fromJson(x)));
-    } else if (response.statusCode == 404) {
-      return [
-        EPModel(
-          name: "none",
-          profilePic: "",
-        )
-      ];
+    }
+    else if (response.statusCode == 404) {
+      return [];
     }
 
     return [];

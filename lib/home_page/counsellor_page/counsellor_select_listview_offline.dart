@@ -318,11 +318,10 @@ class _CounsellorListPage_offlineState
                                             ),
                                           )
                                         : listController.cousnellorlist_data[0]
-                                                    .name ==
-                                                "none"
+                                                    .name =="none"
                                             ? const Center(
                                                 child: Text(
-                                                    "Something went wrong!"),
+                                                    "No Data Found"),
                                               )
                                             : Container(
                                               color: Colors.white,

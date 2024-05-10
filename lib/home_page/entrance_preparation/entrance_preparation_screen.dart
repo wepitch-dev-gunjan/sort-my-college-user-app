@@ -11,6 +11,8 @@ import 'package:myapp/other/listcontroler.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
 
+import '../../other/listcontroler_ep.dart';
+
 class EntrancePreparationScreen extends StatefulWidget {
   const EntrancePreparationScreen({super.key});
 
@@ -22,7 +24,7 @@ class EntrancePreparationScreen extends StatefulWidget {
 class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
   int selectedIndex = 0;
 
-  final ListController listController = Get.put(ListController());
+  final ListController_EP listController = Get.put(ListController_EP());
 
   @override
   void initState() {
@@ -217,8 +219,8 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
               ),
               listController.epModelList.isEmpty
                   ? const Center(
-                child: Text("Something went wrong!"),
-              )
+                    child: Text("No Data Found!"),
+                  )
                   : ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 14),
                 itemCount: listController.epModelList.length,
