@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/other/api_service.dart';
@@ -297,7 +296,9 @@ void configLoading() {
     ..boxShadow = <BoxShadow>[]
     ..indicatorType = EasyLoadingIndicatorType.circle;
 }
-void onTapGettingstarted(BuildContext context) {
-  Navigator.pushReplacement(context,
-      MaterialPageRoute(builder: (context) =>  QNAScreen()));
-}
+
+
+// void onTapGettingstarted(BuildContext context) {
+//   Navigator.pushReplacement(context,
+//       MaterialPageRoute(builder: (context) =>  QNAScreen()));
+// }

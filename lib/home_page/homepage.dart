@@ -398,7 +398,7 @@ class _HomePageState extends State<HomePage> {
                       height: 4,
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.25,
+                      height: MediaQuery.of(context).size.height * 0.27,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
@@ -559,8 +559,8 @@ class _HomePageState extends State<HomePage> {
                                                         "assets/page-1/images/group-38-oFX.png",
                                                         width: 20,
                                                         height: 20,
-                                                        color:
-                                                            const Color(0xFF1F0A68),
+                                                        color: const Color(
+                                                            0xFF1F0A68),
                                                       ),
                                                     ),
                                                   ),
@@ -802,9 +802,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 4,
-                      ),
+                      const SizedBox(height: 4),
                       Row(
                         children: [
                           Container(
@@ -902,8 +900,8 @@ class _HomePageState extends State<HomePage> {
                                       "N/A")));
                     },
                     child: Container(
-                      width: 120.14,
-                      height: 30,
+                      width: 120,
+                      height: 40,
                       decoration: ShapeDecoration(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
@@ -911,7 +909,7 @@ class _HomePageState extends State<HomePage> {
                             width: 0.50,
                             color: Colors.black.withOpacity(0.7400000095367432),
                           ),
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                       ),
                       child: const SizedBox(
@@ -933,7 +931,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 14),
+                  SizedBox(
+                    width: width / 5.5,
+                  ),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -950,11 +950,11 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: Container(
                       width: 120,
-                      height: 30,
+                      height: 40,
                       decoration: ShapeDecoration(
                         color: const Color(0xff1F0A68),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                       ),
                       child: const SizedBox(
