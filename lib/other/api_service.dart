@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -484,6 +485,10 @@ class ApiService {
       "education_level": edulevel,
     });
 
+    log("name=============$name");
+    log("date_of_birth=============$dob");
+    log("gender=============$gender");
+    log("education_level=============$edulevel");
     final headers = {
       'Content-Type': 'application/json',
       "Authorization": token,
@@ -492,6 +497,8 @@ class ApiService {
     final url = Uri.parse('${AppConstants.baseUrl}/user/register');
 
     final response = await http.put(url, headers: headers, body: body);
+
+    log("Response Profile Create ======================123> ${response.body}");
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body.toString());
       return data;

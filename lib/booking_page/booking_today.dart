@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:intl/intl.dart';
 import 'package:myapp/model/booking_model.dart';
 import 'package:myapp/other/provider/user_booking_provider.dart';
 import 'package:myapp/booking_page/booking_confirmatoin_page.dart';
 import 'package:myapp/utils.dart';
+import 'package:myapp/utils/common.dart';
 import 'package:provider/provider.dart';
 
 class BookingToday extends StatefulWidget {
@@ -18,7 +18,7 @@ class _BookingTodayState extends State<BookingToday> {
   late var apiTime;
   late var todayTime;
   var currentTime;
-  var remaning_time="";
+  var remaning_time = "";
 
   @override
   void initState() {
@@ -82,7 +82,8 @@ class _BookingTodayState extends State<BookingToday> {
                         itemCount: userBookings.length,
                         itemBuilder: (context, index) {
                           var details = userBookings[index];
-                          remaning_time = details.bookingData!.sessionTime.toString();
+                          remaning_time =
+                              details.bookingData!.sessionTime.toString();
 
                           /*currentTime = DateFormat('h:mm')
                               .format(DateTime.fromMillisecondsSinceEpoch(
@@ -152,13 +153,17 @@ class _BookingTodayState extends State<BookingToday> {
                                                           ),
                                                         ),
                                                         Text(
-
                                                           /* details.bookedEntity!.qualifications!.isNotEmpty && details.bookedEntity!.qualifications![0] !=null
                                                               ?details.bookedEntity!.qualifications![0]
                                                               : 'N/A',*/
 
-                                                          details.bookedEntity!.designation!.isNotEmpty
-                                                              ?details.bookedEntity!.designation!
+                                                          details
+                                                                  .bookedEntity!
+                                                                  .designation!
+                                                                  .isNotEmpty
+                                                              ? details
+                                                                  .bookedEntity!
+                                                                  .designation!
                                                               : 'N/A',
 
                                                           // textAlign: TextAlign.left,
@@ -201,9 +206,12 @@ class _BookingTodayState extends State<BookingToday> {
                                                       text: TextSpan(
                                                         children: <TextSpan>[
                                                           TextSpan(
-                                                              text:
-                                                                  // "${remainingTime.inHours < 0 ? "" : remainingTime.inHours}${remainingTime.inMinutes.remainder(60) < 0 ? '0' : ": ${remainingTime.inMinutes.remainder(60)}"} ",
-                                                                 details.bookingData!.sessionTime.toString(),
+                                                              text: convertSessionTime(details
+                                                                  .bookingData!
+                                                                  .sessionTime
+                                                                  .toString()),
+                                                              // "${remainingTime.inHours < 0 ? "" : remainingTime.inHours}${remainingTime.inMinutes.remainder(60) < 0 ? '0' : ": ${remainingTime.inMinutes.remainder(60)}"} ",
+                                                              //  details.bookingData!.sessionTime.toString(),
 
                                                               style: SafeGoogleFont(
                                                                   "Inter",
@@ -242,22 +250,26 @@ class _BookingTodayState extends State<BookingToday> {
                                                           Navigator.push(
                                                               context,
                                                               MaterialPageRoute(
-                                                                  builder: (context) => BookingConfirmationPage(
-                                                                      remainingTimestr: details.bookingData!.sessionTime.toString(),
-                                                                      /*parseDuration(details.bookingData!.sessionTime.toString())*/
-                                                                      isUpcoming:
-                                                                          false,
-                                                                      bookingData: details
-                                                                              .bookingData ??
-                                                                          BookingData(),
-                                                                      designation: details.bookedEntity!.designation!,
-                                                                      counsellorDetails:
-                                                                          details.bookedEntity ??
+                                                                  builder: (context) =>
+                                                                      BookingConfirmationPage(
+                                                                          remainingTimestr: details
+                                                                              .bookingData!
+                                                                              .sessionTime
+                                                                              .toString(),
+                                                                          /*parseDuration(details.bookingData!.sessionTime.toString())*/
+                                                                          isUpcoming:
+                                                                              false,
+                                                                          bookingData: details.bookingData ??
+                                                                              BookingData(),
+                                                                          designation: details
+                                                                              .bookedEntity!
+                                                                              .designation!,
+                                                                          counsellorDetails: details.bookedEntity ??
                                                                               BookedEntity(),
-                                                                      isConfirmed:
-                                                                          true,
-                                                                      time:
-                                                                          "25:15")));
+                                                                          isConfirmed:
+                                                                              true,
+                                                                          time:
+                                                                              "25:15")));
                                                         },
                                                         child: Container(
                                                             decoration:

@@ -2,17 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/booking_page/booking_page.dart';
-import 'package:myapp/booking_page/booking_past.dart';
 import 'package:myapp/home_page/counsellor_page/counsellor_details_screen.dart';
-import 'package:myapp/home_page/counsellor_page/counsellor_select_listview_offline.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/provider/counsellor_details_provider.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../page-1/dashboard_session_page.dart';
 
 class CheckOutScreen extends StatefulWidget {
   CheckOutScreen(
@@ -302,7 +298,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           children: [
                             Column(
                               children: [
-                                Text(
+                                const Text(
                                   'Booking Date',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
@@ -315,7 +311,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               children: [
                                 Text(
                                   '${counsellorDetailController.checkOutDetailsList.isNotEmpty ? counsellorDetailController.checkOutDetailsList[0].sessionType ?? "N/A" : "N/A"} Session',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: ColorsConst.appBarColor,
                                   ),
                                 ),
@@ -381,7 +377,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   color: ColorsConst.black54Color,
                                   fontSize: 12),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Text(
                               counsellorDetailController
                                       .checkOutDetailsList.isNotEmpty
@@ -422,7 +418,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   color: ColorsConst.black54Color,
                                   fontSize: 12),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Text(
                               '\u{20B9}${counsellorDetailController.checkOutDetailsList.isNotEmpty ? counsellorDetailController.checkOutDetailsList[0].gstAmount ?? "N/A" : "N/A"}',
                               style: const TextStyle(
@@ -440,7 +436,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   color: ColorsConst.black54Color,
                                   fontSize: 12),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Text(
                               '\u{20B9}${counsellorDetailController.checkOutDetailsList.isNotEmpty ? counsellorDetailController.checkOutDetailsList[0].feeWithGST ?? "N/A" : "N/A"}',
                               style: const TextStyle(
@@ -452,16 +448,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               'Gateway Charge',
                               style: TextStyle(
                                   color: ColorsConst.black54Color,
                                   fontSize: 12),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Text(
                               '\u{20B9}${counsellorDetailController.checkOutDetailsList.isNotEmpty ? counsellorDetailController.checkOutDetailsList[0].gatewayCharge ?? "N/A" : "N/A"}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: ColorsConst.black54Color,
                                 fontSize: 13,
                               ),
@@ -470,16 +466,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               'Total Amount',
                               style: TextStyle(
                                   color: ColorsConst.black54Color,
                                   fontSize: 12),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Text(
                               '\u{20B9}${counsellorDetailController.checkOutDetailsList.isNotEmpty ? counsellorDetailController.checkOutDetailsList[0].totalAmount ?? "N/A" : "N/A"}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: ColorsConst.blackColor,
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
@@ -618,7 +614,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   MoveToSessionPage() {
     Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => BookingPage()
+        MaterialPageRoute(builder: (context) => const BookingPage()
             // CounsellingSessionPage(
             //   id: cid,
             //   name: name,
@@ -627,7 +623,5 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             //   selectedIndex_get: 0,)
 
             ));
-
   }
-
 }

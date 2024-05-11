@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:myapp/booking_page/checkout_screen.dart';
-import 'package:myapp/other/api_service.dart';
 import 'package:myapp/home_page/homepagecontainer_2.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
@@ -72,7 +70,7 @@ class _Counseling_Session_PersonnelState
       ..radius = 20
       ..backgroundColor = Colors.transparent
       ..maskColor = Colors.white
-      ..indicatorColor = Color(0xff1f0a68)
+      ..indicatorColor =const  Color(0xff1f0a68)
       ..userInteractions = false
       ..dismissOnTap = false
       ..boxShadow = <BoxShadow>[]

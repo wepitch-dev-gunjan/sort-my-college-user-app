@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:myapp/model/booking_model.dart';
 import 'package:myapp/other/constants.dart';
+import 'package:myapp/utils/common.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../utils.dart';
@@ -10,14 +11,13 @@ import '../utils.dart';
 class BookingConfirmationPage extends StatefulWidget {
   const BookingConfirmationPage(
       {super.key,
-        required this.isUpcoming,
-        required this.isConfirmed,
-        required this.time,
-        required this.designation,
-        required this.bookingData,
-
-        required this.counsellorDetails,
-        required this.remainingTimestr});
+      required this.isUpcoming,
+      required this.isConfirmed,
+      required this.time,
+      required this.designation,
+      required this.bookingData,
+      required this.counsellorDetails,
+      required this.remainingTimestr});
 
   //final Duration remainingTime;
 
@@ -37,25 +37,23 @@ class BookingConfirmationPage extends StatefulWidget {
 }
 
 class _BookingConfirmationPageState extends State<BookingConfirmationPage> {
-
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     configLoading();
   }
+
   bool isExpired = false;
   @override
   Widget build(BuildContext context) {
-
     /* isExpired = (widget.remainingTime.inMinutes +
         (widget.bookingData.sessionDuration ?? 0)) <
         0;*/
 
     return PopScope(
       canPop: false,
-      onPopInvoked : (didPop){
+      onPopInvoked: (didPop) {
         EasyLoading.dismiss();
       },
       child: Scaffold(
@@ -67,18 +65,19 @@ class _BookingConfirmationPageState extends State<BookingConfirmationPage> {
           leading: Padding(
             padding: const EdgeInsets.only(left: 0, top: 18, bottom: 18),
             child: GestureDetector(
-              onTap: () =>
-                  Navigator.of(context).pop(),
+              onTap: () => Navigator.of(context).pop(),
               child: Image.asset(
                 'assets/page-1/images/back.png',
-                color: Color(0xff1F0A68),
+                color: const Color(0xff1F0A68),
               ),
             ),
           ),
           title: Text(
             "My Booking",
             style: SafeGoogleFont("Inter",
-                fontSize: 18, fontWeight: FontWeight.w600,color: Color(0xff1F0A68)),
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: const Color(0xff1F0A68)),
           ),
         ),
         body: Container(
@@ -86,9 +85,9 @@ class _BookingConfirmationPageState extends State<BookingConfirmationPage> {
           decoration: const BoxDecoration(
               border: Border(
                   right: BorderSide(
-                    width: 0.5,
-                    color: Colors.grey,
-                  ))),
+            width: 0.5,
+            color: Colors.grey,
+          ))),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,43 +144,33 @@ class _BookingConfirmationPageState extends State<BookingConfirmationPage> {
                               ),
                               widget.isUpcoming
                                   ? Text(
-                                "${widget.time} pm",
-                                style: SafeGoogleFont(
-                                  "Inter",
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  decorationColor: Colors.red,
-                                  decoration: widget.isConfirmed
-                                      ? TextDecoration.none
-                                      : TextDecoration.lineThrough,
-                                ),
-                              )
+                                      // convertSessionTime(widget.time),,
+                                      "${widget.time} pm",
+                                      style: SafeGoogleFont(
+                                        "Inter",
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600,
+                                        decorationColor: Colors.red,
+                                        decoration: widget.isConfirmed
+                                            ? TextDecoration.none
+                                            : TextDecoration.lineThrough,
+                                      ),
+                                    )
                                   : Row(
-                                children: [
-                                  Text(
-                                    widget.remainingTimestr
-
-                                    /*  "${widget.remainingTime.inHours < 0 ? "" : widget.remainingTime.inHours}:${widget.remainingTime.inMinutes.remainder(60) < 0 ? '0' : widget.remainingTime.inMinutes.remainder(60)}" */,
-
-                                    style: SafeGoogleFont(
-                                      "Inter",
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600,
+                                      children: [
+                                        Text(
+                                          convertSessionTime(
+                                              widget.remainingTimestr),
+                                          // widget
+                                          //     .remainingTimestr /*  "${widget.remainingTime.inHours < 0 ? "" : widget.remainingTime.inHours}:${widget.remainingTime.inMinutes.remainder(60) < 0 ? '0' : widget.remainingTime.inMinutes.remainder(60)}" */,
+                                          style: SafeGoogleFont(
+                                            "Inter",
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  // const SizedBox(
-                                  //   width: 2,
-                                  // ),
-                                  // Text(
-                                  //   "min",
-                                  //   style: SafeGoogleFont(
-                                  //     "Inter",
-                                  //     fontSize: 12,
-                                  //     fontWeight: FontWeight.w600,
-                                  //   ),
-                                  // )
-                                ],
-                              ),
                             ],
                           ),
                           Column(
@@ -189,7 +178,6 @@ class _BookingConfirmationPageState extends State<BookingConfirmationPage> {
                               customButton(
                                   context: context,
                                   onPressed: () {
-
                                     _launchURL(widget.bookingData.sessionLink!,
                                         context);
 
@@ -209,12 +197,12 @@ class _BookingConfirmationPageState extends State<BookingConfirmationPage> {
                               widget.isUpcoming
                                   ? const SizedBox()
                                   : Text(
-                                "Host has joined",
-                                style: SafeGoogleFont("Inter",
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: const Color(0xff1F0A68)),
-                              ),
+                                      "Host has joined",
+                                      style: SafeGoogleFont("Inter",
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                          color: const Color(0xff1F0A68)),
+                                    ),
                             ],
                           ),
                         ],
@@ -240,7 +228,7 @@ class _BookingConfirmationPageState extends State<BookingConfirmationPage> {
                           CircleAvatar(
                             radius: 30,
                             backgroundImage: NetworkImage(widget
-                                .counsellorDetails.profilePic ??
+                                    .counsellorDetails.profilePic ??
                                 "https://media.gettyimages.com/id/1334712074/vector/coming-soon-message.jpg?s=612x612&w=0&k=20&c=0GbpL-k_lXkXC4LidDMCFGN_Wo8a107e5JzTwYteXaw="),
                           ),
                           const SizedBox(
@@ -383,13 +371,33 @@ class _BookingConfirmationPageState extends State<BookingConfirmationPage> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
+
                           Text(
-                            " : ${widget.bookingData.sessionTime}",
+                            " : ${convertSessionTime(widget.bookingData.sessionTime!)}",
                             style: SafeGoogleFont(
                               "Inter",
                               fontSize: 14,
                             ),
-                          )
+                          ),
+
+                          // Text(
+                          //   '${(int.parse(widget.bookingData.sessionTime!) ~/ 60) % 12}:${(int.parse(widget.bookingData.sessionTime!) % 60).toString().padLeft(2, '0')} ${(int.parse(widget.bookingData.sessionTime!) ~/ 60) < 12 ? 'AM' : 'PM'}',
+                          //   style: const TextStyle(
+                          //     color: Color(0xFF414040),
+                          //     fontSize: 12,
+                          //     fontFamily: 'Inter',
+                          //     fontWeight: FontWeight.w400,
+                          //     height: 0.08,
+                          //   ),
+                          // ),
+
+                          // Text(
+                          //   " : ${widget.bookingData.sessionTime}",
+                          //   style: SafeGoogleFont(
+                          //     "Inter",
+                          //     fontSize: 14,
+                          //   ),
+                          // )
                         ],
                       ),
                       const SizedBox(
@@ -528,6 +536,72 @@ class _BookingConfirmationPageState extends State<BookingConfirmationPage> {
                     ),
                   ),
                 ),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 14, top: 10),
+                //   child: Row(
+                //     children: [
+                //       Text(
+                //         "Booking Amount",
+                //         style: SafeGoogleFont(
+                //           "Inter",
+                //           fontSize: 14,
+                //           fontWeight: FontWeight.w600,
+                //         ),
+                //       ),
+                //       Text(
+                //         " : ${widget.bookingData.sessionStatus}",
+                //         style: SafeGoogleFont(
+                //           "Inter",
+                //           fontSize: 14,
+                //         ),
+                //       )
+                //     ],
+                //   ),
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 14, top: 10),
+                //   child: Row(
+                //     children: [
+                //       Text(
+                //         "18% GST",
+                //         style: SafeGoogleFont(
+                //           "Inter",
+                //           fontSize: 14,
+                //           fontWeight: FontWeight.w600,
+                //         ),
+                //       ),
+                //       Text(
+                //         " : ${widget.bookingData.sessionStatus}",
+                //         style: SafeGoogleFont(
+                //           "Inter",
+                //           fontSize: 14,
+                //         ),
+                //       )
+                //     ],
+                //   ),
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 14, top: 10),
+                //   child: Row(
+                //     children: [
+                //       Text(
+                //         "Convenience fee",
+                //         style: SafeGoogleFont(
+                //           "Inter",
+                //           fontSize: 14,
+                //           fontWeight: FontWeight.w600,
+                //         ),
+                //       ),
+                //       Text(
+                //         " : ${widget.bookingData.sessionStatus}",
+                //         style: SafeGoogleFont(
+                //           "Inter",
+                //           fontSize: 14,
+                //         ),
+                //       )
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -537,11 +611,26 @@ class _BookingConfirmationPageState extends State<BookingConfirmationPage> {
   }
 }
 
+String convertTime(int? sessionTime) {
+  if (sessionTime != null) {
+    int hours = sessionTime ~/ 60;
+    int minutes = sessionTime % 60;
+    String period = (hours < 12) ? 'AM' : 'PM';
+    hours = hours % 12;
+    if (hours == 0) {
+      hours = 12;
+    }
+    return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')} $period';
+  } else {
+    return 'N/A';
+  }
+}
+
 Widget customButton(
     {required BuildContext context,
-      required VoidCallback onPressed,
-      required String title,
-      required bool isActive}) {
+    required VoidCallback onPressed,
+    required String title,
+    required bool isActive}) {
   return SizedBox(
       width: 137,
       height: 38,
@@ -549,12 +638,12 @@ Widget customButton(
           onPressed: onPressed,
           style: OutlinedButton.styleFrom(
               foregroundColor:
-              isActive ? const Color(0xff9C9A9A) : Colors.white,
+                  isActive ? const Color(0xff9C9A9A) : Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
               backgroundColor:
-              isActive ? const Color(0xffDFDFDF) : const Color(0xff1F0A68)),
+                  isActive ? const Color(0xffDFDFDF) : const Color(0xff1F0A68)),
           child: Text(
             title,
             style: SafeGoogleFont(
@@ -564,6 +653,7 @@ Widget customButton(
             ),
           )));
 }
+
 void configLoading() {
   EasyLoading.instance
     ..displayDuration = const Duration(milliseconds: 2000)
@@ -573,19 +663,17 @@ void configLoading() {
     ..radius = 20
     ..backgroundColor = Colors.transparent
     ..maskColor = Colors.white
-    ..indicatorColor = Color(0xff1f0a68)
+    ..indicatorColor = const Color(0xff1f0a68)
     ..userInteractions = false
     ..dismissOnTap = false
     ..boxShadow = <BoxShadow>[]
     ..indicatorType = EasyLoadingIndicatorType.circle;
 }
 
-
 void _launchURL(String url, BuildContext context) async {
   EasyLoading.show(status: "Loading...", dismissOnTap: true);
   var uri = Uri.parse(url);
-  await launchUrl(uri).then((value)
-  {
+  await launchUrl(uri).then((value) {
     if (value) {
       EasyLoading.dismiss();
     } else {
@@ -606,5 +694,4 @@ void _launchURL(String url, BuildContext context) async {
       }
     });
   }*/
-
 }
