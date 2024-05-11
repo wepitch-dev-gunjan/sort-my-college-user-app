@@ -306,7 +306,7 @@ Widget registerNowWidget({
   Color textColor = isRegisterNow ? Colors.white : Colors.black;
 
   return SizedBox(
-    height: 35,
+    height: 40,
     width: 232,
     child: ElevatedButton(
       onPressed: onPressed,
