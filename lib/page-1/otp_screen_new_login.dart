@@ -48,7 +48,11 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
   }
 
   void startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) => addTime());
+    if(mounted)
+      {
+        timer = Timer.periodic(const Duration(seconds: 1), (timer) => addTime());
+      }
+
   }
 
   @override

@@ -166,6 +166,7 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
   }
 
   Widget cardView(BuildContext context) {
+
     bool has24HoursPassed = false;
     DateTime registrationDate = DateTime.parse(widget.webinarModel.resisterDate!);
     Duration difference = DateTime.now().difference(registrationDate);
@@ -546,15 +547,32 @@ class _WebinarPastDetailPageWidgetState
   Widget build(BuildContext context) {
 
     Duration difference = DateTime.now().difference(widget.registrationDate);
+    var diff = daysBetween(DateTime.now(), widget.registrationDate);
     var pastdays ;
-    if (difference.inHours >= 24)
+    if (diff < 0 )
+    {
+      has24HoursPassed = true; // in past webinar done
+      pastdays=diff.abs();
+      //pastdays = difference.inDays;
+    }
+    else if(diff > 0)
+    {
+      has24HoursPassed = false; // in future
+    }
+    else if (diff == 0)
+    {
+      has24HoursPassed = false;// in today
+    }
+
+
+    /*if (difference.inHours >= 24)
     {
       has24HoursPassed = true;
       pastdays = difference.inDays;
     }
     else{
       has24HoursPassed = false;
-    }
+    }*/
 
     return Column(
       children: [
@@ -967,6 +985,12 @@ class _WebinarPastDetailPageWidgetState
       ],
     );
   }
+}
+
+int daysBetween(DateTime from, DateTime to) {
+  from = DateTime(from.year, from.month, from.day);
+  to = DateTime(to.year, to.month, to.day);
+  return (to.difference(from).inHours / 24).round();
 }
 
 const fontColor = Color(0xff8E8989);

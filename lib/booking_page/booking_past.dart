@@ -107,7 +107,7 @@ class _BookingPastState extends State<BookingPast> {
                                           Text(
                                             details.bookedEntity
                                                 ?.name ??
-                                                "Coming",
+                                                "Done in Past",
                                             style: SafeGoogleFont(
                                               "Inter",
                                               fontSize:
@@ -161,7 +161,11 @@ class _BookingPastState extends State<BookingPast> {
                                               // text: details.bookingData?.sessionTime != null
                                               //             ? DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(int.parse(details.bookingData!.sessionTime.toString()),))
                                               //             : 'N/A',
-                                                text: details.bookingData?.sessionTime,
+                                                text: /*details.bookingData?.sessionTime*/
+                                                details.bookingData!.sessionTime != null
+                                                    ? '${(int.parse(details.bookingData!.sessionTime!) ~/ 60) % 12}:${(int.parse(details.bookingData!.sessionTime!) % 60).toString().padLeft(2, '0')} ${(int.parse(details.bookingData!.sessionTime!) ~/ 60) < 12 ? 'AM' : 'PM'}'
+                                                    : 'N/A',
+
                                                 style: SafeGoogleFont(
                                                     "Inter",
                                                     fontWeight:
@@ -209,7 +213,10 @@ class _BookingPastState extends State<BookingPast> {
                                                     builder: (context) =>
                                                         BookingConfirmationPage1(
                                                           // remainingTime: const Duration(),
-                                                            remainingTime: parseDuration(details.bookingData!.sessionTime.toString()),
+                                                            remainingTime: /*parseDuration(details.bookingData!.sessionTime.toString())*/
+                                                            details.bookingData!.sessionTime != null
+                                                                ? '${(int.parse(details.bookingData!.sessionTime!) ~/ 60) % 12}:${(int.parse(details.bookingData!.sessionTime!) % 60).toString().padLeft(2, '0')} ${(int.parse(details.bookingData!.sessionTime!) ~/ 60) < 12 ? 'AM' : 'PM'}'
+                                                                : 'N/A',
                                                             isUpcoming:
                                                             false,
                                                             bookingData: details.bookingData ??

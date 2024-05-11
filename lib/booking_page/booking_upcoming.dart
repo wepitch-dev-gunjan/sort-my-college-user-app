@@ -114,7 +114,7 @@ class _BookingUpcomingState extends State<BookingUpcoming> {
                                             ),
                                           ),
                                           Text(
-                                            "designer at wepitch",
+                                            "",
                                             // textAlign: TextAlign.left,
 
                                             style: SafeGoogleFont(
@@ -156,9 +156,16 @@ class _BookingUpcomingState extends State<BookingUpcoming> {
                                         text: TextSpan(
                                           children: <TextSpan>[
                                             TextSpan(
-                                                text: details
+                                                text:
+                                                     /*details
                                                     .bookingData
-                                                    ?.sessionTime,
+                                                    ?.sessionTime, */
+
+                                                details.bookingData!.sessionTime != null
+                                                    ? '${(int.parse(details.bookingData!.sessionTime!) ~/ 60) % 12}:${(int.parse(details.bookingData!.sessionTime!) % 60).toString().padLeft(2, '0')} ${(int.parse(details.bookingData!.sessionTime!) ~/ 60) < 12 ? 'AM' : 'PM'}'
+                                                    : 'N/A',
+
+
                                                 style: SafeGoogleFont(
                                                     "Inter",
                                                     fontWeight:
@@ -206,7 +213,12 @@ class _BookingUpcomingState extends State<BookingUpcoming> {
                                                     builder: (context) =>
                                                         BookingConfirmationPage2(
                                                           // remainingTime: const Duration(), // has to change
-                                                            remainingTime: parseDuration(details.bookingData!.sessionTime.toString()),
+                                                            remainingTime: /* parseDuration(details.bookingData!.sessionTime.toString()) */
+
+                                                            details.bookingData!.sessionTime != null
+                                                                ? '${(int.parse(details.bookingData!.sessionTime!) ~/ 60) % 12}:${(int.parse(details.bookingData!.sessionTime!) % 60).toString().padLeft(2, '0')} ${(int.parse(details.bookingData!.sessionTime!) ~/ 60) < 12 ? 'AM' : 'PM'}'
+                                                                : 'N/A',
+
                                                             isUpcoming:
                                                             false,
                                                             bookingData: details.bookingData ??

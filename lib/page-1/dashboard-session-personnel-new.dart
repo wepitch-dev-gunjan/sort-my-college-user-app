@@ -575,15 +575,15 @@ class _Counseling_Session_PersonnelState
                                                             SharedPreferences sPref =
                                                             await SharedPreferences
                                                                 .getInstance();
-                                                            var id =
+                                                            var sessionid =
                                                                 counsellorSessionProvider.details.sessions?[index].id;
                                                             sPref.setString(
-                                                                'sessionid', id!);
+                                                                'sessionid', sessionid!);
 
                                                             var sessionSlots = counsellorSessionProvider.details.sessions![index].sessionSlots!;
                                                             var sessionAvailableSlots = counsellorSessionProvider.details.sessions![index].sessionAvailableSlots!;
 
-                                                            if (sessionAvailableSlots <= 0!)
+                                                            if (sessionAvailableSlots <= 0)
                                                             {
                                                               EasyLoading.showToast(
                                                                   'There are no booking slots available in this session, please book another session',
@@ -593,15 +593,30 @@ class _Counseling_Session_PersonnelState
                                                             }
                                                             else
                                                             {
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder: (context) =>
-                                                                          CheckOutScreen(
-                                                                              name: widget.name,
-                                                                              id: id,
-                                                                              designation: widget.id,
-                                                                              profilepicurl: widget.profilepic, )));
+                                                              var value_res =await ApiService.bookValidationSession(sessionid);
+
+                                                              if (value_res.containsKey("message"))
+                                                              {
+                                                                EasyLoading.showToast(value_res["message"],
+                                                                    toastPosition:
+                                                                    EasyLoadingToastPosition.bottom);
+
+                                                                Navigator.push(
+                                                                    context,
+                                                                    MaterialPageRoute(
+                                                                        builder: (context) =>
+                                                                            CheckOutScreen(
+                                                                                designation: widget.designation,
+                                                                                name: widget.name,
+                                                                                profilepicurl: widget.profilepic,
+                                                                                id: sessionid)));
+
+                                                              }
+                                                              else {
+                                                                EasyLoading.showToast(value_res["error"],
+                                                                    toastPosition:
+                                                                    EasyLoadingToastPosition.bottom);
+                                                              }
                                                             }
                                                           },
                                                           child: const Text(

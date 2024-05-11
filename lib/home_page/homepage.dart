@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> {
   String path = '';
   late var value;
   bool isFetched = false;
+  bool has24HoursPassed = false;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -637,9 +638,10 @@ class _HomePageState extends State<HomePage> {
                                                     },
                                                   );
                                                 } else {
-                                                  Text('has Been Registered');
+                                                  const Text('Has Been Registered');
                                                 }
                                               },
+                                              regdate: trending.registeredDate,
                                               title: trending.registered!
                                                   ? (trending.webinarStartingInDays ==
                                                   0

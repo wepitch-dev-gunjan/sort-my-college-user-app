@@ -23,7 +23,8 @@ class _EducationLevelNewState extends State<EducationLevelNew> {
     "I'm in College",//college
     "I'm in Graduation",//graduated
   ];
-  String selectedOption = list[0];
+
+  String selectedOption = "Student";
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +71,7 @@ class _EducationLevelNewState extends State<EducationLevelNew> {
                                 return customButton(
                                   onPressed: () {
                                     setState(() {
+
                                       if (index == 0) {
                                         selectedOption = "Student";
                                         selectedIndex = index;
@@ -139,7 +141,7 @@ class _EducationLevelNewState extends State<EducationLevelNew> {
                       onTap: () async {
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
-                        prefs.setString("education_level", selectedOption);
+                            prefs.setString("education_level", selectedOption);
 
                         var value = await ApiService.save_profile(
                             prefs.getString("name"),
@@ -158,11 +160,10 @@ class _EducationLevelNewState extends State<EducationLevelNew> {
                                     builder: (context) =>
                                         const HomePageContainer()));
                           });
-                        } else {
-
+                        }
+                        else {
                           EasyLoading.showToast(value["error"],
                               toastPosition: EasyLoadingToastPosition.bottom);
-
                           prefs.clear();
 
                         }

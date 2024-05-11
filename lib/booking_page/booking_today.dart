@@ -203,7 +203,12 @@ class _BookingTodayState extends State<BookingToday> {
                                                           TextSpan(
                                                               text:
                                                                   // "${remainingTime.inHours < 0 ? "" : remainingTime.inHours}${remainingTime.inMinutes.remainder(60) < 0 ? '0' : ": ${remainingTime.inMinutes.remainder(60)}"} ",
-                                                                 details.bookingData!.sessionTime.toString(),
+
+                                                              details.bookingData!.sessionTime != null
+                                                                  ? '${(int.parse(details.bookingData!.sessionTime!) ~/ 60) % 12}:${(int.parse(details.bookingData!.sessionTime!) % 60).toString().padLeft(2, '0')} ${(int.parse(details.bookingData!.sessionTime!) ~/ 60) < 12 ? 'AM' : 'PM'}'
+                                                                  : 'N/A',
+
+                                                              //details.bookingData!.sessionTime.toString(),
 
                                                               style: SafeGoogleFont(
                                                                   "Inter",
@@ -243,7 +248,11 @@ class _BookingTodayState extends State<BookingToday> {
                                                               context,
                                                               MaterialPageRoute(
                                                                   builder: (context) => BookingConfirmationPage(
-                                                                      remainingTimestr: details.bookingData!.sessionTime.toString(),
+                                                                      remainingTimestr: /*details.bookingData!.sessionTime.toString()*/
+                                                                             details.bookingData!.sessionTime != null
+                                                                          ? '${(int.parse(details.bookingData!.sessionTime!) ~/ 60) % 12}:${(int.parse(details.bookingData!.sessionTime!) % 60).toString().padLeft(2, '0')} ${(int.parse(details.bookingData!.sessionTime!) ~/ 60) < 12 ? 'AM' : 'PM'}'
+                                                                          : 'N/A',
+
                                                                       /*parseDuration(details.bookingData!.sessionTime.toString())*/
                                                                       isUpcoming:
                                                                           false,

@@ -514,7 +514,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               var value_res =
                                   await ApiService.bookValidationSession(
                                       sessionId);
-                              if (value_res.containsKey("message")) {
+                              if (value_res.containsKey("message"))
+                              {
                                 EasyLoading.showToast(value_res["message"],
                                     toastPosition:
                                         EasyLoadingToastPosition.bottom);

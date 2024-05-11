@@ -18,7 +18,7 @@ class BookingConfirmationPage1 extends StatefulWidget {
         required this.counsellorDetails,
         required this.remainingTime});
 
-  final Duration remainingTime;
+  final String remainingTime;
   final bool isUpcoming;
   final String time;
   final bool isConfirmed;
@@ -36,9 +36,12 @@ class _BookingConfirmationPage1State extends State<BookingConfirmationPage1> {
 
   @override
   Widget build(BuildContext context) {
-    isExpired = (widget.remainingTime.inMinutes +
+
+    /*isExpired = (widget.remainingTime.inMinutes +
         (widget.bookingData.sessionDuration ?? 0)) <
         0;
+    */
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -143,8 +146,8 @@ class _BookingConfirmationPage1State extends State<BookingConfirmationPage1> {
                                 : Row(
                               children: [
                                 Text(
-                                  "${widget.remainingTime.inHours < 0 ? "" : widget.remainingTime.inHours}:${widget.remainingTime.inMinutes.remainder(60) < 0 ? '0' : widget.remainingTime.inMinutes.remainder(60)}",
-                                  //'${widget.remainingTime}',
+                                  /*"${widget.remainingTime.inHours < 0 ? "" : widget.remainingTime.inHours}:${widget.remainingTime.inMinutes.remainder(60) < 0 ? '0' : widget.remainingTime.inMinutes.remainder(60)}"*/
+                                  widget.remainingTime,
                                   style: SafeGoogleFont(
                                     "Inter",
                                     fontSize: 18,

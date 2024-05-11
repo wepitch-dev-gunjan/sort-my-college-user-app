@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:myapp/home_page/homepage.dart';
 import 'package:myapp/home_page/model/tranding_webinar_model.dart';
 import 'package:myapp/other/api_service.dart';
@@ -14,6 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:jiffy/jiffy.dart';
 
 import '../other/provider/counsellor_details_provider.dart';
 
@@ -31,6 +33,7 @@ class CustomWebinarCard extends StatefulWidget {
 
 class _CustomWebinarCardState extends State<CustomWebinarCard> {
   int _currentIndex = 0;
+  var pastdays ;
   PageController _pageController = PageController(initialPage: 0);
   late Timer _timer;
 
@@ -248,6 +251,7 @@ class _CustomWebinarCardState extends State<CustomWebinarCard> {
                                 Text('has Been Registered');
                               }
                             },
+                            regdate: widget.trandingWebinarModel.registeredDate,
                             title: widget.trandingWebinarModel.registered!
                                 ? (widget.trandingWebinarModel.webinarStartingInDays == 0
                                 ? 'Join Now'
@@ -271,23 +275,53 @@ class _CustomWebinarCardState extends State<CustomWebinarCard> {
 Widget registerNowWidget({
   required VoidCallback onPressed,
   required String title,
+  required String? regdate,
   required bool isRegisterNow,
 }) {
 
  /* Color buttonColor =
-
       isRegisterNow ? const Color(0xFF1F0A68) : const Color(0xFF1F0A68);
       /*isRegisterNow ? ColorsConst.grayColor : ColorsConst.grayColor;*/
-
       Color textColor = isRegisterNow ? Colors.white : Colors.white; */
+
+  bool has24HoursPassed = false;
+
+
+  DateTime registrationDate = DateTime.parse(regdate!);
+  //Duration difference = registrationDate.difference(DateTime.now());
+
+
+  var diff = daysBetween(DateTime.now(), registrationDate);
+
+  if ( diff < 0 )
+  {
+    has24HoursPassed = true; // in past webinar done
+    //pastdays = difference.inDays;
+   }
+   else if(diff > 0)
+    {
+      has24HoursPassed = false; // in future
+    }
+   else if (diff == 0)
+   {
+     has24HoursPassed = false;// in today
+   }
+
+  isRegisterNow = has24HoursPassed;
+
+
+  /*Color buttonColor =
+
+  isRegisterNow ? const Color(0xFF1F0A68) : ColorsConst.grayColor;
+
+  Color textColor = isRegisterNow ? Colors.white : Colors.black;*/
 
   Color buttonColor =
   //isRegisterNow ? const Color(0xFF1F0A68) : const Color(0xFFFFFFFF);
+  isRegisterNow ?  ColorsConst.grayColor : const  Color(0xFF1F0A68);
+  Color textColor = isRegisterNow ? Colors.black  : Colors.white ;
 
-  isRegisterNow ? const Color(0xFF1F0A68) : ColorsConst.grayColor;
-  Color textColor = isRegisterNow ? Colors.white : Colors.black;
-
-  return SizedBox(
+   return SizedBox(
     height: 35,
     width: 232,
     child: ElevatedButton(
@@ -310,6 +344,16 @@ Widget registerNowWidget({
       ),
     ),
   );
+
+
+}
+
+
+
+int daysBetween(DateTime from, DateTime to) {
+  from = DateTime(from.year, from.month, from.day);
+  to = DateTime(to.year, to.month, to.day);
+  return (to.difference(from).inHours / 24).round();
 }
 
 class CustomWebinarCard1 extends StatefulWidget {
@@ -501,6 +545,7 @@ class _CustomWebinarCard1State extends State<CustomWebinarCard1> {
                               ),
                             ),
                             registerNowWidget(
+
                                 onPressed: () async {
                                   _isRegistrationStarting = widget.webinarModel.registered;
                                   if (widget.webinarModel.registered && widget.webinarModel.webnar_startdays == 0) {
@@ -596,6 +641,7 @@ class _CustomWebinarCard1State extends State<CustomWebinarCard1> {
                                     );
                                   }
                                 },
+                                regdate: widget.webinarModel.resisterDate,
                                 title: widget.webinarModel.registered
                                     ? (widget.webinarModel.webnar_startdays == 0
                                     ? 'Join Now'

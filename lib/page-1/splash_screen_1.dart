@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/home_page/homepagecontainer.dart';
+import 'package:myapp/page-1/selectdob.dart';
 import 'package:myapp/page-1/selectdob_new.dart';
 import 'package:myapp/page-1/selectgender.dart';
 import 'package:myapp/page-1/shared.dart';
@@ -8,6 +9,7 @@ import 'package:myapp/page-1/splash_screen_n.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../other/api_service.dart';
 import 'edulevel_new.dart';
 
 class SplashScreen1 extends StatefulWidget {
@@ -71,8 +73,9 @@ class _SplashScreen1State extends State<SplashScreen1> {
         {
           if(mounted)
           {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const HomePageContainer()));
+            getAllInfo();
+            /*Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HomePageContainer()));*/
           }
 
         }
@@ -90,6 +93,48 @@ class _SplashScreen1State extends State<SplashScreen1> {
     });
     super.initState();
   }
+
+
+  void getAllInfo() async {
+    await ApiService.get_profile().then((value) => initPrefrence(value));
+  }
+
+  initPrefrence(Map<String, dynamic> value) async
+  {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if(value["message"] == "successfully get data")
+    {
+      if(prefs.getString("date_of_birth") == "NA" || prefs.getString("gender") == "NA" || prefs.getString("education_level") == "NA")
+       {
+          if(mounted)
+           {
+             Navigator.push(context,
+                 MaterialPageRoute(builder: (context) => const SelectDobNew()));
+           }
+
+       }
+      else{
+         if(mounted)
+          {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HomePageContainer()));
+          }
+
+      }
+
+    }
+
+    else{
+       if(mounted)
+        {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const SelectDobNew()));
+        }
+
+    }
+
+  }
+
 
   void configLoading() {
     EasyLoading.instance
@@ -118,4 +163,5 @@ class _SplashScreen1State extends State<SplashScreen1> {
       ),
     );
   }
+  
 }

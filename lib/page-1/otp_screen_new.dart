@@ -37,15 +37,19 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
   void addTime() {
     const subSeconds = 1;
 
-    setState(() {
-      if (duration.inMinutes == 0 && duration.inSeconds == 0) {
-        isResendOtpEnabled = true;
-        timer!.cancel();
-      } else {
-        final seconds = duration.inSeconds - subSeconds;
-        duration = Duration(seconds: seconds);
+    if(mounted)
+      {
+        setState(() {
+          if (duration.inMinutes == 0 && duration.inSeconds == 0) {
+            isResendOtpEnabled = true;
+            timer!.cancel();
+          } else {
+            final seconds = duration.inSeconds - subSeconds;
+            duration = Duration(seconds: seconds);
+          }
+        });
       }
-    });
+
   }
 
   void startTimer() {
