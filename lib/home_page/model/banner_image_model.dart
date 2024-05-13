@@ -6,7 +6,7 @@ class BannerImageModel {
   int? iV;
 
   BannerImageModel(
-      {this.sId, this.url, this.createdAt, this.updatedAt, this.iV});
+      {this.sId, this.url, this.createdAt, this.updatedAt, this.iV });
 
   BannerImageModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -17,11 +17,11 @@ class BannerImageModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['url'] = this.url;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['url'] = url;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
     data['__v'] = this.iV;
     return data;
   }

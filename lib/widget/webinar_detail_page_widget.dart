@@ -7,6 +7,8 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../webinar_page/webinar_pastwebnar_page.dart';
+
 class WebinarDetailsPageWidget extends StatefulWidget {
   final String? webinarId,
       webinarImg,
@@ -82,6 +84,9 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return PopScope(
       canPop: false,
       onPopInvoked : (didPop){
@@ -330,9 +335,9 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                       ),
                                       Text(
                                         index == 0
-                                            ? "dfdfgdfg\r\ngf33tt"
+                                            ? "Subject Knowledge"
                                             : index == 1
-                                            ? "sdffds"
+                                            ? "One To One Learning"
                                             : "Interactive learning",
                                         style: SafeGoogleFont(
                                           "Inter",
@@ -451,9 +456,9 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                     }
                   },
                   title: widget.webinarRegister
-                      ? (widget.webinarStartDays == 0
+                      ? ( widget.webinarStartDays == 0
                           ? 'Join Now'
-                          : 'Starting in ${widget.webinarStartDays} days')
+                          : widget.webinarRegister ? 'Happened in ${widget.webinarStartDays} days ago' : 'Starting in ${widget.webinarStartDays} days')
                       : 'Join Now',
                   isRegisterNow: widget.webinarRegister,
                 ),
@@ -474,15 +479,16 @@ Widget webinarDetailWidget({
   required String title,
   required bool isRegisterNow,
 }) {
+
   Color buttonColor =
-      isRegisterNow ? Color(0xff1F0A68) : const Color(0xff1F0A68);
-  Color textColor = isRegisterNow ? Colors.white : Colors.white;
+      isRegisterNow ? const Color(0xff1F0A68) : ColorsConst.grayColor;
+  Color textColor = isRegisterNow ? Colors.white : Colors.black;
 
   double buttonWidth =
       title.contains('Starting in 2 days') ? double.infinity : 200.0;
 
   return SizedBox(
-    width: buttonWidth,
+    width: buttonWidth*1.1,
     height: 42,
     child: ElevatedButton(
       onPressed: onPressed,
@@ -490,7 +496,7 @@ Widget webinarDetailWidget({
         elevation: 2,
         shadowColor: ColorsConst.whiteColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(8),
         ),
         foregroundColor: textColor,
         backgroundColor: buttonColor,
@@ -499,10 +505,9 @@ Widget webinarDetailWidget({
         title,
         style: SafeGoogleFont(
           "Inter",
-          fontSize: 15,
-          fontWeight: isRegisterNow ? FontWeight.w500 : FontWeight.w500,
-        ),
-      ),
+          fontSize: 14,
+          fontWeight: isRegisterNow ? FontWeight.w400 : FontWeight.w400,
+        ),),
     ),
   );
 }

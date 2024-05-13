@@ -126,8 +126,7 @@ class ApiService {
     var data;
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-
-      if(data.length() == 0)
+      if(data.length == 0)
       {
         return [];
       }
@@ -135,6 +134,8 @@ class ApiService {
         return List<BannerImageModel>.from(
             data.map((x) => BannerImageModel.fromJson(x)));
       }
+
+
 
 
     }

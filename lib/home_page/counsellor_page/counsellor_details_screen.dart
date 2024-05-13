@@ -287,7 +287,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                         color: const Color(0xff1f0a68)),
-                                    borderRadius: BorderRadius.circular(5),
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
 
                                   child: TextButton(
@@ -356,7 +356,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                           ? Colors.white
                                           : const Color(0xff1f0a68) ,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(4),
+                                        borderRadius: BorderRadius.circular(10),
                                       ),
                                     ),
                                     child: Center(
@@ -1304,7 +1304,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                     decoration: BoxDecoration(
                                       color: const Color(0xff1f0a68),
                                       borderRadius:
-                                      BorderRadius.circular(5 * fem),
+                                      BorderRadius.circular(10 * fem),
                                     ),
                                     child: Center(
                                       child: Center(

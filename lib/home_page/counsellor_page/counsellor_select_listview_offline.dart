@@ -939,7 +939,7 @@ class _CounsellorListPage_offlineState
                                                                                                   width: 0.50,
                                                                                                   color: Colors.black.withOpacity(0.7400000095367432),
                                                                                                 ),
-                                                                                                borderRadius: BorderRadius.circular(16),
+                                                                                                borderRadius: BorderRadius.circular(10),
                                                                                               ),
                                                                                             ),
                                                                                             child: const SizedBox(
@@ -981,7 +981,7 @@ class _CounsellorListPage_offlineState
                                                                                             decoration: ShapeDecoration(
                                                                                               color: const Color(0xff1F0A68),
                                                                                               shape: RoundedRectangleBorder(
-                                                                                                borderRadius: BorderRadius.circular(16),
+                                                                                                borderRadius: BorderRadius.circular(10),
                                                                                               ),
                                                                                             ),
                                                                                             child: const SizedBox(

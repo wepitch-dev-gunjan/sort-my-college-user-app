@@ -281,7 +281,7 @@ class _HomePageState extends State<HomePage> {
                               height: 120 * fem,
                               clipBehavior: Clip.antiAlias,
                               decoration: BoxDecoration(
-                                color: Color(0xff6450A8),
+                                color: const Color(0xff6450A8),
                                 borderRadius: BorderRadius.circular(20),
                                 boxShadow: [
                                   BoxShadow(
@@ -750,7 +750,7 @@ class _HomePageState extends State<HomePage> {
                         width: 190.25,
                         child: Text(
                           popularWorkShopModel.sessionType!,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16,
                             fontFamily: 'Inter',
@@ -911,7 +911,7 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: Container(
                       width: 120.14,
-                      height: 30,
+                      height: 33,
                       decoration: ShapeDecoration(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
@@ -919,7 +919,7 @@ class _HomePageState extends State<HomePage> {
                             width: 0.50,
                             color: Colors.black.withOpacity(0.7400000095367432),
                           ),
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                       child: const SizedBox(
@@ -941,7 +941,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 14),
+                  SizedBox(width: 30),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -957,11 +957,11 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: Container(
                       width: 120,
-                      height: 30,
+                      height: 33,
                       decoration: ShapeDecoration(
                         color: const Color(0xff1F0A68),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                       child: const SizedBox(

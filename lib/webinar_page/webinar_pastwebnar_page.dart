@@ -436,7 +436,7 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
   }) {
     Color buttonColor =
     isRegisterNow ? const Color(0xff1F0A68) : ColorsConst.grayColor;
-    Color textColor = isRegisterNow ? Colors.white : Colors.white;
+    Color textColor = isRegisterNow ? Colors.white : Colors.black;
 
     return SizedBox(
       height: 35,
