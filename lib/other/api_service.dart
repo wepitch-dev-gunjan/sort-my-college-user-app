@@ -198,6 +198,7 @@ class ApiService {
     var data;
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
+      log("Popular Workshop data=> $data");
       return List<PopularWorkShopModel>.from(
           data.map((x) => PopularWorkShopModel.fromJson(x)));
     }

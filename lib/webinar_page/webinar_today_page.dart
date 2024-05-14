@@ -29,7 +29,6 @@ class WebinarTodayPage extends StatefulWidget {
 class _WebinarTodayPageState extends State<WebinarTodayPage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context.read<CounsellorDetailsProvider>().fetchWebinar_Data("Today");
   }
@@ -37,36 +36,35 @@ class _WebinarTodayPageState extends State<WebinarTodayPage> {
   @override
   Widget build(BuildContext context) {
     var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
-    return
-      counsellorSessionProvider.webinarList.isEmpty
-          ? Center(
-          child: Text(
-          "No Webinar",
-          style: SafeGoogleFont("Inter"),
-           ),
-         )
-      :ListView.builder(
-      itemCount: counsellorSessionProvider.webinarList.length,
-      itemBuilder: (context, index) {
-        WebinarModel webinarModel =
-            counsellorSessionProvider.webinarList[index];
-        return Padding(
-          padding:
-              EdgeInsets.only(top: index == 0 ? 14 : 2, right: 16, left: 16),
-          child: CustomWebinarCard1(
-            showDuration: true,
-            title: "Learn more about CUET and IPMAT",
-            isRegisterNow: index == 0 ? true : false,
-            btnTitle: "Register Now",
-            time: "15 Sep @ 2:00 PM Onwards",
-            duration: "60",
-            participants: "Unlimited",
-            bannerImg: "assets/page-1/images/webinarBanner.png",
-            webinarModel: webinarModel,
-          ),
-        );
-      },
-    );
+    return counsellorSessionProvider.webinarList.isEmpty
+        ? Center(
+            child: Text(
+              "No Webinar",
+              style: SafeGoogleFont("Inter"),
+            ),
+          )
+        : ListView.builder(
+            itemCount: counsellorSessionProvider.webinarList.length,
+            itemBuilder: (context, index) {
+              WebinarModel webinarModel =
+                  counsellorSessionProvider.webinarList[index];
+              return Padding(
+                padding: EdgeInsets.only(
+                    top: index == 0 ? 14 : 2, right: 16, left: 16),
+                child: CustomWebinarCard1(
+                  showDuration: true,
+                  title: "Learn more about CUET and IPMAT",
+                  isRegisterNow: index == 0 ? true : false,
+                  btnTitle: "Register Now",
+                  time: "15 Sep @ 2:00 PM Onwards",
+                  duration: "60",
+                  participants: "Unlimited",
+                  bannerImg: "assets/page-1/images/webinarBanner.png",
+                  webinarModel: webinarModel,
+                ),
+              );
+            },
+          );
   }
 }
 
@@ -365,7 +363,7 @@ class _CustomWebinarCard1State extends State<CustomWebinarCard1> {
                                                   widget.webinarModel
                                                       .registered = true;
 
-                                                /*  setState(() {
+                                                  /*  setState(() {
 
                                                   });*/
 

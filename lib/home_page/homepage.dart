@@ -355,23 +355,23 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadius.circular(12)),
                         width: 390 * fem,
                         height: 120 * fem,
-                        // child: ImageSlideshow(
-                        //     autoPlayInterval: 6000,
-                        //     isLoop: false,
-                        //     indicatorColor: Colors.black,
-                        //     indicatorBackgroundColor: Colors.white,
-                        //     children: imgUrlList
-                        //         .map((e) => Container(
-                        //               width: 390 * fem,
-                        //               height: 120 * fem,
-                        //               decoration: BoxDecoration(
-                        //                 borderRadius: const BorderRadius.all(
-                        //                     Radius.circular(16)),
-                        //                 image: DecorationImage(
-                        //                     image: NetworkImage(e)),
-                        //               ),
-                        //             ))
-                        //         .toList()),
+                        child: ImageSlideshow(
+                            autoPlayInterval: 6000,
+                            isLoop: true,
+                            indicatorColor: Colors.black,
+                            indicatorBackgroundColor: Colors.white,
+                            children: imgUrlList
+                                .map((e) => Container(
+                                      width: 390 * fem,
+                                      height: 120 * fem,
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(16)),
+                                        image: DecorationImage(
+                                            image: NetworkImage(e)),
+                                      ),
+                                    ))
+                                .toList()),
                       ),
                     ),
                     const SizedBox(
@@ -398,6 +398,7 @@ class _HomePageState extends State<HomePage> {
                       height: 4,
                     ),
                     SizedBox(
+                      width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.27,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
@@ -694,302 +695,313 @@ class _HomePageState extends State<HomePage> {
     str = counsellorSessionProvider.popularWorkShopList[0].sessionDate
         ?.split('T');
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14.0),
-      child: Card(
-        color: Colors.white,
-        surfaceTintColor: Colors.white,
-        elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-          child: Column(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const CircleAvatar(
-                    radius: 38,
-                    backgroundImage: AssetImage(
-                      'assets/page-1/images/comming_soon.png',
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: SizedBox(
+        // width: width,
+        child: Card(
+          color: Colors.white,
+          surfaceTintColor: Colors.white,
+          elevation: 2,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      radius: 38,
+                      backgroundImage: NetworkImage(
+                          popularWorkShopModel.counsellorProfilePic!),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            popularWorkShopModel.sessionUser ?? "N/A",
-                            style: const TextStyle(
-                              color: Color(0xFF1F0A68),
-                              fontSize: 15,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500,
-                              height: 0,
+                    // const CircleAvatar(
+                    //   radius: 38,
+                    //   backgroundImage: AssetImage(
+                    //     'assets/page-1/images/comming_soon.png',
+                    //   ),
+                    // ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              popularWorkShopModel.counsellorName!,
+                              // popularWorkShopModel.sessionUser ?? "N/A",
+                              style: const TextStyle(
+                                color: Color(0xFF1F0A68),
+                                fontSize: 15,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w500,
+                                height: 0,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Share.share(
-                                  'https://play.google.com/store/apps/details?id=com.sortmycollege');
-                            },
-                            child: Center(
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Share.share(
+                                    'https://play.google.com/store/apps/details?id=com.sortmycollege');
+                              },
                               child: Image.asset(
                                 "assets/page-1/images/group-38-oFX.png",
                                 color: const Color(0xFF1F0A68),
                                 height: 16,
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 3,
-                      ),
-                      SizedBox(
-                        width: 190.25,
-                        child: Text(
-                          popularWorkShopModel.sessionType!,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w500,
-                            height: 0,
-                          ),
+                          ],
                         ),
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Row(
-                        children: [
-                          Image.asset(
-                            "assets/page-1/images/clock-circular-outline-Ra1.png",
-                            // color: Colors.black,
-                            height: 12,
-                            width: 12,
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          SizedBox(
-                            width: 121.13,
-                            child: Text(
-                              popularWorkShopModel.sessionTime != null
-                                  ? '${(popularWorkShopModel.sessionTime! ~/ 60) % 12}:${(popularWorkShopModel.sessionTime! % 60).toString().padLeft(2, '0')} ${(popularWorkShopModel.sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
-                                  : 'N/A',
-                              // popularWorkShopModel.sessionTime != null
-                              //     ? DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(popularWorkShopModel.sessionTime!))
-                              //     : 'N/A',
-                              style: const TextStyle(
-                                color: Color(0xFF414040),
-                                fontSize: 12,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w400,
-                                height: 0.08,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 4),
-                      Row(
-                        children: [
-                          Container(
-                            width: 13,
-                            height: 13,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                    "assets/page-1/images/calender.png"),
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 6,
-                          ),
-                          SizedBox(
-                            width: 121.13,
-                            child: Text(
-                              str[0],
-                              style: const TextStyle(
-                                color: Color(0xFF414040),
-                                fontSize: 12,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w400,
-                                height: 0.08,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            width: 12,
-                            height: 12,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image:
-                                    AssetImage("assets/page-1/images/rate.png"),
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          SizedBox(
-                            width: 121.13,
-                            child: Text(
-                              ' ${popularWorkShopModel.sessionFee}',
-                              style: const TextStyle(
-                                color: Color(0xFF414040),
-                                fontSize: 12,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w400,
-                                height: 0.08,
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              Container(
-                height: 0.47,
-                width: width * 0.85,
-                color: const Color(0xffAFAFAF).withOpacity(.78),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.014,
-              ),
-              Row(
-                //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CounsellorDetailsScreen(
-                                  id: popularWorkShopModel.sId!,
-                                  designation: "designation",
-                                  profilepicurl:
-                                      "data:image/jpeg;base64,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",
-                                  name: popularWorkShopModel.sessionUser ??
-                                      "N/A")));
-                    },
-                    child: Container(
-                      width: 120,
-                      height: 40,
-                      decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            width: 0.50,
-                            color: Colors.black.withOpacity(0.7400000095367432),
-                          ),
-                          borderRadius: BorderRadius.circular(8),
+                        const SizedBox(
+                          height: 3,
                         ),
-                      ),
-                      child: const SizedBox(
-                        width: 119.09,
-                        height: 16.05,
-                        child: Center(
+                        SizedBox(
+                          width: 190.25,
                           child: Text(
-                            'Visit Profile',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Color(0xFF262626),
-                              fontSize: 14,
+                            popularWorkShopModel.counsellorDesignation!,
+                            // popularWorkShopModel.sessionType!,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
                               fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
-                              height: 0.07,
+                              fontWeight: FontWeight.w500,
+                              height: 0,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Row(
+                          children: [
+                            Image.asset(
+                              "assets/page-1/images/clock-circular-outline-Ra1.png",
+                              // color: Colors.black,
+                              height: 12,
+                              width: 12,
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            SizedBox(
+                              width: 121.13,
+                              child: Text(
+                                popularWorkShopModel.sessionTime != null
+                                    ? '${(popularWorkShopModel.sessionTime! ~/ 60) % 12}:${(popularWorkShopModel.sessionTime! % 60).toString().padLeft(2, '0')} ${(popularWorkShopModel.sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
+                                    : 'N/A',
+                                // popularWorkShopModel.sessionTime != null
+                                //     ? DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(popularWorkShopModel.sessionTime!))
+                                //     : 'N/A',
+                                style: const TextStyle(
+                                  color: Color(0xFF414040),
+                                  fontSize: 12,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0.08,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            Container(
+                              width: 13,
+                              height: 13,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      "assets/page-1/images/calender.png"),
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 6,
+                            ),
+                            SizedBox(
+                              width: 121.13,
+                              child: Text(
+                                str[0],
+                                style: const TextStyle(
+                                  color: Color(0xFF414040),
+                                  fontSize: 12,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0.08,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              width: 12,
+                              height: 12,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      "assets/page-1/images/rate.png"),
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            SizedBox(
+                              width: 121.13,
+                              child: Text(
+                                ' ${popularWorkShopModel.sessionFee}',
+                                style: const TextStyle(
+                                  color: Color(0xFF414040),
+                                  fontSize: 12,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0.08,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                Container(
+                  height: 0.47,
+                  width: width * 0.85,
+                  color: const Color(0xffAFAFAF).withOpacity(.78),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.014,
+                ),
+                Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CounsellorDetailsScreen(
+                                    id: popularWorkShopModel.sessionId!,
+                                    designation: "designation",
+                                    profilepicurl: popularWorkShopModel
+                                        .counsellorProfilePic!,
+                                    // "data:image/jpeg;base64,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",
+                                    name: popularWorkShopModel.counsellorName ??
+                                        "N/A")));
+                      },
+                      child: Container(
+                        width: 120,
+                        height: 40,
+                        decoration: ShapeDecoration(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              width: 0.50,
+                              color:
+                                  Colors.black.withOpacity(0.7400000095367432),
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const SizedBox(
+                          width: 119.09,
+                          height: 16.05,
+                          child: Center(
+                            child: Text(
+                              'Visit Profile',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xFF262626),
+                                fontSize: 14,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w700,
+                                height: 0.07,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: width / 5.5,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CounsellingSessionPage(
-                                    name: 'N/A',
-                                    id: popularWorkShopModel.sId!,
-                                    designation: '',
-                                    profileurl:
-                                        "https://www.shutterstock.com/shutterstock/photos/1809858361/display_1500/stock-vector-photo-coming-soon-vector-image-picture-graphic-content-album-stock-photos-not-avaliable-1809858361.jpg",
-                                    selectedIndex_get: 0,
-                                  )));
-                    },
-                    child: Container(
-                      width: 120,
-                      height: 40,
-                      decoration: ShapeDecoration(
-                        color: const Color(0xff1F0A68),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                    SizedBox(
+                      width: width / 5.5,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CounsellingSessionPage(
+                                      name: 'N/A',
+                                      id: popularWorkShopModel.sessionId!,
+                                      designation: '',
+                                      profileurl:
+                                          "https://www.shutterstock.com/shutterstock/photos/1809858361/display_1500/stock-vector-photo-coming-soon-vector-image-picture-graphic-content-album-stock-photos-not-avaliable-1809858361.jpg",
+                                      selectedIndex_get: 0,
+                                    )));
+                      },
+                      child: Container(
+                        width: 120,
+                        height: 40,
+                        decoration: ShapeDecoration(
+                          color: const Color(0xff1F0A68),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
-                      ),
-                      child: const SizedBox(
-                        width: 119.09,
-                        height: 14.05,
-                        child: Center(
-                          child: Text(
-                            'Book Now',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
-                              height: 0.07,
+                        child: const SizedBox(
+                          width: 119.09,
+                          height: 14.05,
+                          child: Center(
+                            child: Text(
+                              'Book Now',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w700,
+                                height: 0.07,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 6),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(totalCards, (index) {
-                  return Icon(
-                    index == cardIndex ? Icons.circle : Icons.circle_outlined,
-                    color: const Color(0xff1F0A68),
-                    size: 8,
-                  );
-                }),
-              ),
-            ],
+                  ],
+                ),
+                const SizedBox(height: 6),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(totalCards, (index) {
+                    return Icon(
+                      index == cardIndex ? Icons.circle : Icons.circle_outlined,
+                      color: const Color(0xff1F0A68),
+                      size: 8,
+                    );
+                  }),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -72,7 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   File? image ;
-  final _picker = ImagePicker();
+  // final _picker = ImagePicker();
   bool showSpinner = false ;
 
   Future getImage() async{
