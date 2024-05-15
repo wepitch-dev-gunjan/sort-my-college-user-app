@@ -37,14 +37,17 @@ class _WebinarPastDataPageState extends State<WebinarPastDataPage> {
   @override
   Widget build(BuildContext context) {
     var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
-    return counsellorSessionProvider.webinarList.isEmpty
+    bool isLoading = context.watch<CounsellorDetailsProvider>().isLoading;
+    return isLoading
+        ? const Center(child: CircularProgressIndicator())
+        : counsellorSessionProvider.webinarList.isEmpty
         ? Center(
       child: Text(
         "No Webinar",
         style: SafeGoogleFont("Inter"),
       ),
     )
-        : ListView.builder(
+        :ListView.builder(
         itemCount: counsellorSessionProvider.webinarList.length,
         itemBuilder: (context, index) {
           WebinarModel webinarModel =

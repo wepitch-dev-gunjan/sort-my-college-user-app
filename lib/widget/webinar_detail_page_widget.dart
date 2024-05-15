@@ -20,6 +20,7 @@ class WebinarDetailsPageWidget extends StatefulWidget {
 
   late bool webinarRegister;
   final int? webinarStartDays;
+  DateTime registrationDate;
 
   WebinarDetailsPageWidget(
       {required this.webinarId,
@@ -30,6 +31,7 @@ class WebinarDetailsPageWidget extends StatefulWidget {
       required this.webinarSpeaker,
       required this.webinarStartDays,
       required this.webinarRegister,
+      required this.registrationDate,
       required this.webinarJoinUrl,
       super.key});
 
@@ -82,10 +84,28 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
     await _prefs.setBool('isRegistrationStarting', isStarting);
   }
 
+  bool has24HoursPassed = false;
+
   @override
   Widget build(BuildContext context) {
 
-
+    Duration difference = DateTime.now().difference(widget.registrationDate);
+    var diff = daysBetween(DateTime.now(), widget.registrationDate);
+    var pastdays ;
+    if (diff < 0 )
+    {
+      has24HoursPassed = true; // in past webinar done
+      pastdays=diff.abs();
+      //pastdays = difference.inDays;
+    }
+    else if(diff > 0)
+    {
+      has24HoursPassed = false; // in future
+    }
+    else if (diff == 0)
+    {
+      has24HoursPassed = false;// in today
+    }
 
     return PopScope(
       canPop: false,
@@ -395,72 +415,85 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                 child: webinarDetailWidget(
                   onPressed: () async {
                     _isRegistrationStarting = widget.webinarRegister;
-                    if (widget.webinarRegister && widget.webinarStartDays == 0) {
-                      launchUrlString(widget.webinarJoinUrl!);
-                    } else if (_isRegistrationStarting) {
+
+                    if(has24HoursPassed)
+                    {
                       Fluttertoast.showToast(
-                          msg: 'Participant is already registered');
-                    } else {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: const Text(
-                              'Do you want to register for the webinar?',
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: const Text('Cancel'),
-                              ),
-                              TextButton(
-                                onPressed: () async {
-                                  if (_isRegistrationStarting) {
-                                    Fluttertoast.showToast(
-                                        msg: 'Participant is already registered');
-                                    Navigator.pop(context);
-                                  } else {
-                                    var value = await ApiService.webinar_regiter(
-                                        widget.webinarId!);
-                                    if (value["error"] ==
-                                        "Participant is already registered") {
-                                      Fluttertoast.showToast(
-                                          msg:
-                                              'Participant is already registered');
-                                    } else if (value["message"] ==
-                                        "Registration completed") {
-                                      Fluttertoast.showToast(msg: 'Registration completed. Thanks for registering');
-                                      setState(() {
-                                        widget.webinarRegister = true;
-                                        _isRegistrationStarting = widget.webinarRegister;
-                                      });
-                                      //Navigator.pop(context);
-                                    }
-                                    if (mounted) {
-                                      Navigator.pop(context);
-                                    }
-                                    await _updateRegistrationStatus(true);
-                                  }
-                                },
-                                child: const Text('Yes'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
+                          msg:'Webinar Happened ${diff.abs()} days ago');
                     }
+                    else{
+                      if (widget.webinarRegister && widget.webinarStartDays == 0) {
+                        launchUrlString(widget.webinarJoinUrl!);
+                      } else if (_isRegistrationStarting) {
+                        Fluttertoast.showToast(
+                            msg: 'Participant is already registered');
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text(
+                                'Do you want to register for the webinar?',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    if (_isRegistrationStarting) {
+                                      Fluttertoast.showToast(
+                                          msg: 'Participant is already registered');
+                                      Navigator.pop(context);
+                                    } else {
+                                      var value = await ApiService.webinar_regiter(
+                                          widget.webinarId!);
+                                      if (value["error"] ==
+                                          "Participant is already registered") {
+                                        Fluttertoast.showToast(
+                                            msg:
+                                            'Participant is already registered');
+                                      } else if (value["message"] ==
+                                          "Registration completed") {
+                                        Fluttertoast.showToast(msg: 'Registration completed. Thanks for registering');
+                                        setState(() {
+                                          widget.webinarRegister = true;
+                                          _isRegistrationStarting = widget.webinarRegister;
+                                        });
+                                        //Navigator.pop(context);
+                                      }
+                                      if (mounted) {
+                                        Navigator.pop(context);
+                                      }
+                                      await _updateRegistrationStatus(true);
+                                    }
+                                  },
+                                  child: const Text('Yes'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
+                    }
+
+
+
+
+
                   },
                   title: widget.webinarRegister
                       ? ( widget.webinarStartDays == 0
                           ? 'Join Now'
-                          : widget.webinarRegister ? 'Happened in ${widget.webinarStartDays} days ago' : 'Starting in ${widget.webinarStartDays} days')
+                          : has24HoursPassed ? 'Happened in ${diff.abs()} days ago' : 'Starting in ${widget.webinarStartDays} days')
                       : 'Join Now',
-                  isRegisterNow: widget.webinarRegister,
+                  isRegisterNow: has24HoursPassed ? false :widget.webinarRegister,
                 ),
               ),
             ),

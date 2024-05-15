@@ -18,6 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../other/listcontroler.dart';
+import '../widget/custom_webniar_card_widget.dart';
 
 class WebinarTodayPage extends StatefulWidget {
   const WebinarTodayPage({super.key});
@@ -37,15 +38,18 @@ class _WebinarTodayPageState extends State<WebinarTodayPage> {
   @override
   Widget build(BuildContext context) {
     var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
+    bool isLoading = context.watch<CounsellorDetailsProvider>().isLoading;
     return
-      counsellorSessionProvider.webinarList.isEmpty
+      isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : counsellorSessionProvider.webinarList.isEmpty
           ? Center(
-          child: Text(
+        child: Text(
           "No Webinar",
           style: SafeGoogleFont("Inter"),
-           ),
-         )
-      :ListView.builder(
+        ),
+      )
+          :ListView.builder(
       itemCount: counsellorSessionProvider.webinarList.length,
       itemBuilder: (context, index) {
         WebinarModel webinarModel =
@@ -171,6 +175,7 @@ class _CustomWebinarCard1State extends State<CustomWebinarCard1> {
   }
 
   Widget cardView(BuildContext context) {
+    DateTime registrationDate = DateTime.parse(widget.webinarModel.resisterDate!);
     return InkWell(
       onTap: () {
         // Navigator.push(
@@ -190,6 +195,7 @@ class _CustomWebinarCard1State extends State<CustomWebinarCard1> {
                       webinarStartDays: widget.webinarModel.webnar_startdays,
                       webinarRegister: widget.webinarModel.registered,
                       webinarJoinUrl: widget.webinarModel.joinUrl,
+                      registrationDate:registrationDate,
                     )));
       },
       child: Column(
@@ -419,6 +425,7 @@ class _CustomWebinarCard1State extends State<CustomWebinarCard1> {
                                   );
                                 }
                               },
+                              regdate: widget.webinarModel.resisterDate!,
                               title: widget.webinarModel.registered
                                   ? (widget.webinarModel.webnar_startdays == 0
                                       ? 'Join Now'
@@ -444,11 +451,39 @@ class _CustomWebinarCard1State extends State<CustomWebinarCard1> {
 Widget customRegisterNowBtn({
   required VoidCallback onPressed,
   required String title,
+  required String regdate,
   required bool isRegisterNow,
 }) {
+
+  bool has24HoursPassed = false;
+  DateTime registrationDate = DateTime.parse(regdate!);
+  //Duration difference = registrationDate.difference(DateTime.now());
+
+
+  var diff = daysBetween(DateTime.now(), registrationDate);
+  var showdiff = diff.abs();
+
+  if ( diff < 0 )
+  {
+    has24HoursPassed = true; // in past webinar done
+    //pastdays = difference.inDays;
+  }
+  else if(diff > 0)
+  {
+    has24HoursPassed = false; // in future
+  }
+  else if (diff == 0)
+  {
+    has24HoursPassed = false;// in today
+  }
+
+  isRegisterNow = has24HoursPassed;
+
+
   Color buttonColor =
-      isRegisterNow ? Color(0xff1F0A68) : const Color(0xff1F0A68);
-  Color textColor = isRegisterNow ? Colors.white : Colors.white;
+  //isRegisterNow ? const Color(0xFF1F0A68) : const Color(0xFFFFFFFF);
+  isRegisterNow ?  ColorsConst.grayColor : const  Color(0xFF1F0A68);
+  Color textColor = isRegisterNow ? Colors.black  : Colors.white ;
 
   return SizedBox(
     height: 35,
@@ -464,7 +499,7 @@ Widget customRegisterNowBtn({
         backgroundColor: buttonColor,
       ),
       child: Text(
-        title,
+        has24HoursPassed == false ?  title : "Happened $showdiff days ago",
         style: SafeGoogleFont(
           "Inter",
           fontSize: 15,

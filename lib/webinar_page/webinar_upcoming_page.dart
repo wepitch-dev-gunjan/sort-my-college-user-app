@@ -36,15 +36,18 @@ class _WebinarUpcomingPageState extends State<WebinarUpcomingPage> {
   @override
   Widget build(BuildContext context) {
     var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
-    return counsellorSessionProvider.webinarList.isEmpty
-        ? Center(
-        child: Text(
-        "No Webinar",
-        style: SafeGoogleFont("Inter"),
+    bool isLoading = context.watch<CounsellorDetailsProvider>().isLoading;
+    return isLoading
+        ? const Center(child: CircularProgressIndicator())
+        : counsellorSessionProvider.webinarList.isEmpty
+      ? Center(
+         child: Text(
+         "Loading Webinar",
+         style: SafeGoogleFont("Inter"),
         ),
-     )
-    : ListView.builder(
-        itemCount: counsellorSessionProvider.webinarList.length,
+        )
+        :ListView.builder(
+        itemCount:   counsellorSessionProvider.webinarList.length,
         itemBuilder: (context, index) {
           WebinarModel webinarModel =
               counsellorSessionProvider.webinarList[index];
@@ -166,6 +169,7 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
 
   Widget cardView(BuildContext context) {
     DateTime registrationDate = DateTime.parse(widget.webinarModel.resisterDate!);
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -488,7 +492,7 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
     );
   }
 }
-
+/*-----------------------------------This is Detail Page of Webinar Detail PAge--------------------*/
 class WebinarDetailUpComingWidget extends StatefulWidget {
   WebinarDetailUpComingWidget(
       {required this.joinUrl,
@@ -848,7 +852,7 @@ class _WebinarDetailUpComingWidgetState
                         height: 8,
                       ),
                       Text(
-                        "Highly Educated And Experience Counsellor  ",
+                        "Highly Educated And Experience Counsellor To Guide Student Their Future Scope in Various Stream",
                         style: SafeGoogleFont(
                           "Inter",
                           fontSize: 14,
