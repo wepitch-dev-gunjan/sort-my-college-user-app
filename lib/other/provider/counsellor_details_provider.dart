@@ -15,7 +15,6 @@ import 'package:myapp/model/key_features_model.dart';
 import 'package:myapp/webinar_page/model/webinar_details_model.dart';
 import 'package:myapp/webinar_page/webinar_model.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-
 import '../../model/course_model.dart';
 import '../api_service.dart';
 
@@ -26,7 +25,6 @@ class CounsellorDetailsProvider extends ChangeNotifier {
   List<CounsellorData> counsellorData = [];
   List<WebinarModel> webinarList = [];
   List<WebinarDetailsModel> webinarDetailsList = [];
-
   List<BannerImageModel> bannerImageList = [];
   List<TrandingWebinarModel> trendingWebinarList = [];
   List<PopularWorkShopModel> popularWorkShopList = [];

@@ -1,21 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/provider/counsellor_details_provider.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
 import 'package:myapp/webinar_page/webinar_model.dart';
-import 'package:myapp/webinar_page/webinar_page.dart';
-import 'package:myapp/webinar_page/webinar_past_page.dart';
 import 'package:myapp/widget/custom_webniar_card_widget.dart';
-import 'package:myapp/widget/webinar_detail_page_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class WebinarPastDataPage extends StatefulWidget {
   const WebinarPastDataPage({super.key});
@@ -28,42 +21,46 @@ class _WebinarPastDataPageState extends State<WebinarPastDataPage> {
   @override
   void initState() {
     super.initState();
-    //context.read<CounsellorDetailsProvider>().fetchWebinar_Data("Past");
+
     context.read<CounsellorDetailsProvider>().fetchMyWebinar();
   }
+
 
   @override
   Widget build(BuildContext context) {
     var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
-    return counsellorSessionProvider.webinarList.isEmpty
-        ? Center(
-            // child: CircularProgressIndicator(),
-            child: Text(
-              "No Webinar",
-              style: SafeGoogleFont("Inter"),
-            ),
-          )
-        : ListView.builder(
-            itemCount: counsellorSessionProvider.webinarList.length,
-            itemBuilder: (context, index) {
-              WebinarModel webinarModel =
-                  counsellorSessionProvider.webinarList[index];
-              return Padding(
-                padding: EdgeInsets.only(
-                    top: index == 0 ? 30 : 4, right: 16, left: 16),
-                child: WebinarPastDataWidget(
-                  showDuration: false,
-                  title: "Learn more about CUET and IPMAT",
-                  isRegisterNow: true,
-                  btnTitle: "Register Now",
-                  time: "15 Sep @ 2:00 PM Onwards",
-                  duration: "60",
-                  participants: "Unlimited",
-                  bannerImg: "assets/page-1/images/webinarBanner.png",
-                  webinarModel: webinarModel,
+    bool isLoading = context.watch<CounsellorDetailsProvider>().isLoading;
+
+    return isLoading
+        ? const Center(child: CircularProgressIndicator())
+        : counsellorSessionProvider.webinarList.isEmpty
+            ? Center(
+                child: Text(
+                  "No Webinar",
+                  style: SafeGoogleFont("Inter"),
                 ),
-              );
-            });
+              )
+            : ListView.builder(
+                itemCount: counsellorSessionProvider.webinarList.length,
+                itemBuilder: (context, index) {
+                  WebinarModel webinarModel =
+                      counsellorSessionProvider.webinarList[index];
+                  return Padding(
+                    padding: EdgeInsets.only(
+                        top: index == 0 ? 30 : 4, right: 16, left: 16),
+                    child: WebinarPastDataWidget(
+                      showDuration: false,
+                      title: "Learn more about CUET and IPMAT",
+                      isRegisterNow: true,
+                      btnTitle: "Register Now",
+                      time: "15 Sep @ 2:00 PM Onwards",
+                      duration: "60",
+                      participants: "Unlimited",
+                      bannerImg: "assets/page-1/images/webinarBanner.png",
+                      webinarModel: webinarModel,
+                    ),
+                  );
+                });
   }
 }
 

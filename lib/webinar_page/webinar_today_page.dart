@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:myapp/notify.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/provider/counsellor_details_provider.dart';
 import 'package:myapp/shared/colors_const.dart';
@@ -36,35 +34,39 @@ class _WebinarTodayPageState extends State<WebinarTodayPage> {
   @override
   Widget build(BuildContext context) {
     var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
-    return counsellorSessionProvider.webinarList.isEmpty
-        ? Center(
-            child: Text(
-              "No Webinar",
-              style: SafeGoogleFont("Inter"),
-            ),
-          )
-        : ListView.builder(
-            itemCount: counsellorSessionProvider.webinarList.length,
-            itemBuilder: (context, index) {
-              WebinarModel webinarModel =
-                  counsellorSessionProvider.webinarList[index];
-              return Padding(
-                padding: EdgeInsets.only(
-                    top: index == 0 ? 14 : 2, right: 16, left: 16),
-                child: CustomWebinarCard1(
-                  showDuration: true,
-                  title: "Learn more about CUET and IPMAT",
-                  isRegisterNow: index == 0 ? true : false,
-                  btnTitle: "Register Now",
-                  time: "15 Sep @ 2:00 PM Onwards",
-                  duration: "60",
-                  participants: "Unlimited",
-                  bannerImg: "assets/page-1/images/webinarBanner.png",
-                  webinarModel: webinarModel,
+    bool isLoading = context.watch<CounsellorDetailsProvider>().isLoading;
+
+    return isLoading
+        ? const Center(child: CircularProgressIndicator())
+        : counsellorSessionProvider.webinarList.isEmpty
+            ? Center(
+                child: Text(
+                  "No Webinar",
+                  style: SafeGoogleFont("Inter"),
                 ),
+              )
+            : ListView.builder(
+                itemCount: counsellorSessionProvider.webinarList.length,
+                itemBuilder: (context, index) {
+                  WebinarModel webinarModel =
+                      counsellorSessionProvider.webinarList[index];
+                  return Padding(
+                    padding: EdgeInsets.only(
+                        top: index == 0 ? 14 : 2, right: 16, left: 16),
+                    child: CustomWebinarCard1(
+                      showDuration: true,
+                      title: "Learn more about CUET and IPMAT",
+                      isRegisterNow: index == 0 ? true : false,
+                      btnTitle: "Register Now",
+                      time: "15 Sep @ 2:00 PM Onwards",
+                      duration: "60",
+                      participants: "Unlimited",
+                      bannerImg: "assets/page-1/images/webinarBanner.png",
+                      webinarModel: webinarModel,
+                    ),
+                  );
+                },
               );
-            },
-          );
   }
 }
 

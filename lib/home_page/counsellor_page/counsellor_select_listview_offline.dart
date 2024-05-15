@@ -144,7 +144,7 @@ class _CounsellorListPage_offlineState
                                 physics: const AlwaysScrollableScrollPhysics(),
                                 child: Column(
                                   children: [
-                                    SizedBox(height: 20),
+                                   const  SizedBox(height: 20),
                                     Container(
                                       // sliderhqs (742:104)
                                       width: double.infinity,
