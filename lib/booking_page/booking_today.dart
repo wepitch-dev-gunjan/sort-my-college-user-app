@@ -22,7 +22,6 @@ class _BookingTodayState extends State<BookingToday> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context
         .read<UserBookingProvider>()
