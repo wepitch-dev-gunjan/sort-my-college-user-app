@@ -180,7 +180,6 @@ class ApiService {
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
 
-
       log("Trending Webinars=>>>>>>>>>$data");
       return List<TrandingWebinarModel>.from(
           data.map((x) => TrandingWebinarModel.fromJson(x)));
@@ -297,7 +296,9 @@ class ApiService {
     return [];
   }
 
-  static Future<Map<String, dynamic>> Follow_councellor(String id) async {
+  static Future<Map<String, dynamic>> Follow_councellor(
+      String id, Function setIsLoading) async {
+    setIsLoading(true);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
 
@@ -309,6 +310,7 @@ class ApiService {
     final url = Uri.parse('${AppConstants.baseUrl}/counsellor/follower/$id');
 
     final response = await http.post(url, headers: headers, body: body);
+    setIsLoading(false);
 
     if (response.statusCode == 200) {
       //print('Counsellor updated successfully');
@@ -323,7 +325,8 @@ class ApiService {
     return {};
   }
 
-  static Future<Map<String, dynamic>> Unfollow_councellor(String id) async {
+  static Future<Map<String, dynamic>> Unfollow_councellor(String id, Function setIsLoading) async {
+    setIsLoading(true);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
 
@@ -335,6 +338,7 @@ class ApiService {
     final url = Uri.parse('${AppConstants.baseUrl}/counsellor/follower/$id');
 
     final response = await http.put(url, headers: headers, body: body);
+    setIsLoading(false);
 
     if (response.statusCode == 200) {
       //print('Counsellor updated successfully');

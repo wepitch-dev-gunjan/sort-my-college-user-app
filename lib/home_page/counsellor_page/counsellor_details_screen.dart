@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -48,11 +50,19 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
   late TabController _controller;
   List<CounsellorModel> counsellorModel = [];
   bool isFollowing = false;
+  bool isFollowLoading = false;
   late int followerCount;
   bool hasFollowedBefore = false;
   double rating_val = 0;
   String feedback_msg = '';
   int cnt = 0;
+
+  setIsFollowingLoading(bool state) {
+    setState(() {
+      isFollowLoading = state;
+    });
+    log("is follow loading : $isFollowLoading");
+  }
 
   @override
   void initState() {
@@ -105,6 +115,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
     var userBookings = context.watch<UserBookingProvider>().userBooking;
     var counsellorDetailController = context.watch<CounsellorDetailsProvider>();
     double baseWidth = 430;
+    bool isLoading = true;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
 
@@ -278,7 +289,8 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                     onPressed: () async {
                                       if (isFollowing == true) {
                                         var value = await ApiService
-                                            .Unfollow_councellor(widget.id);
+                                            .Unfollow_councellor(widget.id,
+                                                setIsFollowingLoading);
 
                                         if (value["data"]["followed"] ==
                                             false) {
@@ -303,7 +315,9 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                       } else {
                                         var value =
                                             await ApiService.Follow_councellor(
-                                                widget.id);
+                                                widget.id,
+                                                setIsFollowingLoading);
+
                                         if (value["data"]["followed"] == true) {
                                           isFollowing =
                                               value["data"]["followed"];
@@ -335,18 +349,28 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                       ),
                                     ),
                                     child: Center(
-                                      child: Text(
-                                        isFollowing ? 'Following' : 'Follow',
-                                        style: SafeGoogleFont(
-                                          'Inter',
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                          height: 1.2125,
-                                          color: isFollowing
-                                              ? Colors.black
-                                              : const Color(0xffffffff),
-                                        ),
-                                      ),
+                                      child: isFollowLoading
+                                          ? SizedBox(
+                                              height: 15,
+                                              width: 15,
+                                              child: CircularProgressIndicator(
+                                                backgroundColor: Colors.white,
+                                                strokeWidth: 2.0,
+                                              ))
+                                          : Text(
+                                              isFollowing
+                                                  ? 'Following'
+                                                  : 'Follow',
+                                              style: SafeGoogleFont(
+                                                'Inter',
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500,
+                                                height: 1.2125,
+                                                color: isFollowing
+                                                    ? Colors.black
+                                                    : const Color(0xffffffff),
+                                              ),
+                                            ),
                                     ),
                                   ),
                                 ),

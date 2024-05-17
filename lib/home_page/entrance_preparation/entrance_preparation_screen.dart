@@ -239,7 +239,7 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 8, top: 6),
                                             child: Column(
                                               children: [
