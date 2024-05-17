@@ -20,7 +20,7 @@ class CounsellorDetail {
   String email;
   String coverImage;
   int rewardPoints;
-  int averageRating;
+  double averageRating;
   int followersCount;
   int experienceInYears;
   int totalSessionsAttended;
@@ -70,7 +70,9 @@ class CounsellorDetail {
           coverImage: json["cover_image"] ??
               "https://media.gettyimages.com/id/1334712074/vector/coming-soon-message.jpg?s=612x612&w=0&k=20&c=0GbpL-k_lXkXC4LidDMCFGN_Wo8a107e5JzTwYteXaw=",
           rewardPoints: json["reward_points"] ?? 0,
-          averageRating: json["average_rating"] ?? 0,
+          averageRating: json['avg_rating'] is int
+              ? (json['avg_rating'] as int).toDouble()
+              : json['avg_rating'].toDouble(),
           followersCount: json["followers_count"] ?? 0,
           experienceInYears: json["experience_in_years"] ?? 0,
           totalSessionsAttended: json["sessions"] ?? '',

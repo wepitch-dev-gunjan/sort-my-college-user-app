@@ -29,30 +29,47 @@ class _CounsellorListPage_offlineState
   @override
   void initState() {
     super.initState();
-    isCounsellorsLoading = true;
-    ApiService.getCounsellorData().then(
-      (value) {
-        setState(() {
-          isCounsellorsLoading = false;
-        });
-      },
-    );
+    _fetchCounsellorData();
   }
 
-  Future<void> _refresh() {
-    return Future.delayed(const Duration(seconds: 1), () {
-      ApiService.getCounsellorData().then((value) {
-        if (value.isNotEmpty) {
-          setState(() {});
-        }
-        if (value[0].name == "none") {
-          EasyLoading.showToast("404 Page Not Found",
-              toastPosition: EasyLoadingToastPosition.bottom);
-        }
-        setState(() {});
-      });
+  Future<void> _fetchCounsellorData() async {
+    setState(() {
+      isCounsellorsLoading = true;
     });
+
+    try {
+      var value = await ApiService.getCounsellorData();
+      if (value.isNotEmpty) {
+        // Assuming you need to update the listController with new data
+        listController.cousnellorlist_data = value;
+      }
+    } catch (error) {
+      EasyLoading.showToast("Error fetching data",
+          toastPosition: EasyLoadingToastPosition.bottom);
+    } finally {
+      setState(() {
+        isCounsellorsLoading = false;
+      });
+    }
   }
+
+  Future<void> _refresh() async {
+    await _fetchCounsellorData();
+  }
+  // Future<void> _refresh() {
+  //   return Future.delayed(const Duration(seconds: 1), () {
+  //     ApiService.getCounsellorData().then((value) {
+  //       if (value.isNotEmpty) {
+  //         setState(() {});
+  //       }
+  //       if (value[0].name == "none") {
+  //         EasyLoading.showToast("404 Page Not Found",
+  //             toastPosition: EasyLoadingToastPosition.bottom);
+  //       }
+  //       setState(() {});
+  //     });
+  //   });
+  // }
 
   int selectedIndex = 0;
 

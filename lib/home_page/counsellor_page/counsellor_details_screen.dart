@@ -244,7 +244,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                     Text(
                                       (counsellorDetailController
                                               .cousnellorlist_detail.isNotEmpty)
-                                          ? '${counsellorDetailController.cousnellorlist_detail[0].averageRating}'
+                                          ? '${counsellorDetailController.cousnellorlist_detail[0].averageRating} (${counsellorDetailController.cousnellorlist_detail[0].clientTestimonials!.where((testimonial) => testimonial.rating != 0).length})'
                                           : '',
                                       style: const TextStyle(fontSize: 12),
                                     ),
