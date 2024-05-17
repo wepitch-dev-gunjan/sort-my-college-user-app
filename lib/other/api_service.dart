@@ -598,16 +598,6 @@ class ApiService {
     }
   }
 
-  static Future<List<CounsellorModel>> getCounsellor_1() async {
-    //var url = Uri.parse("https://jsonplaceholder.typicode.com/posts");
-    var url = Uri.parse("http://13.127.234.0:9000//counsellor/");
-    final response =
-        await http.get(url, headers: {"Content-Type": "application/json"});
-    // var data = json.decode(response.body);
-    return List<CounsellorModel>.from(
-        json.decode(response.body).map((x) => CounsellorModel.fromJson(x)));
-  }
-
   static Future<List<CounsellorData>> getCounsellorData() async {
     var url = Uri.parse("${AppConstants.baseUrl}/counsellor/");
     SharedPreferences prefs = await SharedPreferences.getInstance();

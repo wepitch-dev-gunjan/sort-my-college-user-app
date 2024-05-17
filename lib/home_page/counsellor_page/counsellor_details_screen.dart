@@ -299,11 +299,11 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                               value["data"]["followed"];
                                           followerCount = followerCount - 1;
                                           ++cnt;
-                                          EasyLoading.showToast(
-                                              value["message"],
-                                              toastPosition:
-                                                  EasyLoadingToastPosition
-                                                      .bottom);
+                                          // EasyLoading.showToast(
+                                          //     value["message"],
+                                          //     toastPosition:
+                                          //         EasyLoadingToastPosition
+                                          //             .bottom);
 
                                           setState(() {});
                                         } else {
@@ -324,11 +324,11 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                           followerCount = followerCount + 1;
                                           ++cnt;
 
-                                          EasyLoading.showToast(
-                                              value["message"],
-                                              toastPosition:
-                                                  EasyLoadingToastPosition
-                                                      .bottom);
+                                          // EasyLoading.showToast(
+                                          //     value["message"],
+                                          //     toastPosition:
+                                          //         EasyLoadingToastPosition
+                                          //             .bottom);
 
                                           setState(() {});
                                         } else {
