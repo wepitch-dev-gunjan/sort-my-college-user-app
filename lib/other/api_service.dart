@@ -325,7 +325,8 @@ class ApiService {
     return {};
   }
 
-  static Future<Map<String, dynamic>> Unfollow_councellor(String id, Function setIsLoading) async {
+  static Future<Map<String, dynamic>> Unfollow_councellor(
+      String id, Function setIsLoading) async {
     setIsLoading(true);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
@@ -736,7 +737,8 @@ class ApiService {
             followersCount: 1,
             experienceInYears: 1,
             totalSessionsAttended: 1,
-            gender: "")
+            gender: "",
+            rewardPoints: 0)
       ];
     } else {
       return [];

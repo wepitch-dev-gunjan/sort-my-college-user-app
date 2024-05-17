@@ -535,7 +535,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                 Text(
                                   (counsellorDetailController
                                           .cousnellorlist_detail.isNotEmpty)
-                                      ? '${counsellorDetailController.cousnellorlist_detail[0].averageRating}'
+                                      ? '${counsellorDetailController.cousnellorlist_detail[0].rewardPoints}'
                                       : 'N/A',
                                   // Or any other placeholder text to indicate absence of rating
                                   style: const TextStyle(

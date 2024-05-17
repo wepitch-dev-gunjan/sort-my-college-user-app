@@ -19,6 +19,7 @@ class CounsellorDetail {
   String name;
   String email;
   String coverImage;
+  int rewardPoints;
   int averageRating;
   int followersCount;
   int experienceInYears;
@@ -44,6 +45,7 @@ class CounsellorDetail {
     required this.name,
     required this.email,
     required this.coverImage,
+    required this.rewardPoints,
     required this.averageRating,
     required this.followersCount,
     required this.experienceInYears,
@@ -67,10 +69,11 @@ class CounsellorDetail {
           email: json["email"] ?? '',
           coverImage: json["cover_image"] ??
               "https://media.gettyimages.com/id/1334712074/vector/coming-soon-message.jpg?s=612x612&w=0&k=20&c=0GbpL-k_lXkXC4LidDMCFGN_Wo8a107e5JzTwYteXaw=",
+          rewardPoints: json["reward_points"] ?? 0,
           averageRating: json["average_rating"] ?? 0,
           followersCount: json["followers_count"] ?? 0,
           experienceInYears: json["experience_in_years"] ?? 0,
-          totalSessionsAttended: json["total_appointed_sessions"] ?? '',
+          totalSessionsAttended: json["sessions"] ?? '',
           gender: json["gender"] ?? '',
           qualifications: json["qualifications"] ?? '',
           howIWillHelpYou: json["how_will_i_help"] ?? '',
@@ -93,10 +96,11 @@ class CounsellorDetail {
         "name": name,
         "email": email,
         "cover_image": coverImage,
-        "average_rating": averageRating,
+        "reward_points": rewardPoints,
         "followers_count": followersCount,
         "experience_in_years": experienceInYears,
         "total_sessions_attended": totalSessionsAttended,
+        "average_rating": averageRating,
         "gender": gender,
         "followers": followers,
         "reviews": reviews,
