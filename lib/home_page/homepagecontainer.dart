@@ -57,11 +57,17 @@ class _HomePageContainerState extends State<HomePageContainer> {
         items: const [
           BottomNavigationBarItem(
             label: "Home",
-            icon: Icon(Icons.home_outlined,size: 26,),
+            icon: Icon(
+              Icons.home_outlined,
+              size: 26,
+            ),
           ),
           BottomNavigationBarItem(
             label: "Webinar",
-            icon: Icon(Icons.smart_display_outlined,size: 26,),
+            icon: Icon(
+              Icons.smart_display_outlined,
+              size: 26,
+            ),
           ),
           BottomNavigationBarItem(
               label: "Booking",
@@ -84,7 +90,10 @@ class _HomePageContainerState extends State<HomePageContainer> {
             label: "News",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined,size: 26,),
+            icon: Icon(
+              Icons.account_circle_outlined,
+              size: 26,
+            ),
             label: "Profile",
           ),
         ],

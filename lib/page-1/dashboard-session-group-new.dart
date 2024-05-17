@@ -22,10 +22,10 @@ import 'dart:developer' as console show log;
 class Counseling_Session_group extends StatefulWidget {
   const Counseling_Session_group(
       {super.key,
-        required this.name,
-        required this.id,
-        required this.designation,
-        required this.profilepic});
+      required this.name,
+      required this.id,
+      required this.designation,
+      required this.profilepic});
 
   final String name;
   final String id;
@@ -235,7 +235,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
     configLoading();
     fetchDataFromApi();
 
-   // Fluttertoast.showToast(msg: "abc");
+    // Fluttertoast.showToast(msg: "abc");
 
     //fetchDataFromApiAll();
     context
@@ -488,7 +488,13 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                   physics: const ScrollPhysics(),
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
-                                   dynamic  bookedslot =  counsellorSessionProvider.details.sessions![index].sessionSlots - counsellorSessionProvider.details.sessions![index].sessionAvailableSlots;
+                                    dynamic bookedslot =
+                                        counsellorSessionProvider.details
+                                                .sessions![index].sessionSlots -
+                                            counsellorSessionProvider
+                                                .details
+                                                .sessions![index]
+                                                .sessionAvailableSlots;
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 16.0),
@@ -517,7 +523,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                             .sessions![index]
                                                             .sessionUser ??
                                                         'Session',
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                       color: Color(0xFF1F0A68),
                                                       fontSize: 16,
                                                       fontFamily: 'Inter',
@@ -541,9 +547,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                     ),
                                                     child: Center(
                                                       child: Text(
-
                                                         ' ${bookedslot.toString()} / ${counsellorSessionProvider.details.sessions![index].sessionSlots}',
-
                                                         style: const TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 13,
@@ -591,14 +595,36 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                         height: 5,
                                                       ),
                                                       Text(
-                                                        counsellorSessionProvider.details.sessions?[index].sessionTime != null
-                                                            ? DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(counsellorSessionProvider.details.sessions![index].sessionTime!))
+                                                        counsellorSessionProvider
+                                                                    .details
+                                                                    .sessions?[
+                                                                        index]
+                                                                    .sessionTime !=
+                                                                null
+                                                            ? '${(counsellorSessionProvider.details.sessions![index].sessionTime! ~/ 60) % 12}:${(counsellorSessionProvider.details.sessions![index].sessionTime! % 60).toString().padLeft(2, '0')} ${(counsellorSessionProvider.details.sessions![index].sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
                                                             : 'N/A',
+
+                                                        // counsellorSessionProvider
+                                                        //             .details
+                                                        //             .sessions?[
+                                                        //                 index]
+                                                        //             .sessionTime !=
+                                                        //         null
+                                                        //     ? DateFormat(
+                                                        //             'h:mm a')
+                                                        //         .format(DateTime.fromMillisecondsSinceEpoch(
+                                                        //             counsellorSessionProvider
+                                                        //                 .details
+                                                        //                 .sessions![
+                                                        //                     index]
+                                                        //                 .sessionTime!))
+                                                        //     : 'N/A',
                                                         style: const TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 12,
                                                           fontFamily: 'Inter',
-                                                          fontWeight: FontWeight.w400,
+                                                          fontWeight:
+                                                              FontWeight.w400,
                                                           height: 0,
                                                         ),
                                                       ),
@@ -697,8 +723,13 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                           await SharedPreferences
                                                               .getInstance();
 
-                                                      var id = counsellorSessionProvider.details.sessions?[index].id;
-                                                      sPref.setString('sessionid', id!);
+                                                      var id =
+                                                          counsellorSessionProvider
+                                                              .details
+                                                              .sessions?[index]
+                                                              .id;
+                                                      sPref.setString(
+                                                          'sessionid', id!);
 
                                                       /*Navigator.push(
                                                           context,
@@ -710,35 +741,42 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                                           .name,
                                                                       id: id)));*/
 
-                                                       var sessionSlots = counsellorSessionProvider.details.sessions![index].sessionSlots!;
-                                                       var sessionAvailableSlots = counsellorSessionProvider.details.sessions![index].sessionAvailableSlots!;
+                                                      var sessionSlots =
+                                                          counsellorSessionProvider
+                                                              .details
+                                                              .sessions![index]
+                                                              .sessionSlots!;
+                                                      var sessionAvailableSlots =
+                                                          counsellorSessionProvider
+                                                              .details
+                                                              .sessions![index]
+                                                              .sessionAvailableSlots!;
 
-                                                      if (sessionAvailableSlots <= 0!) {
+                                                      if (sessionAvailableSlots <=
+                                                          0!) {
                                                         EasyLoading.showToast(
                                                             'There are no booking slots available in this session, please book another session',
                                                             toastPosition:
                                                                 EasyLoadingToastPosition
                                                                     .bottom);
-
-                                                      }
-                                                      else {
-
-                                                         Navigator.push(
+                                                      } else {
+                                                        Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
-                                                                builder: (context) =>
-                                                                    CheckOutScreen(
-                                                                        designation: widget.designation,
-                                                                        name: widget.name,
-                                                                        profilepicurl: widget.profilepic,
-                                                                        id: id)));
+                                                                builder: (context) => CheckOutScreen(
+                                                                    designation:
+                                                                        widget
+                                                                            .designation,
+                                                                    name: widget
+                                                                        .name,
+                                                                    profilepicurl:
+                                                                        widget
+                                                                            .profilepic,
+                                                                    id: id)));
 
                                                         /* await ApiService.updateBookingSession(id)
                                                             .then((value) => MoveToSessionPage()); */
-
                                                       }
-
-
                                                     },
                                                     child: Container(
                                                       width: 96,
@@ -1138,28 +1176,24 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
           );
   }
 
-
-
   callme() async {
     await Future.delayed(const Duration(seconds: 3));
     const CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.red));
   }
 
-
   MoveToSessionPage() {
     Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => BookingPage()
-          // CounsellingSessionPage(
-          //   id: cid,
-          //   name: name,
-          //   designation: widget.designation,
-          //   profileurl: widget.profilepicurl,
-          //   selectedIndex_get: 0,)
+            // CounsellingSessionPage(
+            //   id: cid,
+            //   name: name,
+            //   designation: widget.designation,
+            //   profileurl: widget.profilepicurl,
+            //   selectedIndex_get: 0,)
 
-        ));
-
+            ));
   }
 
   Future<bool> _onBackPressed() async {

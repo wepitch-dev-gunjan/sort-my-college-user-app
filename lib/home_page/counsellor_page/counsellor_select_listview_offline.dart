@@ -135,7 +135,6 @@ class _CounsellorListPage_offlineState
                     ),
                     Expanded(
                       child: SizedBox(
-                        // autogroup13ehpiD (5rq67B26ka2aqeMhbB13eh)
                         child: Stack(
                           children: [
                             RefreshIndicator(
@@ -144,9 +143,9 @@ class _CounsellorListPage_offlineState
                                 physics: const AlwaysScrollableScrollPhysics(),
                                 child: Column(
                                   children: [
-                                   const  SizedBox(height: 20),
+                                    const SizedBox(height: 20),
                                     Container(
-                                      // sliderhqs (742:104)
+                                      // color: Colors.red,
                                       width: double.infinity,
                                       height: 100.35 * fem,
                                       margin: const EdgeInsets.only(
@@ -212,7 +211,6 @@ class _CounsellorListPage_offlineState
                                             ),
                                           ),
                                           Positioned(
-                                            // whatentranceexaminationsshould (742:113)
                                             left: 13.28515625 * fem,
                                             top: 27.3145446777 * fem,
                                             child: Align(
@@ -299,23 +297,20 @@ class _CounsellorListPage_offlineState
                                       ),
                                     ),
                                     listController.cousnellorlist_data.isEmpty
-                                        ? Container(
-                                            // height: double.maxFinite,
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              // alignment: Alignment.bottomCenter,
-                                              children: [
-                                                SizedBox(
-                                                  height:
-                                                      MediaQuery.sizeOf(context)
-                                                              .height /
-                                                          3.5,
-                                                ),
-                                                const Text("Data not Found")
-                                              ],
-                                            ),
+                                        ? Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            // alignment: Alignment.bottomCenter,
+                                            children: [
+                                              SizedBox(
+                                                height:
+                                                    MediaQuery.sizeOf(context)
+                                                            .height /
+                                                        3.5,
+                                              ),
+                                              const Text("Data not Found")
+                                            ],
                                           )
                                         : listController.cousnellorlist_data[0]
                                                     .name ==
@@ -324,8 +319,11 @@ class _CounsellorListPage_offlineState
                                                 child: Text(
                                                     "Something went wrong!"),
                                               )
+
+//=====================================! Counsellors Card !=======================================
+
                                             : Container(
-                                                color: Colors.white,
+                                                // color: Colors.red,
                                                 margin:
                                                     const EdgeInsets.fromLTRB(
                                                         0, 10, 0, 10),
@@ -341,7 +339,8 @@ class _CounsellorListPage_offlineState
                                                   child: ListView.builder(
                                                     padding: const EdgeInsets
                                                         .symmetric(
-                                                        horizontal: 14),
+                                                      horizontal: 14,
+                                                    ),
                                                     itemCount: listController
                                                         .cousnellorlist_data
                                                         .length,
@@ -351,6 +350,12 @@ class _CounsellorListPage_offlineState
                                                     primary: false,
                                                     itemBuilder:
                                                         (context, index) {
+                                                      var coursesFocused =
+                                                          listController
+                                                                  .cousnellorlist_data[
+                                                                      index]
+                                                                  .coursesFocused ??
+                                                              [];
                                                       return Row(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -358,30 +363,33 @@ class _CounsellorListPage_offlineState
                                                         children: [
                                                           Card(
                                                             elevation: 2,
+                                                            // color: Colors.red,
                                                             color: const Color(
                                                                 0xffffffff),
                                                             surfaceTintColor:
                                                                 const Color(
                                                                     0xffffffff),
                                                             child: Container(
-                                                              // group25Cyf (730:13)
                                                               margin: EdgeInsets
                                                                   .fromLTRB(
-                                                                      10 * fem,
-                                                                      10 * fem,
-                                                                      10 * fem,
-                                                                      10.73 *
-                                                                          fem),
+                                                                10 * fem,
+                                                                10 * fem,
+                                                                10 * fem,
+                                                                10.73 * fem,
+                                                              ),
                                                               width: 390 * fem,
                                                               height: 224 * fem,
                                                               decoration:
                                                                   BoxDecoration(
+                                                                // color:
+                                                                //     Colors.red,
                                                                 color: const Color(
                                                                     0xffffffff),
                                                                 borderRadius:
                                                                     BorderRadius
-                                                                        .circular(7 *
-                                                                            fem),
+                                                                        .circular(
+                                                                  7 * fem,
+                                                                ),
                                                               ),
                                                               child: Stack(
                                                                 children: [
@@ -427,62 +435,126 @@ class _CounsellorListPage_offlineState
                                                                               ),
                                                                             ),
                                                                           ),
+
                                                                           Positioned(
-                                                                            // group15tk1 (730:17)
                                                                             left:
                                                                                 123 * fem,
                                                                             top:
                                                                                 70.4285888672 * fem,
                                                                             child:
-                                                                                Container(
-                                                                              width: 52 * fem,
-                                                                              height: 18 * fem,
-                                                                              decoration: BoxDecoration(
-                                                                                color: const Color(0xff1f0a68),
-                                                                                borderRadius: BorderRadius.circular(3 * fem),
-                                                                              ),
-                                                                              child: Center(
-                                                                                child: Text(
-                                                                                  "N/A",
-                                                                                  style: SafeGoogleFont(
-                                                                                    'Inter',
-                                                                                    fontSize: 11 * ffem,
-                                                                                    fontWeight: FontWeight.w700,
-                                                                                    height: 0,
-                                                                                    color: const Color(0xffffffff),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
+                                                                                Row(
+                                                                              children: coursesFocused != null && coursesFocused.isNotEmpty
+                                                                                  ? List.generate(
+                                                                                      coursesFocused.length,
+                                                                                      (index) => Container(
+                                                                                        margin: const EdgeInsets.only(right: 5.0),
+                                                                                        padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+                                                                                        height: 18 * fem,
+                                                                                        decoration: BoxDecoration(
+                                                                                          color: const Color(0xff1f0a68),
+                                                                                          borderRadius: BorderRadius.circular(3 * fem),
+                                                                                        ),
+                                                                                        child: Center(
+                                                                                          child: Text(
+                                                                                            coursesFocused[index],
+                                                                                            style: SafeGoogleFont(
+                                                                                              'Inter',
+                                                                                              fontSize: 11 * ffem,
+                                                                                              fontWeight: FontWeight.w700,
+                                                                                              height: 1.0,
+                                                                                              color: const Color(0xffffffff),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    )
+                                                                                  : [
+                                                                                      Container(
+                                                                                        margin: const EdgeInsets.only(right: 5.0),
+                                                                                        padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+                                                                                        height: 18 * fem,
+                                                                                        decoration: BoxDecoration(
+                                                                                          color: const Color(0xff1f0a68),
+                                                                                          borderRadius: BorderRadius.circular(3 * fem),
+                                                                                        ),
+                                                                                        child: Center(
+                                                                                          child: Text(
+                                                                                            'N/A',
+                                                                                            style: SafeGoogleFont(
+                                                                                              'Inter',
+                                                                                              fontSize: 11 * ffem,
+                                                                                              fontWeight: FontWeight.w700,
+                                                                                              height: 1.0,
+                                                                                              color: const Color(0xffffffff),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
                                                                             ),
                                                                           ),
-                                                                          Positioned(
-                                                                            // group25kfj (730:23)
-                                                                            left:
-                                                                                180 * fem,
-                                                                            top:
-                                                                                70.4285888672 * fem,
-                                                                            child:
-                                                                                Container(
-                                                                              width: 29.74 * fem,
-                                                                              height: 18 * fem,
-                                                                              decoration: BoxDecoration(
-                                                                                color: const Color(0xff1f0a68),
-                                                                                borderRadius: BorderRadius.circular(3 * fem),
-                                                                              ),
-                                                                              child: Center(
-                                                                                child: Text(
-                                                                                  'N/A',
-                                                                                  style: SafeGoogleFont(
-                                                                                    'Inter',
-                                                                                    fontSize: 12 * ffem,
-                                                                                    fontWeight: FontWeight.w700,
-                                                                                    height: 1.2125 * ffem / fem,
-                                                                                    color: const Color(0xffffffff),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
+                                                                          // Positioned(
+                                                                          //   // group15tk1 (730:17)
+                                                                          //   left:
+                                                                          //       123 * fem,
+                                                                          //   top:
+                                                                          //       70.4285888672 * fem,
+                                                                          //   child:
+                                                                          //       Row(
+                                                                          //     children: [
+
+                                                                          //       Container(
+                                                                          //         padding: const EdgeInsets.only(left: 4, right: 4),
+                                                                          //         // width: 52 * fem,
+                                                                          //         height: 18 * fem,
+                                                                          //         decoration: BoxDecoration(
+                                                                          //           color: const Color(0xff1f0a68),
+                                                                          //           borderRadius: BorderRadius.circular(3 * fem),
+                                                                          //         ),
+                                                                          //         child: Center(
+                                                                          //           child: Text(
+                                                                          //             coursesFocused.isNotEmpty ? coursesFocused[0] : "N/A",
+                                                                          //             style: SafeGoogleFont(
+                                                                          //               'Inter',
+                                                                          //               fontSize: 11 * ffem,
+                                                                          //               fontWeight: FontWeight.w700,
+                                                                          //               height: 0,
+                                                                          //               color: const Color(0xffffffff),
+                                                                          //             ),
+                                                                          //           ),
+                                                                          //         ),
+                                                                          //       ),
+
+//=============================================================================! N/A 2nd !=======================================
+
+                                                                          // Positioned(
+                                                                          //   // group25kfj (730:23)
+                                                                          //   left:
+                                                                          //       180 * fem,
+                                                                          //   top:
+                                                                          //       70.4285888672 * fem,
+                                                                          //   child:
+                                                                          //       Container(
+                                                                          //     width: 29.74 * fem,
+                                                                          //     height: 18 * fem,
+                                                                          //     decoration: BoxDecoration(
+                                                                          //       color: const Color(0xff1f0a68),
+                                                                          //       borderRadius: BorderRadius.circular(3 * fem),
+                                                                          //     ),
+                                                                          //     child: Center(
+                                                                          //       child: Text(
+                                                                          //         'N/A',
+                                                                          //         style: SafeGoogleFont(
+                                                                          //           'Inter',
+                                                                          //           fontSize: 12 * ffem,
+                                                                          //           fontWeight: FontWeight.w700,
+                                                                          //           height: 1.2125 * ffem / fem,
+                                                                          //           color: const Color(0xffffffff),
+                                                                          //         ),
+                                                                          //       ),
+                                                                          //     ),
+                                                                          //   ),
+                                                                          // ),
                                                                           Positioned(
                                                                             child:
                                                                                 SizedBox(
@@ -565,6 +637,9 @@ class _CounsellorListPage_offlineState
                                                                                             // autogroupgljmgWm (5rq7GDviByH7TzJqkBgLJM)
                                                                                             margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 3.3 * fem),
                                                                                           ),
+
+////================================================================================================================! Rating ! ============================================================================
+
                                                                                           Container(
                                                                                             // autogrouprcmfMPw (5rq7T8nCN5sYC595gTrcmf)
                                                                                             margin: EdgeInsets.fromLTRB(30.79 * fem, 0 * fem, 0 * fem, 8.5 * fem),
@@ -582,24 +657,19 @@ class _CounsellorListPage_offlineState
                                                                                                     fit: BoxFit.cover,
                                                                                                   ),
                                                                                                 ),
-                                                                                                Container(
-                                                                                                  // nextsessionat800pm8L9 (730:73)
-                                                                                                  margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 51.8 * fem, 0 * fem),
-                                                                                                  child: Text(
-                                                                                                    'N/A',
-                                                                                                    textAlign: TextAlign.center,
-                                                                                                    style: SafeGoogleFont(
-                                                                                                      'Inter',
-                                                                                                      fontSize: 12 * ffem,
-                                                                                                      fontWeight: FontWeight.w500,
-                                                                                                      height: 1 * ffem / fem,
-                                                                                                      color: const Color(0xff414040),
-                                                                                                    ),
+                                                                                                Text(
+                                                                                                  "No sessions yet",
+                                                                                                  textAlign: TextAlign.center,
+                                                                                                  style: SafeGoogleFont(
+                                                                                                    'Inter',
+                                                                                                    fontSize: 12 * ffem,
+                                                                                                    fontWeight: FontWeight.w500,
+                                                                                                    height: 1 * ffem / fem,
+                                                                                                    color: const Color(0xff414040),
                                                                                                   ),
                                                                                                 ),
-                                                                                               const  Spacer(),
+                                                                                                const Spacer(),
                                                                                                 Container(
-                                                                                                  // starpim (730:70)
                                                                                                   margin: EdgeInsets.fromLTRB(100 * fem, 0 * fem, 2.34 * fem, 0 * fem),
                                                                                                   width: 12 * fem,
                                                                                                   height: 12 * fem,
@@ -608,90 +678,20 @@ class _CounsellorListPage_offlineState
                                                                                                     fit: BoxFit.cover,
                                                                                                   ),
                                                                                                 ),
-                                                                                                Text(
-                                                                                                  // 9W9 (730:71)
-                                                                                                  '${listController.cousnellorlist_data[index].averageRating}',
-                                                                                                  textAlign: TextAlign.center,
-                                                                                                  style: SafeGoogleFont(
-                                                                                                    'Inter',
-                                                                                                    fontSize: 9 * ffem,
-                                                                                                    fontWeight: FontWeight.w700,
-                                                                                                    height: 1 * ffem / fem,
-                                                                                                    color: const Color(0xff000000),
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ],
-                                                                                            ),
-                                                                                          ),
-                                                                                          //updated
-                                                                                          Container(
-                                                                                            // group1324p9 (730:74)
-                                                                                            margin: EdgeInsets.fromLTRB(0 * fem, 3.5 * fem, 3.29 * fem, 0 * fem),
-                                                                                            height: 35 * fem,
-                                                                                            child: Row(
-                                                                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                              children: [
-                                                                                                GestureDetector(
-                                                                                                  onTap: () {
-                                                                                                    String id = listController.cousnellorlist_data[index].id;
-                                                                                                    String name = listController.cousnellorlist_data[index].name;
-                                                                                                    String profilepicurl = listController.cousnellorlist_data[index].profilePic;
-                                                                                                    String designation = listController.cousnellorlist_data[index].designation;
-
-                                                                                                    Navigator.push(
-                                                                                                        context,
-                                                                                                        MaterialPageRoute(
-                                                                                                            builder: (context) => CounsellorDetailsScreen(
-                                                                                                                  id: id,
-                                                                                                                  name: name,
-                                                                                                                  profilepicurl: profilepicurl,
-                                                                                                                  designation: designation,
-                                                                                                                )));
-                                                                                                  },
-                                                                                                  child: const SizedBox(
-                                                                                                    width: 130.85,
-                                                                                                    height: 25.09,
-                                                                                                    child: Stack(
-                                                                                                      children: [
-                                                                                                        /* Positioned(
-                                                                                                        child: Container(
-                                                                                                          width: 130.85,
-                                                                                                          height: 25.09,
-                                                                                                          decoration: ShapeDecoration(
-                                                                                                            color: Colors.white,
-                                                                                                            shape: RoundedRectangleBorder(
-                                                                                                              side: BorderSide(
-                                                                                                                width: 0.50,
-                                                                                                                color: Colors.black.withOpacity(0.7400000095367432),
-                                                                                                              ),
-                                                                                                              borderRadius: BorderRadius.circular(16),
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                      ),*/
-                                                                                                        /*const Positioned(
-                                                                                                        left: 5.45,
-                                                                                                        top: 13,
-                                                                                                        child: SizedBox(
-                                                                                                          width: 123.01,
-                                                                                                          height: 16.05,
-                                                                                                          child: Text(
-                                                                                                            'Visit Profile',
-                                                                                                            textAlign: TextAlign.center,
-                                                                                                            style: TextStyle(
-                                                                                                              color: Color(0xFF262626),
-                                                                                                              fontSize: 14,
-                                                                                                              fontFamily: 'Inter',
-                                                                                                              fontWeight: FontWeight.w700,
-                                                                                                              height: 0.07,
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                      ),*/
-                                                                                                      ],
+                                                                                                Padding(
+                                                                                                  padding: const EdgeInsets.only(top: 2.5),
+                                                                                                  child: Text(
+                                                                                                    '${listController.cousnellorlist_data[index].averageRating}',
+                                                                                                    textAlign: TextAlign.center,
+                                                                                                    style: SafeGoogleFont(
+                                                                                                      'Inter',
+                                                                                                      fontSize: 9 * ffem,
+                                                                                                      fontWeight: FontWeight.w700,
+                                                                                                      height: 1 * ffem / fem,
+                                                                                                      color: const Color(0xff000000),
                                                                                                     ),
                                                                                                   ),
-                                                                                                )
+                                                                                                ),
                                                                                               ],
                                                                                             ),
                                                                                           ),
@@ -699,6 +699,9 @@ class _CounsellorListPage_offlineState
                                                                                       ),
                                                                                     ),
                                                                                   ),
+
+//============================================================================! Btns Upper Part ! =========================================================
+
                                                                                   Positioned(
                                                                                     // group127Yc9 (730:56)
                                                                                     left: 15.095703125 * fem,
@@ -916,6 +919,9 @@ class _CounsellorListPage_offlineState
                                                                                       ),
                                                                                     ),
                                                                                   ),
+
+//==========================================================================================! Btns !=======================================
+
                                                                                   Positioned(
                                                                                     // group127Yc9 (730:56)
                                                                                     left: 15.095703125 * fem,

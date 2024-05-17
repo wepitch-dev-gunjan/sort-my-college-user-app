@@ -179,6 +179,9 @@ class ApiService {
     var data;
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
+
+
+      log("Trending Webinars=>>>>>>>>>$data");
       return List<TrandingWebinarModel>.from(
           data.map((x) => TrandingWebinarModel.fromJson(x)));
     }
@@ -613,6 +616,7 @@ class ApiService {
     //console.log("Counsellor List : ${response.body}");
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
+      log("Get Counsellor Data=>>>>>>>>>>>>>>>>>>>$data");
       return List<CounsellorData>.from(
           data.map((x) => CounsellorData.fromJson(x)));
     }

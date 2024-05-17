@@ -202,7 +202,7 @@ class _CounsellingSessionPageState extends State<CounsellingSessionPage> {
           onPressed: onPressed,
           child: Text(
             title,
-            style: TextStyle(fontSize: 12),
+            style: const TextStyle(fontSize: 12),
           )),
     );
   }
