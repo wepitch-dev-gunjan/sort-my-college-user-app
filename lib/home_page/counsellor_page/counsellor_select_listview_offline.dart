@@ -684,8 +684,9 @@ class _CounsellorListPage_offlineState
                                                                                                 ),
                                                                                               ),
                                                                                               Text(
-                                                                                                "No sessions yet",
+                                                                                                '${listController.cousnellorlist_data[index].nextSession}',
                                                                                                 textAlign: TextAlign.center,
+                                                                                                overflow: TextOverflow.ellipsis,
                                                                                                 style: SafeGoogleFont(
                                                                                                   'Inter',
                                                                                                   fontSize: 12 * ffem,
@@ -695,27 +696,21 @@ class _CounsellorListPage_offlineState
                                                                                                 ),
                                                                                               ),
                                                                                               const Spacer(),
-                                                                                              Container(
-                                                                                                margin: EdgeInsets.fromLTRB(100 * fem, 0 * fem, 2.34 * fem, 0 * fem),
-                                                                                                width: 12 * fem,
-                                                                                                height: 12 * fem,
-                                                                                                child: Image.asset(
-                                                                                                  'assets/page-1/images/star.png',
-                                                                                                  fit: BoxFit.cover,
-                                                                                                ),
+                                                                                              Image.asset(
+                                                                                                height: 8,
+                                                                                                width: 8,
+                                                                                                'assets/page-1/images/star.png',
+                                                                                                fit: BoxFit.cover,
                                                                                               ),
-                                                                                              Padding(
-                                                                                                padding: const EdgeInsets.only(top: 2.5),
-                                                                                                child: Text(
-                                                                                                  '${listController.cousnellorlist_data[index].averageRating}',
-                                                                                                  textAlign: TextAlign.center,
-                                                                                                  style: SafeGoogleFont(
-                                                                                                    'Inter',
-                                                                                                    fontSize: 9 * ffem,
-                                                                                                    fontWeight: FontWeight.w700,
-                                                                                                    height: 1 * ffem / fem,
-                                                                                                    color: const Color(0xff000000),
-                                                                                                  ),
+                                                                                              Text(
+                                                                                                '${listController.cousnellorlist_data[index].averageRating}',
+                                                                                                textAlign: TextAlign.center,
+                                                                                                style: SafeGoogleFont(
+                                                                                                  'Inter',
+                                                                                                  fontSize: 9 * ffem,
+                                                                                                  fontWeight: FontWeight.w700,
+                                                                                                  height: 1 * ffem / fem,
+                                                                                                  color: const Color(0xff000000),
                                                                                                 ),
                                                                                               ),
                                                                                             ],

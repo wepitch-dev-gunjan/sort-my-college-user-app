@@ -618,6 +618,7 @@ class ApiService {
     if (response.statusCode == 404) {
       return [
         CounsellorData(
+          nextSession: "No session",
           id: "0",
           name: "none",
           profilePic: "",
@@ -693,6 +694,7 @@ class ApiService {
     if (response.statusCode == 404) {
       return [
         CounsellorData(
+          nextSession: "",
           id: "0",
           name: "none",
           profilePic: "",
