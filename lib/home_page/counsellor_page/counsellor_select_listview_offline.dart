@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ import 'package:myapp/other/listcontroler.dart';
 import 'package:myapp/page-1/dashboard_session_page.dart';
 import 'package:myapp/utils.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CounsellorListPage_offline extends StatefulWidget {
   const CounsellorListPage_offline({super.key});
@@ -56,20 +59,6 @@ class _CounsellorListPage_offlineState
   Future<void> _refresh() async {
     await _fetchCounsellorData();
   }
-  // Future<void> _refresh() {
-  //   return Future.delayed(const Duration(seconds: 1), () {
-  //     ApiService.getCounsellorData().then((value) {
-  //       if (value.isNotEmpty) {
-  //         setState(() {});
-  //       }
-  //       if (value[0].name == "none") {
-  //         EasyLoading.showToast("404 Page Not Found",
-  //             toastPosition: EasyLoadingToastPosition.bottom);
-  //       }
-  //       setState(() {});
-  //     });
-  //   });
-  // }
 
   int selectedIndex = 0;
 
@@ -86,7 +75,21 @@ class _CounsellorListPage_offlineState
           color: Color(0xffffffff),
         ),
         child: isCounsellorsLoading
-            ? const Center(child: CircularProgressIndicator())
+            ? ListView.builder(
+                itemCount: listController.cousnellorlist_data.length,
+                itemBuilder: (context, index) {
+                  return Shimmer.fromColors(
+                    baseColor: Colors.green,
+                    highlightColor: Colors.red,
+                    child: SizedBox(
+                      height: 150,
+                      width: MediaQuery.of(context).size.width,
+                      child:const  Card(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  );
+                })
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -138,22 +141,6 @@ class _CounsellorListPage_offlineState
                             ),
                           ),
                         ),
-                        /* Spacer(),
-                          Expanded(
-                            child: Container(
-                              // layer2oHK (730:5)
-                              margin: EdgeInsets.fromLTRB(
-                                  8 * fem, 0 * fem, 0 * fem, 0 * fem),
-                              width: 70.39 * fem,
-                              height: 25 * fem,
-                              child: Image.asset(
-                                'assets/page-1/images/layer-3.png',
-                                width: 26.39 * fem,
-                                height: 25 * fem,
-                                color: Color(0xff1f0a68),
-                              ),
-                            ),
-                          ),*/
                       ],
                     ),
                   ),
@@ -955,15 +942,12 @@ class _CounsellorListPage_offlineState
                                                                                       children: [
                                                                                         GestureDetector(
                                                                                           onTap: () {
-                                                                                            Navigator.push(
-                                                                                                context,
-                                                                                                MaterialPageRoute(
-                                                                                                    builder: (context) => CounsellorDetailsScreen(
-                                                                                                          id: listController.cousnellorlist_data[index].id,
-                                                                                                          name: listController.cousnellorlist_data[index].name,
-                                                                                                          profilepicurl: listController.cousnellorlist_data[index].profilePic,
-                                                                                                          designation: listController.cousnellorlist_data[index].designation,
-                                                                                                        )));
+                                                                                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                                                                              log(" Id =${listController.cousnellorlist_data[index].id},");
+                                                                                              return CounsellorDetailsScreen(
+                                                                                                id: listController.cousnellorlist_data[index].id,
+                                                                                              );
+                                                                                            }));
                                                                                           },
                                                                                           child: Container(
                                                                                             width: 120,

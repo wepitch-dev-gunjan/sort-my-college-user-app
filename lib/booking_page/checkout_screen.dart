@@ -325,11 +325,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 CounsellorDetailsScreen(
-                                                    id: widget.id!,
-                                                    designation: "designation",
-                                                    profilepicurl:
-                                                        widget.profilepicurl,
-                                                    name: widget.name)));
+                                                  id: widget.id!,
+                                                )));
                                   },
                                   child: Container(
                                     height: 24,

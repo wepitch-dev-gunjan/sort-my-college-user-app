@@ -710,7 +710,7 @@ class ApiService {
     return [];
   }
 
-  static Future<List<CounsellorDetail>> getCounsellor_Detail(String id) async {
+  static Future getCounsellor_Detail(String id) async {
     var url = Uri.parse("${AppConstants.baseUrl}/counsellor/$id");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
@@ -718,33 +718,35 @@ class ApiService {
       "Content-Type": "application/json",
       "Authorization": token,
     });
-    console.log("Counsellor Detail page : ${response.body}");
-    console.log(response.statusCode.toString());
-    if (response.statusCode == 200) {
-      var data = json.decode(response.body.toString());
+    // log(response.body);
+    return jsonDecode(response.body);
 
-      return List<CounsellorDetail>.from(
-          data.map((x) => CounsellorDetail.fromJson(x)));
-    }
-    if (response.body.contains("html")) {
-      return [
-        CounsellorDetail(
-            howIWillHelpYou: [],
-            qualifications: [],
-            id: id,
-            name: "none",
-            email: "",
-            coverImage: "",
-            averageRating: 1,
-            followersCount: 1,
-            experienceInYears: 1,
-            totalSessionsAttended: 1,
-            gender: "",
-            rewardPoints: 0)
-      ];
-    } else {
-      return [];
-    }
+    // if (response.statusCode == 200) {
+    //   var data = json.decode(response.body.toString());
+
+    //   return  data;
+    //   // List<CounsellorDetail>.from(
+    //   //     data.map((x) => CounsellorDetail.fromJson(x)));
+    // }
+    // if (response.body.contains("html")) {
+    //   return [
+    //     CounsellorDetail(
+    //         howIWillHelpYou: [],
+    //         qualifications: [],
+    //         id: id,
+    //         name: "none",
+    //         email: "",
+    //         coverImage: "",
+    //         averageRating: 1,
+    //         followersCount: 1,
+    //         experienceInYears: 1,
+    //         totalSessionsAttended: 1,
+    //         gender: "",
+    //         rewardPoints: 0)
+    //   ];
+    // } else {
+    //   return [];
+    // }
   }
 
   static Future<ResponseModel> call_otp1() async {

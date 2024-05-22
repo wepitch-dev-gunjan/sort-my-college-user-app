@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
       ],
       child: GetMaterialApp(
           title: 'SMC App',
-          debugShowCheckedModeBanner: true,
+          debugShowCheckedModeBanner: false,
           scrollBehavior: MyCustomScrollBehavior(),
           theme: ThemeData(
             primarySwatch: Colors.grey,

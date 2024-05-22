@@ -42,16 +42,17 @@ class CounsellorDetailsProvider extends ChangeNotifier {
   bool isLoading = true;
   bool loader = true;
 
-  void fetchCounsellor_detail(String id) async {
+ fetchCounsellor_detail(String id) async {
     var counsellor = await ApiService.getCounsellor_Detail(id);
-    isLoading = true;
-    if (counsellor.isEmpty) {
-      isLoading = true;
-    } else {
-      cousnellorlist_detail = counsellor;
-      isLoading = false;
-    }
-    notifyListeners();
+    return counsellor;
+    // isLoading = true;
+    // if (counsellor.isEmpty) {
+    //   isLoading = true;
+    // } else {
+    //   cousnellorlist_detail = counsellor;
+    //   isLoading = false;
+    // }
+    // notifyListeners();
   }
 
   void fetchFaculties(String id) async {

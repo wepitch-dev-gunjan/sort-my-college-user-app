@@ -47,7 +47,7 @@ class _CounsellorFeedPageState extends State<CounsellorFeedPage>
             padding: const EdgeInsets.only(left: 0, top: 18, bottom: 18),
             child: GestureDetector(
               onTap: () {
-               Navigator.pop(context);
+                Navigator.pop(context);
               },
               child: Image.asset(
                 'assets/page-1/images/back.png',
@@ -59,7 +59,9 @@ class _CounsellorFeedPageState extends State<CounsellorFeedPage>
           title: Text(
             widget.name,
             style: SafeGoogleFont("Inter",
-                fontSize: 22, fontWeight: FontWeight.w600,color: Color(0xff1F0A68)),
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+                color: Color(0xff1F0A68)),
           ),
         ),
         body: Column(
@@ -80,9 +82,6 @@ class _CounsellorFeedPageState extends State<CounsellorFeedPage>
                           MaterialPageRoute(
                               builder: (context) => CounsellorDetailsScreen(
                                     id: widget.id,
-                                    name: widget.name,
-                                    designation: "",
-                                    profilepicurl: "https://www.shutterstock.com/shutterstock/photos/1809858361/display_1500/stock-vector-photo-coming-soon-vector-image-picture-graphic-content-album-stock-photos-not-avaliable-1809858361.jpg",
                                   )));
                     }
                   },
@@ -91,14 +90,18 @@ class _CounsellorFeedPageState extends State<CounsellorFeedPage>
                       child: Text(
                         "Info",
                         style: SafeGoogleFont("Inter",
-                            fontSize: 16, fontWeight: FontWeight.w500,color: Colors.black),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black),
                       ),
                     ),
                     Tab(
                       child: Text(
                         "Feed",
                         style: SafeGoogleFont("Inter",
-                            fontSize: 16, fontWeight: FontWeight.w500,color: Colors.black),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black),
                       ),
                     ),
                   ]),
@@ -305,9 +308,6 @@ Future<bool> _onBackPressed(
       MaterialPageRoute(
           builder: (context) => CounsellorDetailsScreen(
                 id: id,
-                name: name,
-                designation: "",
-                profilepicurl: "https://www.shutterstock.com/shutterstock/photos/1809858361/display_1500/stock-vector-photo-coming-soon-vector-image-picture-graphic-content-album-stock-photos-not-avaliable-1809858361.jpg",
               )));
   return true;
 }
