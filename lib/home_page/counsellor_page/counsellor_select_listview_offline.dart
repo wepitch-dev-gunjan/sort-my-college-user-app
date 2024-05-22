@@ -84,7 +84,7 @@ class _CounsellorListPage_offlineState
                     child: SizedBox(
                       height: 150,
                       width: MediaQuery.of(context).size.width,
-                      child:const  Card(
+                      child: const Card(
                         color: Colors.grey,
                       ),
                     ),
@@ -943,7 +943,6 @@ class _CounsellorListPage_offlineState
                                                                                         GestureDetector(
                                                                                           onTap: () {
                                                                                             Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                                                                              log(" Id =${listController.cousnellorlist_data[index].id},");
                                                                                               return CounsellorDetailsScreen(
                                                                                                 id: listController.cousnellorlist_data[index].id,
                                                                                               );
