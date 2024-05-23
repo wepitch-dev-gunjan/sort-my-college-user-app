@@ -16,7 +16,7 @@ class CounsellorData {
   String name;
   String nextSession;
   String profilePic;
-  int averageRating;
+  String averageRating;
   int experienceInYears;
   int totalSessions;
   int rewardPoints;
@@ -35,7 +35,7 @@ class CounsellorData {
       required this.reviews,
       required this.designation,
       this.coursesFocused,
-     required this.nextSession});
+      required this.nextSession});
 
   factory CounsellorData.fromJson(Map<String, dynamic> json) => CounsellorData(
         id: json["_id"],
@@ -64,6 +64,6 @@ class CounsellorData {
         "reviews": reviews,
         "designation": designation,
         "courses_focused": coursesFocused,
-        "next_session":nextSession
+        "next_session": nextSession
       };
 }

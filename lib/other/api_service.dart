@@ -611,7 +611,6 @@ class ApiService {
     //console.log("Counsellor List : ${response.body}");
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-      log("Get Counsellor Data=>>>>>>>>>>>>>>>>>>>$data");
       return List<CounsellorData>.from(
           data.map((x) => CounsellorData.fromJson(x)));
     }
@@ -622,7 +621,7 @@ class ApiService {
           id: "0",
           name: "none",
           profilePic: "",
-          averageRating: 1,
+          averageRating: "0",
           experienceInYears: 2,
           totalSessions: 3,
           rewardPoints: 4,
@@ -698,7 +697,7 @@ class ApiService {
           id: "0",
           name: "none",
           profilePic: "",
-          averageRating: 1,
+          averageRating: "0",
           experienceInYears: 2,
           totalSessions: 3,
           rewardPoints: 4,

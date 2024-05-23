@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -43,7 +45,6 @@ class _CounsellorListPage_offlineState
     try {
       var value = await ApiService.getCounsellorData();
       if (value.isNotEmpty) {
-        // Assuming you need to update the listController with new data
         listController.cousnellorlist_data = value;
       }
     } catch (error) {
@@ -452,55 +453,63 @@ class _CounsellorListPage_offlineState
                                                                           top: 70.4285888672 *
                                                                               fem,
                                                                           child:
-                                                                              Row(
-                                                                            children: coursesFocused != null && coursesFocused.isNotEmpty
-                                                                                ? List.generate(
-                                                                                    coursesFocused.length,
-                                                                                    (index) => Container(
-                                                                                      margin: const EdgeInsets.only(right: 5.0),
-                                                                                      padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-                                                                                      height: 18 * fem,
-                                                                                      decoration: BoxDecoration(
-                                                                                        color: const Color(0xff1f0a68),
-                                                                                        borderRadius: BorderRadius.circular(3 * fem),
-                                                                                      ),
-                                                                                      child: Center(
-                                                                                        child: Text(
-                                                                                          coursesFocused[index],
-                                                                                          style: SafeGoogleFont(
-                                                                                            'Inter',
-                                                                                            fontSize: 11 * ffem,
-                                                                                            fontWeight: FontWeight.w700,
-                                                                                            height: 1.0,
-                                                                                            color: const Color(0xffffffff),
+                                                                              SizedBox(
+                                                                            width:
+                                                                                MediaQuery.of(context).size.width,
+                                                                            child:
+                                                                                SingleChildScrollView(
+                                                                              scrollDirection: Axis.horizontal,
+                                                                              child: Row(
+                                                                                children: coursesFocused.isNotEmpty
+                                                                                    ? List.generate(
+                                                                                        coursesFocused.length,
+                                                                                        (index) => Container(
+                                                                                          margin: const EdgeInsets.only(right: 5.0),
+                                                                                          padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+                                                                                          height: 18 * fem,
+                                                                                          decoration: BoxDecoration(
+                                                                                            color: const Color(0xff1f0a68),
+                                                                                            borderRadius: BorderRadius.circular(3 * fem),
+                                                                                          ),
+                                                                                          child: Center(
+                                                                                            child: Text(
+                                                                                              coursesFocused[index],
+                                                                                              style: SafeGoogleFont(
+                                                                                                'Inter',
+                                                                                                fontSize: 11 * ffem,
+                                                                                                fontWeight: FontWeight.w700,
+                                                                                                height: 1.0,
+                                                                                                color: const Color(0xffffffff),
+                                                                                              ),
+                                                                                            ),
                                                                                           ),
                                                                                         ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  )
-                                                                                : [
-                                                                                    Container(
-                                                                                      margin: const EdgeInsets.only(right: 5.0),
-                                                                                      padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-                                                                                      height: 18 * fem,
-                                                                                      decoration: BoxDecoration(
-                                                                                        color: const Color(0xff1f0a68),
-                                                                                        borderRadius: BorderRadius.circular(3 * fem),
-                                                                                      ),
-                                                                                      child: Center(
-                                                                                        child: Text(
-                                                                                          'N/A',
-                                                                                          style: SafeGoogleFont(
-                                                                                            'Inter',
-                                                                                            fontSize: 11 * ffem,
-                                                                                            fontWeight: FontWeight.w700,
-                                                                                            height: 1.0,
-                                                                                            color: const Color(0xffffffff),
+                                                                                      )
+                                                                                    : [
+                                                                                        Container(
+                                                                                          margin: const EdgeInsets.only(right: 5.0),
+                                                                                          padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+                                                                                          height: 18 * fem,
+                                                                                          decoration: BoxDecoration(
+                                                                                            color: const Color(0xff1f0a68),
+                                                                                            borderRadius: BorderRadius.circular(3 * fem),
+                                                                                          ),
+                                                                                          child: Center(
+                                                                                            child: Text(
+                                                                                              'N/A',
+                                                                                              style: SafeGoogleFont(
+                                                                                                'Inter',
+                                                                                                fontSize: 11 * ffem,
+                                                                                                fontWeight: FontWeight.w700,
+                                                                                                height: 1.0,
+                                                                                                color: const Color(0xffffffff),
+                                                                                              ),
+                                                                                            ),
                                                                                           ),
                                                                                         ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
+                                                                                      ],
+                                                                              ),
+                                                                            ),
                                                                           ),
                                                                         ),
                                                                         // Positioned(
