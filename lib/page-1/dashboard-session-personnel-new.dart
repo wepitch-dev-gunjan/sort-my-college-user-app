@@ -47,7 +47,6 @@ class _Counseling_Session_PersonnelState
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     sessionDate.getDates();
     tabController =
@@ -55,7 +54,6 @@ class _Counseling_Session_PersonnelState
     configLoading();
     fetchDataFromApi();
 
-    //fetchDataFromApiAll();
     context
         .read<CounsellorDetailsProvider>()
         .fetchCounsellor_session(id: widget.id);

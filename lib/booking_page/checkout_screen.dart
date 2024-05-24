@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -48,7 +50,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     amount = amountt * 100;
 
     var options = {
-      //"key": "rzp_test_1DP5mmOlF5G5ag",
       "key": key,
       "amount": amount,
       "name": "Sort My College",
@@ -70,11 +71,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       debugPrint('Error : $e');
     }
   }
-
-  // void sessionId()async{
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-  //   id = pref.getString('sessionid');
-  // }
 
   void handlePaymentSuccess(PaymentSuccessResponse response) async {
     Fluttertoast.showToast(
@@ -104,24 +100,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             gst,
             convinence_charge)
         .then((value) => checkpaymentsucess(value));
-
-    /*if (value["error"] == "Order not successfully created") {
-      EasyLoading.showToast(value["error"],
-          toastPosition: EasyLoadingToastPosition.bottom);
-    }
-    else if (value["message"] == "Payment successfully created")
-    {
-      EasyLoading.showToast(value["message"],
-          toastPosition: EasyLoadingToastPosition.bottom);
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const CounsellorListPage_offline()));
-    }
-    else {
-      EasyLoading.showToast(value["message"],
-          toastPosition: EasyLoadingToastPosition.bottom);
-    }*/
   }
 
   void handlePaymentError(PaymentFailureResponse response) {
@@ -138,7 +116,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getAllInfo();
 
@@ -208,10 +185,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     var height = MediaQuery.of(context).size.width;
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) {
-        // logic
-        //context.read<CounsellorDetailsProvider>().fetchCounsellor_session(id: sessionId);
-      },
+      onPopInvoked: (didPop) {},
       child: Scaffold(
         backgroundColor: ColorsConst.whiteColor,
         appBar: AppBar(
@@ -320,13 +294,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                CounsellorDetailsScreen(
-                                                  id: widget.id!,
-                                                )));
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                          
+
+                                      return CounsellorDetailsScreen(
+                                        id: widget.id!,
+                                      );
+                                    }));
                                   },
                                   child: Container(
                                     height: 24,
@@ -423,24 +398,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 fontSize: 13,
                               ),
                             )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Text(
-                              'Fees With GST',
-                              style: TextStyle(
-                                  color: ColorsConst.black54Color,
-                                  fontSize: 12),
-                            ),
-                            const Spacer(),
-                            Text(
-                              '\u{20B9}${counsellorDetailController.checkOutDetailsList.isNotEmpty ? counsellorDetailController.checkOutDetailsList[0].feeWithGST ?? "N/A" : "N/A"}',
-                              style: const TextStyle(
-                                color: ColorsConst.black54Color,
-                                fontSize: 13,
-                              ),
-                            ),
                           ],
                         ),
                         Row(

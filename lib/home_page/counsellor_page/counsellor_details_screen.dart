@@ -75,7 +75,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
-    log('counsellor=>>>>$counsellor');
+    log('counsellorData=>>>>$counsellor');
     var counsellorDetailController = context.watch<CounsellorDetailsProvider>();
     double baseWidth = 430;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -1205,7 +1205,7 @@ class CounsellorShimmerEffect extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      period: const Duration(milliseconds: 500),
+      // period: const Duration(seconds: 1),
       baseColor: Colors.grey.shade300,
       highlightColor: Colors.grey.shade100,
       enabled: true,
@@ -1302,7 +1302,7 @@ class ShimmerEffect extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      period: const Duration(milliseconds: 100),
+      enabled: true,
       baseColor: const Color.fromARGB(255, 255, 255, 255),
       highlightColor: const Color.fromARGB(255, 214, 214, 214),
       child: Container(

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
@@ -856,6 +858,7 @@ class _CounsellorListPage_offlineState
                                                                                         GestureDetector(
                                                                                           onTap: () {
                                                                                             Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                                                                              log("idddddddd => ${listController.cousnellorlist_data[index].id}");
                                                                                               return CounsellorDetailsScreen(
                                                                                                 id: listController.cousnellorlist_data[index].id,
                                                                                               );

@@ -26,7 +26,7 @@ class CounsellorDetailsProvider extends ChangeNotifier {
   List<WebinarDetailsModel> webinarDetailsList = [];
   List<BannerImageModel> bannerImageList = [];
   List<TrandingWebinarModel> trendingWebinarList = [];
-  List<PopularWorkShopModel> popularWorkShopList = [];
+  List<LatestSessionsModel> popularWorkShopList = [];
   List<KeyFeaturesModel> keyFeaturesList = [];
   List<FacultiesModel> facultiesList = [];
   List<AnnouncementsModel> announcementsList = [];
@@ -180,8 +180,10 @@ class CounsellorDetailsProvider extends ChangeNotifier {
   }
 
   void fetchPopularWorkShop() async {
+    
     popularWorkShopList.clear();
-    var webinar = await ApiService.getPopularWorkShop();
+    var webinar = await ApiService.latestSessions();
+ 
     isLoading = true;
     if (webinar.isEmpty) {
       isLoading = true;

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -47,7 +48,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    //_startTimer();
     getAllInfo();
     counsellorDetailsProvider =
         Provider.of<CounsellorDetailsProvider>(context, listen: false);
@@ -89,8 +89,6 @@ class _HomePageState extends State<HomePage> {
 
   var str;
   List<String> imgUrlList = [];
-
-  //var imgUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -415,7 +413,7 @@ class _HomePageState extends State<HomePage> {
                                   itemCount: counsellorSessionProvider
                                       .popularWorkShopList.length,
                                   itemBuilder: (context, index) {
-                                    PopularWorkShopModel popular =
+                                    LatestSessionsModel popular =
                                         counsellorSessionProvider
                                             .popularWorkShopList[index];
                                     return profileCard(
@@ -722,8 +720,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget profileCard(PopularWorkShopModel popularWorkShopModel, int cardIndex,
-      int totalCards) {
+  Widget profileCard(
+      LatestSessionsModel latestSessionsModel, int cardIndex, int totalCards) {
     var width = MediaQuery.of(context).size.width;
     var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
     str = counsellorSessionProvider.popularWorkShopList[0].sessionDate
@@ -748,7 +746,7 @@ class _HomePageState extends State<HomePage> {
                     CircleAvatar(
                       radius: 38,
                       backgroundImage: NetworkImage(
-                          popularWorkShopModel.counsellorProfilePic!),
+                          latestSessionsModel.counsellorProfilePic!),
                     ),
                     const SizedBox(
                       width: 8,
@@ -765,7 +763,7 @@ class _HomePageState extends State<HomePage> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              popularWorkShopModel.counsellorName ?? "N/A",
+                              latestSessionsModel.counsellorName ?? "N/A",
                               // popularWorkShopModel.sessionUser ?? "N/A",
                               style: const TextStyle(
                                 color: Color(0xFF1F0A68),
@@ -797,7 +795,7 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(
                           width: 190.25,
                           child: Text(
-                            popularWorkShopModel.counsellorDesignation!,
+                            latestSessionsModel.counsellorDesignation!,
                             // popularWorkShopModel.sessionType!,
                             style: const TextStyle(
                               color: Colors.black,
@@ -821,8 +819,8 @@ class _HomePageState extends State<HomePage> {
                             SizedBox(
                               width: 121.13,
                               child: Text(
-                                popularWorkShopModel.sessionTime != null
-                                    ? '${(popularWorkShopModel.sessionTime! ~/ 60) % 12}:${(popularWorkShopModel.sessionTime! % 60).toString().padLeft(2, '0')} ${(popularWorkShopModel.sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
+                                latestSessionsModel.sessionTime != null
+                                    ? '${(latestSessionsModel.sessionTime! ~/ 60) % 12}:${(latestSessionsModel.sessionTime! % 60).toString().padLeft(2, '0')} ${(latestSessionsModel.sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
                                     : 'N/A',
                                 style: const TextStyle(
                                   color: Color(0xFF414040),
@@ -885,7 +883,7 @@ class _HomePageState extends State<HomePage> {
                             SizedBox(
                               width: 121.13,
                               child: Text(
-                                ' ${popularWorkShopModel.sessionFee}',
+                                ' ${latestSessionsModel.sessionFee}',
                                 style: const TextStyle(
                                   color: Color(0xFF414040),
                                   fontSize: 12,
@@ -915,12 +913,13 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CounsellorDetailsScreen(
-                                      id: popularWorkShopModel.sessionId!,
-                                    )));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          log("Session Id=>>>> ${latestSessionsModel.sessionId!}");
+                          return CounsellorDetailsScreen(
+                            id: latestSessionsModel.counsellorId!,
+                          );
+                        }));
                       },
                       child: Container(
                         width: 120.14,
@@ -959,16 +958,21 @@ class _HomePageState extends State<HomePage> {
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CounsellingSessionPage(
-                                      name: 'N/A',
-                                      id: popularWorkShopModel.sessionId!,
-                                      designation: '',
-                                      profileurl:
-                                          "https://www.shutterstock.com/shutterstock/photos/1809858361/display_1500/stock-vector-photo-coming-soon-vector-image-picture-graphic-content-album-stock-photos-not-avaliable-1809858361.jpg",
-                                      selectedIndex_get: 0,
-                                    )));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CounsellingSessionPage(
+                              name: latestSessionsModel.counsellorName!,
+                              id: latestSessionsModel.counsellorId!,
+                              designation:
+                                  latestSessionsModel.counsellorDesignation!,
+
+                              profileurl:
+                                  latestSessionsModel.counsellorProfilePic!,
+                              // "https://www.shutterstock.com/shutterstock/photos/1809858361/display_1500/stock-vector-photo-coming-soon-vector-image-picture-graphic-content-album-stock-photos-not-avaliable-1809858361.jpg",
+                              selectedIndex_get: 0,
+                            ),
+                          ),
+                        );
                       },
                       child: Container(
                         width: 120,

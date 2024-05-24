@@ -184,22 +184,25 @@ class ApiService {
     return [];
   }
 
-  static Future<List<PopularWorkShopModel>> getPopularWorkShop() async {
+  static Future<List<LatestSessionsModel>> latestSessions() async {
     var url = Uri.parse(
-        "${AppConstants.baseUrl}/counsellor/session/sessions/popular-workshops");
+        "${AppConstants.baseUrl}/counsellor/session/sessions/latest-sessions");
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
     final token = prefs.getString("auth").toString();
+
     final response = await http.get(url, headers: {
       //"Content-Type": "application/json",
       "Authorization": token,
     });
+
     var data;
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-      log("Popular Workshop data=> $data");
-      return List<PopularWorkShopModel>.from(
-          data.map((x) => PopularWorkShopModel.fromJson(x)));
+      log("Latest Sessions data=> $data");
+      return List<LatestSessionsModel>.from(
+          data.map((x) => LatestSessionsModel.fromJson(x)));
     }
     return [];
   }
@@ -285,8 +288,12 @@ class ApiService {
       "Authorization": token,
     });
     var data;
+
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
+      log("this is chackout call1");
+
+      log("Checkout Data=> $data");
       return List<CheckOutDetails>.from(
           data.map((x) => CheckOutDetails.fromJson(x)));
     }
@@ -575,17 +582,6 @@ class ApiService {
       prefs.setString('phone_number', phoneNumber);
 
       data = {"message": "successfully get data"};
-
-      /*final strDob = value["date_of_birth"].split('-');
-      dob = "${strDob[2]}-${strDob[1]}-${strDob[0]}";*/
-
-      /*if(value.containsKey(value['date_of_birth']))
-      {
-        prefs.setString('date_of_birth', value['date_of_birth']);
-      }
-      else{
-        prefs.setString('date_of_birth', "01-01-2000");
-      }*/
 
       return data;
     } else {

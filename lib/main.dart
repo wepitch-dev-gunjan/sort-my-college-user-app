@@ -48,14 +48,15 @@ class MyApp extends StatelessWidget {
             create: (context) => NewsProvider1(newsService: NewsService())),
       ],
       child: GetMaterialApp(
-          title: 'SMC App',
-          debugShowCheckedModeBanner: false,
-          scrollBehavior: MyCustomScrollBehavior(),
-          theme: ThemeData(
-            primarySwatch: Colors.grey,
-          ),
-          home: SplashScreen1(isLoggedIn: isLoggedIn),
-          builder: EasyLoading.init()),
+        title: 'SMC App',
+        debugShowCheckedModeBanner: false,
+        scrollBehavior: MyCustomScrollBehavior(),
+        theme: ThemeData(
+          primarySwatch: Colors.grey,
+        ),
+        home: SplashScreen1(isLoggedIn: isLoggedIn),
+        builder: EasyLoading.init(),
+      ),
     );
   }
 }
