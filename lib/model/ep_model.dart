@@ -15,12 +15,12 @@ class EPModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['name'] = this.name;
-    data['profile_pic'] = this.profilePic;
-    if (this.address != null) {
-      data['address'] = this.address!.toJson();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['_id'] = sId;
+    data['name'] = name;
+    data['profile_pic'] = profilePic;
+    if (address != null) {
+      data['address'] = address!.toJson();
     }
     return data;
   }
@@ -45,12 +45,12 @@ class Address {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['building_number'] = this.buildingNumber;
-    data['area'] = this.area;
-    data['city'] = this.city;
-    data['state'] = this.state;
-    data['pin_code'] = this.pinCode;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['building_number'] = buildingNumber;
+    data['area'] = area;
+    data['city'] = city;
+    data['state'] = state;
+    data['pin_code'] = pinCode;
     return data;
   }
 }

@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/other/api_service.dart';
 import 'package:myapp/page-1/otp_screen_new.dart';
 import 'package:myapp/page-1/splash_screen_1.dart';
-import 'package:myapp/phone/login_screen_n.dart';
-import 'package:myapp/shared/colors_const.dart';
-import 'package:myapp/utils.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../other/constants.dart';
-import 'package:flutter/services.dart';
 
 class AccountDelete extends StatefulWidget {
   const AccountDelete({super.key});

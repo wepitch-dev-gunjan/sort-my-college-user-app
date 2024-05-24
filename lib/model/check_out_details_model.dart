@@ -6,7 +6,7 @@ class CheckOutDetails {
   int? gstAmount;
   int? feeWithGST;
   num? gatewayCharge;
-  dynamic? totalAmount;
+  dynamic totalAmount;
   String? counsellorId;
   String? counsellorName;
   String? counsellorProfilePic;
@@ -39,18 +39,18 @@ class CheckOutDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['session_id'] = this.sessionId;
-    data['sessionDate'] = this.sessionDate;
-    data['sessionType'] = this.sessionType;
-    data['sessionFee'] = this.sessionFee;
-    data['gstAmount'] = this.gstAmount;
-    data['feeWithGST'] = this.feeWithGST;
-    data['gatewayCharge'] = this.gatewayCharge;
-    data['totalAmount'] = this.totalAmount;
-    data['counsellor_id'] = this.counsellorId;
-    data['counsellor_name'] = this.counsellorName;
-    data['counsellor_profile_pic'] = this.counsellorProfilePic;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['session_id'] = sessionId;
+    data['sessionDate'] = sessionDate;
+    data['sessionType'] = sessionType;
+    data['sessionFee'] = sessionFee;
+    data['gstAmount'] = gstAmount;
+    data['feeWithGST'] = feeWithGST;
+    data['gatewayCharge'] = gatewayCharge;
+    data['totalAmount'] = totalAmount;
+    data['counsellor_id'] = counsellorId;
+    data['counsellor_name'] = counsellorName;
+    data['counsellor_profile_pic'] = counsellorProfilePic;
     return data;
   }
 }

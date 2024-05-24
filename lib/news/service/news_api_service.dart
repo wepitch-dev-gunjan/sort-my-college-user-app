@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:myapp/news/model/news_response.dart';
 import 'package:myapp/shared/api_end_point.dart';
@@ -16,6 +17,7 @@ class NewsApiService {
       List<dynamic> data = json.decode(response.body)['articles'];
       List<NewsArticle> articles =
           data.map((item) => NewsArticle.fromJson(item)).toList();
+      log("articles=>>>>>$data");
       return articles;
     } else {
       throw Exception(StringConst.exceptionText);

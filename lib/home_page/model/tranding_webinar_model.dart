@@ -36,17 +36,17 @@ class TrandingWebinarModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['webinar_image'] = this.webinarImage;
-    data['webinar_title'] = this.webinarTitle;
-    data['webinar_date'] = this.webinarDate;
-    data['registered_date'] = this.registeredDate;
-    data['webinar_join_url'] = this.webinarJoinUrl;
-    data['webinar_by'] = this.webinarBy;
-    data['speaker_profile'] = this.speakerProfile;
-    data['webinar_starting_in_days'] = this.webinarStartingInDays;
-    data['registered'] = this.registered;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['webinar_image'] = webinarImage;
+    data['webinar_title'] = webinarTitle;
+    data['webinar_date'] = webinarDate;
+    data['registered_date'] = registeredDate;
+    data['webinar_join_url'] = webinarJoinUrl;
+    data['webinar_by'] = webinarBy;
+    data['speaker_profile'] = speakerProfile;
+    data['webinar_starting_in_days'] = webinarStartingInDays;
+    data['registered'] = registered;
     return data;
   }
 }

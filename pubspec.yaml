@@ -70,6 +70,7 @@ dependencies:
   shimmer: ^3.0.0
 
 
+  crypto: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/other/api_service.dart';
-import 'package:myapp/page-1/otp_screen_new.dart';
 import 'package:myapp/page-1/otp_screen_new_login.dart';
 import 'package:myapp/page-1/sign_up_screen_new.dart';
 import 'package:myapp/shared/colors_const.dart';
@@ -12,7 +11,7 @@ import '../other/constants.dart';
 class LoginScreenNew extends StatefulWidget {
   static String verify = '';
 
-  const LoginScreenNew({Key? key}) : super(key: key);
+  const LoginScreenNew({super.key});
 
   @override
   _LoginScreenNewState createState() => _LoginScreenNewState();

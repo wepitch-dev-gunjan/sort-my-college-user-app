@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/other/api_service.dart';
 import 'package:myapp/page-1/edulevel_new.dart';
-import 'package:myapp/page-1/selectdob.dart';
-import 'package:myapp/page-1/selectdob_new.dart';
 import 'package:myapp/slide_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

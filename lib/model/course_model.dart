@@ -24,13 +24,13 @@ class CourseModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['image'] = this.image;
-    data['_id'] = this.sId;
-    data['name'] = this.name;
-    data['type'] = this.type;
-    data['course_fee'] = this.courseFee;
-    data['course_duration_in_days'] = this.courseDurationInDays;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['image'] = image;
+    data['_id'] = sId;
+    data['name'] = name;
+    data['type'] = type;
+    data['course_fee'] = courseFee;
+    data['course_duration_in_days'] = courseDurationInDays;
     return data;
   }
 }

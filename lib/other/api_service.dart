@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:myapp/home_page/model/banner_image_model.dart';
@@ -14,10 +13,8 @@ import 'package:myapp/webinar_page/webinar_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/announcements_model.dart';
 import '../model/counsellor_data.dart';
-import '../model/counsellor_detail.dart';
 import '../model/counsellor_sessions.dart';
 import '../model/course_model.dart';
-import '../model/cousnellor_list_model.dart';
 import '../model/ep_model.dart';
 import '../model/faculties_model.dart';
 import '../model/key_features_model.dart';
@@ -1027,7 +1024,7 @@ class ApiService {
 
   static Future<Map<String, dynamic>> callVerifyOtpByPhone(
       String number) async {
-    number = number.replaceAll(new RegExp(r'[^\w\s]+'), '');
+    number = number.replaceAll(RegExp(r'[^\w\s]+'), '');
     number = number.replaceAll('91', '');
     number = number.replaceAll(' ', '');
     number = "91$number";

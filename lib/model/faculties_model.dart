@@ -27,14 +27,14 @@ class FacultiesModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['institute_id'] = this.instituteId;
-    data['name'] = this.name;
-    data['display_pic'] = this.displayPic;
-    data['experience_in_years'] = this.experienceInYears;
-    data['qualifications'] = this.qualifications;
-    data['graduated_from'] = this.graduatedFrom;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['_id'] = sId;
+    data['institute_id'] = instituteId;
+    data['name'] = name;
+    data['display_pic'] = displayPic;
+    data['experience_in_years'] = experienceInYears;
+    data['qualifications'] = qualifications;
+    data['graduated_from'] = graduatedFrom;
     return data;
   }
 }

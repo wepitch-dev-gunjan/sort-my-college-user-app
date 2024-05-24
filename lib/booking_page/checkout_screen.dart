@@ -180,7 +180,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
     var amount = '';
     if (counsellorDetailController.checkOutDetailsList.isNotEmpty) {
-      dynamic? totalAmount =
+      dynamic totalAmount =
           counsellorDetailController.checkOutDetailsList[0].totalAmount;
       if (totalAmount != null) {
         amount = totalAmount.toString();

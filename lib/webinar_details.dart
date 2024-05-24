@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class WebinarDetailsPage1 extends StatefulWidget {
   final String webinarId;
 
-  const WebinarDetailsPage1({Key? key, required this.webinarId}) : super(key: key);
+  const WebinarDetailsPage1({super.key, required this.webinarId});
 
   @override
   _WebinarDetailsPage1State createState() => _WebinarDetailsPage1State();

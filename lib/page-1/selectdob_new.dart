@@ -5,7 +5,7 @@ import 'package:myapp/page-1/select_gender_new.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectDobNew extends StatefulWidget {
-  const SelectDobNew({Key? key}) : super(key: key);
+  const SelectDobNew({super.key});
 
   @override
   State<SelectDobNew> createState() => _SelectDobNewState();

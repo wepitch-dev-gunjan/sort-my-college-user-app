@@ -54,8 +54,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.grey,
           ),
-          //home: CheckOutScreen(name: 'abc', id: '65fbcbb563ee42338a08b939'),
-          home: /*EducationLevelNew()*/ SplashScreen1(isLoggedIn: isLoggedIn),
+          home: SplashScreen1(isLoggedIn: isLoggedIn),
           builder: EasyLoading.init()),
     );
   }

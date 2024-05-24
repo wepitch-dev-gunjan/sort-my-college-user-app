@@ -73,7 +73,6 @@ class _EntrancePreparationDetailsScreenState
   }
 
   void allData() async {
-    //final service = CollegeService();
     await ApiService.fetchCollegeData(widget.id)
         .then((value) => init_collegedata(value));
   }
@@ -83,9 +82,6 @@ class _EntrancePreparationDetailsScreenState
     double baseWidth = 430;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-
-    // checkImageValidity(counsellorDetailController
-    // .cousnellorlist_detail[0].coverImage);
 
     return Scaffold(
       backgroundColor: ColorsConst.whiteColor,

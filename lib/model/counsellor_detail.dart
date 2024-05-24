@@ -173,17 +173,17 @@ class ClientTestimonials {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['feedback_to'] = this.feedbackTo;
-    data['feedback_from'] = this.feedbackFrom;
-    data['profile_pic'] = this.profilePic;
-    data['user_name'] = this.userName;
-    data['rating'] = this.rating;
-    data['message'] = this.message;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['_id'] = sId;
+    data['feedback_to'] = feedbackTo;
+    data['feedback_from'] = feedbackFrom;
+    data['profile_pic'] = profilePic;
+    data['user_name'] = userName;
+    data['rating'] = rating;
+    data['message'] = message;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['__v'] = iV;
     return data;
   }
 }

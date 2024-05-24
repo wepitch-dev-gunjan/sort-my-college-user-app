@@ -75,9 +75,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
-    // var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
-
-    // var userBookings = context.watch<UserBookingProvider>().userBooking;
+    log('counsellor=>>>>$counsellor');
     var counsellorDetailController = context.watch<CounsellorDetailsProvider>();
     double baseWidth = 430;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -200,9 +198,10 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                               height: 15.35),
                                           const SizedBox(width: 6),
                                           Text(
-                                            (counsellor['average_rating'] == '')
-                                                ? '${counsellor['average_rating'].toStringAsFixed(2)} (${counsellor['client_testimonials']!.where((testimonial) => testimonial.rating != 0).length})'
-                                                : '0',
+                                            "${counsellor['average_rating']}",
+                                            // (counsellor['average_rating'] == '')
+                                            //     ? '${counsellor['average_rating'].toStringAsFixed(2)} (${counsellor['client_testimonials']!.where((testimonial) => testimonial.rating != 0).length})'
+                                            //     : '0',
                                             style:
                                                 const TextStyle(fontSize: 12),
                                           ),
@@ -316,7 +315,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                           ),
                                           const SizedBox(width: 4),
                                           Text(
-                                            '${followerCount} '
+                                            '$followerCount '
                                             "Following",
                                             style: SafeGoogleFont(
                                               'Inter',
@@ -622,10 +621,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                             [index];
                                     return Row(
                                       children: [
-                                        const Icon(
-                                          Icons.arrow_back_ios,
-                                          size: 20,
-                                        ),
                                         Expanded(
                                           child: Card(
                                             surfaceTintColor:
@@ -692,10 +687,10 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                             ),
                                           ),
                                         ),
-                                        const Icon(
-                                          Icons.arrow_forward_ios,
-                                          size: 20,
-                                        ),
+                                        // const Icon(
+                                        //   Icons.arrow_forward_ios,
+                                        //   size: 20,
+                                        // ),
                                       ],
                                     );
                                   },
@@ -1210,7 +1205,7 @@ class CounsellorShimmerEffect extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      period:const  Duration(milliseconds: 500),
+      period: const Duration(milliseconds: 500),
       baseColor: Colors.grey.shade300,
       highlightColor: Colors.grey.shade100,
       enabled: true,

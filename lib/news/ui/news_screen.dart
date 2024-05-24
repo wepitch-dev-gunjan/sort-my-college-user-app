@@ -9,7 +9,6 @@ import 'package:myapp/shared/string_const.dart';
 import 'package:myapp/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../other/api_service.dart';
 
 class NewsScreen extends StatefulWidget {
@@ -43,7 +42,7 @@ class _NewsScreen extends State<NewsScreen> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked : (didPop){
+      onPopInvoked: (didPop) {
         // logic
         SystemNavigator.pop();
       },
@@ -53,27 +52,14 @@ class _NewsScreen extends State<NewsScreen> {
           automaticallyImplyLeading: false,
           backgroundColor: ColorsConst.whiteColor,
           foregroundColor: ColorsConst.whiteColor,
-          // leading: Padding(
-          //   padding: const EdgeInsets.only(left: 0, top: 18, bottom: 18),
-          //   child: GestureDetector(
-          //     onTap: () {
-          //       Navigator.pushReplacement(
-          //           context,
-          //           MaterialPageRoute(
-          //               builder: (context) => const HomePageContainer()));
-          //     },
-          //     child: Image.asset(
-          //       'assets/page-1/images/back.png',
-          //     ),
-          //   ),
-          // ),
-          //titleSpacing: 120,
           title: Padding(
             padding: const EdgeInsets.only(left: 10),
             child: Text(
               StringConst.newsTitle,
               style: SafeGoogleFont("Inter",
-                  fontSize: 18, fontWeight: FontWeight.w600,color: ColorsConst.appBarColor),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: ColorsConst.appBarColor),
             ),
           ),
         ),
@@ -86,7 +72,8 @@ class _NewsScreen extends State<NewsScreen> {
               return Text('Error: ${snapshot.error}');
             } else {
               List<NewsArticle>? articles = snapshot.data;
-              articles?.sort((a, b) => b.publishedAt!.compareTo(a.publishedAt!));
+              articles
+                  ?.sort((a, b) => b.publishedAt!.compareTo(a.publishedAt!));
               return Column(
                 children: [
                   Padding(
@@ -125,7 +112,6 @@ class _NewsScreen extends State<NewsScreen> {
                     child: ListView.builder(
                       itemCount: articles?.length,
                       itemBuilder: (context, index) {
-
                         return Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
@@ -148,7 +134,8 @@ class _NewsScreen extends State<NewsScreen> {
                               const SizedBox(
                                 height: 16,
                               ),
-                              Text(formatTime(articles![index].publishedAt ?? '')),
+                              Text(formatTime(
+                                  articles![index].publishedAt ?? '')),
                               const SizedBox(
                                 height: 16,
                               ),
@@ -188,11 +175,6 @@ class _NewsScreen extends State<NewsScreen> {
                                         color: ColorsConst.appBarColor,
                                       ),
                                     ),
-                                    // Icon(
-                                    //   Icons.arrow_forward_ios_sharp,
-                                    //   color: ColorsConst.redColor,
-                                    //   size: 14,
-                                    // ),
                                   ],
                                 ),
                               ),
@@ -211,11 +193,10 @@ class _NewsScreen extends State<NewsScreen> {
       ),
     );
   }
+
   String formatTime(String timestamp) {
     DateTime dateTime = DateTime.parse(timestamp);
     String formattedTime = DateFormat('MMM dd, yyyy').format(dateTime);
     return formattedTime;
   }
 }
-
-

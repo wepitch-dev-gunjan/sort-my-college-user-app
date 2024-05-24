@@ -111,8 +111,8 @@ class _HomePageContainer_2State extends State<HomePageContainer_2> {
       return _webnar;
     } else if (selectedIndex == 2) {
       return _booking;
-    } else if (this.selectedIndex == 3) {
-      return this._news;
+    } else if (selectedIndex == 3) {
+      return _news;
     } else if (selectedIndex == 4) {
       return _profile;
     } else {

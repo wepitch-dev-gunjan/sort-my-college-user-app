@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../other/provider/counsellor_details_provider.dart';
 
 class WebinarPastPage extends StatefulWidget {
-  const WebinarPastPage({Key? key}) : super(key: key);
+  const WebinarPastPage({super.key});
 
   @override
   State<WebinarPastPage> createState() => _WebinarPastPageState();

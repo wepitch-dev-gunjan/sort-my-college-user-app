@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:myapp/booking_page/booking_page.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/shared/colors_const.dart';
-import 'package:myapp/webinar_page/webinar_past_page.dart';
 import 'package:myapp/webinar_page/webinar_pastwebnar_page.dart';
 import 'package:myapp/webinar_page/webinar_today_page.dart';
 import 'package:myapp/webinar_page/webinar_upcoming_page.dart';

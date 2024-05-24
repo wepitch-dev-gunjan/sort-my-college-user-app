@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:myapp/home_page/notification_page/news/model/news_model.dart';
 import 'package:myapp/home_page/notification_page/news/ui/news_information_screen.dart';
 import 'package:myapp/shared/colors_const.dart';
-import 'package:myapp/shared/string_const.dart';
 import 'package:myapp/utils.dart';
 
 class NewsAllInfoScreen extends StatefulWidget {

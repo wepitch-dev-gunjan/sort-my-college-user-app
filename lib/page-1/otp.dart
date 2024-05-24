@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:myapp/page-1/edulevel.dart';
-import 'package:myapp/page-1/selectdob_new.dart';
 import 'package:myapp/page-1/sign-up.dart';
 import 'package:myapp/slide_screen.dart';
 import 'package:myapp/utils.dart';

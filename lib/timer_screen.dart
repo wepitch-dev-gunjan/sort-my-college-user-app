@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 
 class TimeDisplay extends StatefulWidget {
-  const TimeDisplay({Key? key}) : super(key: key);
+  const TimeDisplay({super.key});
 
   @override
   TimeDisplayState createState() => TimeDisplayState();

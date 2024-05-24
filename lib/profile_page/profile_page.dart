@@ -13,10 +13,8 @@ import 'package:myapp/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
-
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -30,7 +28,6 @@ class _ProfilePageState extends State<ProfilePage> {
   String gender = "";
   String eduLevel = "";
   var value;
-
 
   @override
   void initState() {
@@ -49,16 +46,15 @@ class _ProfilePageState extends State<ProfilePage> {
     dob = prefs.getString("date_of_birth") ?? "N/A";
     gender = prefs.getString("gender") ?? "N/A";
     eduLevel = prefs.getString("education_level") ?? "N/A";
-    if(prefs.getString("profile_pic") == null) {
+    if (prefs.getString("profile_pic") == null) {
       // load local pic
       setState(() {
         path = prefs.getString("profile_pic_local");
       });
-    } else{
+    } else {
       setState(() {
         path = prefs.getString("profile_pic") ?? "N/A";
       });
-
     }
     setState(() {
       showSpinner = false;
@@ -71,11 +67,11 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() {});
   }
 
-  File? image ;
+  File? image;
   // final _picker = ImagePicker();
-  bool showSpinner = false ;
+  bool showSpinner = false;
 
-  Future getImage() async{
+  Future getImage() async {
     ImagePicker imagePicker = ImagePicker();
     XFile? xFile = await imagePicker.pickImage(
       source: ImageSource.gallery,
@@ -88,7 +84,6 @@ class _ProfilePageState extends State<ProfilePage> {
       //await uploadImage();
     }
   }
-
 
   Future<void> uploadImage() async {
     setState(() {
@@ -119,19 +114,17 @@ class _ProfilePageState extends State<ProfilePage> {
     try {
       var response = await request.send();
       if (response.statusCode == 200) {
-
         Fluttertoast.showToast(msg: 'Image uploaded successfully');
         await ApiService.get_profile().then((value) => loadDefaultValue());
-
       } else {
-        Fluttertoast.showToast(msg: 'Something went wrong while uploading image');
+        Fluttertoast.showToast(
+            msg: 'Something went wrong while uploading image');
         setState(() {
           showSpinner = false;
         });
         saveimgmethod();
       }
     } catch (e) {
-      print('Error uploading image: $e');
       Fluttertoast.showToast(msg: 'Error uploading image');
       setState(() {
         showSpinner = false;
@@ -145,8 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
       inAsyncCall: showSpinner,
       child: PopScope(
         canPop: false,
-        onPopInvoked : (didPop){
-          // logic
+        onPopInvoked: (didPop) {
           SystemNavigator.pop();
         },
         child: Scaffold(
@@ -160,7 +152,9 @@ class _ProfilePageState extends State<ProfilePage> {
             title: Text(
               "My Profile",
               style: SafeGoogleFont("Inter",
-                  fontSize: 18, fontWeight: FontWeight.w600,color: ColorsConst.appBarColor),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: ColorsConst.appBarColor),
             ),
           ),
           body: Padding(
@@ -181,39 +175,28 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           child: ClipOval(
                             child: path != null
-                                ?  path.toString().contains("https")
-                                ?  Image.network(
-                              path.toString(),
-                              fit: BoxFit.cover,
-                              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                //print("Exception >> ${exception.toString()}");
-                                return Image.asset(
-                                  'assets/page-1/images/book.jpg',
-                                  fit: BoxFit.cover,
-                                );
-                              },
-                            )
-                                : Image.file(File(path!), fit: BoxFit.cover)
-                                : Image.asset('assets/page-1/images/profilepic.jpg'),
+                                ? path.toString().contains("https")
+                                    ? Image.network(
+                                        path.toString(),
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (BuildContext context,
+                                            Object exception,
+                                            StackTrace? stackTrace) {
+                                          return Image.asset(
+                                            'assets/page-1/images/book.jpg',
+                                            fit: BoxFit.cover,
+                                          );
+                                        },
+                                      )
+                                    : Image.file(File(path!), fit: BoxFit.cover)
+                                : Image.asset(
+                                    'assets/page-1/images/profilepic.jpg'),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: InkWell(
                             onTap: () async {
-
-                              /* ImagePicker imagePicker = ImagePicker();
-                               XFile? xFile = await imagePicker.pickImage(
-                                 source: ImageSource.gallery,
-                               );
-                               if (xFile != null) {
-                                 path = xFile.path;
-                                 saveImagePathToPrefs(path!);
-
-
-                                 //setState(() {});
-                               } */
-
                               await getImage();
                             },
                             child: Container(
@@ -232,11 +215,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                   ),
-
                   itemProfile('Name', username, CupertinoIcons.person),
-
                   const Divider(),
-                  itemProfile('Phone Number', phoneNumber, CupertinoIcons.phone),
+                  itemProfile(
+                      'Phone Number', phoneNumber, CupertinoIcons.phone),
                   const Divider(),
                   itemProfile('Date Of Birth', dob, CupertinoIcons.calendar),
                   const Divider(),
@@ -247,7 +229,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 20,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 26,right: 26,top: 20),
+                    padding:
+                        const EdgeInsets.only(left: 26, right: 26, top: 20),
                     child: SizedBox(
                       height: 36,
                       width: double.infinity,
@@ -256,7 +239,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             await showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return  ProfileEditDialog(name:username);
+                                  return ProfileEditDialog(name: username);
                                 });
                             getAllInfo();
                           },
@@ -277,11 +260,10 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   itemProfile(
-      String title,
-      String subtitle,
-      IconData iconData,
-      )
-  {
+    String title,
+    String subtitle,
+    IconData iconData,
+  ) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.08,
       decoration: BoxDecoration(

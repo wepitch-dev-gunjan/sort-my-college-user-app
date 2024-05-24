@@ -88,6 +88,7 @@ class _NewsAllDetailScreenState extends State<NewsAllDetailScreen> {
                 height: 12,
               ),
               Text(
+                
                 widget.newsArticle.description!,
                 style: const TextStyle(
                   fontSize: 16,
