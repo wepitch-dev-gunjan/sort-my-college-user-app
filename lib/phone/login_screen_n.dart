@@ -26,7 +26,6 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
   bool isLoading = false;
   String code = '';
 
-
   @override
   void initState() {
     super.initState();
@@ -49,7 +48,6 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
       ..indicatorType = EasyLoadingIndicatorType.circle;
   }
 
-
   @override
   Widget build(BuildContext context) {
     double baseWidth = 430;
@@ -70,7 +68,9 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
                 fit: BoxFit.cover,
                 height: 250,
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               const Text(
                 'Let’s get you started!',
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
@@ -94,14 +94,16 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      // autogrouprbz9U5f (AXy8AQS9uGhFg15ZzJrBz9)
-                      margin:
-                      EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 20 * fem),
+                    
+                      margin: EdgeInsets.fromLTRB(
+                          0 * fem, 0 * fem, 0 * fem, 20 * fem),
                       padding: EdgeInsets.fromLTRB(
                           15 * fem, 15 * fem, 15 * fem, 13 * fem),
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        border: Border.all(color: ColorsConst.appBarColor,),
+                        border: Border.all(
+                          color: ColorsConst.appBarColor,
+                        ),
                         color: const Color(0xffffffff),
                         borderRadius: BorderRadius.circular(10 * fem),
                       ),
@@ -111,13 +113,12 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
                           cursorColor: Colors.black,
                           controller: phoneController,
                           keyboardType: TextInputType.phone,
-                          // keyboardType: TextInputType.phone, changed for testing purpose
-                          inputFormatters:  [
+                          inputFormatters: [
                             LengthLimitingTextInputFormatter(14),
                           ],
                           decoration: const InputDecoration(
-                            hintStyle:
-                            TextStyle(color: Colors.black54, fontSize: 15.0),
+                            hintStyle: TextStyle(
+                                color: Colors.black54, fontSize: 15.0),
                             hintText: "Phone Number",
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
@@ -150,7 +151,9 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
                     //     ),
                     //   ],
                     // ),
-                    const SizedBox(height: 18,),
+                    const SizedBox(
+                      height: 18,
+                    ),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -176,7 +179,8 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Divider(color: Colors.black, endIndent: 60, indent: 60),
+                    const Divider(
+                        color: Colors.black, endIndent: 60, indent: 60),
                     SizedBox(
                       height: mHeight * 0.01,
                     ),
@@ -198,7 +202,8 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const SignupScreenNew()));
+                                    builder: (context) =>
+                                        const SignupScreenNew()));
                           },
                           child: Text(
                             'Sign up',
@@ -238,7 +243,7 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
   }
 
   void onTapGettingstarted(BuildContext context, String phoneNumber) async {
-   await EasyLoading.show(
+    await EasyLoading.show(
       dismissOnTap: false,
     );
 
@@ -247,31 +252,27 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
 
       EasyLoading.dismiss();
 
-       if(phoneNumber == "7297827346")
-        {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => OtpScreenNewLogin(phoneNumber)));
-
-        }
-      else {
-        if (value["message"]["description"] == "Message in progress")
-        {
+      if (phoneNumber == "7297827346") {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => OtpScreenNewLogin(phoneNumber)));
+      } else {
+        if (value["message"]["description"] == "Message in progress") {
           EasyLoading.showToast(value["message"]["description"],
               toastPosition: EasyLoadingToastPosition.bottom);
           if (!mounted) return;
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => OtpScreenNewLogin(phoneNumber)));
-        }
-        else {
+              context,
+              MaterialPageRoute(
+                  builder: (context) => OtpScreenNewLogin(phoneNumber)));
+        } else {
           EasyLoading.showToast(value["message"]["description"],
               toastPosition: EasyLoadingToastPosition.bottom);
         }
       }
-
-
     });
   }
-
 
   // void onTapGettingstarted(BuildContext context, String phone) async {
   //   await EasyLoading.show(
@@ -313,7 +314,7 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
 
   bool check_val() {
     bool isvaluevalid = true;
-     if (phoneController.text.toString().trim().isEmpty) {
+    if (phoneController.text.toString().trim().isEmpty) {
       EasyLoading.showToast(AppConstants.phoneerror,
           toastPosition: EasyLoadingToastPosition.bottom);
       isvaluevalid = false;
@@ -340,8 +341,6 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
   //
   //   return isvaluevalid;
   // }
-
-
 
   bool isEmail(String em) {
     bool isvaluevalid = false;

@@ -498,10 +498,6 @@ class ApiService {
       "education_level": edulevel,
     });
 
-    log("name=============$name");
-    log("date_of_birth=============$dob");
-    log("gender=============$gender");
-    log("education_level=============$edulevel");
     final headers = {
       'Content-Type': 'application/json',
       "Authorization": token,

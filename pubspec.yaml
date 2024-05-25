@@ -71,6 +71,8 @@ dependencies:
 
 
   crypto: any
+  dio: ^5.4.3+1
+  flutter_image_compress: ^2.3.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

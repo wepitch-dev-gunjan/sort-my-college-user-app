@@ -465,6 +465,7 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
+                                        log("Trendinggggggggggg=> ${trending.webinarDate}");
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(

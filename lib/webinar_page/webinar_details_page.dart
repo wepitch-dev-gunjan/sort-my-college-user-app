@@ -104,17 +104,21 @@ class _WebinarDetailsPageState extends State<WebinarDetailsPage> {
                 children: [
                   Text(
                     widget.webinarTitle,
-                    style: SafeGoogleFont("Inter",
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: const Color(0xff414040)),
+                    style: SafeGoogleFont(
+                      "Inter",
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: const Color(0xff414040),
+                    ),
                   ),
                   Text(
                     "60 min",
-                    style: SafeGoogleFont("Inter",
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: fontColor),
+                    style: SafeGoogleFont(
+                      "Inter",
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: fontColor,
+                    ),
                   )
                 ],
               ),
@@ -329,28 +333,20 @@ class _WebinarDetailsPageState extends State<WebinarDetailsPage> {
           ),
         ),
       ),
-      bottomNavigationBar: Positioned(
-        bottom: 0,
-        left: 0,
-        right: 0,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20.0,
-          ),
-          child: customButton(
-            backgroundColor: widget.registerd
-                ? Colors.grey.shade100
-                : const Color(0xff1F0A68),
-            context: context,
-            onPressed: widget.registerd
-                ? () {
-                    Fluttertoast.showToast(msg: 'You are already registered');
-                  }
-                : () {
-                    // Fluttertoast.showToast(msg: 'You are already registered');
-                  },
-            title: widget.registerd ? "Join Now" : "Register",
-          ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+        child: customButton(
+          backgroundColor:
+              widget.registerd ? Colors.grey.shade100 : const Color(0xff1F0A68),
+          context: context,
+          onPressed: widget.registerd
+              ? () {
+                  Fluttertoast.showToast(msg: 'You are already registered');
+                }
+              : () {
+                  // Fluttertoast.showToast(msg: 'You are already registered');
+                },
+          title: widget.registerd ? "Join Now" : "Register",
         ),
       ),
     );

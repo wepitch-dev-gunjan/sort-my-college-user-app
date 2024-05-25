@@ -1,4 +1,7 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +14,6 @@ import 'package:myapp/profile_page/widget/profile_edit_dialog.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -68,7 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   File? image;
-  // final _picker = ImagePicker();
+  final _picker = ImagePicker();
   bool showSpinner = false;
 
   Future getImage() async {
@@ -76,61 +78,148 @@ class _ProfilePageState extends State<ProfilePage> {
     XFile? xFile = await imagePicker.pickImage(
       source: ImageSource.gallery,
     );
+
     if (xFile != null) {
       path = xFile.path;
-      image = File(xFile.path);
-      // saveimgmethod();
-      await uploadImage().then((value) => saveimgmethod());
-      //await uploadImage();
+      File image = File(xFile.path);
+      await uploadImage(image).then((value) => saveimgmethod());
+      return image;
     }
   }
 
-  Future<void> uploadImage() async {
+  Future<void> uploadImage(File? image) async {
+    if (image == null) {
+      Fluttertoast.showToast(msg: 'No image selected');
+      return;
+    }
+
+    Dio dio = Dio();
     setState(() {
       showSpinner = true;
     });
 
-    var stream = http.ByteStream(image!.openRead());
-    stream.cast();
-    var length = await image!.length();
-    var uri = Uri.parse('${AppConstants.baseUrl}/user/');
-
-    /// Save token in shared preferences
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString("token").toString();
-    var request = http.MultipartRequest('PUT', uri);
-
-    /// Add token to headers
-    request.headers['Authorization'] = token;
-
-    var multiport = http.MultipartFile(
-      'profile_pic',
-      stream,
-      length,
-    );
-
-    request.files.add(multiport);
-
     try {
-      var response = await request.send();
+      log("Image=>$image");
+      var uri = '${AppConstants.baseUrl}/user/';
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString("token") ?? '';
+
+      if (token.isEmpty) {
+        Fluttertoast.showToast(msg: 'Token is not available');
+        setState(() {
+          showSpinner = false;
+        });
+        return;
+      }
+      log("Image=>$image");
+      Uint8List imageBytes = await image.readAsBytes();
+      //
+
+      String base64String = base64Encode(imageBytes);
+
+      final headers = {
+        "Authorization": token,
+        "Content-Type": "application/json",
+      };
+      log("Image1=>1234567");
+
+      FormData formData = FormData.fromMap({
+        'profile_pic':
+            MultipartFile.fromFile(base64String, filename: 'upload.jpg'),
+      });
+
+      log("Image1=>12345678");
+
+      // final data = {
+      //   'profile_pic': base64String,
+      // };
+
+      final response = await dio.put(uri,
+          options: Options(headers: headers), data: formData);
+
       if (response.statusCode == 200) {
         Fluttertoast.showToast(msg: 'Image uploaded successfully');
         await ApiService.get_profile().then((value) => loadDefaultValue());
       } else {
         Fluttertoast.showToast(
             msg: 'Something went wrong while uploading image');
-        setState(() {
-          showSpinner = false;
-        });
-        saveimgmethod();
       }
     } catch (e) {
+      // log('Error uploading image: $e');
       Fluttertoast.showToast(msg: 'Error uploading image');
+    } finally {
       setState(() {
         showSpinner = false;
       });
     }
   }
+
+  // Future getImage() async {
+  //   ImagePicker imagePicker = ImagePicker();
+  //   XFile? xFile = await imagePicker.pickImage(
+  //     source: ImageSource.gallery,
+  //   );
+
+  //   if (xFile != null) {
+  //     path = xFile.path;
+  //     File image = File(xFile.path);
+  //     await uploadImage(image).then((value) => saveimgmethod());
+  //     return image;
+  //   }
+  // }
+
+  // Future<void> uploadImage(File? image) async {
+  //   if (image == null) {
+  //     Fluttertoast.showToast(msg: 'No image selected');
+  //     return;
+  //   }
+
+  //   Dio dio = Dio();
+  //   setState(() {
+  //     showSpinner = true;
+  //   });
+
+  //   try {
+  //     var uri = '${AppConstants.baseUrl}/user/';
+  //     SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     final token = prefs.getString("token") ?? '';
+
+  //     if (token.isEmpty) {
+  //       Fluttertoast.showToast(msg: 'Token is not available');
+  //       setState(() {
+  //         showSpinner = false;
+  //       });
+  //       return;
+  //     }
+
+  //     final headers = {
+  //       "Authorization": token,
+  //     };
+
+  //     FormData formData = FormData.fromMap({
+  //       'profile_pic':
+  //           await MultipartFile.fromFile(image.path, filename: 'upload.jpg'),
+  //     });
+
+  //     final response = await dio.put(uri,
+  //         options: Options(headers: headers), data: formData);
+
+  //     if (response.statusCode == 200) {
+  //       Fluttertoast.showToast(msg: 'Image uploaded successfully');
+  //       await ApiService.get_profile().then((value) => loadDefaultValue());
+  //     } else {
+  //       Fluttertoast.showToast(
+  //           msg: 'Something went wrong while uploading image');
+  //     }
+  //   } catch (e) {
+  //     log('Error uploading image: $e');
+  //     Fluttertoast.showToast(msg: 'Error uploading image');
+  //   } finally {
+  //     setState(() {
+  //       showSpinner = false;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -139,6 +228,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: PopScope(
         canPop: false,
         onPopInvoked: (didPop) {
+          // logic
           SystemNavigator.pop();
         },
         child: Scaffold(
@@ -182,6 +272,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         errorBuilder: (BuildContext context,
                                             Object exception,
                                             StackTrace? stackTrace) {
+                                          //print("Exception >> ${exception.toString()}");
                                           return Image.asset(
                                             'assets/page-1/images/book.jpg',
                                             fit: BoxFit.cover,
@@ -197,6 +288,18 @@ class _ProfilePageState extends State<ProfilePage> {
                           padding: const EdgeInsets.all(8.0),
                           child: InkWell(
                             onTap: () async {
+                              /* ImagePicker imagePicker = ImagePicker();
+                               XFile? xFile = await imagePicker.pickImage(
+                                 source: ImageSource.gallery,
+                               );
+                               if (xFile != null) {
+                                 path = xFile.path;
+                                 saveImagePathToPrefs(path!);
+
+
+                                 //setState(() {});
+                               } */
+
                               await getImage();
                             },
                             child: Container(

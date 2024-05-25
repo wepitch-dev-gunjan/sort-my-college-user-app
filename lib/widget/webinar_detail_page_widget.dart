@@ -168,24 +168,16 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                 ),
               ),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(11, 20, 12, 15),
-                    child: Expanded(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            widget.webinarTitle!,
-                            style: SafeGoogleFont("Inter",
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                color: const Color(0xff414040)),
-                          ),
-                        ],
-                      ),
+                    padding: const EdgeInsets.symmetric(horizontal: 11),
+                    child: Text(
+                      widget.webinarTitle!,
+                      textAlign: TextAlign.start,
+                      style: SafeGoogleFont("Inter",
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xff414040)),
                     ),
                   ),
                   Padding(
@@ -378,9 +370,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
           ),
         ),
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 11.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 11.0, vertical: 10),
           child: Card(
             color: Colors.white,
             child: webinarDetailWidget(

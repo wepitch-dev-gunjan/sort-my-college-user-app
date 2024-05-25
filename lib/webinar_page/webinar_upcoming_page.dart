@@ -558,357 +558,341 @@ class _WebinarDetailUpComingWidgetState
     }
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color(0xffffffff).withOpacity(0.8),
-          surfaceTintColor: const Color(0xffffffff).withOpacity(0.8),
-          title: Text(
-            'Webinar Details',
-            style: SafeGoogleFont("Inter",
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: ColorsConst.appBarColor),
-          ),
-          leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: const Icon(Icons.arrow_back_ios,
-                color: Color(0xff1F0A68), size: 25),
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 15),
-              child: Image.asset(
-                "assets/page-1/images/share.png",
-                color: const Color(0xff1F0A68),
-                height: 23,
-              ),
-            )
-          ],
+      appBar: AppBar(
+        backgroundColor: const Color(0xffffffff).withOpacity(0.8),
+        surfaceTintColor: const Color(0xffffffff).withOpacity(0.8),
+        title: Text(
+          'Webinar Details',
+          style: SafeGoogleFont("Inter",
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: ColorsConst.appBarColor),
         ),
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-                child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: const Icon(Icons.arrow_back_ios,
+              color: Color(0xff1F0A68), size: 25),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: Image.asset(
+              "assets/page-1/images/share.png",
+              color: const Color(0xff1F0A68),
+              height: 23,
+            ),
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 190,
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      widget.webinarImg,
+                    ),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              Text(
+                widget.title,
+                textAlign: TextAlign.start,
+                style: SafeGoogleFont("Inter",
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xff414040)),
+              ),
+              const SizedBox(height: 5.0),
+              Row(
                 children: [
-                  Container(
-                    height: 190,
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          widget.webinarImg,
-                        ),
-                        fit: BoxFit.fill,
-                      ),
+                  Text(
+                    "Webinar by",
+                    style: SafeGoogleFont(
+                      "Inter",
+                      fontSize: 12,
+                      color: fontColor,
                     ),
                   ),
-                  const SizedBox(height: 20.0),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        widget.title,
-                        style: SafeGoogleFont("Inter",
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                            color: const Color(0xff414040)),
-                      ),
-                    ],
+                  Text(
+                    widget.name,
+                    style: SafeGoogleFont("Inter",
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        fontStyle: FontStyle.italic,
+                        color: fontColor),
+                  )
+                ],
+              ),
+              const SizedBox(height: 5.0),
+              Row(
+                children: [
+                  Image.asset(
+                    "assets/page-1/images/clock.png",
                   ),
-                  const SizedBox(height: 5.0),
-                  Row(
-                    children: [
-                      Text(
-                        "Webinar by",
-                        style: SafeGoogleFont(
-                          "Inter",
-                          fontSize: 12,
-                          color: fontColor,
-                        ),
-                      ),
-                      Text(
-                        widget.name,
-                        style: SafeGoogleFont("Inter",
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            fontStyle: FontStyle.italic,
-                            color: fontColor),
-                      )
-                    ],
+                  const SizedBox(
+                    width: 5,
                   ),
-                  const SizedBox(height: 5.0),
-                  Row(
-                    children: [
-                      Image.asset(
-                        "assets/page-1/images/clock.png",
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        widget.date,
-                        style: SafeGoogleFont(
-                          "Inter",
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      // const Spacer(),
-                      // Row(
-                      //   children: [
-                      //     Image.asset(
-                      //       "assets/page-1/images/persons.png",
-                      //     ),
-                      //     const SizedBox(
-                      //       width: 3,
-                      //     ),
-                      //     Text(
-                      //       "44/100",
-                      //       style: SafeGoogleFont(
-                      //         "Inter",
-                      //         fontSize: 12,
-                      //         fontWeight: FontWeight.w500,
-                      //         color: fontColor,
-                      //       ),
-                      //     )
-                      //   ],
-                      // ),
-                    ],
-                  ),
-                  const SizedBox(height: 7),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 11),
-                    child: Container(
-                      height: 1,
-                      color: const Color(0xffAFAFAF).withOpacity(0.54),
+                  Text(
+                    widget.date,
+                    style: SafeGoogleFont(
+                      "Inter",
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Details -",
-                          style: SafeGoogleFont(
-                            "Inter",
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
-                    child: Text(
-                      "What will you Learn?",
+                  // const Spacer(),
+                  // Row(
+                  //   children: [
+                  //     Image.asset(
+                  //       "assets/page-1/images/persons.png",
+                  //     ),
+                  //     const SizedBox(
+                  //       width: 3,
+                  //     ),
+                  //     Text(
+                  //       "44/100",
+                  //       style: SafeGoogleFont(
+                  //         "Inter",
+                  //         fontSize: 12,
+                  //         fontWeight: FontWeight.w500,
+                  //         color: fontColor,
+                  //       ),
+                  //     )
+                  //   ],
+                  // ),
+                ],
+              ),
+              const SizedBox(height: 7),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 11),
+                child: Container(
+                  height: 1,
+                  color: const Color(0xffAFAFAF).withOpacity(0.54),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Details -",
                       style: SafeGoogleFont(
                         "Inter",
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
+                child: Text(
+                  "What will you Learn?",
+                  style: SafeGoogleFont(
+                    "Inter",
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
                   ),
-                  SizedBox(
-                    height: 88,
-                    child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 2,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: EdgeInsets.only(
-                            left: index == 0 ? 20 : 17,
-                          ),
-                          height: 88,
-                          width: 144,
-                          decoration: BoxDecoration(
-                            color: const Color(0xffD9D9D9).withOpacity(0.65),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(14, 11, 0, 11),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 20,
-                                  width: 20,
-                                  decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "${index + 1}",
-                                      style: SafeGoogleFont(
-                                        "Inter",
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  index == 0
-                                      ? "Subject Depth Knowledge"
-                                      : index == 1
-                                          ? "One to One Session "
-                                          : "Interactive learning",
+                ),
+              ),
+              SizedBox(
+                height: 88,
+                child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 2,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.only(
+                        left: index == 0 ? 20 : 17,
+                      ),
+                      height: 88,
+                      width: 144,
+                      decoration: BoxDecoration(
+                        color: const Color(0xffD9D9D9).withOpacity(0.65),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(14, 11, 0, 11),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 20,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "${index + 1}",
                                   style: SafeGoogleFont(
                                     "Inter",
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600,
-                                    color: const Color(0xff414040),
+                                    color: Colors.white,
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 19, 15, 19),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Speaker Profile",
-                          style: SafeGoogleFont(
-                            "Inter",
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              index == 0
+                                  ? "Subject Depth Knowledge"
+                                  : index == 1
+                                      ? "One to One Session "
+                                      : "Interactive learning",
+                              style: SafeGoogleFont(
+                                "Inter",
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: const Color(0xff414040),
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          "Highly Educated And Experience Counsellor To Guide Student Their Future Scope in Various Stream",
-                          style: SafeGoogleFont(
-                            "Inter",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 70.0,
-                  )
-                ],
-              ),
-            )),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Card(
-                  color: Colors.white,
-                  child: webinarDetailWidget(
-                    onPressed: () async {
-                      if (has24HoursPassed) {
-                        Fluttertoast.showToast(
-                            msg: 'Webinar Happened ${diff.abs()} days ago');
-                      } else {
-                        if (!widget.registerd) {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text(
-                                  'Do you want to register for the webinar?',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('Cancel'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () async {
-                                      if (widget.registerd &&
-                                          widget.webinarStartDays == 0) {
-                                        launchUrlString(widget.joinUrl);
-                                      } else if (widget.registerd) {
-                                        Fluttertoast.showToast(
-                                            msg:
-                                                'Participant is already registered');
-                                      } else {
-                                        var value =
-                                            await ApiService.webinar_regiter(
-                                                widget.id);
-
-                                        if (value["error"] ==
-                                            "Participant is already registered") {
-                                          Fluttertoast.showToast(
-                                              msg:
-                                                  'Participant is already registered');
-                                        } else if (value["message"] ==
-                                            "Registration completed") {
-                                          Fluttertoast.showToast(
-                                              msg:
-                                                  'Registration completed Thanks for registration');
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const WebinarPage(),
-                                            ),
-                                          );
-                                        }
-                                      }
-                                      if (mounted) {
-                                        Navigator.pop(context);
-                                      }
-                                      //await _updateRegistrationStatus(true);
-                                    },
-                                    child: const Text('Yes'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        } else {
-                          const Text('Has Been Registered');
-                        }
-                      }
-                    },
-                    title: widget.registerd
-                        ? (widget.webinarStartDays == 0
-                            ? 'Join Now'
-                            : has24HoursPassed
-                                ? 'Happened in ${diff.abs()} days ago'
-                                : 'Starting in ${widget.webinarStartDays} days')
-                        : 'Join Now',
-                    isRegisterNow: has24HoursPassed ? false : widget.registerd,
-                  ),
+                      ),
+                    );
+                  },
                 ),
               ),
-            ),
-          ],
-        ));
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 19, 15, 19),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Speaker Profile",
+                      style: SafeGoogleFont(
+                        "Inter",
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      "Highly Educated And Experience Counsellor To Guide Student Their Future Scope in Various Stream",
+                      style: SafeGoogleFont(
+                        "Inter",
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 70.0,
+              )
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 10),
+        child: Card(
+          color: Colors.white,
+          child: webinarDetailWidget(
+            onPressed: () async {
+              if (has24HoursPassed) {
+                Fluttertoast.showToast(
+                    msg: 'Webinar Happened ${diff.abs()} days ago');
+              } else {
+                if (!widget.registerd) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text(
+                          'Do you want to register for the webinar?',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () async {
+                              if (widget.registerd &&
+                                  widget.webinarStartDays == 0) {
+                                launchUrlString(widget.joinUrl);
+                              } else if (widget.registerd) {
+                                Fluttertoast.showToast(
+                                    msg: 'Participant is already registered');
+                              } else {
+                                var value =
+                                    await ApiService.webinar_regiter(widget.id);
+
+                                if (value["error"] ==
+                                    "Participant is already registered") {
+                                  Fluttertoast.showToast(
+                                      msg: 'Participant is already registered');
+                                } else if (value["message"] ==
+                                    "Registration completed") {
+                                  Fluttertoast.showToast(
+                                      msg:
+                                          'Registration completed Thanks for registration');
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const WebinarPage(),
+                                    ),
+                                  );
+                                }
+                              }
+                              if (mounted) {
+                                Navigator.pop(context);
+                              }
+                              //await _updateRegistrationStatus(true);
+                            },
+                            child: const Text('Yes'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                } else {
+                  const Text('Has Been Registered');
+                }
+              }
+            },
+            title: widget.registerd
+                ? (widget.webinarStartDays == 0
+                    ? 'Join Now'
+                    : has24HoursPassed
+                        ? 'Happened in ${diff.abs()} days ago'
+                        : 'Starting in ${widget.webinarStartDays} days')
+                : 'Join Now',
+            isRegisterNow: has24HoursPassed ? false : widget.registerd,
+          ),
+        ),
+      ),
+    );
   }
 }
 
