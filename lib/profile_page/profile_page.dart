@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
@@ -73,12 +72,17 @@ class _ProfilePageState extends State<ProfilePage> {
   final _picker = ImagePicker();
   bool showSpinner = false;
 
+
+
+  
+
   Future getImage() async {
     ImagePicker imagePicker = ImagePicker();
     XFile? xFile = await imagePicker.pickImage(
       source: ImageSource.gallery,
     );
 
+    
     if (xFile != null) {
       path = xFile.path;
       File image = File(xFile.path);
@@ -99,7 +103,6 @@ class _ProfilePageState extends State<ProfilePage> {
     });
 
     try {
-      log("Image=>$image");
       var uri = '${AppConstants.baseUrl}/user/';
       SharedPreferences prefs = await SharedPreferences.getInstance();
       final token = prefs.getString("token") ?? '';
@@ -111,28 +114,15 @@ class _ProfilePageState extends State<ProfilePage> {
         });
         return;
       }
-      log("Image=>$image");
-      Uint8List imageBytes = await image.readAsBytes();
-      //
-
-      String base64String = base64Encode(imageBytes);
 
       final headers = {
         "Authorization": token,
-        "Content-Type": "application/json",
       };
-      log("Image1=>1234567");
 
       FormData formData = FormData.fromMap({
         'profile_pic':
-            MultipartFile.fromFile(base64String, filename: 'upload.jpg'),
+            await MultipartFile.fromFile(image.path, filename: 'upload.jpg'),
       });
-
-      log("Image1=>12345678");
-
-      // final data = {
-      //   'profile_pic': base64String,
-      // };
 
       final response = await dio.put(uri,
           options: Options(headers: headers), data: formData);
@@ -145,7 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
             msg: 'Something went wrong while uploading image');
       }
     } catch (e) {
-      // log('Error uploading image: $e');
+      log('Error uploading image: $e');
       Fluttertoast.showToast(msg: 'Error uploading image');
     } finally {
       setState(() {
@@ -153,73 +143,6 @@ class _ProfilePageState extends State<ProfilePage> {
       });
     }
   }
-
-  // Future getImage() async {
-  //   ImagePicker imagePicker = ImagePicker();
-  //   XFile? xFile = await imagePicker.pickImage(
-  //     source: ImageSource.gallery,
-  //   );
-
-  //   if (xFile != null) {
-  //     path = xFile.path;
-  //     File image = File(xFile.path);
-  //     await uploadImage(image).then((value) => saveimgmethod());
-  //     return image;
-  //   }
-  // }
-
-  // Future<void> uploadImage(File? image) async {
-  //   if (image == null) {
-  //     Fluttertoast.showToast(msg: 'No image selected');
-  //     return;
-  //   }
-
-  //   Dio dio = Dio();
-  //   setState(() {
-  //     showSpinner = true;
-  //   });
-
-  //   try {
-  //     var uri = '${AppConstants.baseUrl}/user/';
-  //     SharedPreferences prefs = await SharedPreferences.getInstance();
-  //     final token = prefs.getString("token") ?? '';
-
-  //     if (token.isEmpty) {
-  //       Fluttertoast.showToast(msg: 'Token is not available');
-  //       setState(() {
-  //         showSpinner = false;
-  //       });
-  //       return;
-  //     }
-
-  //     final headers = {
-  //       "Authorization": token,
-  //     };
-
-  //     FormData formData = FormData.fromMap({
-  //       'profile_pic':
-  //           await MultipartFile.fromFile(image.path, filename: 'upload.jpg'),
-  //     });
-
-  //     final response = await dio.put(uri,
-  //         options: Options(headers: headers), data: formData);
-
-  //     if (response.statusCode == 200) {
-  //       Fluttertoast.showToast(msg: 'Image uploaded successfully');
-  //       await ApiService.get_profile().then((value) => loadDefaultValue());
-  //     } else {
-  //       Fluttertoast.showToast(
-  //           msg: 'Something went wrong while uploading image');
-  //     }
-  //   } catch (e) {
-  //     log('Error uploading image: $e');
-  //     Fluttertoast.showToast(msg: 'Error uploading image');
-  //   } finally {
-  //     setState(() {
-  //       showSpinner = false;
-  //     });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

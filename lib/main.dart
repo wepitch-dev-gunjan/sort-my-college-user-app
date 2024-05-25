@@ -64,3 +64,72 @@ class MyApp extends StatelessWidget {
 
 
 
+//   Future getImage() async {
+//     ImagePicker imagePicker = ImagePicker();
+//     XFile? xFile = await imagePicker.pickImage(
+//       source: ImageSource.gallery,
+//     );
+
+//     if (xFile != null) {
+//       path = xFile.path;
+//       File image = File(xFile.path);
+//       await uploadImage(image).then((value) => saveimgmethod());
+//       return image;
+//     }
+//   }
+// Future<void> uploadImage(File? image) async {
+//   if (image == null) {
+//     Fluttertoast.showToast(msg: 'No image selected');
+//     return;
+//   }
+
+//   Dio dio = Dio();
+//   setState(() {
+//     showSpinner = true;
+//   });
+
+//   try {
+//     var uri = '${AppConstants.baseUrl}/user/';
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+//     final token = prefs.getString("token") ?? '';
+
+//     if (token.isEmpty) {
+//       Fluttertoast.showToast(msg: 'Token is not available');
+//       setState(() {
+//         showSpinner = false;
+//       });
+//       return;
+//     }
+
+//     Uint8List imageBytes = await image.readAsBytes();
+
+//     String base64String = base64Encode(imageBytes);
+
+//     final headers = {
+//       "Authorization": token,
+//       "Content-Type": "application/json",
+//     };
+
+//     final data = {
+//       'profile_pic': base64String,
+//     };
+
+//     final response = await dio.put(uri,
+//         options: Options(headers: headers), data: data);
+
+//     if (response.statusCode == 200) {
+//       Fluttertoast.showToast(msg: 'Image uploaded successfully');
+//       await ApiService.get_profile().then((value) => loadDefaultValue());
+//     } else {
+//       Fluttertoast.showToast(
+//           msg: 'Something went wrong while uploading image');
+//     }
+//   } catch (e) {
+//     log('Error uploading image: $e');
+//     Fluttertoast.showToast(msg: 'Error uploading image');
+//   } finally {
+//     setState(() {
+//       showSpinner = false;
+//     });
+//   }
+// }
