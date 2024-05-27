@@ -379,333 +379,359 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 28.0 * fem),
-                      child: const Row(
-                        children: [
-                          Text(
-                            'Latest Sessions',
-                            style: TextStyle(
-                              color: Color(0xFF1F0A68),
-                              fontSize: 20,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500,
-                              height: 0,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 4,
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.25,
-                      child:
-                          counsellorSessionProvider.popularWorkShopList.isEmpty
-                              ? const Center(
-                                  child: Text("No Data Found"),
-                                )
-                              : ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  // physics: const PageScrollPhysics(),
-                                  itemCount: counsellorSessionProvider
-                                      .popularWorkShopList.length,
-                                  itemBuilder: (context, index) {
-                                    LatestSessionsModel popular =
-                                        counsellorSessionProvider
-                                            .popularWorkShopList[index];
-                                    return profileCard(
-                                      popular,
-                                      index,
-                                      counsellorSessionProvider
-                                          .popularWorkShopList.length,
-                                    );
-                                  }),
-                    ),
+                    counsellorSessionProvider.popularWorkShopList.isEmpty
+                        ? const SizedBox()
+                        : Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 28.0 * fem),
+                                child: const Row(
+                                  children: [
+                                    Text(
+                                      'Latest Sessions',
+                                      style: TextStyle(
+                                        color: Color(0xFF1F0A68),
+                                        fontSize: 20,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w500,
+                                        height: 0,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.25,
+                                child: counsellorSessionProvider
+                                        .popularWorkShopList.isEmpty
+                                    ? const Center(
+                                        child: Text("No Data Found"),
+                                      )
+                                    : ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        shrinkWrap: true,
+                                        // physics: const PageScrollPhysics(),
+                                        itemCount: counsellorSessionProvider
+                                            .popularWorkShopList.length,
+                                        itemBuilder: (context, index) {
+                                          LatestSessionsModel popular =
+                                              counsellorSessionProvider
+                                                  .popularWorkShopList[index];
+                                          return profileCard(
+                                            popular,
+                                            index,
+                                            counsellorSessionProvider
+                                                .popularWorkShopList.length,
+                                          );
+                                        }),
+                              ),
+                            ],
+                          ),
                     const SizedBox(
                       height: 10,
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 28.0 * fem),
-                      child: const Row(
-                        children: [
-                          Text(
-                            'Trending Webinars',
-                            style: TextStyle(
-                              color: Color(0xFF1F0A68),
-                              fontSize: 20,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500,
-                              height: 0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 14, right: 14, bottom: 0, top: 2),
-                      child: counsellorSessionProvider
-                              .trendingWebinarList.isEmpty
-                          ? const Center(
-                              child: Text("No Data Found"),
-                            )
-                          : ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: counsellorSessionProvider
-                                  .trendingWebinarList.length,
-                              itemBuilder: (context, index) {
-                                TrandingWebinarModel trending =
-                                    counsellorSessionProvider
-                                        .trendingWebinarList[index];
-                                return Column(
+                    counsellorSessionProvider.trendingWebinarList.isEmpty
+                        ? SizedBox()
+                        : Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 28.0 * fem),
+                                child: const Row(
                                   children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        log("Trendinggggggggggg=> ${trending.webinarDate}");
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    WebinarDetailsPage(
-                                                      registerd:
-                                                          trending.registered!,
-                                                      webinarBy:
-                                                          trending.webinarBy!,
-                                                      image: trending
-                                                          .webinarImage!,
-                                                      webinarTitle: trending
-                                                          .webinarTitle!,
-                                                      webinarDate:
-                                                          trending.webinarDate!,
-                                                    )));
-                                      },
-                                      child: Card(
-                                        shadowColor: ColorsConst.whiteColor,
-                                        color: Colors.white,
-                                        surfaceTintColor: Colors.white,
-                                        elevation: 2,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              height: 190,
-                                              // width: 390,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                image: DecorationImage(
-                                                    image: NetworkImage(
-                                                        trending.webinarImage!),
-                                                    fit: BoxFit.fill),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      10, 8, 20, 10),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    trending.webinarBy!,
-                                                    style: SafeGoogleFont(
-                                                      "Inter",
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 4),
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            trending
-                                                                .webinarDate!,
-                                                            style:
-                                                                SafeGoogleFont(
-                                                              "Inter",
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                            height: 3,
-                                                          ),
-                                                          Text(
-                                                            trending
-                                                                .webinarTitle!,
-                                                            style:
-                                                                SafeGoogleFont(
-                                                              "Inter",
-                                                              fontSize: 11,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 12,
-                                                  ),
-                                                  Container(
-                                                    height: 1,
-                                                    width: double.infinity,
-                                                    color:
-                                                        const Color(0xffAFAFAF),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 14,
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 10),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            Share.share(
-                                                                'https://play.google.com/store/apps/details?id=com.sortmycollege');
-                                                          },
-                                                          child: Center(
-                                                            child: Image.asset(
-                                                              "assets/page-1/images/group-38-oFX.png",
-                                                              width: 20,
-                                                              height: 20,
-                                                              color: Color(
-                                                                  0xFF1F0A68),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        registerNowWidget(
-                                                          onPressed: () async {
-                                                            if (!trending
-                                                                .registered!) {
-                                                              showDialog(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (context) {
-                                                                  return AlertDialog(
-                                                                    title:
-                                                                        const Text(
-                                                                      'Do you want to register for the webinar?',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontSize:
-                                                                            16,
-                                                                      ),
-                                                                    ),
-                                                                    actions: [
-                                                                      TextButton(
-                                                                        onPressed:
-                                                                            () {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        },
-                                                                        child: const Text(
-                                                                            'Cancel'),
-                                                                      ),
-                                                                      TextButton(
-                                                                        onPressed:
-                                                                            () async {
-                                                                          if (trending.registered! &&
-                                                                              trending.webinarStartingInDays ==
-                                                                                  0) {
-                                                                            launchUrlString(trending.webinarJoinUrl!);
-                                                                          } else if (trending
-                                                                              .registered!) {
-                                                                            Fluttertoast.showToast(msg: 'Participant is already registered');
-                                                                          } else {
-                                                                            var value =
-                                                                                await ApiService.webinar_regiter(trending.id!);
-
-                                                                            if (value["error"] ==
-                                                                                "Participant is already registered") {
-                                                                              Fluttertoast.showToast(msg: 'Participant is already registered');
-                                                                            } else if (value["message"] ==
-                                                                                "Registration completed") {
-                                                                              Fluttertoast.showToast(msg: 'Registration completed Thanks for registration');
-                                                                              Navigator.push(
-                                                                                context,
-                                                                                MaterialPageRoute(
-                                                                                  builder: (context) => const HomePage(),
-                                                                                ),
-                                                                              );
-                                                                            }
-                                                                          }
-                                                                          if (mounted) {
-                                                                            Navigator.pop(context);
-                                                                          }
-                                                                          //await _updateRegistrationStatus(true);
-                                                                        },
-                                                                        child: const Text(
-                                                                            'Yes'),
-                                                                      ),
-                                                                    ],
-                                                                  );
-                                                                },
-                                                              );
-                                                            } else {
-                                                              const Text(
-                                                                  'Has Been Registered');
-                                                            }
-                                                          },
-                                                          regdate: trending
-                                                              .registeredDate,
-                                                          title: trending
-                                                                  .registered!
-                                                              ? (trending.webinarStartingInDays ==
-                                                                      0
-                                                                  ? 'Join Now'
-                                                                  : 'Starting in ${trending.webinarStartingInDays} days')
-                                                              : 'Join Now',
-                                                          isRegisterNow:
-                                                              trending
-                                                                  .registered!,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                    Text(
+                                      'Trending Webinars',
+                                      style: TextStyle(
+                                        color: Color(0xFF1F0A68),
+                                        fontSize: 20,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w500,
+                                        height: 0,
                                       ),
                                     ),
                                   ],
-                                );
-                              }),
-                    ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 14, right: 14, bottom: 0, top: 2),
+                                child: counsellorSessionProvider
+                                        .trendingWebinarList.isEmpty
+                                    ? const Padding(
+                                        padding: EdgeInsets.only(top: 100),
+                                        child: Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      )
+                                    : ListView.builder(
+                                        shrinkWrap: true,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemCount: counsellorSessionProvider
+                                            .trendingWebinarList.length,
+                                        itemBuilder: (context, index) {
+                                          TrandingWebinarModel trending =
+                                              counsellorSessionProvider
+                                                  .trendingWebinarList[index];
+                                          return Column(
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  log("Trendinggggggggggg=> ${trending.webinarDate}");
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              WebinarDetailsPage(
+                                                                registerd: trending
+                                                                    .registered!,
+                                                                webinarBy: trending
+                                                                    .webinarBy!,
+                                                                image: trending
+                                                                    .webinarImage!,
+                                                                webinarTitle:
+                                                                    trending
+                                                                        .webinarTitle!,
+                                                                webinarDate:
+                                                                    trending
+                                                                        .webinarDate!,
+                                                              )));
+                                                },
+                                                child: Card(
+                                                  shadowColor:
+                                                      ColorsConst.whiteColor,
+                                                  color: Colors.white,
+                                                  surfaceTintColor:
+                                                      Colors.white,
+                                                  elevation: 2,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10)),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Container(
+                                                        height: 190,
+                                                        // width: 390,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          image: DecorationImage(
+                                                              image: NetworkImage(
+                                                                  trending
+                                                                      .webinarImage!),
+                                                              fit: BoxFit.fill),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .fromLTRB(
+                                                                10, 8, 20, 10),
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              trending
+                                                                  .webinarBy!,
+                                                              style:
+                                                                  SafeGoogleFont(
+                                                                "Inter",
+                                                                fontSize: 16,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                                height: 4),
+                                                            Row(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Text(
+                                                                      trending
+                                                                          .webinarDate!,
+                                                                      style:
+                                                                          SafeGoogleFont(
+                                                                        "Inter",
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(
+                                                                      height: 3,
+                                                                    ),
+                                                                    Text(
+                                                                      trending
+                                                                          .webinarTitle!,
+                                                                      style:
+                                                                          SafeGoogleFont(
+                                                                        "Inter",
+                                                                        fontSize:
+                                                                            11,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 12,
+                                                            ),
+                                                            Container(
+                                                              height: 1,
+                                                              width: double
+                                                                  .infinity,
+                                                              color: const Color(
+                                                                  0xffAFAFAF),
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 14,
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      left: 10),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  GestureDetector(
+                                                                    onTap: () {
+                                                                      Share.share(
+                                                                          'https://play.google.com/store/apps/details?id=com.sortmycollege');
+                                                                    },
+                                                                    child:
+                                                                        Center(
+                                                                      child: Image
+                                                                          .asset(
+                                                                        "assets/page-1/images/group-38-oFX.png",
+                                                                        width:
+                                                                            20,
+                                                                        height:
+                                                                            20,
+                                                                        color: const Color(
+                                                                            0xFF1F0A68),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  registerNowWidget(
+                                                                    onPressed:
+                                                                        () async {
+                                                                      if (!trending
+                                                                          .registered!) {
+                                                                        showDialog(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (context) {
+                                                                            return AlertDialog(
+                                                                              title: const Text(
+                                                                                'Do you want to register for the webinar?',
+                                                                                style: TextStyle(
+                                                                                  fontSize: 16,
+                                                                                ),
+                                                                              ),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                  onPressed: () {
+                                                                                    Navigator.pop(context);
+                                                                                  },
+                                                                                  child: const Text('Cancel'),
+                                                                                ),
+                                                                                TextButton(
+                                                                                  onPressed: () async {
+                                                                                    if (trending.registered! && trending.webinarStartingInDays == 0) {
+                                                                                      launchUrlString(trending.webinarJoinUrl!);
+                                                                                    } else if (trending.registered!) {
+                                                                                      Fluttertoast.showToast(msg: 'Participant is already registered');
+                                                                                    } else {
+                                                                                      var value = await ApiService.webinar_regiter(trending.id!);
+
+                                                                                      if (value["error"] == "Participant is already registered") {
+                                                                                        Fluttertoast.showToast(msg: 'Participant is already registered');
+                                                                                      } else if (value["message"] == "Registration completed") {
+                                                                                        Fluttertoast.showToast(msg: 'Registration completed Thanks for registration');
+                                                                                        Navigator.push(
+                                                                                          context,
+                                                                                          MaterialPageRoute(
+                                                                                            builder: (context) => const HomePage(),
+                                                                                          ),
+                                                                                        );
+                                                                                      }
+                                                                                    }
+                                                                                    if (mounted) {
+                                                                                      Navigator.pop(context);
+                                                                                    }
+                                                                                    //await _updateRegistrationStatus(true);
+                                                                                  },
+                                                                                  child: const Text('Yes'),
+                                                                                ),
+                                                                              ],
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      } else {
+                                                                        const Text(
+                                                                            'Has Been Registered');
+                                                                      }
+                                                                    },
+                                                                    regdate:
+                                                                        trending
+                                                                            .registeredDate,
+                                                                    title: trending
+                                                                            .registered!
+                                                                        ? (trending.webinarStartingInDays ==
+                                                                                0
+                                                                            ? 'Join Now'
+                                                                            : 'Starting in ${trending.webinarStartingInDays} days')
+                                                                        : 'Join Now',
+                                                                    isRegisterNow:
+                                                                        trending
+                                                                            .registered!,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        }),
+                              ),
+                            ],
+                          )
                   ],
                 ),
               ),

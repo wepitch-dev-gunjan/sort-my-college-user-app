@@ -20,10 +20,9 @@ class WebinarPastDataPage extends StatefulWidget {
 class _WebinarPastDataPageState extends State<WebinarPastDataPage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    //context.read<CounsellorDetailsProvider>().fetchWebinar_Data("Past");
-    context.read<CounsellorDetailsProvider>().fetchMyWebinar();
+    context.read<CounsellorDetailsProvider>().fetchWebinar_Data("MyWebinars");
+    // context.read<CounsellorDetailsProvider>().fetchMyWebinar();
   }
 
   @override
@@ -227,38 +226,29 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                         ),
                       ),
                       const SizedBox(height: 4),
-                      Row(
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${widget.webinarModel.webinarDate}',
-                                style: SafeGoogleFont(
-                                  "Inter",
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                '${widget.webinarModel.webinarTitle}',
-                                style: SafeGoogleFont(
-                                  "Inter",
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
+                          Text(
+                            '${widget.webinarModel.webinarDate}',
+                            style: SafeGoogleFont(
+                              "Inter",
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                          // customEnrollButton(
-                          //     onPresssed: () {},
-                          //     title: "Free Enroll",
-                          //     context: context)
+                          const SizedBox(
+                            height: 3,
+                          ),
+                          Text(
+                            '${widget.webinarModel.webinarTitle}',
+                            overflow: TextOverflow.ellipsis,
+                            style: SafeGoogleFont(
+                              "Inter",
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(

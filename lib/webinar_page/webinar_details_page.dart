@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:myapp/main.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
 import 'package:share_plus/share_plus.dart';
@@ -98,28 +99,29 @@ class _WebinarDetailsPageState extends State<WebinarDetailsPage> {
                 ),
               ),
               const SizedBox(height: 20.0),
+              Text(
+                widget.webinarTitle,
+                // overflow: TextOverflow.ellipsis,
+                style: SafeGoogleFont(
+                  "Inter",
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: const Color(0xff414040),
+                ),
+              ),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    widget.webinarTitle,
-                    style: SafeGoogleFont(
-                      "Inter",
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xff414040),
-                    ),
-                  ),
-                  Text(
                     "60 min",
+                    textAlign: TextAlign.end,
                     style: SafeGoogleFont(
                       "Inter",
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: fontColor,
                     ),
-                  )
+                  ),
                 ],
               ),
               const SizedBox(height: 5.0),

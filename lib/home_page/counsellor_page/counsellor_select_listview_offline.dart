@@ -447,6 +447,8 @@ class _CounsellorListPage_offlineState
                                                                               fem,
                                                                           top: 70.4285888672 *
                                                                               fem,
+                                                                          right:
+                                                                              1 * fem,
                                                                           child:
                                                                               SizedBox(
                                                                             width:

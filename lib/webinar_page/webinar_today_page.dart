@@ -27,8 +27,8 @@ class WebinarTodayPage extends StatefulWidget {
 class _WebinarTodayPageState extends State<WebinarTodayPage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+
     context.read<CounsellorDetailsProvider>().fetchWebinar_Data("Today");
   }
 
@@ -36,38 +36,37 @@ class _WebinarTodayPageState extends State<WebinarTodayPage> {
   Widget build(BuildContext context) {
     var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
     bool isLoading = context.watch<CounsellorDetailsProvider>().isLoading;
-    return
-      isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : counsellorSessionProvider.webinarList.isEmpty
-          ? Center(
-        child: Text(
-          "No Webinar",
-          style: SafeGoogleFont("Inter"),
-        ),
-      )
-          :ListView.builder(
-      itemCount: counsellorSessionProvider.webinarList.length,
-      itemBuilder: (context, index) {
-        WebinarModel webinarModel =
-            counsellorSessionProvider.webinarList[index];
-        return Padding(
-          padding:
-              EdgeInsets.only(top: index == 0 ? 14 : 2, right: 16, left: 16),
-          child: CustomWebinarCard1(
-            showDuration: true,
-            title: "Learn more about CUET and IPMAT",
-            isRegisterNow: index == 0 ? true : false,
-            btnTitle: "Register Now",
-            time: "15 Sep @ 2:00 PM Onwards",
-            duration: "60",
-            participants: "Unlimited",
-            bannerImg: "assets/page-1/images/webinarBanner.png",
-            webinarModel: webinarModel,
-          ),
-        );
-      },
-    );
+    return isLoading
+        ? const Center(child: CircularProgressIndicator())
+        : counsellorSessionProvider.webinarList.length == 0
+            ? Center(
+                child: Text(
+                  "No Webinar",
+                  style: SafeGoogleFont("Inter"),
+                ),
+              )
+            : ListView.builder(
+                itemCount: counsellorSessionProvider.webinarList.length,
+                itemBuilder: (context, index) {
+                  WebinarModel webinarModel =
+                      counsellorSessionProvider.webinarList[index];
+                  return Padding(
+                    padding: EdgeInsets.only(
+                        top: index == 0 ? 14 : 2, right: 16, left: 16),
+                    child: CustomWebinarCard1(
+                      showDuration: true,
+                      title: "Learn more about CUET and IPMAT",
+                      isRegisterNow: index == 0 ? true : false,
+                      btnTitle: "Register Now",
+                      time: "15 Sep @ 2:00 PM Onwards",
+                      duration: "60",
+                      participants: "Unlimited",
+                      bannerImg: "assets/page-1/images/webinarBanner.png",
+                      webinarModel: webinarModel,
+                    ),
+                  );
+                },
+              );
   }
 }
 
@@ -172,7 +171,8 @@ class _CustomWebinarCard1State extends State<CustomWebinarCard1> {
   }
 
   Widget cardView(BuildContext context) {
-    DateTime registrationDate = DateTime.parse(widget.webinarModel.resisterDate!);
+    DateTime registrationDate =
+        DateTime.parse(widget.webinarModel.resisterDate!);
     return InkWell(
       onTap: () {
         // Navigator.push(
@@ -192,7 +192,7 @@ class _CustomWebinarCard1State extends State<CustomWebinarCard1> {
                       webinarStartDays: widget.webinarModel.webnar_startdays,
                       webinarRegister: widget.webinarModel.registered,
                       webinarJoinUrl: widget.webinarModel.joinUrl,
-                      registrationDate:registrationDate,
+                      registrationDate: registrationDate,
                     )));
       },
       child: Column(
@@ -368,7 +368,7 @@ class _CustomWebinarCard1State extends State<CustomWebinarCard1> {
                                                   widget.webinarModel
                                                       .registered = true;
 
-                                                /*  setState(() {
+                                                  /*  setState(() {
 
                                                   });*/
 
@@ -451,36 +451,28 @@ Widget customRegisterNowBtn({
   required String regdate,
   required bool isRegisterNow,
 }) {
-
   bool has24HoursPassed = false;
   DateTime registrationDate = DateTime.parse(regdate!);
   //Duration difference = registrationDate.difference(DateTime.now());
 
-
   var diff = daysBetween(DateTime.now(), registrationDate);
   var showdiff = diff.abs();
 
-  if ( diff < 0 )
-  {
+  if (diff < 0) {
     has24HoursPassed = true; // in past webinar done
     //pastdays = difference.inDays;
-  }
-  else if(diff > 0)
-  {
+  } else if (diff > 0) {
     has24HoursPassed = false; // in future
-  }
-  else if (diff == 0)
-  {
-    has24HoursPassed = false;// in today
+  } else if (diff == 0) {
+    has24HoursPassed = false; // in today
   }
 
   isRegisterNow = has24HoursPassed;
 
-
   Color buttonColor =
-  //isRegisterNow ? const Color(0xFF1F0A68) : const Color(0xFFFFFFFF);
-  isRegisterNow ?  ColorsConst.grayColor : const  Color(0xFF1F0A68);
-  Color textColor = isRegisterNow ? Colors.black  : Colors.white ;
+      //isRegisterNow ? const Color(0xFF1F0A68) : const Color(0xFFFFFFFF);
+      isRegisterNow ? ColorsConst.grayColor : const Color(0xFF1F0A68);
+  Color textColor = isRegisterNow ? Colors.black : Colors.white;
 
   return SizedBox(
     height: 35,
@@ -496,7 +488,7 @@ Widget customRegisterNowBtn({
         backgroundColor: buttonColor,
       ),
       child: Text(
-        has24HoursPassed == false ?  title : "Happened $showdiff days ago",
+        has24HoursPassed == false ? title : "Happened $showdiff days ago",
         style: SafeGoogleFont(
           "Inter",
           fontSize: 15,

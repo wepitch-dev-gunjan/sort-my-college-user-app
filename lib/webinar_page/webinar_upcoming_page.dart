@@ -25,7 +25,7 @@ class _WebinarUpcomingPageState extends State<WebinarUpcomingPage> {
   @override
   void initState() {
     super.initState();
-    context.read<CounsellorDetailsProvider>().fetchWebinar_Data("UpComing");
+    context.read<CounsellorDetailsProvider>().fetchWebinar_Data("Upcoming");
   }
 
   @override
@@ -37,7 +37,7 @@ class _WebinarUpcomingPageState extends State<WebinarUpcomingPage> {
         : counsellorSessionProvider.webinarList.isEmpty
             ? Center(
                 child: Text(
-                  "Loading Webinar",
+                  "No Upcoming Webinars",
                   style: SafeGoogleFont("Inter"),
                 ),
               )
@@ -240,6 +240,7 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                               ),
                               Text(
                                 '${widget.webinarModel.webinarTitle}',
+                                overflow: TextOverflow.ellipsis,
                                 style: SafeGoogleFont(
                                   "Inter",
                                   fontSize: 12,

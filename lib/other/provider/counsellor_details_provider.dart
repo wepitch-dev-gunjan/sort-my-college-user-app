@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/home_page/model/banner_image_model.dart';
@@ -41,7 +43,7 @@ class CounsellorDetailsProvider extends ChangeNotifier {
   bool isLoading = true;
   bool loader = true;
 
- fetchCounsellor_detail(String id) async {
+  fetchCounsellor_detail(String id) async {
     var counsellor = await ApiService.getCounsellor_Detail(id);
     return counsellor;
     // isLoading = true;
@@ -153,18 +155,41 @@ class CounsellorDetailsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // void fetchWebinar_Data(String params) async {
+  //   webinarList.clear();
+  //   var webinar = await ApiService.getWebinarData(params);
+
+  //   log("Webinaers=>>>>> $webinar");
+  //   isLoading = true;
+  //   if (webinar.isEmpty) {
+  //     isLoading = false;
+  //   } else {
+  //     webinarList = webinar;
+  //     isLoading = false;
+  //   }
+  //   notifyListeners();
+  // }
+
+
   void fetchWebinar_Data(String params) async {
-    webinarList.clear();
-    var webinar = await ApiService.getWebinarData(params);
-    isLoading = true;
-    if (webinar.isEmpty) {
-      isLoading = true;
-    } else {
-      webinarList = webinar;
-      isLoading = false;
-    }
-    notifyListeners();
+  isLoading = true; // Set isLoading to true at the beginning
+  notifyListeners();
+
+  webinarList.clear();
+  var webinar = await ApiService.getWebinarData(params);
+
+  log("Webinaers=>>>>> $webinar");
+
+  if (webinar.isEmpty) {
+    isLoading = false;
+  } else {
+    webinarList = webinar;
+    isLoading = false;
   }
+
+  notifyListeners(); // Notify listeners after setting isLoading to false
+}
+
 
   void fetchTrendingWebinar() async {
     trendingWebinarList.clear();
@@ -180,10 +205,9 @@ class CounsellorDetailsProvider extends ChangeNotifier {
   }
 
   void fetchPopularWorkShop() async {
-    
     popularWorkShopList.clear();
     var webinar = await ApiService.latestSessions();
- 
+
     isLoading = true;
     if (webinar.isEmpty) {
       isLoading = true;

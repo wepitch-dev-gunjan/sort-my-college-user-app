@@ -72,17 +72,12 @@ class _ProfilePageState extends State<ProfilePage> {
   final _picker = ImagePicker();
   bool showSpinner = false;
 
-
-
-  
-
   Future getImage() async {
     ImagePicker imagePicker = ImagePicker();
     XFile? xFile = await imagePicker.pickImage(
       source: ImageSource.gallery,
     );
 
-    
     if (xFile != null) {
       path = xFile.path;
       File image = File(xFile.path);
@@ -195,7 +190,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                         errorBuilder: (BuildContext context,
                                             Object exception,
                                             StackTrace? stackTrace) {
-                                          //print("Exception >> ${exception.toString()}");
                                           return Image.asset(
                                             'assets/page-1/images/book.jpg',
                                             fit: BoxFit.cover,
