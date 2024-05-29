@@ -12,7 +12,6 @@ import 'package:myapp/home_page/model/popular_workshop_model.dart';
 import 'package:myapp/home_page/model/tranding_webinar_model.dart';
 import 'package:myapp/home_page/notification_page/noti.dart';
 import 'package:myapp/other/provider/counsellor_details_provider.dart';
-import 'package:myapp/page-1/dashboard_session_page.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:myapp/utils.dart';
@@ -203,7 +202,7 @@ class _HomePageState extends State<HomePage> {
                                   height: 120 * fem,
                                   clipBehavior: Clip.antiAlias,
                                   decoration: BoxDecoration(
-                                    color: Color(0xffffffff),
+                                    color: const Color(0xffffffff),
                                     borderRadius: BorderRadius.circular(20),
                                     boxShadow: [
                                       BoxShadow(
@@ -236,7 +235,7 @@ class _HomePageState extends State<HomePage> {
                                     height: 120 * fem,
                                     clipBehavior: Clip.antiAlias,
                                     decoration: BoxDecoration(
-                                      color: Color(0xffffffff),
+                                      color: const Color(0xffffffff),
                                       borderRadius: BorderRadius.circular(20),
                                       boxShadow: [
                                         BoxShadow(
@@ -436,7 +435,7 @@ class _HomePageState extends State<HomePage> {
                       height: 10,
                     ),
                     counsellorSessionProvider.trendingWebinarList.isEmpty
-                        ? SizedBox()
+                        ? const SizedBox()
                         : Column(
                             children: [
                               Padding(

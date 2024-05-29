@@ -71,7 +71,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   File? image;
-  final _picker = ImagePicker();
+  // final _picker = ImagePicker();
   bool showSpinner = false;
 
   Future getImage() async {
@@ -207,18 +207,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           padding: const EdgeInsets.all(8.0),
                           child: InkWell(
                             onTap: () async {
-                              /* ImagePicker imagePicker = ImagePicker();
-                               XFile? xFile = await imagePicker.pickImage(
-                                 source: ImageSource.gallery,
-                               );
-                               if (xFile != null) {
-                                 path = xFile.path;
-                                 saveImagePathToPrefs(path!);
-
-
-                                 //setState(() {});
-                               } */
-
                               await getImage();
                             },
                             child: Container(

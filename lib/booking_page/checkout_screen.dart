@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -78,7 +77,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         toastLength: Toast.LENGTH_SHORT);
 
     await ApiService.counsellor_create_payment(
-            cid!,
+            cid,
             payment_from,
             oderId,
             response.paymentId!,
@@ -166,15 +165,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
     if (counsellorDetailController.checkOutDetailsList.isNotEmpty) {
       gst = counsellorDetailController.checkOutDetailsList[0].gstAmount
-              .toString() ??
-          '0';
+              .toString();
     }
 
     if (counsellorDetailController.checkOutDetailsList.isNotEmpty) {
       convinence_charge = counsellorDetailController
               .checkOutDetailsList[0].gatewayCharge
-              .toString() ??
-          '0';
+              .toString();
     }
 
     name = '';
@@ -461,11 +458,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ),
                             ),
                             onPressed: () async {
-                              var value_res =
+                              var valueRes =
                                   await ApiService.bookValidationSession(
                                       sessionId);
-                              if (value_res.containsKey("message")) {
-                                EasyLoading.showToast(value_res["message"],
+                              if (valueRes.containsKey("message")) {
+                                EasyLoading.showToast(valueRes["message"],
                                     toastPosition:
                                         EasyLoadingToastPosition.bottom);
 
@@ -508,7 +505,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   openCheckOut(price);
                                 }
                               } else {
-                                EasyLoading.showToast(value_res["error"],
+                                EasyLoading.showToast(valueRes["error"],
                                     toastPosition:
                                         EasyLoadingToastPosition.bottom);
                               }

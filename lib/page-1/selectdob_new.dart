@@ -82,7 +82,7 @@ class _SelectDobNewState extends State<SelectDobNew> {
                 child: Container(
                   height: 400,
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xff1F0A68), width: 2),
+                    border: Border.all(color: const Color(0xff1F0A68), width: 2),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Padding(
@@ -187,7 +187,7 @@ class _SelectDobNewState extends State<SelectDobNew> {
           ),
           child: Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: "Montserrat",
               fontSize: 18,
               fontWeight: FontWeight.w600,

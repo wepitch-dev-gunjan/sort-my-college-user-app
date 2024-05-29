@@ -53,7 +53,7 @@ class _Notification2State extends State<Notification2> {
             MaterialPageRoute(
               builder: (context) => const HomePageContainer(),
             ),
-          ); }, icon: Icon( Icons.arrow_back_ios_new,
+          ); }, icon: const Icon( Icons.arrow_back_ios_new,
             color: Color(0xff1F0A68),),
                   ),
                ),
@@ -63,7 +63,7 @@ class _Notification2State extends State<Notification2> {
                   "Inter",
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xff1F0A68),
+                  color: const Color(0xff1F0A68),
                 ),
               ),
           ),
@@ -89,11 +89,11 @@ class _Notification2State extends State<Notification2> {
                   ),
                 ),
               ),
-              title: Text(
+              title: const Text(
                 'Sandeep Mehra',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              subtitle: Text(
+              subtitle: const Text(
                 'Posted 3 more pictures',
                 style: TextStyle(color: Colors.black54),
               ),
@@ -116,11 +116,11 @@ class _Notification2State extends State<Notification2> {
                   ),
                 ),
               ),
-              title: Text(
+              title: const Text(
                 'Dinesh Joshi',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              subtitle: Text(
+              subtitle: const Text(
                 'Posted 1 more pictures',
                 style: TextStyle(color: Colors.black54),
               ),
@@ -143,11 +143,11 @@ class _Notification2State extends State<Notification2> {
                   ),
                 ),
               ),
-              title: Text(
+              title: const Text(
                 'Kashish Sharma',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              subtitle: Text(
+              subtitle: const Text(
                 'Added new session on CUET at 4:00 PM',
                 style: TextStyle(color: Colors.black54),
               ),

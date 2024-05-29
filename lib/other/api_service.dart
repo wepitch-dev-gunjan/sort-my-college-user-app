@@ -359,12 +359,12 @@ class ApiService {
   }
 
   static Future<Map<String, dynamic>> Feedback_councellor(
-      String id, double rating_val, String feedback_msg) async {
+      String id, double ratingVal, String feedbackMsg) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
 
     final body = jsonEncode(
-        {"counsellor_id": id, "rating": rating_val, "message": feedback_msg});
+        {"counsellor_id": id, "rating": ratingVal, "message": feedbackMsg});
     final headers = {
       'Content-Type': 'application/json',
       "Authorization": token,

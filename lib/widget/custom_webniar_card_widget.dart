@@ -178,7 +178,7 @@ class _CustomWebinarCardState extends State<CustomWebinarCard> {
                                 "assets/page-1/images/group-38-oFX.png",
                                 width: 20,
                                 height: 20,
-                                color: Color(0xFF1F0A68),
+                                color: const Color(0xFF1F0A68),
                               ),
                             ),
                           ),
@@ -243,7 +243,7 @@ class _CustomWebinarCardState extends State<CustomWebinarCard> {
                                   },
                                 );
                               } else {
-                                Text('has Been Registered');
+                                const Text('has Been Registered');
                               }
                             },
                             regdate: widget.trandingWebinarModel.registeredDate,
@@ -537,7 +537,7 @@ class _CustomWebinarCard1State extends State<CustomWebinarCard1> {
                                   "assets/page-1/images/group-38-oFX.png",
                                   width: 20,
                                   height: 20,
-                                  color: Color(0xFF1F0A68),
+                                  color: const Color(0xFF1F0A68),
                                 ),
                               ),
                             ),

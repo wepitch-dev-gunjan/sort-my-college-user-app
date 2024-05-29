@@ -251,7 +251,7 @@ class _Filter_LocationState extends State<Filter_Location> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    Filter_PriceRange()),
+                                                    const Filter_PriceRange()),
                                             (route) => false);
                                       },
                                       child: Container(

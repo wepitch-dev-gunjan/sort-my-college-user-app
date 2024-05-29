@@ -212,7 +212,7 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
 
 
                                      Navigator.pushReplacement(context,
-                                          MaterialPageRoute(builder: (context) =>  LoginScreenNew()));
+                                          MaterialPageRoute(builder: (context) =>  const LoginScreenNew()));
 
                                       /*Navigator.pushReplacement(context,
                                           MaterialPageRoute(builder: (context) =>  MyHomePage()));*/
@@ -232,7 +232,7 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                                       prefs.setString("token", value["token"]);
 
                                       Navigator.pushReplacement(context,
-                                          MaterialPageRoute(builder: (context) =>  QNAScreen()));
+                                          MaterialPageRoute(builder: (context) =>  const QNAScreen()));
 
                                     }
                                     else {
@@ -292,7 +292,7 @@ void configLoading() {
     ..radius = 20
     ..backgroundColor = Colors.transparent
     ..maskColor = Colors.white
-    ..indicatorColor = Color(0xff1f0a68)
+    ..indicatorColor = const Color(0xff1f0a68)
     ..userInteractions = false
     ..dismissOnTap = false
     ..boxShadow = <BoxShadow>[]
@@ -300,5 +300,5 @@ void configLoading() {
 }
 void onTapGettingstarted(BuildContext context) {
   Navigator.pushReplacement(context,
-      MaterialPageRoute(builder: (context) =>  QNAScreen()));
+      MaterialPageRoute(builder: (context) =>  const QNAScreen()));
 }

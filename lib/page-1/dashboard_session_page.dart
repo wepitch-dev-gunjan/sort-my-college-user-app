@@ -90,7 +90,7 @@ class _CounsellingSessionPageState extends State<CounsellingSessionPage> {
             },
             child: Image.asset(
               'assets/page-1/images/back.png',
-              color: Color(0xff1F0A68),
+              color: const Color(0xff1F0A68),
             ),
           ),
         ),

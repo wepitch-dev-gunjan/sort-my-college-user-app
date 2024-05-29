@@ -228,7 +228,7 @@ class _OtpState extends State<Otp> {
                     child: GestureDetector(
                       onTap: () {
                         Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => Signup()));
+                            MaterialPageRoute(builder: (context) => const Signup()));
                       },
                       child: Text(
                         // 'Wrong Number' changed for testing purposes
@@ -309,7 +309,7 @@ class _OtpState extends State<Otp> {
 
   void onTapGettingstarted(BuildContext context) {
     Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) =>  QNAScreen()));
+        MaterialPageRoute(builder: (context) =>  const QNAScreen()));
   }
 
   void configLoading() {
@@ -321,7 +321,7 @@ class _OtpState extends State<Otp> {
       ..radius = 20
       ..backgroundColor = Colors.transparent
       ..maskColor = Colors.white
-      ..indicatorColor = Color(0xff1f0a68)
+      ..indicatorColor = const Color(0xff1f0a68)
       ..userInteractions = false
       ..dismissOnTap = false
       ..boxShadow = <BoxShadow>[]

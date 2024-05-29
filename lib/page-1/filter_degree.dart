@@ -175,7 +175,7 @@ class _Filter_DegreeState extends State<Filter_Degree> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    Filter_Location()),
+                                                    const Filter_Location()),
                                             (route) => false);
                                       },
                                       child: Container(
@@ -252,7 +252,7 @@ class _Filter_DegreeState extends State<Filter_Degree> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    Filter_PriceRange()),
+                                                    const Filter_PriceRange()),
                                             (route) => false);
                                       },
                                       child: Container(
@@ -290,7 +290,7 @@ class _Filter_DegreeState extends State<Filter_Degree> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    Filter_Experince()),
+                                                    const Filter_Experince()),
                                             (route) => false);
                                       },
                                       child: Container(

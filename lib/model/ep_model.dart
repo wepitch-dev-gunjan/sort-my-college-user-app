@@ -15,7 +15,7 @@ class EPModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['_id'] = sId;
     data['name'] = name;
     data['profile_pic'] = profilePic;
@@ -45,7 +45,7 @@ class Address {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['building_number'] = buildingNumber;
     data['area'] = area;
     data['city'] = city;

@@ -22,14 +22,14 @@ class _WebinarPastPageState extends State<WebinarPastPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Registration'),
-        content: Text('You cannot register for past webinars.'),
+        title: const Text('Registration'),
+        content: const Text('You cannot register for past webinars.'),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text('OK'),
+            child: const Text('OK'),
           ),
         ],
       ),
@@ -182,7 +182,7 @@ class _WebinarDetailsPageWidget1State extends State<WebinarDetailsPageWidget1> {
                                 const Spacer(),
                                 Image.asset(
                                   "assets/page-1/images/share.png",
-                                  color: Color(0xff1F0A68),
+                                  color: const Color(0xff1F0A68),
                                   height: 23,
                                 )
                               ],

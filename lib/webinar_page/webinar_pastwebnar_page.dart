@@ -276,7 +276,7 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                                   "assets/page-1/images/group-38-oFX.png",
                                   width: 20,
                                   height: 20,
-                                  color: Color(0xff1F0A68),
+                                  color: const Color(0xff1F0A68),
                                 ),
                               ),
                             ),
@@ -296,8 +296,6 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                                     } else if (_isRegistrationStarting) {
                                       // Fluttertoast.showToast(
                                       //     msg: 'Participant is already registered');
-                                      print(
-                                          "Participant is already registered");
                                     } else {
                                       showDialog(
                                         context: context,
@@ -340,40 +338,6 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                                                               'Registration completed. Thanks for registering');
                                                       widget.webinarModel
                                                           .registered = true;
-                                                      /*Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          WebinarDetailsPageWidget(
-                                                        webinarId: widget
-                                                            .webinarModel.id!,
-                                                        webinarImg: widget
-                                                            .webinarModel
-                                                            .webinarImage,
-                                                        webinarTitle: widget
-                                                            .webinarModel
-                                                            .webinarTitle,
-                                                        webinarDate: widget
-                                                            .webinarModel
-                                                            .webinarDate,
-                                                        webinarBy: widget
-                                                            .webinarModel
-                                                            .webinarBy,
-                                                        webinarSpeaker: widget
-                                                            .webinarModel
-                                                            .speakerProfile,
-                                                        webinarStartDays: widget
-                                                            .webinarModel
-                                                            .webnar_startdays,
-                                                        webinarRegister: widget
-                                                            .webinarModel
-                                                            .registered,
-                                                        webinarJoinUrl: widget
-                                                            .webinarModel
-                                                            .joinUrl,
-                                                      ),
-                                                    ),
-                                                  );*/
                                                     }
                                                     if (mounted) {
                                                       Navigator.pop(context);

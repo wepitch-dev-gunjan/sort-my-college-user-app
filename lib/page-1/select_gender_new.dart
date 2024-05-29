@@ -37,7 +37,7 @@ class _SelectGenderNewState extends State<SelectGenderNew> {
                 child: Container(
                   height: 400,
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xff1F0A68), width: 2),
+                    border: Border.all(color: const Color(0xff1F0A68), width: 2),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Padding(
@@ -91,7 +91,7 @@ class _SelectGenderNewState extends State<SelectGenderNew> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>  QNAScreen()));
+                                  builder: (context) =>  const QNAScreen()));
                         });
                       },
                       child: const Padding(
@@ -162,7 +162,7 @@ Widget customButton(
         onPressed: onPressed,
         style: OutlinedButton.styleFrom(
             elevation: 0,
-            side: BorderSide(color: Color(0xff1F0A68)),
+            side: const BorderSide(color: Color(0xff1F0A68)),
             backgroundColor: isActive ? const Color(0xff1F0A68) : Colors.white,
             foregroundColor: isActive ? Colors.white : Colors.black,
             shape: RoundedRectangleBorder(

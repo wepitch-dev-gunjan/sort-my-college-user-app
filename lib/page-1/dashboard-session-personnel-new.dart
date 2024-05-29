@@ -571,7 +571,7 @@ class _Counseling_Session_PersonnelState
                                                             var sessionSlots = counsellorSessionProvider.details.sessions![index].sessionSlots!;
                                                             var sessionAvailableSlots = counsellorSessionProvider.details.sessions![index].sessionAvailableSlots!;
 
-                                                            if (sessionAvailableSlots <= 0!)
+                                                            if (sessionAvailableSlots <= 0)
                                                             {
                                                               EasyLoading.showToast(
                                                                   'There are no booking slots available in this session, please book another session',

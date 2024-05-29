@@ -62,7 +62,7 @@ class _FeedScreenState extends State<FeedScreen>
             style: SafeGoogleFont("Inter",
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
-                color: Color(0xff1F0A68)),
+                color: const Color(0xff1F0A68)),
           ),
         ),
         body: Column(

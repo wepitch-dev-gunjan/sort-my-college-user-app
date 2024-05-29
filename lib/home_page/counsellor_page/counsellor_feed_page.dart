@@ -48,7 +48,7 @@ class _CounsellorFeedPageState extends State<CounsellorFeedPage>
               },
               child: Image.asset(
                 'assets/page-1/images/back.png',
-                color: Color(0xff1F0A68),
+                color: const Color(0xff1F0A68),
               ),
             ),
           ),
@@ -58,7 +58,7 @@ class _CounsellorFeedPageState extends State<CounsellorFeedPage>
             style: SafeGoogleFont("Inter",
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
-                color: Color(0xff1F0A68)),
+                color: const Color(0xff1F0A68)),
           ),
         ),
         body: Column(

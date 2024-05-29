@@ -18,12 +18,12 @@ class CounsellorSessionDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["total_available_slots"] = totalAvailableSlots;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["total_available_slots"] = totalAvailableSlots;
     if (sessions != null) {
-      _data["sessions"] = sessions?.map((e) => e.toJson()).toList();
+      data["sessions"] = sessions?.map((e) => e.toJson()).toList();
     }
-    return _data;
+    return data;
   }
 }
 
@@ -113,23 +113,23 @@ class Sessions {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["_id"] = id;
-    _data["session_counselor"] = sessionCounselor;
-    _data["session_user"] = sessionUser;
-    _data["session_date"] = sessionDate;
-    _data["session_time"] = sessionTime;
-    _data["session_duration"] = sessionDuration;
-    _data["session_type"] = sessionType;
-    _data["session_fee"] = sessionPrice;
-    _data["session_status"] = sessionStatus;
-    _data["session_slots"] = sessionSlots;
-    _data["session_link"] = sessionLink;
-    _data["createdAt"] = createdAt;
-    _data["updatedAt"] = updatedAt;
-    _data["session_available_slots"] = sessionAvailableSlots;
-    _data["__v"] = v;
-    _data["session_massaged_date"] = sessionMassagedDate;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["_id"] = id;
+    data["session_counselor"] = sessionCounselor;
+    data["session_user"] = sessionUser;
+    data["session_date"] = sessionDate;
+    data["session_time"] = sessionTime;
+    data["session_duration"] = sessionDuration;
+    data["session_type"] = sessionType;
+    data["session_fee"] = sessionPrice;
+    data["session_status"] = sessionStatus;
+    data["session_slots"] = sessionSlots;
+    data["session_link"] = sessionLink;
+    data["createdAt"] = createdAt;
+    data["updatedAt"] = updatedAt;
+    data["session_available_slots"] = sessionAvailableSlots;
+    data["__v"] = v;
+    data["session_massaged_date"] = sessionMassagedDate;
+    return data;
   }
 }

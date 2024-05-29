@@ -61,10 +61,10 @@ class _WebinarDetailsPage1State extends State<WebinarDetailsPage1> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Webinar Details'),
+        title: const Text('Webinar Details'),
       ),
       body: _isLoading
-          ? Center(
+          ? const Center(
         child: CircularProgressIndicator(),
       )
           : _webinarDetails.isNotEmpty
@@ -79,7 +79,7 @@ class _WebinarDetailsPage1State extends State<WebinarDetailsPage1> {
           );
         },
       )
-          : Center(
+          : const Center(
         child: Text('No webinar details available'),
       ),
     );

@@ -64,6 +64,66 @@ class MyApp extends StatelessWidget {
 
 
 
+
+
+
+
+
+
+// import 'package:flutter/material.dart';
+
+// void main() {
+//   runApp(MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         appBar: AppBar(title: Text('Selectable Buttons')),
+//         body: Center(child: SelectableButtons()),
+//       ),
+//     );
+//   }
+// }
+
+// class SelectableButtons extends StatefulWidget {
+//   @override
+//   _SelectableButtonsState createState() => _SelectableButtonsState();
+// }
+
+// class _SelectableButtonsState extends State<SelectableButtons> {
+//   int? selectedButtonIndex;
+
+//   void _onButtonPressed(int index) {
+//     setState(() {
+//       selectedButtonIndex = index;
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: List.generate(5, (index) {
+//         return Padding(
+//           padding: const EdgeInsets.all(8.0),
+//           child: ElevatedButton(
+//             onPressed: () => _onButtonPressed(index),
+//             style: ElevatedButton.styleFrom(
+//               backgroundColor: selectedButtonIndex == index ? Colors.blue : Colors.grey,
+//             ),
+//             child: Text('Button ${index + 1}'),
+//           ),
+//         );
+//       }),
+//     );
+//   }
+// }
+
+
+
 //   Future getImage() async {
 //     ImagePicker imagePicker = ImagePicker();
 //     XFile? xFile = await imagePicker.pickImage(

@@ -174,7 +174,7 @@ class _Filter_ExperinceState extends State<Filter_Experince> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    Filter_Location()),
+                                                    const Filter_Location()),
                                             (route) => false);
                                       },
                                       child: Container(
@@ -251,7 +251,7 @@ class _Filter_ExperinceState extends State<Filter_Experince> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    Filter_PriceRange()),
+                                                    const Filter_PriceRange()),
                                             (route) => false);
                                       },
                                       child: Container(

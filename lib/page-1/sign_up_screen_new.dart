@@ -307,7 +307,7 @@ class _Signup extends State<SignupScreenNew> {
       ..radius = 20
       ..backgroundColor = Colors.transparent
       ..maskColor = Colors.white
-      ..indicatorColor = Color(0xff1f0a68)
+      ..indicatorColor = const Color(0xff1f0a68)
       ..userInteractions = false
       ..dismissOnTap = false
       ..boxShadow = <BoxShadow>[]

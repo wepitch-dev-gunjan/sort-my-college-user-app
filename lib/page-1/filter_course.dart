@@ -148,7 +148,7 @@ class _Filter_CourseState extends State<Filter_Course> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  Filter_Degree()));
+                                                  const Filter_Degree()));
                                     },
                                     child: Container(
                                       padding: EdgeInsets.fromLTRB(11 * fem,
@@ -185,7 +185,7 @@ class _Filter_CourseState extends State<Filter_Course> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                Filter_Location()),
+                                                const Filter_Location()),
                                       );
                                     },
                                     child: Container(
@@ -251,7 +251,7 @@ class _Filter_CourseState extends State<Filter_Course> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                Filter_PriceRange()),
+                                                const Filter_PriceRange()),
                                       );
                                     },
                                     child: Container(
@@ -283,7 +283,7 @@ class _Filter_CourseState extends State<Filter_Course> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              Filter_Experince()),
+                                              const Filter_Experince()),
                                     );
                                   },
                                   child: Container(

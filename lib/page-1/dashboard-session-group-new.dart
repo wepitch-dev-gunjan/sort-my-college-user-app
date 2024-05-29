@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -254,7 +253,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
       ..radius = 20
       ..backgroundColor = Colors.transparent
       ..maskColor = Colors.white
-      ..indicatorColor = Color(0xff1f0a68)
+      ..indicatorColor = const Color(0xff1f0a68)
       ..userInteractions = false
       ..dismissOnTap = false
       ..boxShadow = <BoxShadow>[]
@@ -750,7 +749,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                               .sessionAvailableSlots!;
 
                                                       if (sessionAvailableSlots <=
-                                                          0!) {
+                                                          0) {
                                                         EasyLoading.showToast(
                                                             'There are no booking slots available in this session, please book another session',
                                                             toastPosition:
@@ -842,7 +841,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
   MoveToSessionPage() {
     Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => BookingPage()
+        MaterialPageRoute(builder: (context) => const BookingPage()
             // CounsellingSessionPage(
             //   id: cid,
             //   name: name,

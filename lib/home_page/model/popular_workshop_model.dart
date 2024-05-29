@@ -33,7 +33,7 @@ class LatestSessionsModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
 
     data['counsellor_id'] = counsellorId;
     data['session_id'] = sessionId;

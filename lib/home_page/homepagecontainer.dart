@@ -33,7 +33,7 @@ class _HomePageContainerState extends State<HomePageContainer> {
   final Widget _webNar = const WebinarPage();
   final Widget _booking = const BookingPage();
   // final Widget _news = CollegeNewsWidget();
-  final Widget _news = NewsScreen();
+  final Widget _news = const NewsScreen();
   final Widget _profile = const ProfilePage();
   /*Widget _news = News();
   Widget _profile = Profile();*/

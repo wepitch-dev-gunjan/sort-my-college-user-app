@@ -53,7 +53,7 @@ class _BookingConfirmationPage2State extends State<BookingConfirmationPage2> {
             },
             child: Image.asset(
               'assets/page-1/images/back.png',
-              color: Color(0xff1F0A68),
+              color: const Color(0xff1F0A68),
             ),
           ),
         ),
@@ -62,7 +62,7 @@ class _BookingConfirmationPage2State extends State<BookingConfirmationPage2> {
           style: SafeGoogleFont("Inter",
               fontSize: 18,
               fontWeight: FontWeight.w600,
-              color: Color(0xff1F0A68)),
+              color: const Color(0xff1F0A68)),
         ),
       ),
       body: Container(

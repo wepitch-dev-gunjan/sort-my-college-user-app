@@ -39,7 +39,7 @@ class CheckOutDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['session_id'] = sessionId;
     data['sessionDate'] = sessionDate;
     data['sessionType'] = sessionType;

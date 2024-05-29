@@ -280,7 +280,7 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                                   "assets/page-1/images/group-38-oFX.png",
                                   width: 20,
                                   height: 20,
-                                  color: Color(0xff1F0A68),
+                                  color: const Color(0xff1F0A68),
                                 ),
                               ),
                             ),
@@ -438,7 +438,7 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
     required bool isRegisterNow,
   }) {
     bool has24HoursPassed = false;
-    DateTime registrationDate = DateTime.parse(regdate!);
+    DateTime registrationDate = DateTime.parse(regdate);
     //Duration difference = registrationDate.difference(DateTime.now());
 
     var diff = daysBetween(DateTime.now(), registrationDate);
