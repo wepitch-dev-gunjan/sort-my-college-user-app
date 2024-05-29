@@ -910,7 +910,7 @@ class _HomePageState extends State<HomePage> {
                             SizedBox(
                               width: 121.13,
                               child: Text(
-                                ' ${latestSessionsModel.sessionFee}',
+                                ' ${latestSessionsModel.sessionFee}/-',
                                 style: const TextStyle(
                                   color: Color(0xFF414040),
                                   fontSize: 12,
