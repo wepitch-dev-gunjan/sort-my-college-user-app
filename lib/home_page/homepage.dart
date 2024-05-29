@@ -22,6 +22,7 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import '../booking_page/checkout_screen.dart';
 import '../other/api_service.dart';
 import 'entrance_preparation/entrance_preparation_screen.dart';
 
@@ -987,17 +988,24 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CounsellingSessionPage(
-                              name: latestSessionsModel.counsellorName!,
-                              id: latestSessionsModel.counsellorId!,
-                              designation:
-                                  latestSessionsModel.counsellorDesignation!,
+                            builder: (context) => CheckOutScreen(
+                                designation:
+                                    latestSessionsModel.counsellorDesignation!,
+                                name: latestSessionsModel.counsellorName!,
+                                profilepicurl:
+                                    latestSessionsModel.counsellorProfilePic!,
+                                id: latestSessionsModel.counsellorId!),
 
-                              profileurl:
-                                  latestSessionsModel.counsellorProfilePic!,
-                              // "https://www.shutterstock.com/shutterstock/photos/1809858361/display_1500/stock-vector-photo-coming-soon-vector-image-picture-graphic-content-album-stock-photos-not-avaliable-1809858361.jpg",
-                              selectedIndex_get: 0,
-                            ),
+                            // CounsellingSessionPage(
+                            //   name: latestSessionsModel.counsellorName!,
+                            //   id: latestSessionsModel.counsellorId!,
+                            //   designation:
+                            //       latestSessionsModel.counsellorDesignation!,
+
+                            //   profileurl:
+                            //       latestSessionsModel.counsellorProfilePic!,
+                            //   selectedIndex_get: 0,
+                            // ),
                           ),
                         );
                       },

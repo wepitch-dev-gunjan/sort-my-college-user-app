@@ -31,7 +31,6 @@ class CounsellorDetailsScreen extends StatefulWidget {
 
 class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
     with SingleTickerProviderStateMixin {
-  //final ListController listController = Get.put(ListController());
   late FollowerProvider followerProvider;
   FollowerModel followerModel = FollowerModel();
   TextEditingController controller = TextEditingController();
@@ -1223,80 +1222,88 @@ class CounsellorShimmerEffect extends StatelessWidget {
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 201,
-                width: 398,
-                decoration: BoxDecoration(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 201,
+                  width: 398,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(11),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  height: 50,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          color: Colors.grey.shade300,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Container(
+                          color: Colors.grey.shade300,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Container(
+                  height: 30,
+                  width: MediaQuery.of(context).size.width,
                   color: Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(11),
                 ),
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 50,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        color: Colors.grey.shade300,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Container(
-                        color: Colors.grey.shade300,
-                      ),
-                    ),
-                  ],
+                const SizedBox(height: 40),
+                Container(
+                  height: 10,
+                  width: MediaQuery.of(context).size.width / 3,
+                  color: Colors.grey.shade300,
                 ),
-              ),
-              const SizedBox(height: 5),
-              Container(
-                height: 30,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.grey.shade300,
-              ),
-              const SizedBox(height: 40),
-              Container(
-                height: 10,
-                width: MediaQuery.of(context).size.width / 3,
-                color: Colors.grey.shade300,
-              ),
-              const SizedBox(height: 10),
-              Container(
-                height: 40,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.grey.shade300,
-              ),
-              const SizedBox(height: 10),
-              Container(
-                height: 35,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.grey.shade300,
-              ),
-              const SizedBox(height: 10),
-              Container(
-                height: 35,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.grey.shade300,
-              ),
-              const SizedBox(height: 10),
-              Container(
-                height: 50,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.grey.shade300,
-              ),
-              const SizedBox(height: 10),
-              Container(
-                height: 50,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.grey.shade300,
-              ),
-            ],
+                const SizedBox(height: 10),
+                Container(
+                  height: 40,
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.grey.shade300,
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  height: 35,
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.grey.shade300,
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  height: 35,
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.grey.shade300,
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.grey.shade300,
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.grey.shade300,
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.grey.shade300,
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -73,34 +73,42 @@ class _Drawer1State extends State<Drawer1> {
                       alignment: Alignment.bottomRight,
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(
-                              30), // Remove or set to zero
+                          borderRadius: BorderRadius.circular(30),
                           child: Container(
                             height: 60,
                             width: 60,
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                             ),
-                            child: path != null
-                                ? path.toString().contains("https")
-                                    ? Image.network(
-                                        path.toString(),
-                                        fit: BoxFit.cover,
-                                        errorBuilder: (BuildContext context,
-                                            Object exception,
-                                            StackTrace? stackTrace) {
-                                          //print("Exception >> ${exception.toString()}");
-                                          return Image.asset(
-                                            'assets/page-1/images/profilepic.jpg',
-                                            fit: BoxFit.cover,
-                                          );
-                                        },
-                                      )
-                                    : Image.file(File(path), fit: BoxFit.cover)
-                                : Image.asset(
-                                    'assets/page-1/images/profilepic.jpg'),
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                Image.asset(
+                                  'assets/page-1/images/profilepic.jpg',
+                                  fit: BoxFit.cover,
+                                ),
+                                if (path != null)
+                                  Image.network(
+                                    path,
+                                    fit: BoxFit.cover,
+                                    loadingBuilder: (BuildContext context,
+                                        Widget child,
+                                        ImageChunkEvent? loadingProgress) {
+                                      if (loadingProgress == null) {
+                                        return child;
+                                      } else {
+                                        return const SizedBox();
+                                      }
+                                    },
+                                    errorBuilder: (BuildContext context,
+                                        Object error, StackTrace? stackTrace) {
+                                      return const SizedBox();
+                                    },
+                                  ),
+                              ],
+                            ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),
