@@ -12,7 +12,6 @@ class ListController extends GetxController
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     //fetchCounsellor();
     fetchCounsellor_data();

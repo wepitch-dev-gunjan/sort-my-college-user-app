@@ -10,13 +10,11 @@ class AccountDelete extends StatefulWidget {
 }
 
 class _AccountDelete extends State<AccountDelete> {
-
   @override
   void initState() {
     super.initState();
     configLoading();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +22,9 @@ class _AccountDelete extends State<AccountDelete> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return PopScope(
       canPop: false,
-      onPopInvoked : (didPop){
+      onPopInvoked: (didPop) {
         _onBackPressed(context);
       },
-
-
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
@@ -45,13 +41,16 @@ class _AccountDelete extends State<AccountDelete> {
               const SizedBox(
                 height: 40,
               ),
-              const Text('We Have Received Account Delete Request Your Account Will Be Delete in 48 hours',
-                style:TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
-                    color: Colors.black
-                ),),
-
+            const   Padding(
+                padding:  EdgeInsets.symmetric(horizontal: 10),
+                child:  Text(
+                  'We Have Received Account Delete Request Your Account Will Be Delete in 48 hours',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: Colors.black),
+                ),
+              ),
             ],
           ),
         ),
@@ -59,16 +58,11 @@ class _AccountDelete extends State<AccountDelete> {
     );
   }
 
-
-  Future<bool> _onBackPressed(
-      BuildContext context) async {
+  Future<bool> _onBackPressed(BuildContext context) async {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) => const SplashScreen1(isLoggedIn: false)));
     return true;
   }
-
-
 }
-

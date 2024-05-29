@@ -4,11 +4,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/constants.dart';
+import 'package:myapp/page-1/account_delete.dart';
 import 'package:myapp/profile_page/widget/profile_edit_dialog.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
@@ -270,6 +272,46 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: const Text('Edit Profile')),
                     ),
                   ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 26, right: 26, top: 10),
+                    child: SizedBox(
+                      height: 36,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text('Alert!'),
+                                  content: const Text(
+                                      'Are you sure want to Delete account!'),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('No')),
+                                    TextButton(
+                                      onPressed: () async {
+                                        await _accountDelete();
+                                      },
+                                      child: const Text('Yes'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.all(2),
+                              backgroundColor: const Color(0xff1F0A68)),
+                          child: const Text('Delete Account')),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -300,5 +342,24 @@ class _ProfilePageState extends State<ProfilePage> {
 
   saveimgmethod() {
     saveImagePathToPrefs(path!);
+  }
+
+  Future _accountDelete() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await EasyLoading.show(
+      dismissOnTap: false,
+    );
+
+    Future.delayed(const Duration(seconds: 1), () async {
+      await prefs.clear();
+      EasyLoading.dismiss();
+      if (mounted) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const AccountDelete()),
+          (route) => false,
+        );
+      }
+    });
   }
 }

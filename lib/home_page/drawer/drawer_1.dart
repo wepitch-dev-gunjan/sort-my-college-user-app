@@ -274,55 +274,7 @@ class _Drawer1State extends State<Drawer1> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 7.0),
-              child: GestureDetector(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: const Text('Alert!'),
-                        content:
-                            const Text('Are you sure want to Delete account!'),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text('No')),
-                          TextButton(
-                            onPressed: () async {
-                              await _accountDelete();
-                            },
-                            child: const Text('Yes'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-                child: ListTile(
-                  leading: const Icon(
-                    Icons.delete_forever_outlined,
-                    size: 26,
-                  ),
-                  title: Text(
-                    'Delete account',
-                    style: SafeGoogleFont(
-                      "Inter",
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  shape: Border(
-                    bottom: BorderSide(
-                      color: Colors.black.withOpacity(0.09),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+
             const Spacer(),
             Image.asset(
               "assets/page-1/images/sortmycollege-logo-1.png",

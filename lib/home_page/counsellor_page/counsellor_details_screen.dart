@@ -916,26 +916,22 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          Navigator.push(
-                                              context,
+                                          Navigator.push(context,
                                               MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      CounsellingSessionPage(
-                                                        id: widget.id,
-                                                        name:
-                                                            counsellor['name'],
-                                                        designation: counsellor[
-                                                            'designation'],
-                                                        profileurl:
-                                                            counsellorDetailController
-                                                                .cousnellorlist_detail[
-                                                                    0]
-                                                                .coverImage,
-                                                        selectedIndex_get: 1,
-                                                      )));
+                                                  builder: (context) {
+                                            return CounsellingSessionPage(
+                                              id: widget.id,
+                                              name: counsellor['name'],
+                                              designation:
+                                                  counsellor['designation'],
+                                              profileurl:
+                                                  counsellor['profile_pic'],
+                                          
+                                              selectedIndex_get: 1,
+                                            );
+                                          }));
                                         },
                                         child: Container(
-                                          // group349P36 (2936:462)
                                           width: 116 * fem,
                                           height: double.infinity,
                                           decoration: BoxDecoration(
@@ -967,7 +963,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                               ),
                             ),
                             Positioned(
-                              // frame32649E (2936:484)
                               left: 0 * fem,
                               top: 0 * fem,
                               child: Container(
@@ -980,7 +975,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                       color: const Color(0x35000000)),
                                 ),
                                 child: SizedBox(
-                                  // group370y1J (2936:485)
                                   width: double.infinity,
                                   height: double.infinity,
                                   child: Row(
@@ -988,7 +982,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                         CrossAxisAlignment.center,
                                     children: [
                                       Container(
-                                        // group347XHi (2936:486)
                                         margin: EdgeInsets.fromLTRB(0 * fem,
                                             0 * fem, 123 * fem, 0 * fem),
                                         height: double.infinity,
@@ -997,7 +990,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                               CrossAxisAlignment.center,
                                           children: [
                                             Container(
-                                              // autogroupvexiTSG (obZYj7WRacadntT6aVeXi)
                                               margin: EdgeInsets.fromLTRB(
                                                   0 * fem,
                                                   0 * fem,
@@ -1008,7 +1000,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                               child: Stack(
                                                 children: [
                                                   Positioned(
-                                                    // group345C8x (2936:496)
                                                     left: 0 * fem,
                                                     top: 0 * fem,
                                                     child: Align(
@@ -1024,7 +1015,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                                     ),
                                                   ),
                                                   Positioned(
-                                                    // usersgroupJxg (2936:503)
                                                     left: 11 * fem,
                                                     top: 10 * fem,
                                                     child: Align(
@@ -1042,7 +1032,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                               ),
                                             ),
                                             Container(
-                                              // group346EbS (2936:487)
                                               margin: EdgeInsets.fromLTRB(
                                                   0 * fem,
                                                   0.5 * fem,
@@ -1053,7 +1042,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                               child: Stack(
                                                 children: [
                                                   Positioned(
-                                                    // groupsessionZtc (2936:491)
                                                     left: 0 * fem,
                                                     top: 14 * fem,
                                                     child: Align(
@@ -1101,7 +1089,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                                       )));
                                         },
                                         child: Container(
-                                          // group349oRa (2936:500)
                                           width: 116 * fem,
                                           height: double.infinity,
                                           decoration: BoxDecoration(
@@ -1205,7 +1192,6 @@ class CounsellorShimmerEffect extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      // period: const Duration(seconds: 1),
       baseColor: Colors.grey.shade300,
       highlightColor: Colors.grey.shade100,
       enabled: true,

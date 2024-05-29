@@ -104,13 +104,11 @@ class _Counseling_Session_PersonnelState
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  // frame12Fje (1879:51)
                   width: double.infinity,
                   height: 100,
                   child: Stack(
                     children: [
                       Positioned(
-                        // frame311tGg (2620:3569)
                         left: 14 * fem,
                         top: 20,
                         child: SizedBox(
@@ -144,17 +142,12 @@ class _Counseling_Session_PersonnelState
                                               id: widget.id);
                                     },
                                     child: SizedBox(
-                                      // group310VQt (2620:3574)
 
                                       child: SingleChildScrollView(
                                         scrollDirection: Axis.horizontal,
                                         child: Row(
-                                          // crossAxisAlignment:
-                                          //     CrossAxisAlignment
-                                          //         .center,
                                           children: [
                                             Center(
-                                              // today21octT6p (2620:3575)
                                               child: Container(
                                                 margin: EdgeInsets.fromLTRB(
                                                     0 * fem,
@@ -180,7 +173,6 @@ class _Counseling_Session_PersonnelState
                                               ),
                                             ),
                                             Center(
-                                              // noslotskrc (2620:3576)
                                               child: Text(
                                                 isDateIsSame(
                                                         e.formattedDate,

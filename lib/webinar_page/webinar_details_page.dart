@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:myapp/main.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
 import 'package:share_plus/share_plus.dart';
@@ -25,23 +24,6 @@ class WebinarDetailsPage extends StatefulWidget {
 }
 
 class _WebinarDetailsPageState extends State<WebinarDetailsPage> {
-  // late SharedPreferences _prefs;
-  // bool _isRegistrationStarting = false;
-  //
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _initializeSharedPreferences();
-  // }
-  //
-  // Future<void> _initializeSharedPreferences() async {
-  //   _prefs = await SharedPreferences.getInstance();
-  //   bool isStarting = _prefs.getBool('isRegistrationStarting') ?? false;
-  //
-  //   setState(() {
-  //     _isRegistrationStarting = isStarting;
-  //   });
-  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,15 +81,21 @@ class _WebinarDetailsPageState extends State<WebinarDetailsPage> {
                 ),
               ),
               const SizedBox(height: 20.0),
-              Text(
-                widget.webinarTitle,
-                // overflow: TextOverflow.ellipsis,
-                style: SafeGoogleFont(
-                  "Inter",
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xff414040),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.webinarTitle,
+                    textAlign: TextAlign.start,
+                    // overflow: TextOverflow.ellipsis,
+                    style: SafeGoogleFont(
+                      "Inter",
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: const Color(0xff414040),
+                    ),
+                  ),
+                ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -300,36 +288,6 @@ class _WebinarDetailsPageState extends State<WebinarDetailsPage> {
                     )
                   ],
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 19, 15, 19),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Speaker Profile",
-                      style: SafeGoogleFont(
-                        "Inter",
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      "Companies of all types and sizes rely on user experience (UX) designers to help..",
-                      style: SafeGoogleFont(
-                        "Inter",
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 70, // Adjust height to make space for the button
               ),
             ],
           ),

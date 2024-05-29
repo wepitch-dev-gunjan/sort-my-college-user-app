@@ -13,7 +13,9 @@ class CounsellingSessionPage extends StatefulWidget {
       required this.id,
       required this.designation,
       required this.selectedIndex_get,
-      required this.profileurl});
+      required this.profileurl
+      
+      });
 
   final String name;
   final String id;
@@ -36,7 +38,6 @@ class _CounsellingSessionPageState extends State<CounsellingSessionPage> {
   var data;
 
   void getEmail() async {
-    print(widget.id);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("cid", widget.id);
 
@@ -51,9 +52,7 @@ class _CounsellingSessionPageState extends State<CounsellingSessionPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    print(widget.id);
     getEmail();
     selectedIndex = widget.selectedIndex_get;
     _controller = PageController(initialPage: selectedIndex);
@@ -61,17 +60,12 @@ class _CounsellingSessionPageState extends State<CounsellingSessionPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _controller.dispose();
-    // razorpay.clear();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // double baseWidth = 430;
-    // double fem = MediaQuery.of(context).size.width / baseWidth;
-    // double ffem = fem * 0.97;
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
@@ -79,7 +73,6 @@ class _CounsellingSessionPageState extends State<CounsellingSessionPage> {
         backgroundColor: const Color(0xffffffff),
         foregroundColor: Colors.white,
         title: Text(
-          // anshikamehra7w6 (2608:501)
           widget.name,
           style: SafeGoogleFont(
             'Inter',
