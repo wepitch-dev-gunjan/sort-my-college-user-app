@@ -1017,7 +1017,7 @@ class ApiService {
   static Future<Map<String, dynamic>> callVerifyOtpByPhone(
       String number) async {
     number = number.replaceAll(RegExp(r'[^\w\s]+'), '');
-    number = number.replaceAll('91', '');
+    // number = number.replaceAll('91', '');
     number = number.replaceAll(' ', '');
     number = "91$number";
 

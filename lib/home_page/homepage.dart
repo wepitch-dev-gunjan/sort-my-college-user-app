@@ -23,6 +23,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../booking_page/checkout_screen.dart';
 import '../other/api_service.dart';
+import '../page-1/dashboard_session_page.dart';
 import 'entrance_preparation/entrance_preparation_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -480,7 +481,7 @@ class _HomePageState extends State<HomePage> {
                                             children: [
                                               GestureDetector(
                                                 onTap: () {
-                                                  log("Trendinggggggggggg=> ${trending.webinarDate}");
+                                                  log("Trendinggggggggggg=> ${trending}");
                                                   Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
@@ -986,26 +987,25 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => CheckOutScreen(
+                          MaterialPageRoute(builder: (context) {
+                            return CheckOutScreen(
                                 designation:
                                     latestSessionsModel.counsellorDesignation!,
                                 name: latestSessionsModel.counsellorName!,
                                 profilepicurl:
                                     latestSessionsModel.counsellorProfilePic!,
-                                id: latestSessionsModel.counsellorId!),
-
-                            // CounsellingSessionPage(
+                                id: latestSessionsModel.counsellorId!);
+                            // log("message${latestSessionsModel.counsellorId!}");
+                            // return CounsellingSessionPage(
                             //   name: latestSessionsModel.counsellorName!,
                             //   id: latestSessionsModel.counsellorId!,
                             //   designation:
                             //       latestSessionsModel.counsellorDesignation!,
-
                             //   profileurl:
                             //       latestSessionsModel.counsellorProfilePic!,
                             //   selectedIndex_get: 0,
-                            // ),
-                          ),
+                            // );
+                          }),
                         );
                       },
                       child: Container(
