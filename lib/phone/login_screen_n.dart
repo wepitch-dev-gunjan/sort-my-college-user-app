@@ -94,7 +94,6 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                    
                       margin: EdgeInsets.fromLTRB(
                           0 * fem, 0 * fem, 0 * fem, 20 * fem),
                       padding: EdgeInsets.fromLTRB(
@@ -137,7 +136,8 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
                     //   children: [
                     //     Checkbox(
                     //       value: isChecked,
-                    //       overlayColor: MaterialStatePropertyAll(Color(0xff1F0A68)),
+                    //       overlayColor:
+                    //           MaterialStatePropertyAll(Color(0xff1F0A68)),
                     //       onChanged: (value) {
                     //         setState(() {
                     //           isChecked = value!;
@@ -314,7 +314,7 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
 
   bool check_val() {
     bool isvaluevalid = true;
-    if (phoneController.text.toString().trim().isEmpty) {
+    if (phoneController.text.toString().isEmpty) {
       EasyLoading.showToast(AppConstants.phoneerror,
           toastPosition: EasyLoadingToastPosition.bottom);
       isvaluevalid = false;

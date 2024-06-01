@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -136,7 +135,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     payment_from = prefs.getString("_id") ?? "";
     cid = prefs.getString("cid") ?? "";
     sessionId = prefs.getString('sessionid');
-    context.read<CounsellorDetailsProvider>().fetchCheckOut_Data(sessionId);
+    context.read<CounsellorDetailsProvider>().fetchCheckOut_Data(sessionId!);
     setState(() {});
     print(cid);
   }
@@ -165,13 +164,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
     if (counsellorDetailController.checkOutDetailsList.isNotEmpty) {
       gst = counsellorDetailController.checkOutDetailsList[0].gstAmount
-              .toString();
+          .toString();
     }
 
     if (counsellorDetailController.checkOutDetailsList.isNotEmpty) {
       convinence_charge = counsellorDetailController
-              .checkOutDetailsList[0].gatewayCharge
-              .toString();
+          .checkOutDetailsList[0].gatewayCharge
+          .toString();
     }
 
     name = '';
@@ -293,8 +292,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   onTap: () {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (context) {
-                          
-
                                       return CounsellorDetailsScreen(
                                         id: widget.id!,
                                       );

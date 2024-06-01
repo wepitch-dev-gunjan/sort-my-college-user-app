@@ -54,7 +54,7 @@ dependencies:
   readmore: ^2.2.0
   flutter_image_slideshow: ^0.1.6
   carousel_slider: ^4.2.1
-  intl: ^0.18.1
+  intl: 0.18.1
   flutter_screenutil: ^5.9.0
   animated_text_kit: ^4.2.2
   internet_connection_checker: ^1.0.0+1

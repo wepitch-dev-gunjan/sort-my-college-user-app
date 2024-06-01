@@ -762,6 +762,8 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                           MaterialPageRoute(
                                                             builder: (context) {
 
+                                                              log('id');
+
                                                               return CheckOutScreen(
                                                                   designation:
                                                                       widget

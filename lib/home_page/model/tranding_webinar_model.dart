@@ -9,6 +9,7 @@ class TrandingWebinarModel {
   String? speakerProfile;
   int? webinarStartingInDays;
   bool? registered;
+  
 
   TrandingWebinarModel(
       {this.id,

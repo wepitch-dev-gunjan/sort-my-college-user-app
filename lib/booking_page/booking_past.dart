@@ -15,24 +15,18 @@ class BookingPast extends StatefulWidget {
 class _BookingPastState extends State<BookingPast> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context.read<UserBookingProvider>().fetchUserBookings(past: true, today: false, upcoming: false);
-    //context.read<UserBookingProvider>().fetchUserBookingsTest();
   }
 
   Future<void> _refresh() async {
     return context.read<UserBookingProvider>().fetchUserBookings(past: true, today: false, upcoming: false);
-    //return context.read<UserBookingProvider>().fetchUserBookingsTest();
   }
 
   @override
   Widget build(BuildContext context) {
     var userBookings = context.watch<UserBookingProvider>().userBooking;
     bool isLoading = context.watch<UserBookingProvider>().isLoading;
-
-    // String title = "Session starts in";
-    // String time = "25:15";
     var mWidth = MediaQuery.sizeOf(context).width;
     return isLoading
         ? const Center(child: CircularProgressIndicator())

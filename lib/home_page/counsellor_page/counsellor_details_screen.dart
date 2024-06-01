@@ -217,7 +217,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                           ),
                                           const SizedBox(width: 6),
                                           Text(
-                                            'Total ${counsellor['sessions']} Session Attended',
+                                            'Total ${counsellor['booked_sessions']} Session Attended',
                                             style:
                                                 const TextStyle(fontSize: 12),
                                           ),

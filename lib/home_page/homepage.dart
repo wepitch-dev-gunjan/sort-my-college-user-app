@@ -17,6 +17,7 @@ import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:myapp/utils.dart';
 import 'package:myapp/webinar_page/webinar_details_page.dart';
 import 'package:myapp/widget/custom_webniar_card_widget.dart';
+import 'package:myapp/widget/webinar_detail_page_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -481,25 +482,49 @@ class _HomePageState extends State<HomePage> {
                                             children: [
                                               GestureDetector(
                                                 onTap: () {
+                                                  DateTime registrationDate =
+                                                      DateTime.parse(trending
+                                                          .registeredDate!);
                                                   log("Trendinggggggggggg=> ${trending}");
                                                   Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              WebinarDetailsPage(
-                                                                registerd: trending
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) => WebinarDetailsPageWidget(
+                                                            webinarId:
+                                                                trending.id,
+                                                            webinarImg: trending
+                                                                .webinarImage,
+                                                            webinarTitle: trending
+                                                                .webinarTitle,
+                                                            webinarDate: trending
+                                                                .webinarDate,
+                                                            webinarBy: trending
+                                                                .webinarBy,
+                                                            webinarStartDays:
+                                                                trending
+                                                                    .webinarStartingInDays,
+                                                            webinarRegister:
+                                                                trending
                                                                     .registered!,
-                                                                webinarBy: trending
-                                                                    .webinarBy!,
-                                                                image: trending
-                                                                    .webinarImage!,
-                                                                webinarTitle:
-                                                                    trending
-                                                                        .webinarTitle!,
-                                                                webinarDate:
-                                                                    trending
-                                                                        .webinarDate!,
-                                                              )));
+                                                            registrationDate:
+                                                                registrationDate,
+                                                            webinarJoinUrl: trending
+                                                                .webinarJoinUrl)
+
+                                                        //     WebinarDetailsPage(
+                                                        //   registerd: trending
+                                                        //       .registered!,
+                                                        //   webinarBy:
+                                                        //       trending.webinarBy!,
+                                                        //   image: trending
+                                                        //       .webinarImage!,
+                                                        //   webinarTitle: trending
+                                                        //       .webinarTitle!,
+                                                        //   webinarDate: trending
+                                                        //       .webinarDate!,
+                                                        // ),
+                                                        ),
+                                                  );
                                                 },
                                                 child: Card(
                                                   shadowColor:

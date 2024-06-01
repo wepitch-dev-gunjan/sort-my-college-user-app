@@ -836,8 +836,8 @@ class ApiService {
       'Content-Type': 'application/json',
     };
 
-    number = number.replaceAll('91', '');
-    number = number.replaceAll(' ', '');
+    // number = number.replaceAll('91', '');
+    // number = number.replaceAll(' ', '');
     number = "91$number";
 
     final body = {'otp': otp, 'phone_number': number};
@@ -1018,7 +1018,7 @@ class ApiService {
       String number) async {
     number = number.replaceAll(RegExp(r'[^\w\s]+'), '');
     // number = number.replaceAll('91', '');
-    number = number.replaceAll(' ', '');
+    // number = number.replaceAll(' ', '');
     number = "91$number";
 
     final body = jsonEncode({"phone_number": number});

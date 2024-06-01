@@ -223,7 +223,6 @@ class _Drawer1State extends State<Drawer1> {
                 ],
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 9.0),
               child: GestureDetector(
@@ -281,7 +280,6 @@ class _Drawer1State extends State<Drawer1> {
                 ),
               ),
             ),
-
             const Spacer(),
             Image.asset(
               "assets/page-1/images/sortmycollege-logo-1.png",
