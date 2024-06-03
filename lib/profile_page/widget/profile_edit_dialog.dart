@@ -4,17 +4,13 @@ import 'package:myapp/other/api_service.dart';
 import 'package:myapp/profile_page/widget/drop_down_dialog.dart';
 import 'package:myapp/profile_page/widget/edit_dob_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../utils.dart';
 
 class ProfileEditDialog extends StatefulWidget {
+  final String name;
+  const ProfileEditDialog({super.key, required this.name});
 
-  ProfileEditDialog({super.key,
-    required this.name});
-
-  String name;
-
- @override
+  @override
   State<ProfileEditDialog> createState() => _ProfileEditDialogState();
 }
 
@@ -24,18 +20,13 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
   String? currentDob;
   String username = "";
 
-
   TextEditingController _namecontroller = TextEditingController();
 
-
-
   @override
-   void initState()  {
-    // TODO: implement initState
+  void initState() {
     super.initState();
     _namecontroller.text = widget.name;
     loaddefaultValue();
-
   }
 
   void loaddefaultValue() async {
@@ -46,21 +37,17 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
     username = prefs.getString("name") ?? "N/A";
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     double baseWidth = 430;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
 
-
     return AlertDialog(
       title: const Text('Edit User Detail'),
       content: SingleChildScrollView(
         child: Column(
           children: [
-
             SizedBox(
               height: 70,
               child: TextFormField(
@@ -70,10 +57,9 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
                   LengthLimitingTextInputFormatter(40),
                 ],
                 decoration: const InputDecoration(
-                  hintStyle:
-                  TextStyle(color: Colors.black, fontSize: 15.0),
+                  hintStyle: TextStyle(color: Colors.black, fontSize: 15.0),
                   hintText: "Enter Your Full Name",
-                  border:  OutlineInputBorder(),
+                  border: OutlineInputBorder(),
                 ),
                 style: SafeGoogleFont(
                   'Roboto',
@@ -84,7 +70,6 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
                 ),
               ),
             ),
-
             TextField(
               readOnly: true,
               controller: TextEditingController(text: currentEducation),
@@ -159,15 +144,13 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
       valueSaved = true;
     }
 
-
     ApiService.save_profile(
-        prefs.getString('name'),
-        prefs.getString("date_of_birth"),
-        prefs.getString("gender"),
-        prefs.getString("education_level")).then((value) => Navigator.pop(context));
-
+            prefs.getString('name'),
+            prefs.getString("date_of_birth"),
+            prefs.getString("gender"),
+            prefs.getString("education_level"))
+        .then((value) => Navigator.pop(context));
   }
-
 
   void showEducationDropdown(BuildContext context) async {
     List<String> educationList = [
@@ -201,7 +184,6 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
     );
   }
 
-
   void showGenderDropdown(BuildContext context) async {
     List<String> genderList = ['Male', 'Female', 'Other'];
     showDialog<String>(
@@ -221,11 +203,10 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
   }
 
   itemProfile(
-      String title,
-      String subtitle,
-      IconData iconData,
-      )
-  {
+    String title,
+    String subtitle,
+    IconData iconData,
+  ) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.08,
       decoration: BoxDecoration(
@@ -239,7 +220,4 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
       ),
     );
   }
-
-
-
 }

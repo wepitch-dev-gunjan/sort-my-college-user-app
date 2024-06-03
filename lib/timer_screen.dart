@@ -11,7 +11,7 @@ class TimeDisplay extends StatefulWidget {
 
 class TimeDisplayState extends State<TimeDisplay> {
   final DateTime _currentTime = DateTime.now();
-  late DateTime _twoHoursAhead;
+  late DateTime twoHoursAhead;
   Duration _timerDuration = const Duration(hours: 2);
   late Timer _timer;
 
@@ -29,7 +29,7 @@ class TimeDisplayState extends State<TimeDisplay> {
   }
 
   void _updateTwoHoursAhead() {
-    _twoHoursAhead = _currentTime.add(const Duration(hours: 2));
+    twoHoursAhead = _currentTime.add(const Duration(hours: 2));
   }
 
   void _startTimer() {

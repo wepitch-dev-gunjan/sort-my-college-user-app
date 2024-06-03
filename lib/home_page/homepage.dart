@@ -15,7 +15,6 @@ import 'package:myapp/other/provider/counsellor_details_provider.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:myapp/utils.dart';
-import 'package:myapp/webinar_page/webinar_details_page.dart';
 import 'package:myapp/widget/custom_webniar_card_widget.dart';
 import 'package:myapp/widget/webinar_detail_page_widget.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +23,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../booking_page/checkout_screen.dart';
 import '../other/api_service.dart';
-import '../page-1/dashboard_session_page.dart';
 import 'entrance_preparation/entrance_preparation_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -416,7 +414,7 @@ class _HomePageState extends State<HomePage> {
                                     : ListView.builder(
                                         scrollDirection: Axis.horizontal,
                                         shrinkWrap: true,
-                                        // physics: const PageScrollPhysics(),
+                                        physics: const PageScrollPhysics(),
                                         itemCount: counsellorSessionProvider
                                             .popularWorkShopList.length,
                                         itemBuilder: (context, index) {
@@ -433,9 +431,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     counsellorSessionProvider.trendingWebinarList.isEmpty
                         ? const SizedBox()
                         : Column(
@@ -485,45 +481,33 @@ class _HomePageState extends State<HomePage> {
                                                   DateTime registrationDate =
                                                       DateTime.parse(trending
                                                           .registeredDate!);
-                                                  log("Trendinggggggggggg=> ${trending}");
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                        builder: (context) => WebinarDetailsPageWidget(
-                                                            webinarId:
-                                                                trending.id,
-                                                            webinarImg: trending
-                                                                .webinarImage,
-                                                            webinarTitle: trending
-                                                                .webinarTitle,
-                                                            webinarDate: trending
-                                                                .webinarDate,
-                                                            webinarBy: trending
-                                                                .webinarBy,
-                                                            webinarStartDays:
-                                                                trending
-                                                                    .webinarStartingInDays,
-                                                            webinarRegister:
-                                                                trending
-                                                                    .registered!,
-                                                            registrationDate:
-                                                                registrationDate,
-                                                            webinarJoinUrl: trending
-                                                                .webinarJoinUrl)
-
-                                                        //     WebinarDetailsPage(
-                                                        //   registerd: trending
-                                                        //       .registered!,
-                                                        //   webinarBy:
-                                                        //       trending.webinarBy!,
-                                                        //   image: trending
-                                                        //       .webinarImage!,
-                                                        //   webinarTitle: trending
-                                                        //       .webinarTitle!,
-                                                        //   webinarDate: trending
-                                                        //       .webinarDate!,
-                                                        // ),
-                                                        ),
+                                                        builder: (context) =>
+                                                            WebinarDetailsPageWidget(
+                                                              webinarId:
+                                                                  trending.id,
+                                                              webinarImg: trending
+                                                                  .webinarImage,
+                                                              webinarTitle: trending
+                                                                  .webinarTitle,
+                                                              webinarDate: trending
+                                                                  .webinarDate,
+                                                              webinarBy: trending
+                                                                  .webinarBy,
+                                                              webinarStartDays:
+                                                                  trending
+                                                                      .webinarStartingInDays,
+                                                              webinarRegister:
+                                                                  trending
+                                                                      .registered!,
+                                                              registrationDate:
+                                                                  registrationDate,
+                                                              webinarJoinUrl:
+                                                                  trending
+                                                                      .webinarJoinUrl,
+                                                            )),
                                                   );
                                                 },
                                                 child: Card(
@@ -642,7 +626,8 @@ class _HomePageState extends State<HomePage> {
                                                               padding:
                                                                   const EdgeInsets
                                                                       .only(
-                                                                      left: 10),
+                                                                left: 10,
+                                                              ),
                                                               child: Row(
                                                                 mainAxisAlignment:
                                                                     MainAxisAlignment
@@ -812,12 +797,10 @@ class _HomePageState extends State<HomePage> {
                           height: 10,
                         ),
                         Row(
-                          // mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
                               latestSessionsModel.counsellorName ?? "N/A",
-                              // popularWorkShopModel.sessionUser ?? "N/A",
                               style: const TextStyle(
                                 color: Color(0xFF1F0A68),
                                 fontSize: 15,
@@ -826,9 +809,7 @@ class _HomePageState extends State<HomePage> {
                                 height: 0,
                               ),
                             ),
-                            SizedBox(
-                              width: width / 3,
-                            ),
+                            SizedBox(width: width / 3),
                             GestureDetector(
                               onTap: () {
                                 Share.share(
@@ -849,7 +830,6 @@ class _HomePageState extends State<HomePage> {
                           width: 190.25,
                           child: Text(
                             latestSessionsModel.counsellorDesignation!,
-                            // popularWorkShopModel.sessionType!,
                             style: const TextStyle(
                               color: Colors.black,
                               fontSize: 16,
@@ -864,7 +844,6 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Image.asset(
                               "assets/page-1/images/clock-circular-outline-Ra1.png",
-                              // color: Colors.black,
                               height: 12,
                               width: 12,
                             ),
@@ -966,13 +945,16 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          log("Session Id=>>>> ${latestSessionsModel.sessionId!}");
-                          return CounsellorDetailsScreen(
-                            id: latestSessionsModel.counsellorId!,
-                          );
-                        }));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return CounsellorDetailsScreen(
+                                id: latestSessionsModel.counsellorId!,
+                              );
+                            },
+                          ),
+                        );
                       },
                       child: Container(
                         width: 120.14,
@@ -1012,25 +994,18 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) {
-                            return CheckOutScreen(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return CheckOutScreen(
                                 designation:
                                     latestSessionsModel.counsellorDesignation!,
                                 name: latestSessionsModel.counsellorName!,
                                 profilepicurl:
                                     latestSessionsModel.counsellorProfilePic!,
-                                id: latestSessionsModel.counsellorId!);
-                            // log("message${latestSessionsModel.counsellorId!}");
-                            // return CounsellingSessionPage(
-                            //   name: latestSessionsModel.counsellorName!,
-                            //   id: latestSessionsModel.counsellorId!,
-                            //   designation:
-                            //       latestSessionsModel.counsellorDesignation!,
-                            //   profileurl:
-                            //       latestSessionsModel.counsellorProfilePic!,
-                            //   selectedIndex_get: 0,
-                            // );
-                          }),
+                                id: latestSessionsModel.counsellorId!,
+                              );
+                            },
+                          ),
                         );
                       },
                       child: Container(
@@ -1066,13 +1041,18 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 6),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(totalCards, (index) {
-                    return Icon(
-                      index == cardIndex ? Icons.circle : Icons.circle_outlined,
-                      color: const Color(0xff1F0A68),
-                      size: 8,
-                    );
-                  }),
+                  children: List.generate(
+                    totalCards,
+                    (index) {
+                      return Icon(
+                        index == cardIndex
+                            ? Icons.circle
+                            : Icons.circle_outlined,
+                        color: const Color(0xff1F0A68),
+                        size: 8,
+                      );
+                    },
+                  ),
                 ),
               ],
             ),

@@ -5,7 +5,6 @@ import 'package:myapp/other/provider/counsellor_details_provider.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
 import 'package:myapp/webinar_page/webinar_model.dart';
-import 'package:myapp/widget/custom_webniar_card_widget.dart';
 import 'package:myapp/widget/webinar_detail_page_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -59,7 +58,8 @@ class _WebinarPastDataPageState extends State<WebinarPastDataPage> {
                       webinarModel: webinarModel,
                     ),
                   );
-                });
+                },
+              );
   }
 }
 
@@ -416,28 +416,8 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
   }
 }
 
-
-
 int daysBetween(DateTime from, DateTime to) {
   from = DateTime(from.year, from.month, from.day);
   to = DateTime(to.year, to.month, to.day);
   return (to.difference(from).inHours / 24).round();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

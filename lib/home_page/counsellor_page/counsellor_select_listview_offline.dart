@@ -286,7 +286,6 @@ class _CounsellorListPage_offlineState
                                           ),
                                         ),
                                         Positioned(
-                                          // graduationhataoB (742:114)
                                           left: 290.75 * fem,
                                           top: 20 * fem,
                                           bottom: 6,
