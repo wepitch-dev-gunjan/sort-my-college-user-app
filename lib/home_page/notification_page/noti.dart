@@ -48,113 +48,121 @@ class _Notification2State extends State<Notification2> {
         leading: Padding(
           padding: const EdgeInsets.only(left: 20),
           child: IconButton(
-            onPressed: () { Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const HomePageContainer(),
-            ),
-          ); }, icon: const Icon( Icons.arrow_back_ios_new,
-            color: Color(0xff1F0A68),),
-                  ),
-               ),
-             title: Text(
-                "Notification",
-                style: SafeGoogleFont(
-                  "Inter",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xff1F0A68),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomePageContainer(),
                 ),
-              ),
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Color(0xff1F0A68),
+            ),
           ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            ListTile(
-              leading: Container(
-                height: 48,
-                width: 48,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.amber,
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(40),
-                  child: Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg1dIOAjqRZTG33LCikcTs75d2G2OJH9vnTA&usqp=CAU',
-                    height: 48,
-                    width: 48,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              title: const Text(
-                'Sandeep Mehra',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              subtitle: const Text(
-                'Posted 3 more pictures',
-                style: TextStyle(color: Colors.black54),
-              ),
-            ),
-            ListTile(
-              leading: Container(
-                height: 48,
-                width: 48,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.amber,
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(40),
-                  child: Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg1dIOAjqRZTG33LCikcTs75d2G2OJH9vnTA&usqp=CAU',
-                    height: 48,
-                    width: 48,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              title: const Text(
-                'Dinesh Joshi',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              subtitle: const Text(
-                'Posted 1 more pictures',
-                style: TextStyle(color: Colors.black54),
-              ),
-            ),
-            ListTile(
-              leading: Container(
-                height: 48,
-                width: 48,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.amber,
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(40),
-                  child: Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg1dIOAjqRZTG33LCikcTs75d2G2OJH9vnTA&usqp=CAU',
-                    height: 48,
-                    width: 48,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              title: const Text(
-                'Kashish Sharma',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              subtitle: const Text(
-                'Added new session on CUET at 4:00 PM',
-                style: TextStyle(color: Colors.black54),
-              ),
-            ),
-          ],
+        ),
+        title: Text(
+          "Notification",
+          style: SafeGoogleFont(
+            "Inter",
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: const Color(0xff1F0A68),
+          ),
         ),
       ),
+      body: Center(
+        child: Text("No data found"),
+      ),
+      // body: Padding(
+      //   padding: const EdgeInsets.all(10.0),
+      //   child: Column(
+      //     children: [
+      //       ListTile(
+      //         leading: Container(
+      //           height: 48,
+      //           width: 48,
+      //           decoration: const BoxDecoration(
+      //             shape: BoxShape.circle,
+      //             color: Colors.amber,
+      //           ),
+      //           child: ClipRRect(
+      //             borderRadius: BorderRadius.circular(40),
+      //             child: Image.network(
+      //               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg1dIOAjqRZTG33LCikcTs75d2G2OJH9vnTA&usqp=CAU',
+      //               height: 48,
+      //               width: 48,
+      //               fit: BoxFit.cover,
+      //             ),
+      //           ),
+      //         ),
+      //         title: const Text(
+      //           'Sandeep Mehra',
+      //           style: TextStyle(fontWeight: FontWeight.bold),
+      //         ),
+      //         subtitle: const Text(
+      //           'Posted 3 more pictures',
+      //           style: TextStyle(color: Colors.black54),
+      //         ),
+      //       ),
+      //       ListTile(
+      //         leading: Container(
+      //           height: 48,
+      //           width: 48,
+      //           decoration: const BoxDecoration(
+      //             shape: BoxShape.circle,
+      //             color: Colors.amber,
+      //           ),
+      //           child: ClipRRect(
+      //             borderRadius: BorderRadius.circular(40),
+      //             child: Image.network(
+      //               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg1dIOAjqRZTG33LCikcTs75d2G2OJH9vnTA&usqp=CAU',
+      //               height: 48,
+      //               width: 48,
+      //               fit: BoxFit.cover,
+      //             ),
+      //           ),
+      //         ),
+      //         title: const Text(
+      //           'Dinesh Joshi',
+      //           style: TextStyle(fontWeight: FontWeight.bold),
+      //         ),
+      //         subtitle: const Text(
+      //           'Posted 1 more pictures',
+      //           style: TextStyle(color: Colors.black54),
+      //         ),
+      //       ),
+      //       ListTile(
+      //         leading: Container(
+      //           height: 48,
+      //           width: 48,
+      //           decoration: const BoxDecoration(
+      //             shape: BoxShape.circle,
+      //             color: Colors.amber,
+      //           ),
+      //           child: ClipRRect(
+      //             borderRadius: BorderRadius.circular(40),
+      //             child: Image.network(
+      //               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg1dIOAjqRZTG33LCikcTs75d2G2OJH9vnTA&usqp=CAU',
+      //               height: 48,
+      //               width: 48,
+      //               fit: BoxFit.cover,
+      //             ),
+      //           ),
+      //         ),
+      //         title: const Text(
+      //           'Kashish Sharma',
+      //           style: TextStyle(fontWeight: FontWeight.bold),
+      //         ),
+      //         subtitle: const Text(
+      //           'Added new session on CUET at 4:00 PM',
+      //           style: TextStyle(color: Colors.black54),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       /*body: ListView.builder(
         itemCount: notifications.length,
         itemBuilder: (context, index) {

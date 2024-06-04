@@ -678,6 +678,7 @@ class _HomePageState extends State<HomePage> {
                                                                                 ),
                                                                                 TextButton(
                                                                                   onPressed: () async {
+                                                                                    log("Registred:= ${trending.registered}");
                                                                                     if (trending.registered! && trending.webinarStartingInDays == 0) {
                                                                                       launchUrlString(trending.webinarJoinUrl!);
                                                                                     } else if (trending.registered!) {
@@ -689,12 +690,16 @@ class _HomePageState extends State<HomePage> {
                                                                                         Fluttertoast.showToast(msg: 'Participant is already registered');
                                                                                       } else if (value["message"] == "Registration completed") {
                                                                                         Fluttertoast.showToast(msg: 'Registration completed Thanks for registration');
-                                                                                        Navigator.push(
-                                                                                          context,
-                                                                                          MaterialPageRoute(
-                                                                                            builder: (context) => const HomePage(),
-                                                                                          ),
-                                                                                        );
+
+                                                                                        setState(() {
+                                                                                          trending.registered = true;
+                                                                                        });
+                                                                                        // Navigator.push(
+                                                                                        //   context,
+                                                                                        //   MaterialPageRoute(
+                                                                                        //     builder: (context) => const HomePage(),
+                                                                                        //   ),
+                                                                                        // );
                                                                                       }
                                                                                     }
                                                                                     if (mounted) {

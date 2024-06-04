@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/model/booking_model.dart';
@@ -52,6 +54,7 @@ class _BookingTodayState extends State<BookingToday> {
   @override
   Widget build(BuildContext context) {
     var userBookings = context.watch<UserBookingProvider>().userBooking;
+   
     bool isLoading = context.watch<UserBookingProvider>().isLoading;
 
     // String time = "25:15";

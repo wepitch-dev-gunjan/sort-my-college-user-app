@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/other/api_service.dart';
@@ -44,8 +46,7 @@ class _WebinarPastDataPageState extends State<WebinarPastDataPage> {
                   WebinarModel webinarModel =
                       counsellorSessionProvider.webinarList[index];
                   return Padding(
-                    padding: EdgeInsets.only(
-                        top: index == 0 ? 30 : 4, right: 16, left: 16),
+                    padding: const EdgeInsets.only(left: 12, right: 12, top: 8),
                     child: WebinarPastDataWidget(
                       showDuration: false,
                       title: "Learn more about CUET and IPMAT",
@@ -58,8 +59,7 @@ class _WebinarPastDataPageState extends State<WebinarPastDataPage> {
                       webinarModel: webinarModel,
                     ),
                   );
-                },
-              );
+                });
   }
 }
 
@@ -154,7 +154,6 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.47,
       child: cardView(context),
     );
   }
@@ -283,10 +282,10 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                             ),
                             customRegisterNow(
                                 onPressed: () async {
+                                  log("MyWebinar=>>>>>>>>${widget.webinarModel.registered}");
                                   _isRegistrationStarting =
                                       widget.webinarModel.registered;
                                   if (has24HoursPassed) {
-                                    //nothing
                                     Fluttertoast.showToast(
                                         msg:
                                             'Webinar Happened $pastdays days ago');

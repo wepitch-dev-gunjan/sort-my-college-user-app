@@ -417,6 +417,8 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
               onPressed: () async {
                 _isRegistrationStarting = widget.webinarRegister;
 
+                log("_isRegistred=>$_isRegistrationStarting");
+
                 if (has24HoursPassed) {
                   Fluttertoast.showToast(
                       msg: 'Webinar Happened ${diff.abs()} days ago');

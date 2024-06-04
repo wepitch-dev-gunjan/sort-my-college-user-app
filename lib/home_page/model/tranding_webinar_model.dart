@@ -3,6 +3,7 @@ class TrandingWebinarModel {
   String? webinarImage;
   String? webinarTitle;
   String? webinarDate;
+  String ? webinarTime;
   String? registeredDate;
   String? webinarJoinUrl;
   String? webinarBy;
@@ -21,7 +22,8 @@ class TrandingWebinarModel {
         this.webinarBy,
         this.speakerProfile,
         this.webinarStartingInDays,
-        this.registered});
+        this.registered,
+        this.webinarTime});
 
   TrandingWebinarModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -34,11 +36,13 @@ class TrandingWebinarModel {
     speakerProfile = json['speaker_profile'];
     webinarStartingInDays = json['webinar_starting_in_days'];
     registered = json['registered'];
+   webinarTime=json['webinar_time'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
+    data['webinar_time']=webinarTime;
     data['webinar_image'] = webinarImage;
     data['webinar_title'] = webinarTitle;
     data['webinar_date'] = webinarDate;

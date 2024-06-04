@@ -561,15 +561,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   MoveToSessionPage() {
     Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const BookingPage()
-            // CounsellingSessionPage(
-            //   id: cid,
-            //   name: name,
-            //   designation: widget.designation,
-            //   profileurl: widget.profilepicurl,
-            //   selectedIndex_get: 0,)
+      context,
+      MaterialPageRoute(builder: (context) => const BookingPage()
+          // CounsellingSessionPage(
+          //   id: cid,
+          //   name: name,
+          //   designation: widget.designation,
+          //   profileurl: widget.profilepicurl,
+          //   selectedIndex_get: 0,)
 
-            ));
+          ),
+    );
   }
 }

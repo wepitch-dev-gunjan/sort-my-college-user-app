@@ -370,9 +370,7 @@ class ApiService {
       "Authorization": token,
     };
     final url = Uri.parse('${AppConstants.baseUrl}/counsellor/feedback');
-
     final response = await http.post(url, headers: headers, body: body);
-
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body.toString());
       return data;
@@ -507,7 +505,7 @@ class ApiService {
 
     final response = await http.put(url, headers: headers, body: body);
 
-    log("Response Profile Create ======================123> ${response.body}");
+    // log("Response Profile Create ======================123> ${response.body}");
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body.toString());
       return data;

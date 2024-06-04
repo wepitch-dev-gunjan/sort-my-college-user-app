@@ -50,8 +50,7 @@ class _WebinarTodayPageState extends State<WebinarTodayPage> {
                   WebinarModel webinarModel =
                       counsellorSessionProvider.webinarList[index];
                   return Padding(
-                    padding: EdgeInsets.only(
-                        top: index == 0 ? 14 : 2, right: 16, left: 16),
+                    padding: const EdgeInsets.only(top: 8, right: 12, left: 12),
                     child: CustomWebinarCard1(
                       showDuration: true,
                       title: "Learn more about CUET and IPMAT",
@@ -434,11 +433,3 @@ Widget customRegisterNowBtn({
     ),
   );
 }
-
-
-
-
-
-
-
-

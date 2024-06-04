@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/other/api_service.dart';
@@ -47,8 +46,7 @@ class _WebinarUpcomingPageState extends State<WebinarUpcomingPage> {
                   WebinarModel webinarModel =
                       counsellorSessionProvider.webinarList[index];
                   return Padding(
-                    padding: EdgeInsets.only(
-                        top: index == 0 ? 30 : 4, right: 16, left: 16),
+                    padding: const EdgeInsets.only(top: 8, right: 12, left: 12),
                     child: WebinarUpComingWidget(
                       showDuration: false,
                       title: "Learn more about CUET and IPMAT",
@@ -294,9 +292,7 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                                       DateTime.parse(
                                           widget.webinarModel.resisterDate!));
                                   if (diff < 0) {
-                                    has24HoursPassed =
-                                        true; // in past webinar done
-                                    //pastdays = difference.inDays;
+                                    has24HoursPassed = true;
                                   } else if (diff > 0) {
                                     has24HoursPassed = false; // in future
                                   } else if (diff == 0) {
@@ -304,7 +300,6 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                                   }
 
                                   if (has24HoursPassed) {
-                                    //webinar happen in past
                                     Fluttertoast.showToast(
                                         msg: 'Webinar Happened in Past');
                                   } else {
@@ -359,40 +354,6 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                                                               'Registration completed. Thanks for registering');
                                                       widget.webinarModel
                                                           .registered = true;
-                                                      /*Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          WebinarDetailsPageWidget(
-                                                        webinarId: widget
-                                                            .webinarModel.id!,
-                                                        webinarImg: widget
-                                                            .webinarModel
-                                                            .webinarImage,
-                                                        webinarTitle: widget
-                                                            .webinarModel
-                                                            .webinarTitle,
-                                                        webinarDate: widget
-                                                            .webinarModel
-                                                            .webinarDate,
-                                                        webinarBy: widget
-                                                            .webinarModel
-                                                            .webinarBy,
-                                                        webinarSpeaker: widget
-                                                            .webinarModel
-                                                            .speakerProfile,
-                                                        webinarStartDays: widget
-                                                            .webinarModel
-                                                            .webnar_startdays,
-                                                        webinarRegister: widget
-                                                            .webinarModel
-                                                            .registered,
-                                                        webinarJoinUrl: widget
-                                                            .webinarModel
-                                                            .joinUrl,
-                                                      ),
-                                                    ),
-                                                  );*/
                                                     }
                                                     if (mounted) {
                                                       Navigator.pop(context);

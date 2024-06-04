@@ -75,26 +75,10 @@ class _CounsellorListPage_offlineState
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            // ? ListView.builder(
-            //     itemCount: listController.cousnellorlist_data.length,
-            //     itemBuilder: (context, index) {
-            //       return Shimmer.fromColors(
-            //         baseColor: Colors.green,
-            //         highlightColor: Colors.red,
-            //         child: SizedBox(
-            //           height: 150,
-            //           width: MediaQuery.of(context).size.width,
-            //           child: const Card(
-            //             color: Colors.grey,
-            //           ),
-            //         ),
-            //       );
-            //     })
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    // group47BNR (730:3)
                     margin: EdgeInsets.fromLTRB(
                         0 * fem, 0 * fem, 0 * fem, 0.5 * fem),
                     padding: EdgeInsets.fromLTRB(
@@ -188,33 +172,17 @@ class _CounsellorListPage_offlineState
                                           bottom: 20 * fem,
                                           child: Row(
                                             children: [
-                                              TabPageSelectorIndicator(
+                                              for (int i = 0; i < 3; i++)
+                                                TabPageSelectorIndicator(
                                                   backgroundColor:
-                                                      selectedIndex == 0
+                                                      selectedIndex == i
                                                           ? const Color(
                                                               0xff1F0A68)
                                                           : Colors.grey,
                                                   borderColor:
                                                       Colors.transparent,
-                                                  size: 7),
-                                              TabPageSelectorIndicator(
-                                                  backgroundColor:
-                                                      selectedIndex == 1
-                                                          ? const Color(
-                                                              0xff1F0A68)
-                                                          : Colors.grey,
-                                                  borderColor:
-                                                      Colors.transparent,
-                                                  size: 7),
-                                              TabPageSelectorIndicator(
-                                                  backgroundColor:
-                                                      selectedIndex == 2
-                                                          ? const Color(
-                                                              0xff1F0A68)
-                                                          : Colors.grey,
-                                                  borderColor:
-                                                      Colors.transparent,
-                                                  size: 7)
+                                                  size: 7,
+                                                ),
                                             ],
                                           ),
                                         ),
@@ -286,6 +254,7 @@ class _CounsellorListPage_offlineState
                                           ),
                                         ),
                                         Positioned(
+                                          // graduationhataoB (742:114)
                                           left: 290.75 * fem,
                                           top: 20 * fem,
                                           bottom: 6,

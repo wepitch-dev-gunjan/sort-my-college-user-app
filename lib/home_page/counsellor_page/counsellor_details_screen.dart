@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/model/cousnellor_list_model.dart';
 import 'package:myapp/model/follower_model.dart';
 import 'package:myapp/other/provider/counsellor_details_provider.dart';
@@ -44,7 +45,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
   bool isLoading = true;
 
   bool hasFollowedBefore = false;
-  double rating_val = 0;
+  double rating_val = 1;
   String feedback_msg = '';
 
   setIsFollowingLoading(bool state) {
@@ -776,19 +777,23 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                                   rating_val, feedback_msg);
                                           if (value["error"] ==
                                               "Feedback is already given by the user") {
-                                            EasyLoading.showToast(
-                                                value["error"],
-                                                toastPosition:
-                                                    EasyLoadingToastPosition
-                                                        .bottom);
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    "Feedback is already given by the user");
+
+                                            // EasyLoading.showToast(
+                                            //     value["error"],
+                                            //     toastPosition:
+                                            //         EasyLoadingToastPosition
+                                            //             .bottom);
                                           } else {
+                                            log("Valuee=>${value['messege']}");
                                             (value["message"] ==
                                                 "Feedback has been successfully added");
-                                            EasyLoading.showToast(
-                                                value["message"],
-                                                toastPosition:
-                                                    EasyLoadingToastPosition
-                                                        .bottom);
+
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    "Feedback has been successfully added");
                                           }
                                           controller.clear();
                                         },

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:myapp/model/booking_model.dart';
 import 'package:myapp/other/api_service.dart';
@@ -10,6 +12,7 @@ class UserBookingProvider extends ChangeNotifier {
       {required bool past, required bool today, required bool upcoming}) async {
     isLoading = true;
     try {
+      log("MyBooking Data=>>>> $userBooking");
       var userBookings = await ApiService.getUserBooking(
           today: today, past: past, upcoming: upcoming);
       userBooking = userBookings;
