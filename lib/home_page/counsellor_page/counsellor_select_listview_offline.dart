@@ -136,140 +136,150 @@ class _CounsellorListPage_offlineState
                               child: Column(
                                 children: [
                                   const SizedBox(height: 20),
-                                  Container(
+                                  SizedBox(
                                     // color: Colors.red,
                                     width: double.infinity,
                                     height: 100.35 * fem,
-                                    margin: const EdgeInsets.only(
-                                        left: 18.0, top: 5.0),
-                                    child: Stack(
-                                      children: [
-                                        Positioned(
-                                          // groupRms (742:105)
-                                          left: 0 * fem,
-                                          top: 15.3145446777 * fem,
-                                          child: Align(
-                                              child: Container(
-                                            height: 60.5,
-                                            width: 330.5,
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  offset: const Offset(0, 1),
-                                                  blurRadius: 2,
-                                                  color: Colors.black
-                                                      .withOpacity(0.1),
-                                                ),
-                                              ],
-                                            ),
-                                          )),
-                                        ),
-                                        Positioned(
-                                          left: 150 * fem,
-                                          bottom: 20 * fem,
-                                          child: Row(
-                                            children: [
-                                              for (int i = 0; i < 3; i++)
-                                                TabPageSelectorIndicator(
-                                                  backgroundColor:
-                                                      selectedIndex == i
-                                                          ? const Color(
-                                                              0xff1F0A68)
-                                                          : Colors.grey,
-                                                  borderColor:
-                                                      Colors.transparent,
-                                                  size: 7,
-                                                ),
-                                            ],
-                                          ),
-                                        ),
-                                        Positioned(
-                                          left: 13.28515625 * fem,
-                                          top: 27.3145446777 * fem,
-                                          child: Align(
-                                            alignment: Alignment.topLeft,
-                                            child: SizedBox(
-                                              width: 245 * fem,
-                                              height: 40 * fem,
-                                              child: CarouselSlider(
-                                                items: [
-                                                  Text(
-                                                    'Follow your favourite experts',
-                                                    style: SafeGoogleFont(
-                                                      'Inter',
-                                                      fontSize: 14 * ffem,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      height: 1.3252271925 *
-                                                          ffem /
-                                                          fem,
-                                                      color: const Color(
-                                                          0xFF2A2F33),
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    "Attend popular workshops on various topics",
-                                                    textAlign: TextAlign.left,
-                                                    style: SafeGoogleFont(
-                                                      'Inter',
-                                                      fontSize: 14 * ffem,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      height: 1.3252271925 *
-                                                          ffem /
-                                                          fem,
-                                                      color: const Color(
-                                                          0xFF2A2F33),
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'Confused about your career? Book a counsellor now!',
-                                                    style: SafeGoogleFont(
-                                                      'Inter',
-                                                      fontSize: 14 * ffem,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      height: 1.3252271925 *
-                                                          ffem /
-                                                          fem,
-                                                      color: const Color(
-                                                          0xFF2A2F33),
-                                                    ),
+                                    // margin: const EdgeInsets.only(
+                                    // left: 18.0, top: 5.0),
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                        right:
+                                            MediaQuery.of(context).size.width /
+                                                20,
+                                        left:
+                                            MediaQuery.of(context).size.width /
+                                                20,
+                                      ),
+                                      child: Stack(
+                                        children: [
+                                          Positioned(
+                                            // left: 0 * fem,
+                                            // top: 15.3145446777 * fem,
+                                            child: Align(
+                                                child: Container(
+                                              height: 60.5,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    offset: const Offset(0, 1),
+                                                    blurRadius: 2,
+                                                    color: Colors.black
+                                                        .withOpacity(0.1),
                                                   ),
                                                 ],
-                                                options: CarouselOptions(
-                                                    onPageChanged:
-                                                        (index, reason) {
-                                                      setState(() {
-                                                        selectedIndex = index;
-                                                      });
-                                                    },
-                                                    viewportFraction: 1,
-                                                    autoPlay: true),
+                                              ),
+                                            )),
+                                          ),
+                                          Positioned(
+                                            left: 150 * fem,
+                                            bottom: 20 * fem,
+                                            child: Row(
+                                              children: [
+                                                for (int i = 0; i < 3; i++)
+                                                  TabPageSelectorIndicator(
+                                                    backgroundColor:
+                                                        selectedIndex == i
+                                                            ? const Color(
+                                                                0xff1F0A68)
+                                                            : Colors.grey,
+                                                    borderColor:
+                                                        Colors.transparent,
+                                                    size: 7,
+                                                  ),
+                                              ],
+                                            ),
+                                          ),
+                                          Positioned(
+                                            left: 13.28515625 * fem,
+                                            top: 27.3145446777 * fem,
+                                            child: Align(
+                                              alignment: Alignment.topLeft,
+                                              child: SizedBox(
+                                                width: 245 * fem,
+                                                height: 40 * fem,
+                                                child: CarouselSlider(
+                                                  items: [
+                                                    Text(
+                                                      'Follow your favourite experts',
+                                                      style: SafeGoogleFont(
+                                                        'Inter',
+                                                        fontSize: 14 * ffem,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        height: 1.3252271925 *
+                                                            ffem /
+                                                            fem,
+                                                        color: const Color(
+                                                            0xFF2A2F33),
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      "Attend popular workshops on various topics",
+                                                      textAlign: TextAlign.left,
+                                                      style: SafeGoogleFont(
+                                                        'Inter',
+                                                        fontSize: 14 * ffem,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        height: 1.3252271925 *
+                                                            ffem /
+                                                            fem,
+                                                        color: const Color(
+                                                            0xFF2A2F33),
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Confused about your career? Book a counsellor now!',
+                                                      style: SafeGoogleFont(
+                                                        'Inter',
+                                                        fontSize: 14 * ffem,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        height: 1.3252271925 *
+                                                            ffem /
+                                                            fem,
+                                                        color: const Color(
+                                                            0xFF2A2F33),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                  options: CarouselOptions(
+                                                      onPageChanged:
+                                                          (index, reason) {
+                                                        setState(() {
+                                                          selectedIndex = index;
+                                                        });
+                                                      },
+                                                      viewportFraction: 1,
+                                                      autoPlay: true),
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        Positioned(
-                                          // graduationhataoB (742:114)
-                                          left: 290.75 * fem,
-                                          top: 20 * fem,
-                                          bottom: 6,
-                                          child: Align(
-                                            child: SizedBox(
-                                              width: 100.5 * fem,
-                                              height: 128.5 * fem,
-                                              child: Image.asset(
-                                                'assets/page-1/images/graduation-hat.png',
-                                                fit: BoxFit.cover,
+                                          Positioned(
+                                            left: 290.75 * fem,
+                                            top: 10 * fem,
+                                            bottom: 10,
+                                            child: Align(
+                                              child: SizedBox(
+                                                width: 100.5 * fem,
+                                                height: 128.5 * fem,
+                                                child: Image.asset(
+                                                  'assets/page-1/images/graduation-hat.png',
+                                                  fit: BoxFit.contain,
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   listController.cousnellorlist_data.isEmpty

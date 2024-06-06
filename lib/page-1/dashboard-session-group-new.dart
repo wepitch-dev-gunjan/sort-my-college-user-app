@@ -592,14 +592,12 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                         height: 5,
                                                       ),
                                                       Text(
-                                                        counsellorSessionProvider
-                                                                    .details
-                                                                    .sessions?[
-                                                                        index]
-                                                                    .sessionTime !=
-                                                                null
-                                                            ? '${(counsellorSessionProvider.details.sessions![index].sessionTime! ~/ 60) % 12}:${(counsellorSessionProvider.details.sessions![index].sessionTime! % 60).toString().padLeft(2, '0')} ${(counsellorSessionProvider.details.sessions![index].sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
-                                                            : 'N/A',
+
+
+                                  counsellorSessionProvider.details.sessions?[index].sessionTime != null
+    ? '${(counsellorSessionProvider.details.sessions![index].sessionTime! ~/ 60) % 12 == 0 ? 12 : (counsellorSessionProvider.details.sessions![index].sessionTime! ~/ 60) % 12}:${(counsellorSessionProvider.details.sessions![index].sessionTime! % 60).toString().padLeft(2, '0')} ${(counsellorSessionProvider.details.sessions![index].sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
+    : 'N/A',
+
 
                                                         // counsellorSessionProvider
                                                         //             .details

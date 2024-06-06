@@ -70,23 +70,6 @@ class _HomePageState extends State<HomePage> {
   final PageController _pageController = PageController(initialPage: 0);
   late Timer _timer;
 
-  void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
-      if (_currentIndex < 2) {
-        _pageController.nextPage(
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOut,
-        );
-      } else {
-        _pageController.animateToPage(
-          0,
-          duration: const Duration(milliseconds: 2),
-          curve: Curves.easeInOut,
-        );
-      }
-    });
-  }
-
   var str;
   List<String> imgUrlList = [];
 
@@ -655,8 +638,9 @@ class _HomePageState extends State<HomePage> {
                                                                   registerNowWidget(
                                                                     onPressed:
                                                                         () async {
-                                                                      if (!trending
-                                                                          .registered!) {
+                                                                      if (trending
+                                                                              .registered ==
+                                                                          false) {
                                                                         showDialog(
                                                                           context:
                                                                               context,
@@ -678,10 +662,11 @@ class _HomePageState extends State<HomePage> {
                                                                                 ),
                                                                                 TextButton(
                                                                                   onPressed: () async {
-                                                                                    log("Registred:= ${trending.registered}");
-                                                                                    if (trending.registered! && trending.webinarStartingInDays == 0) {
+                                                                                    var isRegistred = trending.registered;
+
+                                                                                    if (isRegistred! && trending.webinarStartingInDays == 0) {
                                                                                       launchUrlString(trending.webinarJoinUrl!);
-                                                                                    } else if (trending.registered!) {
+                                                                                    } else if (isRegistred == true) {
                                                                                       Fluttertoast.showToast(msg: 'Participant is already registered');
                                                                                     } else {
                                                                                       var value = await ApiService.webinar_regiter(trending.id!);
@@ -692,7 +677,9 @@ class _HomePageState extends State<HomePage> {
                                                                                         Fluttertoast.showToast(msg: 'Registration completed Thanks for registration');
 
                                                                                         setState(() {
-                                                                                          trending.registered = true;
+                                                                                          isRegistred = true;
+
+                                                                                          log("$isRegistred");
                                                                                         });
                                                                                         // Navigator.push(
                                                                                         //   context,
@@ -857,7 +844,7 @@ class _HomePageState extends State<HomePage> {
                               width: 121.13,
                               child: Text(
                                 latestSessionsModel.sessionTime != null
-                                    ? '${(latestSessionsModel.sessionTime! ~/ 60) % 12}:${(latestSessionsModel.sessionTime! % 60).toString().padLeft(2, '0')} ${(latestSessionsModel.sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
+                                    ? '${(latestSessionsModel.sessionTime! ~/ 60) % 12 == 0 ? 12 : (latestSessionsModel.sessionTime! ~/ 60) % 12}:${(latestSessionsModel.sessionTime! % 60).toString().padLeft(2, '0')} ${(latestSessionsModel.sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
                                     : 'N/A',
                                 style: const TextStyle(
                                   color: Color(0xFF414040),
@@ -867,6 +854,18 @@ class _HomePageState extends State<HomePage> {
                                   height: 0.08,
                                 ),
                               ),
+                              // child: Text(
+                              //   latestSessionsModel.sessionTime != null
+                              //       ? '${(latestSessionsModel.sessionTime! ~/ 60) % 12}:${(latestSessionsModel.sessionTime! % 60).toString().padLeft(2, '0')} ${(latestSessionsModel.sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
+                              //       : 'N/A',
+                              //   style: const TextStyle(
+                              //     color: Color(0xFF414040),
+                              //     fontSize: 12,
+                              //     fontFamily: 'Inter',
+                              //     fontWeight: FontWeight.w400,
+                              //     height: 0.08,
+                              //   ),
+                              // ),
                             ),
                           ],
                         ),

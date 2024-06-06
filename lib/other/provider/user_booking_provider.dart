@@ -6,16 +6,16 @@ import 'package:myapp/other/api_service.dart';
 
 class UserBookingProvider extends ChangeNotifier {
   List<BookingModel> userBooking = [];
+
   bool isLoading = false;
 
   void fetchUserBookings(
       {required bool past, required bool today, required bool upcoming}) async {
     isLoading = true;
     try {
-      log("MyBooking Data=>>>> $userBooking");
-      var userBookings = await ApiService.getUserBooking(
+      var userBookings = await ApiService.getUserBookings(
           today: today, past: past, upcoming: upcoming);
-      userBooking = userBookings;
+      // userBooking = userBookings;
     } finally {
       isLoading = false;
     }

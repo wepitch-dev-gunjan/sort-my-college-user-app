@@ -1056,7 +1056,6 @@ class ApiService {
       headers: headers,
     );
 
-    console.log("Booling Session : ${response.body}");
     if (response.statusCode == 201) {
       final data = jsonDecode(response.body.toString());
       return data;
@@ -1073,38 +1072,104 @@ class ApiService {
     return {};
   }
 
-  static Future<List<BookingModel>> getUserBooking(
+  static Future getUserBookings(
       {required bool past, required bool today, required bool upcoming}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
-    final url = today
-        ? Uri.parse("${AppConstants.baseUrl}/user/booking")
-        : Uri.parse(
-            "${AppConstants.baseUrl}/user/booking?past=$past&today=$today&upcoming=$upcoming");
-    // final url = Uri.parse("${AppConstants.baseUrl}/user/booking");
+    final url = Uri.parse(past == true
+        ? "${AppConstants.baseUrl}/user/booking?past=true"
+        : today == true
+            ? "${AppConstants.baseUrl}/user/booking?today=true"
+            : "${AppConstants.baseUrl}/user/booking?upcoming=true");
 
     final headers = {
       "Content-Type": "application/json",
       "Authorization": token,
     };
     final response = await http.get(url, headers: headers);
+    // log('Response=> ${response.body}');
 
-    //console.log("gettingAllBookings : ${response.body}");
-
-    if (response.statusCode == 200) {
-      List data = jsonDecode(response.body.toString());
-      List<BookingModel> bookingDetails = [];
-      //console.log("Yess");
-      for (final element in data) {
-        bookingDetails.add(BookingModel.fromJson(element));
-      }
-
-      return List.from(data.map((e) => BookingModel.fromJson(e)));
-    } else if (response.statusCode == 404) {
-      return [BookingModel(v: -1)];
-    }
-    return [];
+    return jsonDecode(response.body);
   }
+
+  static Future getUserBooking(
+      {required bool past,
+      required bool today,
+      required bool upcoming,
+      required String id}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+
+    final baseUrl = "${AppConstants.baseUrl}/user/booking/$id";
+
+    final url = Uri.parse(past == true
+        ? "$baseUrl?past=true"
+        : today == true
+            ? "$baseUrl?today=true"
+            : "$baseUrl?upcoming=true");
+
+    log("Url=>>>>>- $url");
+
+    final headers = {
+      "Content-Type": "application/json",
+      "Authorization": token,
+    };
+    final response = await http.get(url, headers: headers);
+    // log('Response=> ${response.body}');
+
+    return jsonDecode(response.body);
+  }
+
+  //  static Future getUserBooking(
+  //     {required bool past, required bool today, required bool upcoming, required String id}) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final token = prefs.getString("token").toString();
+  //   final url = Uri.parse(past == true
+  //       ? "${AppConstants.baseUrl}/user/booking?past=true"
+  //       : today == true
+  //           ? "${AppConstants.baseUrl}/user/booking?today=true"
+  //           : "${AppConstants.baseUrl}/user/booking?upcoming=true");
+
+  //   final headers = {
+  //     "Content-Type": "application/json",
+  //     "Authorization": token,
+  //   };
+  //   final response = await http.get(url, headers: headers);
+  //   // log('Response=> ${response.body}');
+
+  //   return jsonDecode(response.body);
+  // }
+
+  // static Future<List<BookingModel>> getUserBooking(
+  //     {required bool past, required bool today, required bool upcoming}) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final token = prefs.getString("token").toString();
+  //   final url = Uri.parse(past == true
+  //       ? "${AppConstants.baseUrl}/user/booking?past=true"
+  //       : today == true
+  //           ? "${AppConstants.baseUrl}/user/booking?today=true"
+  //           : "${AppConstants.baseUrl}/user/booking?upcoming=true");
+
+  //   final headers = {
+  //     "Content-Type": "application/json",
+  //     "Authorization": token,
+  //   };
+  //   final response = await http.get(url, headers: headers);
+  //   log('Response=> ${response.body}');
+
+  //   if (response.statusCode == 200) {
+  //     List data = jsonDecode(response.body.toString());
+  //     List<BookingModel> bookingDetails = [];
+  //     for (final element in data) {
+  //       bookingDetails.add(BookingModel.fromJson(element));
+  //     }
+
+  //     return List.from(data.map((e) => BookingModel.fromJson(e)));
+  //   } else if (response.statusCode == 404) {
+  //     return [BookingModel(v: -1)];
+  //   }
+  //   return [];
+  // }
 
   static Future<List<BookingModel>> getUserBookingAll(
       {required bool past, required bool today, required bool upcoming}) async {

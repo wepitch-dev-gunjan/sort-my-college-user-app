@@ -198,25 +198,25 @@ class _BookingUpcomingState extends State<BookingUpcoming> {
                                         width: mWidth * 0.34,
                                         height: 24,
                                         child: GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        BookingConfirmationPage2(
-                                                          // remainingTime: const Duration(), // has to change
-                                                            remainingTime: parseDuration(details.bookingData!.sessionTime.toString()),
-                                                            isUpcoming:
-                                                            false,
-                                                            bookingData: details.bookingData ??
-                                                                BookingData(),
-                                                            counsellorDetails: details.bookedEntity ??
-                                                                BookedEntity(),
-                                                            isConfirmed:
-                                                            true,
-                                                            time:
-                                                            "25:15")));
-                                          },
+                                          // onTap: () {
+                                          //   Navigator.push(
+                                          //       context,
+                                          //       MaterialPageRoute(
+                                          //           builder: (context) =>
+                                          //               BookingConfirmationPage(
+                                          //                 // remainingTime: const Duration(), // has to change
+                                          //                   remainingTime: parseDuration(details.bookingData!.sessionTime.toString()),
+                                          //                   isUpcoming:
+                                          //                   false,
+                                          //                   bookingData: details.bookingData ??
+                                          //                       BookingData(),
+                                          //                   counsellorDetails: details.bookedEntity ??
+                                          //                       BookedEntity(),
+                                          //                   isConfirmed:
+                                          //                   true,
+                                          //                   time:
+                                          //                   "25:15")));
+                                          // },
                                           child: Container(
                                               decoration:
                                               BoxDecoration(

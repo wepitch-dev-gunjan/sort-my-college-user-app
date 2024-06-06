@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/shared/colors_const.dart';
@@ -57,12 +58,6 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
   Future<void> _initializeSharedPreferences(String id) async {
     value = await ApiService.getWebinarDetailsData(id);
     isLoading = false;
-    log("value=>$value");
-
-    // List<String> whatWill = ['what_will_you_learn'];
-    // dataList = whatWill.length;
-    // var value = ApiService.getdetailpage(widget.webinarId);
-    //context.read<CounsellorDetailsProvider>().fetchWebinarDetails_Data(widget.webinarId);
 
     _prefs = await SharedPreferences.getInstance();
     bool isStarting = _prefs.getBool('isRegistrationStarting') ?? false;
@@ -467,14 +462,15 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                             'Registration completed. Thanks for registering');
                                     setState(() {
                                       widget.webinarRegister = true;
+
                                       _isRegistrationStarting =
                                           widget.webinarRegister;
                                     });
-                                    //Navigator.pop(context);
                                   }
                                   if (mounted) {
                                     Navigator.pop(context);
                                   }
+
                                   await _updateRegistrationStatus(true);
                                 }
                               },

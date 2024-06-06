@@ -308,6 +308,9 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                                             0) {
                                       launchUrlString(
                                           widget.webinarModel.joinUrl!);
+                                     
+
+                                    
                                     } else if (_isRegistrationStarting) {
                                       Fluttertoast.showToast(
                                           msg:

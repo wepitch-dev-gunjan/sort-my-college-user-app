@@ -2,12 +2,17 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:intl/intl.dart';
+import 'package:myapp/booking_page/booking_confirmatoin_page_2.dart';
 import 'package:myapp/model/booking_model.dart';
 import 'package:myapp/other/provider/user_booking_provider.dart';
 import 'package:myapp/booking_page/booking_confirmatoin_page.dart';
 import 'package:myapp/utils.dart';
 import 'package:myapp/utils/common.dart';
 import 'package:provider/provider.dart';
+
+import '../other/api_service.dart';
+import 'booking_confirmatoin_page_1.dart';
 
 class BookingToday extends StatefulWidget {
   const BookingToday({super.key});
@@ -17,6 +22,9 @@ class BookingToday extends StatefulWidget {
 }
 
 class _BookingTodayState extends State<BookingToday> {
+  bool isLoading = true;
+  List bookings = [];
+
   late var apiTime;
   late var todayTime;
   var currentTime;
@@ -25,316 +33,274 @@ class _BookingTodayState extends State<BookingToday> {
   @override
   void initState() {
     super.initState();
-    context
-        .read<UserBookingProvider>()
-        .fetchUserBookings(past: false, today: true, upcoming: false);
-    todayTime = DateTime.now();
+
+    getPastData();
+
+    // todayTime = DateTime.now();
   }
 
-  Future<void> _refresh() async {
-    return Future.delayed(const Duration(seconds: 1), () {
-      context
-          .read<UserBookingProvider>()
-          .fetchUserBookings(past: false, today: true, upcoming: false);
+  getPastData() async {
+    final todayData = await ApiService.getUserBookings(
+        past: false, today: true, upcoming: false);
+
+    setState(() {
+      bookings = todayData;
+      isLoading = false;
     });
   }
 
-  DateTime parseTiming(String time) {
-    List<String> parts = time.split(":");
+  // Future<void> _refresh() async {
+  //   return Future.delayed(const Duration(seconds: 1), () {
+  //     context
+  //         .read<UserBookingProvider>()
+  //         .fetchUserBookings(past: false, today: true, upcoming: false);
+  //   });
+  // }
 
-    return DateTime(
-      DateTime.now().year,
-      DateTime.now().month,
-      DateTime.now().day,
-      int.parse(parts[0]),
-      int.parse(parts[1]),
-    );
-  }
+  // DateTime parseTiming(String time) {
+  //   List<String> parts = time.split(":");
+
+  //   return DateTime(
+  //     DateTime.now().year,
+  //     DateTime.now().month,
+  //     DateTime.now().day,
+  //     int.parse(parts[0]),
+  //     int.parse(parts[1]),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
-    var userBookings = context.watch<UserBookingProvider>().userBooking;
-   
-    bool isLoading = context.watch<UserBookingProvider>().isLoading;
+    log("Today Data=>>>>>>$bookings");
+    var mWidth = MediaQuery.sizeOf(context).width;
 
-    // String time = "25:15";
-    // var mWidth = MediaQuery.sizeOf(context).width;
     return isLoading
         ? const Center(child: CircularProgressIndicator())
-        : userBookings.isEmpty
+        : bookings.isEmpty
             ? Center(
                 child: Text(
                   "No Bookings...",
                   style: SafeGoogleFont("Inter"),
                 ),
               )
-            : userBookings[0].v == -1
-                ? Builder(builder: (context) {
-                    EasyLoading.showToast(
-                      "404 Page Not Found!",
-                      toastPosition: EasyLoadingToastPosition.bottom,
-                    );
-                    return const Center(
-                      child: Text("Something went wrong!"),
-                    );
-                  })
-                : RefreshIndicator(
-                    onRefresh: _refresh,
-                    child: ListView.builder(
-                        itemCount: userBookings.length,
-                        itemBuilder: (context, index) {
-                          var details = userBookings[index];
-                          remaning_time =
-                              details.bookingData!.sessionTime.toString();
-
-                          /*currentTime = DateFormat('h:mm')
-                              .format(DateTime.fromMillisecondsSinceEpoch(
-                            double.parse(details.bookingData!.sessionTime.toString()) as int,
-                          ));
-
-                          apiTime = parseTiming(currentTime);
-                          Duration remainingTime = apiTime.difference(todayTime);
-                          print('Minutes${remainingTime.inHours}');*/
-
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Container(
-                              margin: const EdgeInsets.only(bottom: 15),
-                              child: Stack(
-                                // fit: StackFit.expand,
-                                alignment: Alignment.bottomCenter,
-                                children: [
-                                  Card(
-                                    surfaceTintColor: Colors.white,
-                                    color: Colors.white,
-                                    // semanticContainer: false,
-                                    margin: const EdgeInsets.only(top: 5),
-                                    elevation: 5,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
+            : ListView.builder(
+                itemCount: bookings.length,
+                itemBuilder: (context, index) {
+                  var time =
+                      "${bookings[index]['booking_data']["session_time"]}";
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 15),
+                      child: Stack(
+                        // fit: StackFit.expand,
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          Card(
+                            color: Colors.white,
+                            surfaceTintColor: Colors.white,
+                            shadowColor: Colors.white,
+                            // semanticContainer: false,
+                            margin: const EdgeInsets.only(top: 5),
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
                                           children: [
+                                            CircleAvatar(
+                                                radius: 30,
+                                                backgroundImage: NetworkImage(
+                                                    '${bookings[index]["booked_entity"]['profile_pic']}')),
+                                            const SizedBox(
+                                              width: 7,
+                                            ),
                                             Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Row(
-                                                  children: [
-                                                    CircleAvatar(
-                                                      radius: 30,
-                                                      backgroundImage:
-                                                          NetworkImage(details
-                                                                  .bookedEntity
-                                                                  ?.profilePic ??
-                                                              "https://media.gettyimages.com/id/1334712074/vector/coming-soon-message.jpg?s=612x612&w=0&k=20&c=0GbpL-k_lXkXC4LidDMCFGN_Wo8a107e5JzTwYteXaw="),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 7,
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          details.bookedEntity
-                                                                  ?.name ??
-                                                              "Coming",
-                                                          style: SafeGoogleFont(
-                                                            "Inter",
-                                                            fontSize: 18,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          /* details.bookedEntity!.qualifications!.isNotEmpty && details.bookedEntity!.qualifications![0] !=null
-                                                              ?details.bookedEntity!.qualifications![0]
-                                                              : 'N/A',*/
-
-                                                          details
-                                                                  .bookedEntity!
-                                                                  .designation!
-                                                                  .isNotEmpty
-                                                              ? details
-                                                                  .bookedEntity!
-                                                                  .designation!
-                                                              : 'N/A',
-
-                                                          // textAlign: TextAlign.left,
-
-                                                          style: SafeGoogleFont(
-                                                            "Inter",
-                                                            color: const Color(
-                                                                0xff747474),
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ],
+                                                Text(
+                                                  '${bookings[index]["booked_entity"]['name']}',
+                                                  // bookings[index]
+                                                  //         .booked_entity
+                                                  //         ?.name ??
+                                                  //     "Coming",
+                                                  style: SafeGoogleFont(
+                                                    "Inter",
+                                                    fontSize: mWidth * 0.045,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '${bookings[index]["booked_entity"]['email']}',
+                                                  // bookings[index]
+                                                  //         .booked_entity
+                                                  //         ?.email ??
+                                                  //     'N/A',
+                                                  // textAlign: TextAlign.left,
+                                                  style: SafeGoogleFont(
+                                                    "Inter",
+                                                    color:
+                                                        const Color(0xff747474),
+                                                    fontSize: mWidth * 0.035,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
                                                 ),
                                               ],
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Session starts at",
+                                              style: SafeGoogleFont("Inter",
+                                                  fontSize: 12,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold),
                                             ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Session starts in",
-                                                      style: SafeGoogleFont(
-                                                          "Inter",
-                                                          fontSize: 12,
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    RichText(
-                                                      text: TextSpan(
-                                                        children: <TextSpan>[
-                                                          TextSpan(
-                                                              text: convertSessionTime(details
-                                                                  .bookingData!
-                                                                  .sessionTime
+                                            RichText(
+                                              text: TextSpan(
+                                                children: <TextSpan>[
+                                                  TextSpan(
+                                                      // ignore: unnecessary_null_comparison
+                                                      text: time.toString() !=
+                                                              null
+                                                          ? DateFormat('h:mm a')
+                                                              .format(DateTime
+                                                                  .fromMillisecondsSinceEpoch(
+                                                              int.parse(time
                                                                   .toString()),
-                                                              // "${remainingTime.inHours < 0 ? "" : remainingTime.inHours}${remainingTime.inMinutes.remainder(60) < 0 ? '0' : ": ${remainingTime.inMinutes.remainder(60)}"} ",
-                                                              //  details.bookingData!.sessionTime.toString(),
+                                                            ))
+                                                          : 'N/A',
+                                                      // text: booking.bookingData?.sessionTime != null
+                                                      //             ? DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(int.parse(booking.bookingData!.sessionTime.toString()),))
+                                                      //             : 'N/A',
 
-                                                              style: SafeGoogleFont(
-                                                                  "Inter",
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize: 20,
-                                                                  color: Colors
-                                                                      .black)),
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                const Spacer(),
-                                                Column(
-                                                  children: [
-                                                    Text(
-                                                      "${details.bookingData?.sessionType ?? "N/A"} Session",
                                                       style: SafeGoogleFont(
                                                           "Inter",
                                                           fontWeight:
                                                               FontWeight.w600,
-                                                          fontSize: 14,
-                                                          color: const Color(
-                                                              0xff1F0A68)),
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 137,
-                                                      height: 24,
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder: (context) =>
-                                                                      BookingConfirmationPage(
-                                                                          remainingTimestr: details
-                                                                              .bookingData!
-                                                                              .sessionTime
-                                                                              .toString(),
-                                                                          /*parseDuration(details.bookingData!.sessionTime.toString())*/
-                                                                          isUpcoming:
-                                                                              false,
-                                                                          bookingData: details.bookingData ??
-                                                                              BookingData(),
-                                                                          designation: details
-                                                                              .bookedEntity!
-                                                                              .designation!,
-                                                                          counsellorDetails: details.bookedEntity ??
-                                                                              BookedEntity(),
-                                                                          isConfirmed:
-                                                                              true,
-                                                                          time:
-                                                                              "25:15")));
-                                                        },
-                                                        child: Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              border:
-                                                                  Border.all(),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          20),
-                                                            ),
-                                                            child: Center(
-                                                                child: Text(
-                                                              "View details",
-                                                              style: SafeGoogleFont(
-                                                                  "Inter",
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize: 12,
-                                                                  color: Colors
-                                                                      .black),
-                                                            ))),
+                                                          fontSize: 20,
+                                                          color: Colors.black)),
+                                                  // TextSpan(
+                                                  //     text: "m",
+                                                  //     style: SafeGoogleFont("Inter",
+                                                  //         fontWeight: FontWeight.w600,
+                                                  //         fontSize: 14,
+                                                  //         color: Colors.black))
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        const Spacer(),
+                                        Column(
+                                          children: [
+                                            Text(
+                                              "${bookings[index]['booking_data']['session_type']}",
+                                              // "${bookings[index]['booking_data']['session_type']} Session",
+                                              style: SafeGoogleFont("Inter",
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: mWidth * 0.038,
+                                                  color:
+                                                      const Color(0xff1F0A68)),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            SizedBox(
+                                              width: mWidth * 0.34,
+                                              height: 24,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          BookingConfirmationPage2(
+                                                        id: bookings[index]
+                                                            ['_id'],
                                                       ),
                                                     ),
-                                                  ],
-                                                )
-                                              ],
-                                            )
-                                          ]),
-                                    ),
+                                                  );
+                                                },
+                                                child: Container(
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                    ),
+                                                    child: Center(
+                                                        child: Text(
+                                                      "View booking",
+                                                      style: SafeGoogleFont(
+                                                          "Inter",
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize:
+                                                              mWidth * 0.032,
+                                                          color: Colors.black),
+                                                    ))),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                  ]),
+                            ),
+                          ),
+                          Positioned(
+                            top: 0,
+                            left: 7,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: Colors.black54,
                                   ),
-                                  Positioned(
-                                    top: 0,
-                                    left: 7,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border: Border.all(
-                                            color: Colors.black54,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      width: 58,
-                                      height: 17,
-                                      child: Center(
-                                        child: Text(
-                                          "Counsellor",
-                                          style: SafeGoogleFont(
-                                            "Inter",
-                                            fontSize: 8,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                  borderRadius: BorderRadius.circular(10)),
+                              width: 58,
+                              height: 17,
+                              child: Center(
+                                child: Text(
+                                  "Counsellor",
+                                  style: SafeGoogleFont(
+                                    "Inter",
+                                    fontSize: 8,
+                                    fontWeight: FontWeight.w600,
                                   ),
-                                ],
+                                ),
                               ),
                             ),
-                          );
-                        }),
+                          ),
+                        ],
+                      ),
+                    ),
                   );
+                });
 
     //      return ListView(
     //   children: [
