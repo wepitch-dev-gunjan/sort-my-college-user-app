@@ -3,23 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/constants.dart';
-import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../utils.dart';
 
-class BookingConfirmationPage2 extends StatefulWidget {
+class BookingConfirmationToday extends StatefulWidget {
   final String id;
-  const BookingConfirmationPage2({super.key, required this.id});
+  const BookingConfirmationToday({super.key, required this.id});
 
   @override
-  State<BookingConfirmationPage2> createState() =>
-      _BookingConfirmationPage1State();
+  State<BookingConfirmationToday> createState() =>
+      _BookingConfirmationTodayState();
 }
 
-class _BookingConfirmationPage1State extends State<BookingConfirmationPage2> {
+class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
   bool isLoading = true;
   var booking;
 
@@ -589,7 +587,7 @@ class _BookingConfirmationPage1State extends State<BookingConfirmationPage2> {
                                 ),
                               ),
 
-                              Spacer(),
+                              const Spacer(),
 
                               Text(
                                 "${booking['booking_data']['session_type']}",
@@ -714,7 +712,7 @@ class _BookingConfirmationPage1State extends State<BookingConfirmationPage2> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 50.0)
+                        const SizedBox(height: 50.0)
                       ],
                     ),
                   ),

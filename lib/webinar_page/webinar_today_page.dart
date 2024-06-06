@@ -37,7 +37,7 @@ class _WebinarTodayPageState extends State<WebinarTodayPage> {
     bool isLoading = context.watch<CounsellorDetailsProvider>().isLoading;
     return isLoading
         ? const Center(child: CircularProgressIndicator())
-        : counsellorSessionProvider.webinarList.length == 0
+        : counsellorSessionProvider.webinarList.isEmpty
             ? Center(
                 child: Text(
                   "No Webinar",
@@ -296,9 +296,9 @@ class _CustomWebinarCard1State extends State<CustomWebinarCard1> {
                                     widget.webinarModel.registered;
                                 if (widget.webinarModel.registered &&
                                     widget.webinarModel.webnar_startdays == 0) {
-                                      var value = await ApiService
-                                                    .webinar_regiter(widget
-                                                        .webinarModel.id!);
+                                      // var value = await ApiService
+                                      //               .webinar_regiter(widget
+                                      //                   .webinarModel.id!);
                                   launchUrlString(widget.webinarModel.joinUrl!);
                                 } else if (_isRegistrationStarting) {
                                   Fluttertoast.showToast(

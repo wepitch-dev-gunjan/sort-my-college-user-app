@@ -23,6 +23,9 @@ import 'constants.dart';
 import 'dart:developer' as console show log;
 
 class ApiService {
+
+
+  
   static Future<Map<String, dynamic>> updateBookingSession(
       String sessionId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -291,7 +294,6 @@ class ApiService {
 
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-      log("this is chackout call1");
 
       log("Checkout Data=> $data");
       return List<CheckOutDetails>.from(
@@ -317,7 +319,6 @@ class ApiService {
     setIsLoading(false);
 
     if (response.statusCode == 200) {
-      //print('Counsellor updated successfully');
       var data = jsonDecode(response.body.toString());
       return data;
     }
@@ -505,7 +506,6 @@ class ApiService {
 
     final response = await http.put(url, headers: headers, body: body);
 
-    // log("Response Profile Create ======================123> ${response.body}");
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body.toString());
       return data;
@@ -671,7 +671,7 @@ class ApiService {
       "Authorization": token,
     });
     var data;
-    console.log("Counsellor List : ${response.body}");
+    // console.log("Counsellor List : ${response.body}");
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
       return List<CounsellorData>.from(
@@ -910,10 +910,10 @@ class ApiService {
     );
     var data;
 
-    console.log(response.body.toString());
+    // console.log(response.body.toString());
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-      console.log(data.toString());
+      // console.log(data.toString());
       return CounsellorSessionDetails.fromJson(data);
     }
     if (response.statusCode == 404) {
@@ -942,10 +942,10 @@ class ApiService {
     );
     var data;
 
-    console.log(response.body.toString());
+    // console.log(response.body.toString());
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-      console.log(data.toString());
+      // console.log(data.toString());
       return CounsellorSessionDetails.fromJson(data);
     }
     if (response.statusCode == 404) {
@@ -974,10 +974,10 @@ class ApiService {
     );
     var data;
 
-    console.log(response.body.toString());
+    // console.log(response.body.toString());
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-      console.log(data.toString());
+      // console.log(data.toString());
       return CounsellorSessionDetails.fromJson(data);
     }
     if (response.statusCode == 404) {

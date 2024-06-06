@@ -27,10 +27,10 @@ class CustomWebinarCard extends StatefulWidget {
 }
 
 class _CustomWebinarCardState extends State<CustomWebinarCard> {
-  int _currentIndex = 0;
+  final int _currentIndex = 0;
   var pastdays;
 
-  PageController _pageController = PageController(initialPage: 0);
+  final PageController _pageController = PageController(initialPage: 0);
   late Timer _timer;
 
   @override

@@ -11,17 +11,16 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckOutScreen extends StatefulWidget {
-  CheckOutScreen(
+  final String name;
+  final String? id;
+  final String designation;
+  final String profilepicurl;
+  const CheckOutScreen(
       {required this.designation,
       required this.name,
       required this.id,
       required this.profilepicurl,
       super.key});
-
-  String name;
-  String? id;
-  String designation;
-  String profilepicurl;
 
   @override
   State<CheckOutScreen> createState() => _CheckOutScreenState();

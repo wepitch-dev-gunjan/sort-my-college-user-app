@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/model/cousnellor_list_model.dart';
@@ -18,10 +17,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../other/api_service.dart';
 
 class CounsellorDetailsScreen extends StatefulWidget {
-  const CounsellorDetailsScreen({
-    required this.id,
-    super.key,
-  });
+  const CounsellorDetailsScreen({required this.id, super.key});
 
   final String id;
 

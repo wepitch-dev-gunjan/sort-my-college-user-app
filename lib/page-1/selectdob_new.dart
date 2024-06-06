@@ -31,7 +31,7 @@ class _SelectDobNewState extends State<SelectDobNew> {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               height: 460,
               width: 340,
               child: Theme(

@@ -72,7 +72,7 @@ class _Notification2State extends State<Notification2> {
           ),
         ),
       ),
-      body: Center(
+      body: const Center(
         child: Text("No data found"),
       ),
       // body: Padding(

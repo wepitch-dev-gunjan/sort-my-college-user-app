@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
     prefs.setString("profile_image_path", path);
   }
 
-  int _currentIndex = 0;
+  final int _currentIndex = 0;
   final PageController _pageController = PageController(initialPage: 0);
   late Timer _timer;
 

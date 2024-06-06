@@ -20,7 +20,7 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
   String? currentDob;
   String username = "";
 
-  TextEditingController _namecontroller = TextEditingController();
+  final TextEditingController _namecontroller = TextEditingController();
 
   @override
   void initState() {

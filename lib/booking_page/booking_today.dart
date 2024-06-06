@@ -1,18 +1,11 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
-import 'package:myapp/booking_page/booking_confirmatoin_page_2.dart';
-import 'package:myapp/model/booking_model.dart';
-import 'package:myapp/other/provider/user_booking_provider.dart';
-import 'package:myapp/booking_page/booking_confirmatoin_page.dart';
+import 'package:myapp/booking_page/booking_confirmatoin_today.dart';
 import 'package:myapp/utils.dart';
-import 'package:myapp/utils/common.dart';
-import 'package:provider/provider.dart';
 
 import '../other/api_service.dart';
-import 'booking_confirmatoin_page_1.dart';
 
 class BookingToday extends StatefulWidget {
   const BookingToday({super.key});
@@ -238,7 +231,7 @@ class _BookingTodayState extends State<BookingToday> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          BookingConfirmationPage2(
+                                                          BookingConfirmationToday(
                                                         id: bookings[index]
                                                             ['_id'],
                                                       ),

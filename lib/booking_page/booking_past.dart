@@ -1,10 +1,8 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/utils.dart';
-
-import 'booking_confirmatoin_page_1.dart';
+import 'booking_confirmatoin_past.dart';
 
 class BookingPast extends StatefulWidget {
   const BookingPast({super.key});
@@ -20,7 +18,6 @@ class _BookingPastState extends State<BookingPast> {
   @override
   void initState() {
     super.initState();
-
     getPastData();
   }
 
@@ -201,12 +198,13 @@ class _BookingPastState extends State<BookingPast> {
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                        builder: (context) {
-                                                      return BookingConfirmationPage1(
-                                                        id: bookings[index]
-                                                            ['_id'],
-                                                      );
-                                                    }),
+                                                      builder: (context) {
+                                                        return BookingConfirmationPast(
+                                                          id: bookings[index]
+                                                              ['_id'],
+                                                        );
+                                                      },
+                                                    ),
                                                   );
                                                 },
                                                 child: Container(
@@ -264,7 +262,8 @@ class _BookingPastState extends State<BookingPast> {
                       ),
                     ),
                   );
-                });
+                },
+              );
   }
 
   parseDuration(String durationString) {

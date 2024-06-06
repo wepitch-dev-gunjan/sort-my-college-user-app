@@ -25,9 +25,7 @@ class _WebinarPageState extends State<WebinarPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    //getAllInfo();
     pageController = PageController(initialPage: selectedIndex);
     SessionDate.dateTimeDif();
   }
@@ -41,7 +39,7 @@ class _WebinarPageState extends State<WebinarPage> {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
-        // logic
+     
         SystemNavigator.pop();
       },
       child: Scaffold(
