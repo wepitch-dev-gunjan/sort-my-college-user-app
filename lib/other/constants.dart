@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 class AppConstants {
-  static String baseUrl = 'https://sortmycollegeapp.com';
+  static String baseUrl = 'https://www.sortmycollegeapp.com';
   static String counsellorlistEndpoint = '/counsellor/';
   static String sendotpRequest = '/user/auth/sendOTPEmail';
   static String sendotpphoneRequest = '/user/auth/sendOTPPhone';

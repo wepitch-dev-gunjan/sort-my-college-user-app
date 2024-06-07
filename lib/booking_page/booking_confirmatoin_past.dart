@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../shared/colors_const.dart';
 import '../utils.dart';
 
 class BookingConfirmationPast extends StatefulWidget {
@@ -108,15 +109,13 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                               height: 105,
                               width: 105,
                             ),
-                            const SizedBox(
-                              height: 20,
+                            const SizedBox(height: 20),
+                            Text(
+                              isConfirmed
+                                  ? "BOOKING CLOSED"
+                                  : "BOOKING CANCELED",
+                              style: SafeGoogleFont("Inter", fontSize: 14),
                             ),
-                          const  Text("N/A"
-                                // widget.isConfirmed
-                                //     ? "BOOKING CLOSED"
-                                //     : "BOOKING CANCELED",
-                                // style: SafeGoogleFont("Inter", fontSize: 14),
-                                ),
                             const SizedBox(
                               height: 30,
                             ),
@@ -141,10 +140,9 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Session starts at",
-                                        // widget.isUpcoming
-                                        //     ? "Meeting starts at"
-                                        //     : "Session Started",
+                                        isUpcoming
+                                            ? "Meeting starts at"
+                                            : "Session Started",
                                         style: SafeGoogleFont(
                                           "Inter",
                                           fontSize: 12,
@@ -437,7 +435,7 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                     ),
                                   ),
                                   Text(
-                                    " : ${booking['booking_data']['session_fee']}",
+                                    " : \u{20B9}${booking['booking_data']['session_fee']}",
                                     // " : ${widget.bookingData.sessionFee}/-",
                                     style: SafeGoogleFont(
                                       "Inter",
@@ -623,7 +621,7 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                               const Spacer(),
 
                               Text(
-                                "${booking['booking_data']['session_fee']}",
+                                "\u{20B9}${booking['booking_data']['session_fee']}",
                                 style: SafeGoogleFont(
                                   "Inter",
                                   fontSize: 14,
@@ -655,7 +653,7 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                               ),
                               const Spacer(),
                               Text(
-                                "N/A",
+                                "\u{20B9}${(booking['booking_data']['session_fee'] * 0.18).toInt()}",
                                 style: SafeGoogleFont(
                                   "Inter",
                                   fontSize: 14,
@@ -679,7 +677,7 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                               ),
                               const Spacer(),
                               Text(
-                                "N/A",
+                                "\u{20B9}${(booking['booking_data']['session_fee'] * 0.05).toInt()}",
                                 style: SafeGoogleFont(
                                   "Inter",
                                   fontSize: 14,
@@ -703,10 +701,11 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                               ),
                               const Spacer(),
                               Text(
-                                "N/A",
-                                style: SafeGoogleFont(
-                                  "Inter",
-                                  fontSize: 14,
+                                "\u{20B9}${(booking['booking_data']['session_fee'] * 0.18).toInt() + (booking['booking_data']['session_fee'] * 0.05).toInt() + (booking['booking_data']['session_fee'])}",
+                                style: const TextStyle(
+                                  color: ColorsConst.blackColor,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               )
                             ],

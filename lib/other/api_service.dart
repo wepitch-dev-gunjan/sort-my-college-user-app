@@ -23,9 +23,6 @@ import 'constants.dart';
 import 'dart:developer' as console show log;
 
 class ApiService {
-
-
-  
   static Future<Map<String, dynamic>> updateBookingSession(
       String sessionId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -117,7 +114,8 @@ class ApiService {
   }
 
   static Future<List<BannerImageModel>> getBannerImage() async {
-    var url = Uri.parse("https://sortmycollegeapp.com/admin/home-page-banner");
+    var url =
+        Uri.parse("https://www.sortmycollegeapp.com/admin/home-page-banner");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("auth").toString();
     final response = await http.get(url, headers: {
@@ -416,27 +414,28 @@ class ApiService {
   }
 
   static Future<Map<String, dynamic>> counsellor_create_payment(
-      String paymentTo,
-      String paymentFrom,
-      String oderId,
-      String paymentId,
-      String entity,
-      String amount,
-      String amountPaid,
-      String amountDue,
-      String currency,
-      String receipt,
-      String offerId,
-      String status,
-      int attempts,
-      String createdAt,
-      String key,
-      String name,
-      String email,
-      String phoneNo,
-      String description,
-      String gst,
-      String convcharge) async {
+    String paymentTo,
+    String paymentFrom,
+    String oderId,
+    String paymentId,
+    String entity,
+    String amount,
+    String amountPaid,
+    String amountDue,
+    String currency,
+    String receipt,
+    String offerId,
+    String status,
+    int attempts,
+    String createdAt,
+    String key,
+    String name,
+    String email,
+    String phoneNo,
+    String description,
+    String gst,
+    String convcharge,
+  ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
     print(token);
@@ -965,7 +964,7 @@ class ApiService {
 
     // var url = Uri.parse("${AppConstants.baseUrl}/counsellor/$id/sessions${date != null ? params : ''}");
     var url = Uri.parse(
-        "https://sortmycollegeapp.com/counsellor/65f97eaec5894941bf7c96eb/sessions");
+        "https://www.sortmycollegeapp.com/counsellor/65f97eaec5894941bf7c96eb/sessions");
     print(url);
 
     var response = await http.get(
