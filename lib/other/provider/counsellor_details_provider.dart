@@ -163,7 +163,7 @@ class CounsellorDetailsProvider extends ChangeNotifier {
   webinarList.clear();
   var webinar = await ApiService.getWebinarData(params);
 
-  log("Webinaers=>>>>> $webinar");
+  // log("Webinaers=>>>>> $webinar");
 
   if (webinar.isEmpty) {
     isLoading = false;

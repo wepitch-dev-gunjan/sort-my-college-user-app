@@ -854,18 +854,6 @@ class _HomePageState extends State<HomePage> {
                                   height: 0.08,
                                 ),
                               ),
-                              // child: Text(
-                              //   latestSessionsModel.sessionTime != null
-                              //       ? '${(latestSessionsModel.sessionTime! ~/ 60) % 12}:${(latestSessionsModel.sessionTime! % 60).toString().padLeft(2, '0')} ${(latestSessionsModel.sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
-                              //       : 'N/A',
-                              //   style: const TextStyle(
-                              //     color: Color(0xFF414040),
-                              //     fontSize: 12,
-                              //     fontFamily: 'Inter',
-                              //     fontWeight: FontWeight.w400,
-                              //     height: 0.08,
-                              //   ),
-                              // ),
                             ),
                           ],
                         ),
@@ -887,7 +875,7 @@ class _HomePageState extends State<HomePage> {
                             SizedBox(
                               width: 121.13,
                               child: Text(
-                                str[0],
+                                "${latestSessionsModel.sessionDate}",
                                 style: const TextStyle(
                                   color: Color(0xFF414040),
                                   fontSize: 12,

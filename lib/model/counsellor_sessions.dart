@@ -41,6 +41,7 @@ class Sessions {
   String? sessionLink;
   String? createdAt;
   String? updatedAt;
+  String? sessionTopic;
   dynamic sessionAvailableSlots;
   int? v;
   String? sessionMassagedDate;
@@ -61,7 +62,8 @@ class Sessions {
       this.updatedAt,
       this.sessionAvailableSlots,
       this.v,
-      this.sessionMassagedDate});
+      this.sessionMassagedDate,
+      this.sessionTopic});
 
   Sessions.fromJson(Map<String, dynamic> json) {
     if (json["_id"] is String) {
@@ -95,12 +97,15 @@ class Sessions {
     if (json["session_link"] is String) {
       sessionLink = json["session_link"];
     }
+
+    
     if (json["createdAt"] is String) {
       createdAt = json["createdAt"];
     }
     if (json["updatedAt"] is String) {
       updatedAt = json["updatedAt"];
     }
+
     if (json["session_available_slots"] is int) {
       sessionAvailableSlots = json["session_available_slots"];
     }
@@ -109,6 +114,9 @@ class Sessions {
     }
     if (json["session_massaged_date"] is String) {
       sessionMassagedDate = json["session_massaged_date"];
+    }
+    if (json["session_topic"] is String) {
+      sessionTopic = json["session_topic"];
     }
   }
 
@@ -130,6 +138,7 @@ class Sessions {
     data["session_available_slots"] = sessionAvailableSlots;
     data["__v"] = v;
     data["session_massaged_date"] = sessionMassagedDate;
+    data["session_topic"] = sessionTopic;
     return data;
   }
 }

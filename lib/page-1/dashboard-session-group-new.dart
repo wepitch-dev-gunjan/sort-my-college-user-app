@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -221,7 +222,6 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     //PhonePayInit();
@@ -485,6 +485,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                   physics: const ScrollPhysics(),
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
+                                    log("message=>-${counsellorSessionProvider.details.sessions![index].sessionTopic}");
                                     dynamic bookedslot =
                                         counsellorSessionProvider.details
                                                 .sessions![index].sessionSlots -
@@ -518,7 +519,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                     counsellorSessionProvider
                                                             .details
                                                             .sessions![index]
-                                                            .sessionUser ??
+                                                            .sessionTopic ??
                                                         'Session',
                                                     style: const TextStyle(
                                                       color: Color(0xFF1F0A68),
@@ -592,28 +593,14 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                         height: 5,
                                                       ),
                                                       Text(
-
-
-                                  counsellorSessionProvider.details.sessions?[index].sessionTime != null
-    ? '${(counsellorSessionProvider.details.sessions![index].sessionTime! ~/ 60) % 12 == 0 ? 12 : (counsellorSessionProvider.details.sessions![index].sessionTime! ~/ 60) % 12}:${(counsellorSessionProvider.details.sessions![index].sessionTime! % 60).toString().padLeft(2, '0')} ${(counsellorSessionProvider.details.sessions![index].sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
-    : 'N/A',
-
-
-                                                        // counsellorSessionProvider
-                                                        //             .details
-                                                        //             .sessions?[
-                                                        //                 index]
-                                                        //             .sessionTime !=
-                                                        //         null
-                                                        //     ? DateFormat(
-                                                        //             'h:mm a')
-                                                        //         .format(DateTime.fromMillisecondsSinceEpoch(
-                                                        //             counsellorSessionProvider
-                                                        //                 .details
-                                                        //                 .sessions![
-                                                        //                     index]
-                                                        //                 .sessionTime!))
-                                                        //     : 'N/A',
+                                                        counsellorSessionProvider
+                                                                    .details
+                                                                    .sessions?[
+                                                                        index]
+                                                                    .sessionTime !=
+                                                                null
+                                                            ? '${(counsellorSessionProvider.details.sessions![index].sessionTime! ~/ 60) % 12 == 0 ? 12 : (counsellorSessionProvider.details.sessions![index].sessionTime! ~/ 60) % 12}:${(counsellorSessionProvider.details.sessions![index].sessionTime! % 60).toString().padLeft(2, '0')} ${(counsellorSessionProvider.details.sessions![index].sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
+                                                            : 'N/A',
                                                         style: const TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 12,
@@ -759,7 +746,6 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                           context,
                                                           MaterialPageRoute(
                                                             builder: (context) {
-
                                                               log('id');
 
                                                               return CheckOutScreen(

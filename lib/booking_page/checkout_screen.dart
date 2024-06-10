@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -41,6 +43,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   var sessionId;
   late String gst;
   late String convinence_charge;
+  String? sessionType;
 
   void openCheckOut(var amountt) async {
     amt_send = amountt;
@@ -75,7 +78,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         toastLength: Toast.LENGTH_SHORT);
 
     await ApiService.counsellor_create_payment(
-      
             cid,
             payment_from,
             oderId,
@@ -96,7 +98,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             phoneNumber,
             'session booking',
             gst,
-            convinence_charge)
+            convinence_charge,
+            sessionType ?? "")
         .then((value) => checkpaymentsucess(value));
   }
 
@@ -142,7 +145,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // log("Session Type=>$sessiontype");
+
     var counsellorDetailController = context.watch<CounsellorDetailsProvider>();
+
+    sessionType = counsellorDetailController.checkOutDetailsList.isNotEmpty
+        ? counsellorDetailController.checkOutDetailsList[0].sessionType
+        : null;
 
     str = counsellorDetailController.checkOutDetailsList.isNotEmpty
         ? counsellorDetailController.checkOutDetailsList[0].sessionDate
@@ -512,9 +521,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               style: TextStyle(color: ColorsConst.whiteColor),
                             )),
                       ),
-                      SizedBox(
-                        height: height * 0.04,
-                      ),
+                      SizedBox(height: height * 0.04),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
@@ -562,15 +569,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   MoveToSessionPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const BookingPage()
-          // CounsellingSessionPage(
-          //   id: cid,
-          //   name: name,
-          //   designation: widget.designation,
-          //   profileurl: widget.profilepicurl,
-          //   selectedIndex_get: 0,)
-
-          ),
+      MaterialPageRoute(builder: (context) => const BookingPage()),
     );
   }
 }

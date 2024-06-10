@@ -148,32 +148,19 @@ class _BookingUpcomingState extends State<BookingUpcoming> {
                                             text: TextSpan(
                                               children: <TextSpan>[
                                                 TextSpan(
-                                                    // ignore: unnecessary_null_comparison
-                                                    text: time.toString() !=
+                                                    text: bookings[index][
+                                                                    'booking_data']
+                                                                [
+                                                                "session_time"] !=
                                                             null
-                                                        ? DateFormat('h:mm a')
-                                                            .format(DateTime
-                                                                .fromMillisecondsSinceEpoch(
-                                                            int.parse(time
-                                                                .toString()),
-                                                          ))
+                                                        ? '${(bookings[index]['booking_data']["session_time"]! ~/ 60) % 12 == 0 ? 12 : (bookings[index]['booking_data']["session_time"]! ~/ 60) % 12}:${(bookings[index]['booking_data']["session_time"]! % 60).toString().padLeft(2, '0')} ${(bookings[index]['booking_data']["session_time"]! ~/ 60) < 12 ? 'AM' : 'PM'}'
                                                         : 'N/A',
-                                                    // text: booking.bookingData?.sessionTime != null
-                                                    //             ? DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(int.parse(booking.bookingData!.sessionTime.toString()),))
-                                                    //             : 'N/A',
-
                                                     style: SafeGoogleFont(
                                                         "Inter",
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         fontSize: 20,
                                                         color: Colors.black)),
-                                                // TextSpan(
-                                                //     text: "m",
-                                                //     style: SafeGoogleFont("Inter",
-                                                //         fontWeight: FontWeight.w600,
-                                                //         fontSize: 14,
-                                                //         color: Colors.black))
                                               ],
                                             ),
                                           )

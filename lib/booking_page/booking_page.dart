@@ -79,7 +79,7 @@ class _BookingPageState extends State<BookingPage> {
               style: SafeGoogleFont("Inter",
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color:const  Color(0xff1F0A68)),
+                  color: const Color(0xff1F0A68)),
             ),
           ),
         ),
@@ -92,7 +92,6 @@ class _BookingPageState extends State<BookingPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Row(
-                    // isScrollable: true,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomTab(
@@ -158,21 +157,6 @@ class _BookingPageState extends State<BookingPage> {
   }
 }
 
-// ElevatedButton(
-// onPressed: onPressed,
-// style: ElevatedButton.styleFrom(
-// elevation: 5,
-// textStyle: SafeGoogleFont('Inter',
-// fontSize: mWidth * 0.034, fontWeight: FontWeight.w600,),
-// foregroundColor: isSelected
-// ? const Color(0xffFFFFFF)
-//     : const Color(0xff747474),
-// backgroundColor: isSelected
-// ? const Color(0xffE9599F)
-//     : const Color(0xffFFFFFF),
-// ),
-//child: Text(title)),
-
 class CustomTab extends StatelessWidget {
   const CustomTab(
       {super.key,
@@ -186,7 +170,6 @@ class CustomTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //var mHeight = MediaQuery.sizeOf(context).height;
     var mWidth = MediaQuery.sizeOf(context).width;
     return SizedBox(
       height: 36,

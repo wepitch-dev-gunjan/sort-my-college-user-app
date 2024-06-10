@@ -178,7 +178,7 @@ class ApiService {
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
 
-      log("Trending Webinars=>>>>>>>>>$data");
+      // log("Trending Webinars=>>>>>>>>>$data");
       return List<TrandingWebinarModel>.from(
           data.map((x) => TrandingWebinarModel.fromJson(x)));
     }
@@ -201,7 +201,7 @@ class ApiService {
     var data;
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-      log("Latest Sessions data=> $data");
+      // log("Latest Sessions data=> $data");
       return List<LatestSessionsModel>.from(
           data.map((x) => LatestSessionsModel.fromJson(x)));
     }
@@ -293,7 +293,7 @@ class ApiService {
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
 
-      log("Checkout Data=> $data");
+      // log("Checkout Data=> $data");
       return List<CheckOutDetails>.from(
           data.map((x) => CheckOutDetails.fromJson(x)));
     }
@@ -435,6 +435,7 @@ class ApiService {
     String description,
     String gst,
     String convcharge,
+    String sessionType
   ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
@@ -461,7 +462,8 @@ class ApiService {
       "phone_no": phoneNo,
       "description": description,
       "gst": double.parse(gst),
-      "convenience_charges": double.parse(convcharge)
+      "convenience_charges": double.parse(convcharge),
+      "session_type":sessionType
     });
 
     final headers = {

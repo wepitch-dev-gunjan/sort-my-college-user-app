@@ -6,11 +6,9 @@ import 'package:myapp/booking_page/checkout_screen.dart';
 import 'package:myapp/home_page/homepagecontainer_2.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
-
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../model/counsellor_sessions.dart';
 import '../other/provider/counsellor_details_provider.dart';
 import 'dart:developer' as console show log;
@@ -18,10 +16,10 @@ import 'dart:developer' as console show log;
 class Counseling_Session_Personnel extends StatefulWidget {
   const Counseling_Session_Personnel(
       {super.key,
-        required this.name,
-        required this.id,
-        required this.designation,
-        required this.profilepic});
+      required this.name,
+      required this.id,
+      required this.designation,
+      required this.profilepic});
 
   final String name;
   final String id;
@@ -68,7 +66,7 @@ class _Counseling_Session_PersonnelState
       ..radius = 20
       ..backgroundColor = Colors.transparent
       ..maskColor = Colors.white
-      ..indicatorColor =const  Color(0xff1f0a68)
+      ..indicatorColor = const Color(0xff1f0a68)
       ..userInteractions = false
       ..dismissOnTap = false
       ..boxShadow = <BoxShadow>[]
@@ -142,7 +140,6 @@ class _Counseling_Session_PersonnelState
                                               id: widget.id);
                                     },
                                     child: SizedBox(
-
                                       child: SingleChildScrollView(
                                         scrollDirection: Axis.horizontal,
                                         child: Row(
@@ -287,13 +284,20 @@ class _Counseling_Session_PersonnelState
                                   physics: const ScrollPhysics(),
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
-                                    dynamic  bookedslot =  counsellorSessionProvider.details.sessions![index].sessionSlots - counsellorSessionProvider.details.sessions![index].sessionAvailableSlots;
+                                    dynamic bookedslot =
+                                        counsellorSessionProvider.details
+                                                .sessions![index].sessionSlots -
+                                            counsellorSessionProvider
+                                                .details
+                                                .sessions![index]
+                                                .sessionAvailableSlots;
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 16.0),
                                       child: Card(
                                         color: ColorsConst.whiteColor,
-                                        surfaceTintColor: ColorsConst.whiteColor,
+                                        surfaceTintColor:
+                                            ColorsConst.whiteColor,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(20),
@@ -383,10 +387,15 @@ class _Counseling_Session_PersonnelState
                                                       const SizedBox(
                                                         height: 5,
                                                       ),
-                                                       Text(
-                                                          counsellorSessionProvider.details.sessions?[index].sessionTime != null
-                                                              ? DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(counsellorSessionProvider.details.sessions![index].sessionTime!))
-                                                              : 'N/A',
+                                                      Text(
+                                                        counsellorSessionProvider
+                                                                    .details
+                                                                    .sessions?[
+                                                                        index]
+                                                                    .sessionTime !=
+                                                                null
+                                                            ? '${(counsellorSessionProvider.details.sessions![index].sessionTime! ~/ 60) % 12 == 0 ? 12 : (counsellorSessionProvider.details.sessions![index].sessionTime! ~/ 60) % 12}:${(counsellorSessionProvider.details.sessions![index].sessionTime! % 60).toString().padLeft(2, '0')} ${(counsellorSessionProvider.details.sessions![index].sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
+                                                            : 'N/A',
                                                         style: const TextStyle(
                                                           color: Colors.black,
                                                           fontSize: 12,
@@ -396,6 +405,37 @@ class _Counseling_Session_PersonnelState
                                                           height: 0,
                                                         ),
                                                       ),
+
+                                                      // Text(
+                                                      //   counsellorSessionProvider
+                                                      //               .details
+                                                      //               .sessions?[
+                                                      //                   index]
+                                                      //               .sessionTime !=
+                                                      //           null
+                                                      //       ? DateFormat(
+                                                      //               'h:mm a')
+                                                      //           .format(
+                                                      //           DateTime
+                                                      //               .fromMillisecondsSinceEpoch(
+                                                      //             counsellorSessionProvider
+                                                      //                 .details
+                                                      //                 .sessions![
+                                                      //                     index]
+                                                      //                 .sessionTime!,
+                                                      //             isUtc: true,
+                                                      //           ).toLocal(),
+                                                      //         )
+                                                      //       : 'N/A',
+                                                      //   style: const TextStyle(
+                                                      //     color: Colors.black,
+                                                      //     fontSize: 12,
+                                                      //     fontFamily: 'Inter',
+                                                      //     fontWeight:
+                                                      //         FontWeight.w400,
+                                                      //     height: 0,
+                                                      //   ),
+                                                      // ),
                                                       const SizedBox(
                                                         height: 5,
                                                       ),
@@ -485,9 +525,7 @@ class _Counseling_Session_PersonnelState
                                                           : const SizedBox()
                                                     ],
                                                   ),
-
                                                   GestureDetector(
-
                                                     /*onTap: ()
                                                     {
                                                       EasyLoading.show(
@@ -560,36 +598,57 @@ class _Counseling_Session_PersonnelState
                                                       child: Center(
                                                         child: GestureDetector(
                                                           onTap: () async {
-                                                            SharedPreferences sPref =
-                                                            await SharedPreferences
-                                                                .getInstance();
+                                                            SharedPreferences
+                                                                sPref =
+                                                                await SharedPreferences
+                                                                    .getInstance();
                                                             var id =
-                                                                counsellorSessionProvider.details.sessions?[index].id;
+                                                                counsellorSessionProvider
+                                                                    .details
+                                                                    .sessions?[
+                                                                        index]
+                                                                    .id;
                                                             sPref.setString(
-                                                                'sessionid', id!);
+                                                                'sessionid',
+                                                                id!);
 
-                                                            var sessionSlots = counsellorSessionProvider.details.sessions![index].sessionSlots!;
-                                                            var sessionAvailableSlots = counsellorSessionProvider.details.sessions![index].sessionAvailableSlots!;
+                                                            var sessionSlots =
+                                                                counsellorSessionProvider
+                                                                    .details
+                                                                    .sessions![
+                                                                        index]
+                                                                    .sessionSlots!;
+                                                            var sessionAvailableSlots =
+                                                                counsellorSessionProvider
+                                                                    .details
+                                                                    .sessions![
+                                                                        index]
+                                                                    .sessionAvailableSlots!;
 
-                                                            if (sessionAvailableSlots <= 0)
-                                                            {
+                                                            if (sessionAvailableSlots <=
+                                                                0) {
                                                               EasyLoading.showToast(
                                                                   'There are no booking slots available in this session, please book another session',
                                                                   toastPosition:
-                                                                  EasyLoadingToastPosition
-                                                                      .bottom);
-                                                            }
-                                                            else
-                                                            {
+                                                                      EasyLoadingToastPosition
+                                                                          .bottom);
+                                                            } else {
                                                               Navigator.push(
                                                                   context,
                                                                   MaterialPageRoute(
-                                                                      builder: (context) =>
-                                                                          CheckOutScreen(
-                                                                              name: widget.name,
-                                                                              id: id,
-                                                                              designation: widget.id,
-                                                                              profilepicurl: widget.profilepic, )));
+                                                                      builder:
+                                                                          (context) {
+                                                                return CheckOutScreen(
+                                                                    name: widget
+                                                                        .name,
+                                                                    id: id,
+                                                                    designation:
+                                                                        widget
+                                                                            .id,
+                                                                    profilepicurl:
+                                                                        widget
+                                                                            .profilepic);
+                                                              }));
                                                             }
                                                           },
                                                           child: const Text(
@@ -608,13 +667,10 @@ class _Counseling_Session_PersonnelState
                                                               height: 0,
                                                             ),
                                                           ),
-
-
                                                         ),
                                                       ),
                                                     ),
                                                   ),
-
                                                 ],
                                               ),
                                             ],
