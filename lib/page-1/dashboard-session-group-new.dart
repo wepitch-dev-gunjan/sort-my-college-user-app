@@ -240,11 +240,6 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
         .fetchCounsellor_session(id: widget.id);
   }
 
-  @override
-  void onResume() {
-    //Fluttertoast.showToast(msg: 'abc');
-  }
-
   void configLoading() {
     EasyLoading.instance
       ..displayDuration = const Duration(milliseconds: 2000)
@@ -317,7 +312,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                           .format(pattern: "yyyy-M-d");
                                       selectedSessionDate = Jiffy.parse(date)
                                           .format(pattern: "dd/M/yyyy");
-                                      console.log(date);
+
                                       selectedDate = e.formattedDate;
                                       context
                                           .read<CounsellorDetailsProvider>()
@@ -485,7 +480,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                   physics: const ScrollPhysics(),
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
-                                    log("message=>-${counsellorSessionProvider.details.sessions![index].sessionTopic}");
+                                    // log("message=>-${counsellorSessionProvider.details.sessions![index].sessionTopic}");
                                     dynamic bookedslot =
                                         counsellorSessionProvider.details
                                                 .sessions![index].sessionSlots -
@@ -746,8 +741,6 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                           context,
                                                           MaterialPageRoute(
                                                             builder: (context) {
-                                                              log('id');
-
                                                               return CheckOutScreen(
                                                                   designation:
                                                                       widget

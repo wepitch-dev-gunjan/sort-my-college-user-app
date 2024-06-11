@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -17,12 +15,13 @@ class CheckOutScreen extends StatefulWidget {
   final String? id;
   final String designation;
   final String profilepicurl;
-  const CheckOutScreen(
-      {required this.designation,
-      required this.name,
-      required this.id,
-      required this.profilepicurl,
-      super.key});
+  const CheckOutScreen({
+    required this.designation,
+    required this.name,
+    required this.id,
+    required this.profilepicurl,
+    super.key,
+  });
 
   @override
   State<CheckOutScreen> createState() => _CheckOutScreenState();
@@ -140,7 +139,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     sessionId = prefs.getString('sessionid');
     context.read<CounsellorDetailsProvider>().fetchCheckOut_Data(sessionId!);
     setState(() {});
-    print(cid);
   }
 
   @override

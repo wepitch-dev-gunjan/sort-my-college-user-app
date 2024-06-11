@@ -414,29 +414,28 @@ class ApiService {
   }
 
   static Future<Map<String, dynamic>> counsellor_create_payment(
-    String paymentTo,
-    String paymentFrom,
-    String oderId,
-    String paymentId,
-    String entity,
-    String amount,
-    String amountPaid,
-    String amountDue,
-    String currency,
-    String receipt,
-    String offerId,
-    String status,
-    int attempts,
-    String createdAt,
-    String key,
-    String name,
-    String email,
-    String phoneNo,
-    String description,
-    String gst,
-    String convcharge,
-    String sessionType
-  ) async {
+      String paymentTo,
+      String paymentFrom,
+      String oderId,
+      String paymentId,
+      String entity,
+      String amount,
+      String amountPaid,
+      String amountDue,
+      String currency,
+      String receipt,
+      String offerId,
+      String status,
+      int attempts,
+      String createdAt,
+      String key,
+      String name,
+      String email,
+      String phoneNo,
+      String description,
+      String gst,
+      String convcharge,
+      String sessionType) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
     print(token);
@@ -463,7 +462,7 @@ class ApiService {
       "description": description,
       "gst": double.parse(gst),
       "convenience_charges": double.parse(convcharge),
-      "session_type":sessionType
+      "session_type": sessionType
     });
 
     final headers = {
@@ -544,6 +543,7 @@ class ApiService {
     print(response);
     if (response.statusCode == 200) {
       var value = jsonDecode(response.body.toString());
+
       if (value[0]['name'] == null) {
         prefs.setString('name', "NA");
       } else {
@@ -770,7 +770,7 @@ class ApiService {
       body: jsonEncode(body),
     );
 
-    console.log(response.body.toString());
+    // console.log(response.body.toString());
     if (response.statusCode == 200 || response.statusCode == 500) {
       data = jsonDecode(response.body.toString());
       return data;
@@ -795,7 +795,7 @@ class ApiService {
       body: jsonEncode(body),
     );
 
-    console.log(response.body.toString());
+    // console.log(response.body.toString());
     if (response.statusCode == 200 || response.statusCode == 500) {
       data = jsonDecode(response.body.toString());
       return data;
@@ -903,15 +903,14 @@ class ApiService {
     var url = Uri.parse(
         "${AppConstants.baseUrl}/counsellor/$id/sessions${date != null ? params : ""}");
 
-    print(url);
-
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json", "Authorization": token},
     );
     var data;
 
-    // console.log(response.body.toString());
+    // console.log(
+    //     "COunsellor data1=>---------${jsonDecode(response.body.toString())}");
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
       // console.log(data.toString());
@@ -1001,7 +1000,7 @@ class ApiService {
       body: body,
     );
 
-    console.log("Generating Otp  : ${response.body}");
+    // console.log("Generating Otp  : ${response.body}");
     if (response.statusCode == 200 || response.statusCode == 500) {
       var data = jsonDecode(response.body.toString());
 
@@ -1032,7 +1031,7 @@ class ApiService {
       body: body,
     );
 
-    console.log("Generating Otp  : ${response.body}");
+    // console.log("Generating Otp  : ${response.body}");
     if (response.statusCode == 200 || response.statusCode == 500) {
       var data = jsonDecode(response.body.toString());
 
@@ -1109,7 +1108,7 @@ class ApiService {
             ? "$baseUrl?today=true"
             : "$baseUrl?upcoming=true");
 
-    log("Url=>>>>>- $url");
+    // log("Url=>>>>>- $url");
 
     final headers = {
       "Content-Type": "application/json",

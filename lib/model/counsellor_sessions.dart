@@ -98,7 +98,6 @@ class Sessions {
       sessionLink = json["session_link"];
     }
 
-    
     if (json["createdAt"] is String) {
       createdAt = json["createdAt"];
     }
