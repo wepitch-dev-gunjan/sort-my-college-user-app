@@ -41,10 +41,11 @@ class _WebinarPastDataPageState extends State<WebinarPastDataPage> {
               )
             : ListView.builder(
                 itemCount: counsellorSessionProvider.webinarList.length,
-                reverse: true,
                 itemBuilder: (context, index) {
-                  WebinarModel webinarModel =
-                      counsellorSessionProvider.webinarList[index];
+                  // Reverse the list
+                  List<WebinarModel> reversedList =
+                      counsellorSessionProvider.webinarList.reversed.toList();
+                  WebinarModel webinarModel = reversedList[index];
                   return Padding(
                     padding: const EdgeInsets.only(left: 12, right: 12, top: 8),
                     child: WebinarPastDataWidget(
@@ -59,7 +60,8 @@ class _WebinarPastDataPageState extends State<WebinarPastDataPage> {
                       webinarModel: webinarModel,
                     ),
                   );
-                });
+                },
+              );
   }
 }
 

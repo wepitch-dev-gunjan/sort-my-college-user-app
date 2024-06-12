@@ -42,12 +42,13 @@ class _WebinarUpcomingPageState extends State<WebinarUpcomingPage> {
               )
             : ListView.builder(
                 itemCount: counsellorSessionProvider.webinarList.length,
-                reverse: true,
                 itemBuilder: (context, index) {
-                  WebinarModel webinarModel =
-                      counsellorSessionProvider.webinarList[index];
+                  // Reverse the list
+                  List<WebinarModel> reversedList =
+                      counsellorSessionProvider.webinarList.reversed.toList();
+                  WebinarModel webinarModel = reversedList[index];
                   return Padding(
-                    padding: const EdgeInsets.only(top: 8, right: 12, left: 12),
+                    padding: const EdgeInsets.only(left: 12, right: 12, top: 8),
                     child: WebinarUpComingWidget(
                       showDuration: false,
                       title: "Learn more about CUET and IPMAT",
@@ -60,7 +61,8 @@ class _WebinarUpcomingPageState extends State<WebinarUpcomingPage> {
                       webinarModel: webinarModel,
                     ),
                   );
-                });
+                },
+              );
   }
 }
 

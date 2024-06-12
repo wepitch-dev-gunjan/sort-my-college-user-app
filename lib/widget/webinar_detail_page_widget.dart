@@ -238,45 +238,46 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(14, 20, 14, 20),
-                          child: value['webinar_details'][0].isNotEmpty
-                              ? Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Details -",
-                                      style: SafeGoogleFont(
-                                        "Inter",
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
+                            padding: const EdgeInsets.fromLTRB(14, 20, 14, 20),
+                            child: value['webinar_details'][0].isNotEmpty
+                                ? Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Details -",
+                                        style: SafeGoogleFont(
+                                          "Inter",
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    ListView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount:
-                                          value['webinar_details'].length,
-                                      itemBuilder: (context, index) {
-                                        return value['webinar_details'][index]
-                                                .isEmpty
-                                            ? const SizedBox()
-                                            : Text(
-                                                "\u2022 ${value['webinar_details'][index]}",
-                                                style: SafeGoogleFont(
-                                                  "Inter",
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w500,
-                                                  height: 1.90,
-                                                ),
-                                              );
-                                      },
-                                    ),
-                                  ],
-                                )
-                              : const SizedBox(),
-                        ),
+                                      const SizedBox(height: 10),
+                                      ListView.builder(
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount:
+                                            value['webinar_details'].length,
+                                        itemBuilder: (context, index) {
+                                          log("\u25CF ${value['webinar_details'][index]}");
+                                          return value['webinar_details'][index]
+                                                  .isEmpty
+                                              ? const SizedBox()
+                                              : Text(
+                                                  "\u2022 ${value['webinar_details'][index]}",
+                                                  style: SafeGoogleFont(
+                                                    "Inter",
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                    height: 1.90,
+                                                  ),
+                                                );
+                                        },
+                                      ),
+                                    ],
+                                  )
+                                : const SizedBox()),
                         value['what_will_you_learn'].isEmpty
                             ? const SizedBox()
                             : Column(

@@ -206,10 +206,12 @@ class _HomePageState extends State<HomePage> {
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const EntrancePreparationScreen()));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const EntrancePreparationScreen(),
+                                    ),
+                                  );
                                 },
                                 child: Visibility(
                                   //visible: true,

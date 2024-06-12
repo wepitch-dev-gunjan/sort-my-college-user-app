@@ -46,16 +46,17 @@ class _WebinarTodayPageState extends State<WebinarTodayPage> {
               )
             : ListView.builder(
                 itemCount: counsellorSessionProvider.webinarList.length,
-                reverse: true,
                 itemBuilder: (context, index) {
-                  WebinarModel webinarModel =
-                      counsellorSessionProvider.webinarList[index];
+                  // Reverse the list
+                  List<WebinarModel> reversedList =
+                      counsellorSessionProvider.webinarList.reversed.toList();
+                  WebinarModel webinarModel = reversedList[index];
                   return Padding(
-                    padding: const EdgeInsets.only(top: 8, right: 12, left: 12),
+                    padding: const EdgeInsets.only(left: 12, right: 12, top: 8),
                     child: CustomWebinarCard1(
-                      showDuration: true,
+                      showDuration: false,
                       title: "Learn more about CUET and IPMAT",
-                      isRegisterNow: index == 0 ? true : false,
+                      isRegisterNow: true,
                       btnTitle: "Register Now",
                       time: "15 Sep @ 2:00 PM Onwards",
                       duration: "60",
