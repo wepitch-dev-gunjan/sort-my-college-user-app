@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../shared/colors_const.dart';
 
@@ -19,8 +20,8 @@ class Btn extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: 36,
-        width: 110,
+        height: 36.h,
+        width: 110.w,
         decoration: BoxDecoration(
           color: btnColor ?? Colors.white,
           border: Border.all(color: ColorsConst.appBarColor),
@@ -63,7 +64,7 @@ class TextWithIcon extends StatelessWidget {
         Text(
           text,
           style: GoogleFonts.lato(
-              fontSize: fontSize ?? 10,
+              fontSize: fontSize ?? 10.sp,
               color: color ?? Colors.black,
               fontWeight: fontWeight ?? FontWeight.w400),
         ),
@@ -71,4 +72,3 @@ class TextWithIcon extends StatelessWidget {
     );
   }
 }
-

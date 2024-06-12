@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:myapp/home_page/notification_page/news/provider/news_provider1.dart';
 import 'package:myapp/home_page/notification_page/news/service/news_service.dart';
@@ -44,15 +46,18 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
             create: (context) => NewsProvider1(newsService: NewsService())),
       ],
-      child: GetMaterialApp(
-        title: 'SMC App',
-        debugShowCheckedModeBanner: false,
-        scrollBehavior: MyCustomScrollBehavior(),
-        theme: ThemeData(
-          primarySwatch: Colors.grey,
+      child: ScreenUtilInit(
+        designSize: ScreenUtil.defaultSize,
+        child: GetMaterialApp(
+          title: 'SMC App',
+          debugShowCheckedModeBanner: false,
+          scrollBehavior: MyCustomScrollBehavior(),
+          theme: ThemeData(
+            primarySwatch: Colors.grey,
+          ),
+          home: SplashScreen1(isLoggedIn: isLoggedIn),
+          builder: EasyLoading.init(),
         ),
-        home: SplashScreen1(isLoggedIn: isLoggedIn),
-        builder: EasyLoading.init(),
       ),
     );
   }

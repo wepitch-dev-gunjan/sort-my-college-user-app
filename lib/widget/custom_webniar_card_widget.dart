@@ -32,6 +32,7 @@ class _CustomWebinarCardState extends State<CustomWebinarCard> {
 
   final PageController _pageController = PageController(initialPage: 0);
   late Timer _timer;
+
   @override
   void initState() {
     super.initState();
@@ -73,7 +74,6 @@ class _CustomWebinarCardState extends State<CustomWebinarCard> {
   }
 
   Widget cardView(BuildContext context) {
-    log("Trending Webinar =>${widget.trandingWebinarModel}");
     return Column(
       children: [
         Card(

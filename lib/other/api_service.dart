@@ -540,7 +540,7 @@ class ApiService {
     final url = Uri.parse('${AppConstants.baseUrl}/user/');
 
     final response = await http.get(url, headers: headers);
-    print(response);
+
     if (response.statusCode == 200) {
       var value = jsonDecode(response.body.toString());
 

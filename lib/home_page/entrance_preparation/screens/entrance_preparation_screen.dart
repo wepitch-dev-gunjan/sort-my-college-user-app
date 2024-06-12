@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../shared/colors_const.dart';
 import '../components/app_bar.dart';
@@ -39,9 +40,7 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
                         children: [
                           const Column(
                             children: [
-                              CircleAvatar(
-                                radius: 40,
-                              ),
+                              CircleAvatar(radius: 40),
                             ],
                           ),
                           const SizedBox(width: 5.0),
@@ -51,10 +50,10 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
                               Text(
                                 "Allen Career Institute",
                                 style: GoogleFonts.lato(
-                                    textStyle: const TextStyle(
-                                  fontSize: 20,
+                                    textStyle: TextStyle(
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.w700,
-                                )),
+                                ),),
                               ),
                               const Row(
                                 children: [

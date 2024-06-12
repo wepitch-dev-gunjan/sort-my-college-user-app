@@ -261,18 +261,40 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                             value['webinar_details'].length,
                                         itemBuilder: (context, index) {
                                           log("\u25CF ${value['webinar_details'][index]}");
-                                          return value['webinar_details'][index]
-                                                  .isEmpty
-                                              ? const SizedBox()
-                                              : Text(
-                                                  "\u2022 ${value['webinar_details'][index]}",
-                                                  style: SafeGoogleFont(
-                                                    "Inter",
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w500,
-                                                    height: 1.90,
-                                                  ),
-                                                );
+                                          if (value['webinar_details'][index]
+                                              .isEmpty) {
+                                            return const SizedBox();
+                                          } else {
+                                            // Split the text into lines
+                                            List<String> lines =
+                                                value['webinar_details'][index]
+                                                    .split('\n');
+                                            return Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: lines.map((line) {
+                                                // Trim each line to remove extra space
+                                                String trimmedLine =
+                                                    line.trim();
+                                                // Check if the trimmed line is empty
+                                                if (trimmedLine.isNotEmpty) {
+                                                  return Text(
+                                                    "\u2022 $trimmedLine",
+                                                    style: SafeGoogleFont(
+                                                      "Inter",
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      height: 1.90,
+                                                    ),
+                                                  );
+                                                } else {
+                                                  // Return an empty SizedBox for empty lines
+                                                  return const SizedBox();
+                                                }
+                                              }).toList(),
+                                            );
+                                          }
                                         },
                                       ),
                                     ],
