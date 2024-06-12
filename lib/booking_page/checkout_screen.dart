@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -299,6 +301,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   onTap: () {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (context) {
+                                      log("id${widget.id}");
                                       return CounsellorDetailsScreen(
                                         id: widget.id!,
                                       );

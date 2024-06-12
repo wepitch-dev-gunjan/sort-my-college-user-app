@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
@@ -634,21 +636,23 @@ class _Counseling_Session_PersonnelState
                                                                           .bottom);
                                                             } else {
                                                               Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) {
-                                                                return CheckOutScreen(
-                                                                    name: widget
-                                                                        .name,
-                                                                    id: id,
-                                                                    designation:
-                                                                        widget
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) {
+                                                                    return CheckOutScreen(
+                                                                        name: widget
+                                                                            .name,
+                                                                        id: widget
                                                                             .id,
-                                                                    profilepicurl:
-                                                                        widget
-                                                                            .profilepic);
-                                                              }));
+                                                                        designation:
+                                                                            widget
+                                                                                .designation,
+                                                                        profilepicurl:
+                                                                            widget.profilepic);
+                                                                  },
+                                                                ),
+                                                              );
                                                             }
                                                           },
                                                           child: const Text(

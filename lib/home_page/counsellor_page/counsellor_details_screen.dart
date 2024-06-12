@@ -71,7 +71,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
-    log('counsellorData=>>>>$counsellor');
     var counsellorDetailController = context.watch<CounsellorDetailsProvider>();
     double baseWidth = 430;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -944,7 +943,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                               MaterialPageRoute(
                                                   builder: (context) {
                                             return CounsellingSessionPage(
-                                              id: widget.id,
+                                              id: counsellor['_id'],
                                               name: counsellor['name'],
                                               designation:
                                                   counsellor['designation'],
@@ -1097,19 +1096,20 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                       GestureDetector(
                                         onTap: () {
                                           Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      CounsellingSessionPage(
-                                                        id: widget.id,
-                                                        name:
-                                                            counsellor['name'],
-                                                        profileurl: counsellor[
-                                                            'profile_pic'],
-                                                        designation: counsellor[
-                                                            'designation'],
-                                                        selectedIndex_get: 0,
-                                                      )));
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) {
+                                              return CounsellingSessionPage(
+                                                id: widget.id,
+                                                name: counsellor['name'],
+                                                profileurl:
+                                                    counsellor['profile_pic'],
+                                                designation:
+                                                    counsellor['designation'],
+                                                selectedIndex_get: 0,
+                                              );
+                                            }),
+                                          );
                                         },
                                         child: Container(
                                           width: 116 * fem,
