@@ -23,7 +23,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../booking_page/checkout_screen.dart';
 import '../other/api_service.dart';
-import 'entrance_preparation/entrance_preparation_screen.dart';
+import 'entrance_preparation/screens/entrance_preparation_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

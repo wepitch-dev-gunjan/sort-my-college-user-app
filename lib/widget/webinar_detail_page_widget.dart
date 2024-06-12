@@ -7,7 +7,6 @@ import 'package:myapp/utils.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-
 import '../webinar_page/webinar_pastwebnar_page.dart';
 
 class WebinarDetailsPageWidget extends StatefulWidget {

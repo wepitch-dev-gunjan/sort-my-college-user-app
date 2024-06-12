@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -15,7 +13,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../booking_page/booking_page.dart';
 import '../model/counsellor_sessions.dart';
 import '../other/provider/counsellor_details_provider.dart';
-import 'dart:developer' as console show log;
 
 class Counseling_Session_group extends StatefulWidget {
   const Counseling_Session_group(
