@@ -42,6 +42,7 @@ class _WebinarUpcomingPageState extends State<WebinarUpcomingPage> {
               )
             : ListView.builder(
                 itemCount: counsellorSessionProvider.webinarList.length,
+                reverse: true,
                 itemBuilder: (context, index) {
                   WebinarModel webinarModel =
                       counsellorSessionProvider.webinarList[index];
@@ -308,9 +309,6 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                                             0) {
                                       launchUrlString(
                                           widget.webinarModel.joinUrl!);
-                                     
-
-                                    
                                     } else if (_isRegistrationStarting) {
                                       Fluttertoast.showToast(
                                           msg:

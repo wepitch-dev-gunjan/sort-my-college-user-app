@@ -46,6 +46,7 @@ class _WebinarTodayPageState extends State<WebinarTodayPage> {
               )
             : ListView.builder(
                 itemCount: counsellorSessionProvider.webinarList.length,
+                reverse: true,
                 itemBuilder: (context, index) {
                   WebinarModel webinarModel =
                       counsellorSessionProvider.webinarList[index];
@@ -296,9 +297,9 @@ class _CustomWebinarCard1State extends State<CustomWebinarCard1> {
                                     widget.webinarModel.registered;
                                 if (widget.webinarModel.registered &&
                                     widget.webinarModel.webnar_startdays == 0) {
-                                      // var value = await ApiService
-                                      //               .webinar_regiter(widget
-                                      //                   .webinarModel.id!);
+                                  // var value = await ApiService
+                                  //               .webinar_regiter(widget
+                                  //                   .webinarModel.id!);
                                   launchUrlString(widget.webinarModel.joinUrl!);
                                 } else if (_isRegistrationStarting) {
                                   Fluttertoast.showToast(

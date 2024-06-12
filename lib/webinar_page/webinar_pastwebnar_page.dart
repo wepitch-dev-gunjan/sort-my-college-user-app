@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/other/api_service.dart';
@@ -42,6 +41,7 @@ class _WebinarPastDataPageState extends State<WebinarPastDataPage> {
               )
             : ListView.builder(
                 itemCount: counsellorSessionProvider.webinarList.length,
+                reverse: true,
                 itemBuilder: (context, index) {
                   WebinarModel webinarModel =
                       counsellorSessionProvider.webinarList[index];

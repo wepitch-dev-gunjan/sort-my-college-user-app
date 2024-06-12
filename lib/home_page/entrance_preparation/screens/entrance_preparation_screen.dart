@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../shared/colors_const.dart';
 import '../components/app_bar.dart';
+import '../components/commons.dart';
 
 class EntrancePreparationScreen extends StatefulWidget {
   const EntrancePreparationScreen({super.key});
@@ -46,10 +48,13 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 "Allen Career Institute",
-                                style: TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w500),
+                                style: GoogleFonts.lato(
+                                    textStyle: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                )),
                               ),
                               const Row(
                                 children: [
@@ -67,6 +72,7 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
                                   )
                                 ],
                               ),
+                              const SizedBox(height: 8.0),
                               Row(
                                 children: [
                                   Container(
@@ -88,16 +94,20 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
                                   ),
                                 ],
                               ),
+                              const SizedBox(height: 5),
                               const TextWithIcon(
-                                  text: "C-Scheme Jaipur",
+                                  text: "C-SCHEME JAIPUR",
                                   icon: Icons.location_on_sharp),
                               const SizedBox(height: 3),
                               const TextWithIcon(
                                   text: " Open until 9:00 PM",
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xff4BD058),
                                   icon: Icons.access_time_outlined),
-                              const SizedBox(height: 5),
+                              const SizedBox(height: 3),
                               const TextWithIcon(
                                   text: "10+ Yrs In Business",
+                                  fontWeight: FontWeight.w600,
                                   icon: Icons.work),
                             ],
                           )
@@ -112,7 +122,9 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
                             onTap: () {},
                           ),
                           Btn(
-                            btnName: "Visit Profile",
+                            btnName: "Send Enquiry",
+                            btnColor: ColorsConst.appBarColor,
+                            textColor: Colors.white,
                             onTap: () {},
                           ),
                         ],
@@ -125,63 +137,6 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class Btn extends StatelessWidget {
-  final Function() onTap;
-  final String btnName;
-  const Btn({
-    super.key,
-    required this.onTap,
-    required this.btnName,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        height: 36,
-        width: 110,
-        decoration: BoxDecoration(
-          border: Border.all(color: ColorsConst.appBarColor),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Center(
-            child: Text(
-          btnName,
-          style: const TextStyle(fontWeight: FontWeight.w600),
-        )),
-      ),
-    );
-  }
-}
-
-class TextWithIcon extends StatelessWidget {
-  final String text;
-  final IconData icon;
-  const TextWithIcon({
-    super.key,
-    required this.text,
-    required this.icon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(
-          icon,
-          size: 20,
-        ),
-        const SizedBox(width: 2.0),
-        Text(
-          text,
-          style: const TextStyle(fontSize: 9, fontWeight: FontWeight.w700),
-        ),
-      ],
     );
   }
 }
@@ -754,25 +709,25 @@ class TextWithIcon extends StatelessWidget {
 //                                                                     .toString(),
 //                                                           )));
 //                                             },
-                                          //   child: Container(
-                                          //     height: 36,
-                                          //     width: 110,
-                                          //     decoration: BoxDecoration(
-                                          //       border: Border.all(
-                                          //           color: ColorsConst
-                                          //               .appBarColor),
-                                          //       borderRadius:
-                                          //           BorderRadius.circular(6),
-                                          //     ),
-                                          //     child: const Center(
-                                          //         child: Text(
-                                          //       'Visit Profile',
-                                          //       style: TextStyle(
-                                          //           fontWeight:
-                                          //               FontWeight.w600),
-                                          //     )),
-                                          //   ),
-                                          // ),
+//                                             child: Container(
+//                                               height: 36,
+//                                               width: 110,
+//                                               decoration: BoxDecoration(
+//                                                 border: Border.all(
+//                                                     color: ColorsConst
+//                                                         .appBarColor),
+//                                                 borderRadius:
+//                                                     BorderRadius.circular(6),
+//                                               ),
+//                                               child: const Center(
+//                                                   child: Text(
+//                                                 'Visit Profile',
+//                                                 style: TextStyle(
+//                                                     fontWeight:
+//                                                         FontWeight.w600),
+//                                               )),
+//                                             ),
+//                                           ),
 //                                           // const SizedBox(
 //                                           //   width: 72,
 //                                           // ),

@@ -237,12 +237,10 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                             color: const Color(0xffAFAFAF).withOpacity(0.54),
                           ),
                         ),
-                        value['webinar_details'].isEmpty
-                            ? const SizedBox()
-                            : Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(14, 20, 14, 20),
-                                child: Column(
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(14, 20, 14, 20),
+                          child: value['webinar_details'][0].isNotEmpty
+                              ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
@@ -253,9 +251,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
+                                    const SizedBox(height: 10),
                                     ListView.builder(
                                       physics:
                                           const NeverScrollableScrollPhysics(),
@@ -263,20 +259,24 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                       itemCount:
                                           value['webinar_details'].length,
                                       itemBuilder: (context, index) {
-                                        return Text(
-                                          "\u2022 ${value['webinar_details'][0]}",
-                                          style: SafeGoogleFont(
-                                            "Inter",
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            height: 1.90,
-                                          ),
-                                        );
+                                        return value['webinar_details'][index]
+                                                .isEmpty
+                                            ? const SizedBox()
+                                            : Text(
+                                                "\u2022 ${value['webinar_details'][index]}",
+                                                style: SafeGoogleFont(
+                                                  "Inter",
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w500,
+                                                  height: 1.90,
+                                                ),
+                                              );
                                       },
                                     ),
                                   ],
-                                ),
-                              ),
+                                )
+                              : const SizedBox(),
+                        ),
                         value['what_will_you_learn'].isEmpty
                             ? const SizedBox()
                             : Column(

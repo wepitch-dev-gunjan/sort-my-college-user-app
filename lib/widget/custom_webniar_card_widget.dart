@@ -32,7 +32,6 @@ class _CustomWebinarCardState extends State<CustomWebinarCard> {
 
   final PageController _pageController = PageController(initialPage: 0);
   late Timer _timer;
-
   @override
   void initState() {
     super.initState();

@@ -6,7 +6,6 @@ class EditDobWidget extends StatefulWidget {
 
   final Function(String dob) callback;
 
-
   @override
   State<EditDobWidget> createState() => _EditDobWidgetState();
 }
@@ -17,7 +16,6 @@ class _EditDobWidgetState extends State<EditDobWidget> {
   final TextEditingController _dateController = TextEditingController();
 
   final DateFormat _dateFormatter = DateFormat('d/M/yyyy');
-
 
   @override
   void dispose() {
@@ -35,7 +33,7 @@ class _EditDobWidgetState extends State<EditDobWidget> {
     final DateTime? date = await showDatePicker(
       context: context,
       initialDate: _date,
-      firstDate: DateTime(2000),
+      firstDate: DateTime(1950),
       lastDate: DateTime.now(),
     );
     if (date != null && date != _date) {
