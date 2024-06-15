@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -101,8 +102,15 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
               padding: const EdgeInsets.only(right: 16),
               child: GestureDetector(
                 onTap: () {
-                  Share.share(
-                      'https://play.google.com/store/apps/details?id=com.sortmycollege');
+                  if (Platform.isIOS) {
+                    Share.share(
+                        'https://apps.apple.com/in/app/sort-my-college/id6480402447');
+                  } else if (Platform.isAndroid) {
+                    Share.share(
+                        'https://play.google.com/store/apps/details?id=com.sortmycollege');
+                  } else {
+                    throw 'Platform not supported';
+                  }
                 },
                 child: Image.asset(
                   "assets/page-1/images/share.png",

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -546,7 +547,13 @@ class _CounsellorListPage_offlineState
                                                                                               ),
                                                                                               GestureDetector(
                                                                                                 onTap: () {
-                                                                                                  Share.share('https://play.google.com/store/apps/details?id=com.sortmycollege');
+                                                                                                  if (Platform.isIOS) {
+                                                                                                    Share.share('https://apps.apple.com/in/app/sort-my-college/id6480402447');
+                                                                                                  } else if (Platform.isAndroid) {
+                                                                                                    Share.share('https://play.google.com/store/apps/details?id=com.sortmycollege');
+                                                                                                  } else {
+                                                                                                    throw 'Platform not supported';
+                                                                                                  }
                                                                                                 },
                                                                                                 child: Container(
                                                                                                   margin: const EdgeInsets.fromLTRB(0, 14, 0, 0),
