@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +7,6 @@ import 'package:myapp/home_page/notification_page/news/service/news_service.dart
 import 'package:myapp/news/provider/news_provider.dart';
 import 'package:myapp/news/service/news_api_service.dart';
 import 'package:myapp/other/provider/counsellor_details_provider.dart';
-import 'package:myapp/other/dependency_injection.dart';
 import 'package:myapp/other/provider/follower_provider.dart';
 import 'package:myapp/other/provider/user_booking_provider.dart';
 import 'package:myapp/page-1/shared.dart';
@@ -20,7 +18,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool? isLoggedIn = await MyApp.loggIn();
   runApp(MyApp(isLoggedIn: isLoggedIn!));
-  DependencyInjection.init();
+  // DependencyInjection.init();
 }
 
 class MyApp extends StatelessWidget {

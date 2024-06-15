@@ -103,6 +103,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
       canPop: false,
       onPopInvoked: (didPop) {},
       child: Scaffold(
+        backgroundColor: const Color(0xffffffff),
         appBar: AppBar(
           backgroundColor: const Color(0xffffffff),
           surfaceTintColor: const Color(0xffffffff),
@@ -260,12 +261,10 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                         itemCount:
                                             value['webinar_details'].length,
                                         itemBuilder: (context, index) {
-                                          log("\u25CF ${value['webinar_details'][index]}");
                                           if (value['webinar_details'][index]
                                               .isEmpty) {
                                             return const SizedBox();
                                           } else {
-                                            // Split the text into lines
                                             List<String> lines =
                                                 value['webinar_details'][index]
                                                     .split('\n');
@@ -273,23 +272,39 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: lines.map((line) {
-                                                // Trim each line to remove extra space
                                                 String trimmedLine =
                                                     line.trim();
-                                                // Check if the trimmed line is empty
                                                 if (trimmedLine.isNotEmpty) {
-                                                  return Text(
-                                                    "\u2022 $trimmedLine",
-                                                    style: SafeGoogleFont(
-                                                      "Inter",
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      height: 1.90,
-                                                    ),
+                                                  return Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "\u2022 ",
+                                                        style: SafeGoogleFont(
+                                                          "Inter",
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          height: 1.90,
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: Text(
+                                                          "$trimmedLine",
+                                                          style: SafeGoogleFont(
+                                                            "Inter",
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            height: 1.90,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   );
                                                 } else {
-                                                  // Return an empty SizedBox for empty lines
                                                   return const SizedBox();
                                                 }
                                               }).toList(),
@@ -391,36 +406,38 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                       },
                                     ),
                                   ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20, 19, 15, 19),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Speaker Profile",
+                                          textAlign: TextAlign.start,
+                                          style: SafeGoogleFont(
+                                            "Inter",
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Text(
+                                          value['speaker_profile'],
+                                          textAlign: TextAlign.start,
+                                          style: SafeGoogleFont(
+                                            "Inter",
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  )
                                 ],
                               )
                       ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 19, 15, 19),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Speaker Profile",
-                            style: SafeGoogleFont(
-                              "Inter",
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            value['speaker_profile'],
-                            style: SafeGoogleFont(
-                              "Inter",
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          )
-                        ],
-                      ),
                     ),
                   ],
                 ),
