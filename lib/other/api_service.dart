@@ -588,8 +588,9 @@ class ApiService {
   }
 
   static Future<List<CounsellorData>> getCounsellorData(
-      { int? limit}) async {
-    var url = Uri.parse("${AppConstants.baseUrl}/counsellor/?limit=$limit");
+      {int? limit, int? page}) async {
+    var url = Uri.parse(
+        "${AppConstants.baseUrl}/counsellor/?page=$page&limit=$limit");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
     final response = await http.get(url, headers: {
