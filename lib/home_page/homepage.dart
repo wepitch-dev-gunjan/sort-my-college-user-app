@@ -16,6 +16,7 @@ import 'package:myapp/other/provider/counsellor_details_provider.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:myapp/utils.dart';
+import 'package:myapp/utils/share_links.dart';
 import 'package:myapp/widget/custom_webniar_card_widget.dart';
 import 'package:myapp/widget/webinar_detail_page_widget.dart';
 import 'package:provider/provider.dart';
@@ -621,8 +622,17 @@ class _HomePageState extends State<HomePage> {
                                                                 children: [
                                                                   GestureDetector(
                                                                     onTap: () {
-                                                                      Share.share(
-                                                                          'https://play.google.com/store/apps/details?id=com.sortmycollege');
+                                                                      if (Platform
+                                                                          .isIOS) {
+                                                                        Share.share(
+                                                                            'https://apps.apple.com/in/app/sort-my-college/id6480402447');
+                                                                      } else if (Platform
+                                                                          .isAndroid) {
+                                                                        Share.share(
+                                                                            'https://play.google.com/store/apps/details?id=com.sortmycollege');
+                                                                      } else {
+                                                                        throw 'Platform not supported';
+                                                                      }
                                                                     },
                                                                     child:
                                                                         Center(
@@ -781,51 +791,21 @@ class _HomePageState extends State<HomePage> {
                       backgroundImage: NetworkImage(
                           latestSessionsModel.counsellorProfilePic!),
                     ),
-                    const SizedBox(
-                      width: 8,
-                    ),
+                    const SizedBox(width: 8),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      // mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              latestSessionsModel.counsellorName ?? "N/A",
-                              style: const TextStyle(
-                                color: Color(0xFF1F0A68),
-                                fontSize: 15,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w500,
-                                height: 0,
-                              ),
-                            ),
-                            SizedBox(width: width / 3),
-                            GestureDetector(
-                              onTap: () {
-                                if (Platform.isIOS) {
-                                  Share.share(
-                                      'https://apps.apple.com/in/app/sort-my-college/id6480402447');
-                                } else if (Platform.isAndroid) {
-                                  Share.share(
-                                      'https://play.google.com/store/apps/details?id=com.sortmycollege');
-                                } else {
-                                  throw 'Platform not supported';
-                                }
-                              },
-                              child: Center(
-                                child: Image.asset(
-                                  "assets/page-1/images/group-38-oFX.png",
-                                  color: const Color(0xFF1F0A68),
-                                  height: 16,
-                                ),
-                              ),
-                            ),
-                          ],
+                        // const SizedBox(height: 10),
+                        Text(
+                          latestSessionsModel.counsellorName ?? "N/A",
+                          style: const TextStyle(
+                            color: Color(0xFF1F0A68),
+                            fontSize: 15,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w500,
+                            height: 0,
+                          ),
                         ),
                         const SizedBox(height: 3),
                         SizedBox(
@@ -931,6 +911,18 @@ class _HomePageState extends State<HomePage> {
                         )
                       ],
                     ),
+                    GestureDetector(
+                      onTap: () {
+                        shareLinks();
+                      },
+                      child: Center(
+                        child: Image.asset(
+                          "assets/page-1/images/group-38-oFX.png",
+                          color: const Color(0xFF1F0A68),
+                          height: 16,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 12),
@@ -998,6 +990,7 @@ class _HomePageState extends State<HomePage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
+                              log("Session Id=> ${latestSessionsModel.sessionId}");
                               return CheckOutScreen(
                                 designation:
                                     latestSessionsModel.counsellorDesignation!,
@@ -1005,6 +998,7 @@ class _HomePageState extends State<HomePage> {
                                 profilepicurl:
                                     latestSessionsModel.counsellorProfilePic!,
                                 id: latestSessionsModel.counsellorId!,
+                                sessionId: latestSessionsModel.sessionId!,
                               );
                             },
                           ),

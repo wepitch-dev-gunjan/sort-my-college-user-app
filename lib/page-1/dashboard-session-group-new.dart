@@ -508,19 +508,24 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.end,
                                                 children: [
-                                                  Text(
-                                                    counsellorSessionProvider
-                                                            .details
-                                                            .sessions![index]
-                                                            .sessionTopic ??
-                                                        'Session',
-                                                    style: const TextStyle(
-                                                      color: Color(0xFF1F0A68),
-                                                      fontSize: 16,
-                                                      fontFamily: 'Inter',
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      height: 0,
+                                                  Expanded(
+                                                    child: Text(
+                                                      counsellorSessionProvider
+                                                              .details
+                                                              .sessions![index]
+                                                              .sessionTopic ??
+                                                          'Session',
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style: const TextStyle(
+                                                        color:
+                                                            Color(0xFF1F0A68),
+                                                        fontSize: 16,
+                                                        fontFamily: 'Inter',
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        height: 0,
+                                                      ),
                                                     ),
                                                   ),
                                                   Container(
@@ -739,8 +744,8 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                           context,
                                                           MaterialPageRoute(
                                                             builder: (context) {
-                                                         
                                                               return CheckOutScreen(
+                                                                  sessionId: id,
                                                                   designation:
                                                                       widget
                                                                           .designation,

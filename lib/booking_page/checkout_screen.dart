@@ -17,11 +17,13 @@ class CheckOutScreen extends StatefulWidget {
   final String? id;
   final String designation;
   final String profilepicurl;
+  final String? sessionId;
   const CheckOutScreen({
     required this.designation,
     required this.name,
     required this.id,
     required this.profilepicurl,
+    this.sessionId,
     super.key,
   });
 
@@ -41,7 +43,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   var amount;
   var amt_send;
   var name;
-  var sessionId;
+  bool isLoading = true;
+
+  // var sessionId;
   late String gst;
   late String convinence_charge;
   String? sessionType;
@@ -138,9 +142,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     phoneNumber = prefs.getString("phone_number") ?? "N/A";
     payment_from = prefs.getString("_id") ?? "";
     cid = prefs.getString("cid") ?? "";
-    sessionId = prefs.getString('sessionid');
-    context.read<CounsellorDetailsProvider>().fetchCheckOut_Data(sessionId!);
-    setState(() {});
+
+    // latest session ke liye ye change kiya hai
+    // sessionId = prefs.getString('sessionid');
+    context
+        .read<CounsellorDetailsProvider>()
+        .fetchCheckOut_Data(widget.sessionId!);
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -158,9 +168,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             ?.split('T')
         : '';
 
-    sessionId = counsellorDetailController.checkOutDetailsList.isNotEmpty
-        ? counsellorDetailController.checkOutDetailsList[0].sessionId.toString()
-        : '';
+    // sessionId = counsellorDetailController.checkOutDetailsList.isNotEmpty
+    //     ? counsellorDetailController.checkOutDetailsList[0].sessionId.toString()
+    //     : '';
 
     var amount = '';
     if (counsellorDetailController.checkOutDetailsList.isNotEmpty) {
@@ -211,345 +221,365 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             style: TextStyle(color: ColorsConst.appBarColor),
           ),
         ),
-        body: Padding(
-          padding:
-              const EdgeInsets.only(left: 8, right: 8, top: 30, bottom: 60),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Card(
-                  elevation: 4,
-                  shadowColor: ColorsConst.whiteColor,
-                  color: ColorsConst.whiteColor,
-                  surfaceTintColor: ColorsConst.whiteColor,
-                  child: Container(
-                    padding:
-                        const EdgeInsets.only(top: 10, left: 18, right: 10),
-                    height: 180,
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Column(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(36),
-                                  child: Image.network(
-                                    widget.profilepicurl,
-                                    height: 78,
-                                    width: 76,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  counsellorDetailController
-                                          .checkOutDetailsList.isNotEmpty
-                                      ? counsellorDetailController
-                                              .checkOutDetailsList[0]
-                                              .counsellorName ??
-                                          "N/A"
-                                      : "N/A",
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                Text(
-                                  widget.designation,
-                                  style: const TextStyle(
-                                      color: ColorsConst.black54Color),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                const Text(
-                                  'Booking Date',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12),
-                                ),
-                                Text(str.isNotEmpty ? str[0] : ''),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  '${counsellorDetailController.checkOutDetailsList.isNotEmpty ? counsellorDetailController.checkOutDetailsList[0].sessionType ?? "N/A" : "N/A"} Session',
-                                  style: const TextStyle(
-                                    color: ColorsConst.appBarColor,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 4,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      log("id${widget.id}");
-                                      return CounsellorDetailsScreen(
-                                        id: widget.id!,
-                                      );
-                                    }));
-                                  },
-                                  child: Container(
-                                    height: 24,
-                                    width: 140,
-                                    decoration: BoxDecoration(
-                                        color: ColorsConst.whiteColor,
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all()),
-                                    child: const Center(
-                                        child: Text(
-                                      'View Details',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    )),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.06,
-                ),
-                Card(
-                  elevation: 4,
-                  shadowColor: ColorsConst.whiteColor,
-                  color: ColorsConst.whiteColor,
-                  surfaceTintColor: ColorsConst.whiteColor,
-                  child: Container(
-                    padding: const EdgeInsets.only(
-                        top: 12, left: 10, right: 10, bottom: 12),
-                    height: 170,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          children: [
-                            const Text(
-                              'Session Type',
-                              style: TextStyle(
-                                  color: ColorsConst.black54Color,
-                                  fontSize: 12),
-                            ),
-                            const Spacer(),
-                            Text(
-                              counsellorDetailController
-                                      .checkOutDetailsList.isNotEmpty
-                                  ? counsellorDetailController
-                                          .checkOutDetailsList[0].sessionType ??
-                                      "N/A"
-                                  : "N/A",
-                              style: const TextStyle(
-                                color: ColorsConst.black54Color,
-                                fontSize: 13,
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Text(
-                              'Session Fees',
-                              style: TextStyle(
-                                  color: ColorsConst.black54Color,
-                                  fontSize: 12),
-                            ),
-                            const Spacer(),
-                            Text(
-                              '\u{20B9}${counsellorDetailController.checkOutDetailsList.isNotEmpty ? counsellorDetailController.checkOutDetailsList[0].sessionFee ?? "N/A" : "N/A"}',
-                              style: const TextStyle(
-                                color: ColorsConst.black54Color,
-                                fontSize: 13,
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Text(
-                              'GST',
-                              style: TextStyle(
-                                  color: ColorsConst.black54Color,
-                                  fontSize: 12),
-                            ),
-                            const Spacer(),
-                            Text(
-                              '\u{20B9}${counsellorDetailController.checkOutDetailsList.isNotEmpty ? counsellorDetailController.checkOutDetailsList[0].gstAmount ?? "N/A" : "N/A"}',
-                              style: const TextStyle(
-                                color: ColorsConst.black54Color,
-                                fontSize: 13,
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Text(
-                              'Gateway Charge',
-                              style: TextStyle(
-                                  color: ColorsConst.black54Color,
-                                  fontSize: 12),
-                            ),
-                            const Spacer(),
-                            Text(
-                              '\u{20B9}${counsellorDetailController.checkOutDetailsList.isNotEmpty ? counsellorDetailController.checkOutDetailsList[0].gatewayCharge ?? "N/A" : "N/A"}',
-                              style: const TextStyle(
-                                color: ColorsConst.black54Color,
-                                fontSize: 13,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Text(
-                              'Total Amount',
-                              style: TextStyle(
-                                  color: ColorsConst.black54Color,
-                                  fontSize: 12),
-                            ),
-                            const Spacer(),
-                            Text(
-                              '\u{20B9}${counsellorDetailController.checkOutDetailsList.isNotEmpty ? counsellorDetailController.checkOutDetailsList[0].totalAmount ?? "N/A" : "N/A"}',
-                              style: const TextStyle(
-                                color: ColorsConst.blackColor,
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.1,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
+        body: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Padding(
+                padding: const EdgeInsets.only(
+                    left: 8, right: 8, top: 30, bottom: 60),
+                child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: const MaterialStatePropertyAll(
-                                  ColorsConst.appBarColor),
-                              shape: MaterialStatePropertyAll(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                              ),
-                            ),
-                            onPressed: () async {
-                              var valueRes =
-                                  await ApiService.bookValidationSession(
-                                      sessionId);
-                              if (valueRes.containsKey("message")) {
-                                EasyLoading.showToast(valueRes["message"],
-                                    toastPosition:
-                                        EasyLoadingToastPosition.bottom);
-
-                                var value =
-                                    await ApiService.counsellor_create_order(
-                                        widget.name,
-                                        'abc@gmail.com',
+                      Card(
+                        elevation: 4,
+                        shadowColor: ColorsConst.whiteColor,
+                        color: ColorsConst.whiteColor,
+                        surfaceTintColor: ColorsConst.whiteColor,
+                        child: Container(
+                          padding: const EdgeInsets.only(
+                              top: 10, left: 18, right: 10),
+                          height: 180,
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Column(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(36),
+                                        child: Image.network(
+                                          widget.profilepicurl,
+                                          height: 78,
+                                          width: 76,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
                                         counsellorDetailController
-                                            .checkOutDetailsList[0].totalAmount,
-                                        'session booking',
-                                        phoneNumber);
-                                if (value["error"] ==
-                                    "Order not successfully created") {
-                                  EasyLoading.showToast(value["error"],
-                                      toastPosition:
-                                          EasyLoadingToastPosition.bottom);
-                                } else {
-                                  (value["message"] ==
-                                      "Order successfully created");
-                                  EasyLoading.showToast(value["message"],
-                                      toastPosition:
-                                          EasyLoadingToastPosition.bottom);
-                                  EasyLoading.showToast(value["data"]["id"],
-                                      toastPosition:
-                                          EasyLoadingToastPosition.bottom);
-                                  if (value["data"]["offer_id"] != null) {
-                                    EasyLoading.showToast(
-                                        value["data"]["offer_id"],
-                                        toastPosition:
-                                            EasyLoadingToastPosition.bottom);
-                                  }
-                                  key = value["data"]["key"];
-                                  oderId = value["data"]["id"];
-                                  print(key);
-
-                                  num price = counsellorDetailController
-                                      .checkOutDetailsList[0].totalAmount;
-                                  price = price.toInt();
-
-                                  openCheckOut(price);
-                                }
-                              } else {
-                                EasyLoading.showToast(valueRes["error"],
-                                    toastPosition:
-                                        EasyLoadingToastPosition.bottom);
-                              }
-                            },
-                            child: const Text(
-                              'Pay Now',
-                              style: TextStyle(color: ColorsConst.whiteColor),
-                            )),
-                      ),
-                      SizedBox(height: height * 0.04),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: const MaterialStatePropertyAll(
-                                  ColorsConst.appBarColor),
-                              shape: MaterialStatePropertyAll(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
+                                                .checkOutDetailsList.isNotEmpty
+                                            ? counsellorDetailController
+                                                    .checkOutDetailsList[0]
+                                                    .counsellorName ??
+                                                "N/A"
+                                            : "N/A",
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      Text(
+                                        widget.designation,
+                                        style: const TextStyle(
+                                            color: ColorsConst.black54Color),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
+                              const SizedBox(
+                                height: 24,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      const Text(
+                                        'Booking Date',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12),
+                                      ),
+                                      Text(str.isNotEmpty ? str[0] : ''),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        '${counsellorDetailController.checkOutDetailsList.isNotEmpty ? counsellorDetailController.checkOutDetailsList[0].sessionType ?? "N/A" : "N/A"} Session',
+                                        style: const TextStyle(
+                                          color: ColorsConst.appBarColor,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 4,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(context,
+                                              MaterialPageRoute(
+                                                  builder: (context) {
+                                            log("id${widget.id}");
+                                            return CounsellorDetailsScreen(
+                                              id: widget.id!,
+                                            );
+                                          }));
+                                        },
+                                        child: Container(
+                                          height: 24,
+                                          width: 140,
+                                          decoration: BoxDecoration(
+                                              color: ColorsConst.whiteColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Border.all()),
+                                          child: const Center(
+                                              child: Text(
+                                            'View Details',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          )),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.06,
+                      ),
+                      Card(
+                        elevation: 4,
+                        shadowColor: ColorsConst.whiteColor,
+                        color: ColorsConst.whiteColor,
+                        surfaceTintColor: ColorsConst.whiteColor,
+                        child: Container(
+                          padding: const EdgeInsets.only(
+                              top: 12, left: 10, right: 10, bottom: 12),
+                          height: 170,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Session Type',
+                                    style: TextStyle(
+                                        color: ColorsConst.black54Color,
+                                        fontSize: 12),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    counsellorDetailController
+                                            .checkOutDetailsList.isNotEmpty
+                                        ? counsellorDetailController
+                                                .checkOutDetailsList[0]
+                                                .sessionType ??
+                                            "N/A"
+                                        : "N/A",
+                                    style: const TextStyle(
+                                      color: ColorsConst.black54Color,
+                                      fontSize: 13,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Session Fees',
+                                    style: TextStyle(
+                                        color: ColorsConst.black54Color,
+                                        fontSize: 12),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    '\u{20B9}${counsellorDetailController.checkOutDetailsList.isNotEmpty ? counsellorDetailController.checkOutDetailsList[0].sessionFee ?? "N/A" : "N/A"}',
+                                    style: const TextStyle(
+                                      color: ColorsConst.black54Color,
+                                      fontSize: 13,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'GST',
+                                    style: TextStyle(
+                                        color: ColorsConst.black54Color,
+                                        fontSize: 12),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    '\u{20B9}${counsellorDetailController.checkOutDetailsList.isNotEmpty ? counsellorDetailController.checkOutDetailsList[0].gstAmount ?? "N/A" : "N/A"}',
+                                    style: const TextStyle(
+                                      color: ColorsConst.black54Color,
+                                      fontSize: 13,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Gateway Charge',
+                                    style: TextStyle(
+                                        color: ColorsConst.black54Color,
+                                        fontSize: 12),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    '\u{20B9}${counsellorDetailController.checkOutDetailsList.isNotEmpty ? counsellorDetailController.checkOutDetailsList[0].gatewayCharge ?? "N/A" : "N/A"}',
+                                    style: const TextStyle(
+                                      color: ColorsConst.black54Color,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Total Amount',
+                                    style: TextStyle(
+                                        color: ColorsConst.black54Color,
+                                        fontSize: 12),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    '\u{20B9}${counsellorDetailController.checkOutDetailsList.isNotEmpty ? counsellorDetailController.checkOutDetailsList[0].totalAmount ?? "N/A" : "N/A"}',
+                                    style: const TextStyle(
+                                      color: ColorsConst.blackColor,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.1,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        const MaterialStatePropertyAll(
+                                            ColorsConst.appBarColor),
+                                    shape: MaterialStatePropertyAll(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: () async {
+                                    var valueRes =
+                                        await ApiService.bookValidationSession(
+                                            widget.sessionId!);
+                                    if (valueRes.containsKey("message")) {
+                                      EasyLoading.showToast(valueRes["message"],
+                                          toastPosition:
+                                              EasyLoadingToastPosition.bottom);
+
+                                      var value = await ApiService
+                                          .counsellor_create_order(
+                                              widget.name,
+                                              'abc@gmail.com',
+                                              counsellorDetailController
+                                                  .checkOutDetailsList[0]
+                                                  .totalAmount,
+                                              'session booking',
+                                              phoneNumber);
+                                      if (value["error"] ==
+                                          "Order not successfully created") {
+                                        EasyLoading.showToast(value["error"],
+                                            toastPosition:
+                                                EasyLoadingToastPosition
+                                                    .bottom);
+                                      } else {
+                                        (value["message"] ==
+                                            "Order successfully created");
+                                        EasyLoading.showToast(value["message"],
+                                            toastPosition:
+                                                EasyLoadingToastPosition
+                                                    .bottom);
+                                        EasyLoading.showToast(
+                                            value["data"]["id"],
+                                            toastPosition:
+                                                EasyLoadingToastPosition
+                                                    .bottom);
+                                        if (value["data"]["offer_id"] != null) {
+                                          EasyLoading.showToast(
+                                              value["data"]["offer_id"],
+                                              toastPosition:
+                                                  EasyLoadingToastPosition
+                                                      .bottom);
+                                        }
+                                        key = value["data"]["key"];
+                                        oderId = value["data"]["id"];
+                                        print(key);
+
+                                        num price = counsellorDetailController
+                                            .checkOutDetailsList[0].totalAmount;
+                                        price = price.toInt();
+
+                                        openCheckOut(price);
+                                      }
+                                    } else {
+                                      EasyLoading.showToast(valueRes["error"],
+                                          toastPosition:
+                                              EasyLoadingToastPosition.bottom);
+                                    }
+                                  },
+                                  child: const Text(
+                                    'Pay Now',
+                                    style: TextStyle(
+                                        color: ColorsConst.whiteColor),
+                                  )),
                             ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              'Cancel',
-                              style: TextStyle(color: ColorsConst.whiteColor),
-                            )),
+                            SizedBox(height: height * 0.04),
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        const MaterialStatePropertyAll(
+                                            ColorsConst.appBarColor),
+                                    shape: MaterialStatePropertyAll(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text(
+                                    'Cancel',
+                                    style: TextStyle(
+                                        color: ColorsConst.whiteColor),
+                                  )),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
     );
   }
@@ -562,7 +592,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       EasyLoading.showToast(value["message"],
           toastPosition: EasyLoadingToastPosition.bottom);
 
-      await ApiService.updateBookingSession(sessionId)
+      await ApiService.updateBookingSession(widget.sessionId!)
           .then((value) => MoveToSessionPage());
     }
   }

@@ -68,9 +68,7 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
                 fit: BoxFit.cover,
                 height: 250,
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               const Text(
                 'Let’s get you started!',
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
@@ -151,9 +149,7 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
                     //     ),
                     //   ],
                     // ),
-                    const SizedBox(
-                      height: 18,
-                    ),
+                    const SizedBox(height: 18),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(

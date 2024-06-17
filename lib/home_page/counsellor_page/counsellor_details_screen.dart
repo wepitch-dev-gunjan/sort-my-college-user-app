@@ -11,6 +11,7 @@ import 'package:myapp/page-1/dashboard_session_page.dart';
 import 'package:myapp/page-1/payment_gateaway.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
+import 'package:myapp/utils/share_links.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 import 'package:share_plus/share_plus.dart';
@@ -102,15 +103,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
               padding: const EdgeInsets.only(right: 16),
               child: GestureDetector(
                 onTap: () {
-                  if (Platform.isIOS) {
-                    Share.share(
-                        'https://apps.apple.com/in/app/sort-my-college/id6480402447');
-                  } else if (Platform.isAndroid) {
-                    Share.share(
-                        'https://play.google.com/store/apps/details?id=com.sortmycollege');
-                  } else {
-                    throw 'Platform not supported';
-                  }
+                  shareLinks();
                 },
                 child: Image.asset(
                   "assets/page-1/images/share.png",

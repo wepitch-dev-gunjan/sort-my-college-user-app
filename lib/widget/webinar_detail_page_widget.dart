@@ -1,12 +1,14 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:myapp/home_page/homepage.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import '../utils/share_links.dart';
 import '../webinar_page/webinar_pastwebnar_page.dart';
 
 class WebinarDetailsPageWidget extends StatefulWidget {
@@ -129,8 +131,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
               padding: const EdgeInsets.only(right: 20),
               child: GestureDetector(
                 onTap: () {
-                  Share.share(
-                      'https://play.google.com/store/apps/details?id=com.sortmycollege');
+                  shareLinks();
                 },
                 child: Image.asset(
                   "assets/page-1/images/share.png",

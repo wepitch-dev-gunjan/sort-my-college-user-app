@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/other/api_service.dart';
+import 'package:myapp/other/constants.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../shared/colors_const.dart';
 import '../components/app_bar.dart';
 import '../components/commons.dart';
@@ -14,6 +17,23 @@ class EntrancePreparationScreen extends StatefulWidget {
 }
 
 class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
+  dynamic data;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    getEpData();
+    super.initState();
+  }
+
+  getEpData() async {
+    final res = await ApiService.getEPListData();
+    setState(() {
+      data = res;
+      isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,11 +42,27 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
         title: 'Entrance Preparation',
         icon: Icons.search,
       ),
-      body: SingleChildScrollView(
-        child: Column(
+      body: isLoading ? const EpShimmerEffect() : EpCard(data: data),
+    );
+  }
+}
+
+class EpCard extends StatelessWidget {
+  final dynamic data;
+  const EpCard({
+    super.key,
+    required this.data,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: data.length,
+      itemBuilder: (context, index) {
+        return Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Card(
                 color: ColorsConst.whiteColor,
                 surfaceTintColor: ColorsConst.whiteColor,
@@ -38,9 +74,13 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Column(
+                          Column(
                             children: [
-                              CircleAvatar(radius: 40),
+                              CircleAvatar(
+                                radius: 40,
+                                backgroundImage: NetworkImage(
+                                    "${data[index]['profile_pic']}"),
+                              ),
                             ],
                           ),
                           const SizedBox(width: 5.0),
@@ -48,12 +88,13 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Allen Career Institute",
+                                data[index]['name'],
                                 style: GoogleFonts.lato(
-                                    textStyle: TextStyle(
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.w700,
-                                ),),
+                                  textStyle: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
                               ),
                               const Row(
                                 children: [
@@ -134,9 +175,130 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
               ),
             )
           ],
-        ),
-      ),
+        );
+      },
     );
+  }
+}
+
+class EpShimmerEffect extends StatelessWidget {
+  const EpShimmerEffect({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // log("Datain Shimmer=${data}");
+    final width = MediaQuery.of(context).size.width;
+    return ListView.builder(
+        itemCount: 4,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  color: AppColors.whiteColor,
+                  surfaceTintColor: ColorsConst.whiteColor,
+                  elevation: 3,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey.shade300,
+                      highlightColor: Colors.grey.shade100,
+                      child: Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Column(
+                                children: [
+                                  CircleAvatar(radius: 40),
+                                ],
+                              ),
+                              const SizedBox(width: 5.0),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: width / 1.7,
+                                      height: 18,
+                                      color: Colors.white,
+                                    ),
+                                    const SizedBox(height: 5.0),
+                                    Container(
+                                      width: 40.w,
+                                      height: 12,
+                                      color: Colors.white,
+                                    ),
+                                    const SizedBox(height: 5.0),
+                                    Row(
+                                      children: [
+                                        for (int i = 0; i < 3; i++)
+                                          Container(
+                                            margin:
+                                                const EdgeInsets.only(right: 5),
+                                            width: 40.w,
+                                            height: 15,
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(5)),
+                                          ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 5.0),
+                                    Container(
+                                      color: Colors.white,
+                                      width: width / 2,
+                                      height: 10,
+                                    ),
+                                    const SizedBox(height: 5.0),
+                                    Container(
+                                      color: Colors.white,
+                                      width: width / 2,
+                                      height: 10,
+                                    ),
+                                    const SizedBox(height: 5.0),
+                                    Container(
+                                      color: Colors.white,
+                                      width: width / 2,
+                                      height: 10,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                height: 36,
+                                width: 110.w,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(6)),
+                              ),
+                              Container(
+                                height: 36,
+                                width: 110.w,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(6)),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
   }
 }
 

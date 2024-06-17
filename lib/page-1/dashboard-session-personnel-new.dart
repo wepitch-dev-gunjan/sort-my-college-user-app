@@ -641,6 +641,8 @@ class _Counseling_Session_PersonnelState
                                                                   builder:
                                                                       (context) {
                                                                     return CheckOutScreen(
+                                                                      sessionId: id,
+                                                                    
                                                                         name: widget
                                                                             .name,
                                                                         id: widget

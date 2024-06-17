@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -13,7 +12,7 @@ import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/listcontroler.dart';
 import 'package:myapp/page-1/dashboard_session_page.dart';
 import 'package:myapp/utils.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:myapp/utils/share_links.dart';
 
 class CounsellorListPage_offline extends StatefulWidget {
   const CounsellorListPage_offline({super.key});
@@ -35,12 +34,13 @@ class _CounsellorListPage_offlineState
   }
 
   Future<void> _fetchCounsellorData() async {
+    int limit = 10;
     setState(() {
       isCounsellorsLoading = true;
     });
 
     try {
-      var value = await ApiService.getCounsellorData();
+      var value = await ApiService.getCounsellorData(limit: limit);
       if (value.isNotEmpty) {
         listController.cousnellorlist_data = value;
       }
@@ -88,43 +88,7 @@ class _CounsellorListPage_offlineState
                     decoration: const BoxDecoration(
                       color: Colors.white,
                     ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const HomePageContainer()));
-                            },
-                            child: const Padding(
-                              padding: EdgeInsets.only(left: 10),
-                              child: Icon(
-                                Icons.arrow_back_ios,
-                                color: Color(0xff1f0a68),
-                                size: 25,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const Text(
-                          'Find Counsellors',
-                          style: TextStyle(
-                            color: Color(0xff1f0a68),
-                            fontSize: 18,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                            height: 0,
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: const AppBar(),
                   ),
                   Expanded(
                     child: SizedBox(
@@ -138,11 +102,8 @@ class _CounsellorListPage_offlineState
                                 children: [
                                   const SizedBox(height: 20),
                                   SizedBox(
-                                    // color: Colors.red,
                                     width: double.infinity,
                                     height: 100.35 * fem,
-                                    // margin: const EdgeInsets.only(
-                                    // left: 18.0, top: 5.0),
                                     child: Padding(
                                       padding: EdgeInsets.only(
                                         right:
@@ -155,8 +116,6 @@ class _CounsellorListPage_offlineState
                                       child: Stack(
                                         children: [
                                           Positioned(
-                                            // left: 0 * fem,
-                                            // top: 15.3145446777 * fem,
                                             child: Align(
                                                 child: Container(
                                               height: 60.5,
@@ -288,7 +247,6 @@ class _CounsellorListPage_offlineState
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
-                                          // alignment: Alignment.bottomCenter,
                                           children: [
                                             SizedBox(
                                               height: MediaQuery.sizeOf(context)
@@ -309,7 +267,6 @@ class _CounsellorListPage_offlineState
 //=====================================! Counsellors Card !=======================================
 
                                           : Container(
-                                              // color: Colors.red,
                                               margin: const EdgeInsets.fromLTRB(
                                                   0, 10, 0, 10),
                                               child: RefreshIndicator(
@@ -322,622 +279,608 @@ class _CounsellorListPage_offlineState
                                                   });
                                                 },
                                                 child: ListView.builder(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    horizontal: 14,
-                                                  ),
-                                                  itemCount: listController
-                                                      .cousnellorlist_data
-                                                      .length,
-                                                  physics:
-                                                      const BouncingScrollPhysics(),
-                                                  shrinkWrap: true,
-                                                  primary: false,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    var coursesFocused =
-                                                        listController
-                                                                .cousnellorlist_data[
-                                                                    index]
-                                                                .coursesFocused ??
-                                                            [];
-                                                    return Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .end,
-                                                      children: [
-                                                        Card(
-                                                          elevation: 2,
-                                                          // color: Colors.red,
-                                                          color: const Color(
-                                                              0xffffffff),
-                                                          surfaceTintColor:
-                                                              const Color(
-                                                                  0xffffffff),
-                                                          child: Container(
-                                                            margin: EdgeInsets
-                                                                .fromLTRB(
-                                                              10 * fem,
-                                                              10 * fem,
-                                                              10 * fem,
-                                                              10.73 * fem,
-                                                            ),
-                                                            width: 390 * fem,
-                                                            height: 224 * fem,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              // color:
-                                                              //     Colors.red,
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                      horizontal: 14,
+                                                    ),
+                                                    itemCount: listController
+                                                        .cousnellorlist_data
+                                                        .length,
+                                                    physics:
+                                                        const BouncingScrollPhysics(),
+                                                    shrinkWrap: true,
+                                                    primary: false,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      var coursesFocused =
+                                                          listController
+                                                                  .cousnellorlist_data[
+                                                                      index]
+                                                                  .coursesFocused ??
+                                                              [];
+
+                                                      if (index <
+                                                          listController
+                                                              .cousnellorlist_data
+                                                              .length) {
+                                                        return Row(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            Card(
+                                                              elevation: 2,
+                                                              // color: Colors.red,
                                                               color: const Color(
                                                                   0xffffffff),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                7 * fem,
-                                                              ),
-                                                            ),
-                                                            child: Stack(
-                                                              children: [
-                                                                Positioned(
-                                                                  // group24uNH (730:15)
-                                                                  left:
-                                                                      10 * fem,
-                                                                  child:
-                                                                      SizedBox(
-                                                                    width: 370 *
-                                                                        fem,
-                                                                    height:
-                                                                        320.1 *
+                                                              surfaceTintColor:
+                                                                  const Color(
+                                                                      0xffffffff),
+                                                              child: Container(
+                                                                margin: EdgeInsets
+                                                                    .fromLTRB(
+                                                                  10 * fem,
+                                                                  10 * fem,
+                                                                  10 * fem,
+                                                                  10.73 * fem,
+                                                                ),
+                                                                width:
+                                                                    390 * fem,
+                                                                height:
+                                                                    224 * fem,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: const Color(
+                                                                      0xffffffff),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                    7 * fem,
+                                                                  ),
+                                                                ),
+                                                                child: Stack(
+                                                                  children: [
+                                                                    Positioned(
+                                                                      left: 10 *
+                                                                          fem,
+                                                                      child:
+                                                                          SizedBox(
+                                                                        width: 370 *
                                                                             fem,
-                                                                    child:
-                                                                        Stack(
-                                                                      children: [
-                                                                        Positioned(
-                                                                          // rectangle101cGh (730:16)
-                                                                          left: 10 *
-                                                                              fem,
-                                                                          top: 3.4286193848 *
-                                                                              fem,
-                                                                          child:
-                                                                              Align(
-                                                                            child:
-                                                                                SizedBox(
-                                                                              width: 95 * fem,
-                                                                              height: 104 * fem,
-                                                                              child: ClipRRect(
-                                                                                borderRadius: BorderRadius.circular(75 * fem),
-                                                                                child: Image.network(
-                                                                                  listController.cousnellorlist_data[index].profilePic,
-                                                                                  fit: BoxFit.cover,
-                                                                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                                                                    //print("Exception >> ${exception.toString()}");
-                                                                                    return Image.asset(
-                                                                                      'assets/page-1/images/comming_soon.png',
+                                                                        height: 320.1 *
+                                                                            fem,
+                                                                        child:
+                                                                            Stack(
+                                                                          children: [
+                                                                            Positioned(
+                                                                              left: 10 * fem,
+                                                                              top: 3.4286193848 * fem,
+                                                                              child: Align(
+                                                                                child: SizedBox(
+                                                                                  width: 95 * fem,
+                                                                                  height: 104 * fem,
+                                                                                  child: ClipRRect(
+                                                                                    borderRadius: BorderRadius.circular(75 * fem),
+                                                                                    child: Image.network(
+                                                                                      listController.cousnellorlist_data[index].profilePic,
                                                                                       fit: BoxFit.cover,
-                                                                                    );
-                                                                                  },
+                                                                                      errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                                                                        return Image.asset(
+                                                                                          'assets/page-1/images/comming_soon.png',
+                                                                                          fit: BoxFit.cover,
+                                                                                        );
+                                                                                      },
+                                                                                    ),
+                                                                                  ),
                                                                                 ),
                                                                               ),
                                                                             ),
-                                                                          ),
-                                                                        ),
-                                                                        Positioned(
-                                                                          left: 123 *
-                                                                              fem,
-                                                                          top: 70.4285888672 *
-                                                                              fem,
-                                                                          right:
-                                                                              1 * fem,
-                                                                          child:
-                                                                              SizedBox(
-                                                                            width:
-                                                                                MediaQuery.of(context).size.width,
-                                                                            child:
-                                                                                SingleChildScrollView(
-                                                                              scrollDirection: Axis.horizontal,
-                                                                              child: Row(
-                                                                                children: coursesFocused.isNotEmpty
-                                                                                    ? List.generate(
-                                                                                        coursesFocused.length,
-                                                                                        (index) => Container(
-                                                                                          margin: const EdgeInsets.only(right: 5.0),
-                                                                                          padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-                                                                                          height: 18 * fem,
-                                                                                          decoration: BoxDecoration(
-                                                                                            color: const Color(0xff1f0a68),
-                                                                                            borderRadius: BorderRadius.circular(3 * fem),
-                                                                                          ),
-                                                                                          child: Center(
-                                                                                            child: Text(
-                                                                                              coursesFocused[index],
-                                                                                              style: SafeGoogleFont(
-                                                                                                'Inter',
-                                                                                                fontSize: 11 * ffem,
-                                                                                                fontWeight: FontWeight.w700,
-                                                                                                height: 1.0,
-                                                                                                color: const Color(0xffffffff),
+                                                                            Positioned(
+                                                                              left: 123 * fem,
+                                                                              top: 70.4285888672 * fem,
+                                                                              right: 1 * fem,
+                                                                              child: SizedBox(
+                                                                                width: MediaQuery.of(context).size.width,
+                                                                                child: SingleChildScrollView(
+                                                                                  scrollDirection: Axis.horizontal,
+                                                                                  child: Row(
+                                                                                    children: coursesFocused.isNotEmpty
+                                                                                        ? List.generate(
+                                                                                            coursesFocused.length,
+                                                                                            (index) => Container(
+                                                                                              margin: const EdgeInsets.only(right: 5.0),
+                                                                                              padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+                                                                                              height: 18 * fem,
+                                                                                              decoration: BoxDecoration(
+                                                                                                color: const Color(0xff1f0a68),
+                                                                                                borderRadius: BorderRadius.circular(3 * fem),
                                                                                               ),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ),
-                                                                                      )
-                                                                                    : [
-                                                                                        Container(
-                                                                                          margin: const EdgeInsets.only(right: 5.0),
-                                                                                          padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-                                                                                          height: 18 * fem,
-                                                                                          decoration: BoxDecoration(
-                                                                                            color: const Color(0xff1f0a68),
-                                                                                            borderRadius: BorderRadius.circular(3 * fem),
-                                                                                          ),
-                                                                                          child: Center(
-                                                                                            child: Text(
-                                                                                              'N/A',
-                                                                                              style: SafeGoogleFont(
-                                                                                                'Inter',
-                                                                                                fontSize: 11 * ffem,
-                                                                                                fontWeight: FontWeight.w700,
-                                                                                                height: 1.0,
-                                                                                                color: const Color(0xffffffff),
-                                                                                              ),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ),
-                                                                                      ],
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        Positioned(
-                                                                          child:
-                                                                              SizedBox(
-                                                                            width:
-                                                                                370 * fem,
-                                                                            height:
-                                                                                270.1 * fem,
-                                                                            child:
-                                                                                Stack(
-                                                                              children: [
-                                                                                Positioned(
-                                                                                  left: 11.2578125 * fem,
-                                                                                  top: 0 * fem,
-                                                                                  child: SizedBox(
-                                                                                    width: 355.39 * fem,
-                                                                                    height: 200.43 * fem,
-                                                                                    child: Column(
-                                                                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                                                                      children: [
-                                                                                        Container(
-                                                                                          margin: EdgeInsets.fromLTRB(111.74 * fem, 0 * fem, 4.07 * fem, 32.92 * fem),
-                                                                                          width: double.infinity,
-                                                                                          child: Row(
-                                                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                            children: [
-                                                                                              Container(
-                                                                                                margin: EdgeInsets.fromLTRB(0 * fem, 14.43 * fem, 0, 0 * fem),
-                                                                                                child: Column(
-                                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                                  children: [
-                                                                                                    Container(
-                                                                                                      margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 4.25 * fem),
-                                                                                                      child: Text(
-                                                                                                        "${listController.cousnellorlist_data[index].name} ",
-                                                                                                        style: SafeGoogleFont(
-                                                                                                          'Inter',
-                                                                                                          fontSize: 22 * ffem,
-                                                                                                          fontWeight: FontWeight.w700,
-                                                                                                          height: 1.2125 * ffem / fem,
-                                                                                                          color: const Color(0xFF41403F),
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                    Text(
-                                                                                                      listController.cousnellorlist_data[index].designation,
-                                                                                                      style: SafeGoogleFont(
-                                                                                                        'Inter',
-                                                                                                        fontSize: 12 * ffem,
-                                                                                                        fontWeight: FontWeight.w400,
-                                                                                                        height: 1.2125 * ffem / fem,
-                                                                                                        color: const Color(0xff696969),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ],
-                                                                                                ),
-                                                                                              ),
-                                                                                              GestureDetector(
-                                                                                                onTap: () {
-                                                                                                  if (Platform.isIOS) {
-                                                                                                    Share.share('https://apps.apple.com/in/app/sort-my-college/id6480402447');
-                                                                                                  } else if (Platform.isAndroid) {
-                                                                                                    Share.share('https://play.google.com/store/apps/details?id=com.sortmycollege');
-                                                                                                  } else {
-                                                                                                    throw 'Platform not supported';
-                                                                                                  }
-                                                                                                },
-                                                                                                child: Container(
-                                                                                                  margin: const EdgeInsets.fromLTRB(0, 14, 0, 0),
-                                                                                                  width: 17.42 * fem,
-                                                                                                  height: 18.86 * fem,
-                                                                                                  child: Image.asset(
-                                                                                                    'assets/page-1/images/group-38-oFX.png',
-                                                                                                    width: 17.42 * fem,
-                                                                                                    height: 18.86 * fem,
+                                                                                              child: Center(
+                                                                                                child: Text(
+                                                                                                  coursesFocused[index],
+                                                                                                  style: SafeGoogleFont(
+                                                                                                    'Inter',
+                                                                                                    fontSize: 11 * ffem,
+                                                                                                    fontWeight: FontWeight.w700,
+                                                                                                    height: 1.0,
+                                                                                                    color: const Color(0xffffffff),
                                                                                                   ),
                                                                                                 ),
                                                                                               ),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ),
-                                                                                        Container(
-                                                                                          margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 3.3 * fem),
-                                                                                        ),
+                                                                                            ),
+                                                                                          )
+                                                                                        : [
+                                                                                            Container(
+                                                                                              margin: const EdgeInsets.only(right: 5.0),
+                                                                                              padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+                                                                                              height: 18 * fem,
+                                                                                              decoration: BoxDecoration(
+                                                                                                color: const Color(0xff1f0a68),
+                                                                                                borderRadius: BorderRadius.circular(3 * fem),
+                                                                                              ),
+                                                                                              child: Center(
+                                                                                                child: Text(
+                                                                                                  'N/A',
+                                                                                                  style: SafeGoogleFont(
+                                                                                                    'Inter',
+                                                                                                    fontSize: 11 * ffem,
+                                                                                                    fontWeight: FontWeight.w700,
+                                                                                                    height: 1.0,
+                                                                                                    color: const Color(0xffffffff),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ],
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                            Positioned(
+                                                                              child: SizedBox(
+                                                                                width: 370 * fem,
+                                                                                height: 270.1 * fem,
+                                                                                child: Stack(
+                                                                                  children: [
+                                                                                    Positioned(
+                                                                                      left: 11.2578125 * fem,
+                                                                                      top: 0 * fem,
+                                                                                      child: SizedBox(
+                                                                                        width: 355.39 * fem,
+                                                                                        height: 200.43 * fem,
+                                                                                        child: Column(
+                                                                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                                                                          children: [
+                                                                                            Container(
+                                                                                              margin: EdgeInsets.fromLTRB(111.74 * fem, 0 * fem, 4.07 * fem, 32.92 * fem),
+                                                                                              width: double.infinity,
+                                                                                              child: Row(
+                                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                children: [
+                                                                                                  Container(
+                                                                                                    margin: EdgeInsets.fromLTRB(0 * fem, 14.43 * fem, 0, 0 * fem),
+                                                                                                    child: Column(
+                                                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                      children: [
+                                                                                                        Container(
+                                                                                                          margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 4.25 * fem),
+                                                                                                          child: Text(
+                                                                                                            "${listController.cousnellorlist_data[index].name} ",
+                                                                                                            style: SafeGoogleFont(
+                                                                                                              'Inter',
+                                                                                                              fontSize: 22 * ffem,
+                                                                                                              fontWeight: FontWeight.w700,
+                                                                                                              height: 1.2125 * ffem / fem,
+                                                                                                              color: const Color(0xFF41403F),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                        Text(
+                                                                                                          listController.cousnellorlist_data[index].designation,
+                                                                                                          style: SafeGoogleFont(
+                                                                                                            'Inter',
+                                                                                                            fontSize: 12 * ffem,
+                                                                                                            fontWeight: FontWeight.w400,
+                                                                                                            height: 1.2125 * ffem / fem,
+                                                                                                            color: const Color(0xff696969),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ],
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  GestureDetector(
+                                                                                                    onTap: () {
+                                                                                                      shareLinks();
+                                                                                                    },
+                                                                                                    child: Container(
+                                                                                                      margin: const EdgeInsets.fromLTRB(0, 14, 0, 0),
+                                                                                                      width: 17.42 * fem,
+                                                                                                      height: 18.86 * fem,
+                                                                                                      child: Image.asset(
+                                                                                                        'assets/page-1/images/group-38-oFX.png',
+                                                                                                        width: 17.42 * fem,
+                                                                                                        height: 18.86 * fem,
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ],
+                                                                                              ),
+                                                                                            ),
+                                                                                            Container(
+                                                                                              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 3.3 * fem),
+                                                                                            ),
 
 ////================================================================================================================! Rating ! ============================================================================
 
-                                                                                        Container(
-                                                                                          margin: EdgeInsets.fromLTRB(30.79 * fem, 0 * fem, 0 * fem, 8.5 * fem),
-                                                                                          width: double.infinity,
-                                                                                          child: Row(
-                                                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                            children: [
-                                                                                              Container(
-                                                                                                margin: EdgeInsets.fromLTRB(80 * fem, 1.26 * fem, 4.13 * fem, 0 * fem),
-                                                                                                width: 10.41 * fem,
-                                                                                                height: 10.41 * fem,
-                                                                                                child: Image.asset(
-                                                                                                  'assets/page-1/images/clock-circular-outline-Ra1.png',
-                                                                                                  fit: BoxFit.cover,
-                                                                                                ),
+                                                                                            Container(
+                                                                                              margin: EdgeInsets.fromLTRB(30.79 * fem, 0 * fem, 0 * fem, 8.5 * fem),
+                                                                                              width: double.infinity,
+                                                                                              child: Row(
+                                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                children: [
+                                                                                                  Container(
+                                                                                                    margin: EdgeInsets.fromLTRB(80 * fem, 1.26 * fem, 4.13 * fem, 0 * fem),
+                                                                                                    width: 10.41 * fem,
+                                                                                                    height: 10.41 * fem,
+                                                                                                    child: Image.asset(
+                                                                                                      'assets/page-1/images/clock-circular-outline-Ra1.png',
+                                                                                                      fit: BoxFit.cover,
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  Text(
+                                                                                                    listController.cousnellorlist_data[index].nextSession,
+                                                                                                    textAlign: TextAlign.center,
+                                                                                                    overflow: TextOverflow.ellipsis,
+                                                                                                    style: SafeGoogleFont(
+                                                                                                      'Inter',
+                                                                                                      fontSize: 12 * ffem,
+                                                                                                      fontWeight: FontWeight.w500,
+                                                                                                      height: 1 * ffem / fem,
+                                                                                                      color: const Color(0xff414040),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  const Spacer(),
+                                                                                                  Image.asset(
+                                                                                                    height: 8,
+                                                                                                    width: 8,
+                                                                                                    'assets/page-1/images/star.png',
+                                                                                                    fit: BoxFit.cover,
+                                                                                                  ),
+                                                                                                  const SizedBox(width: 2),
+                                                                                                  Text(
+                                                                                                    listController.cousnellorlist_data[index].averageRating,
+                                                                                                    textAlign: TextAlign.center,
+                                                                                                    style: SafeGoogleFont(
+                                                                                                      'Inter',
+                                                                                                      fontSize: 9 * ffem,
+                                                                                                      fontWeight: FontWeight.w700,
+                                                                                                      height: 1 * ffem / fem,
+                                                                                                      color: const Color(0xff000000),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ],
                                                                                               ),
-                                                                                              Text(
-                                                                                                listController.cousnellorlist_data[index].nextSession,
-                                                                                                textAlign: TextAlign.center,
-                                                                                                overflow: TextOverflow.ellipsis,
-                                                                                                style: SafeGoogleFont(
-                                                                                                  'Inter',
-                                                                                                  fontSize: 12 * ffem,
-                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                  height: 1 * ffem / fem,
-                                                                                                  color: const Color(0xff414040),
-                                                                                                ),
+                                                                                            ),
+                                                                                          ],
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+
+//============================================================================! Btns Upper Part ! =========================================================
+
+                                                                                    Positioned(
+                                                                                      left: 15.095703125 * fem,
+                                                                                      top: 120.1729736328 * fem,
+                                                                                      child: SizedBox(
+                                                                                        width: 330.19 * fem,
+                                                                                        height: 41.88 * fem,
+                                                                                        child: Row(
+                                                                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                                                                          children: [
+                                                                                            Container(
+                                                                                              margin: EdgeInsets.fromLTRB(0 * fem, 1.35 * fem, 23.41 * fem, 3.21 * fem),
+                                                                                              height: double.infinity,
+                                                                                              child: Column(
+                                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                                children: [
+                                                                                                  Container(
+                                                                                                    margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 3.33 * fem),
+                                                                                                    child: Text(
+                                                                                                      'Experience',
+                                                                                                      style: SafeGoogleFont(
+                                                                                                        'Inter',
+                                                                                                        fontSize: 11 * ffem,
+                                                                                                        fontWeight: FontWeight.w500,
+                                                                                                        height: 1.2125 * ffem / fem,
+                                                                                                        color: const Color(0xFF8D8888),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  Container(
+                                                                                                    margin: EdgeInsets.fromLTRB(0 * fem, 3 * fem, 1.34 * fem, 0 * fem),
+                                                                                                    child: Text(
+                                                                                                      "${listController.cousnellorlist_data[index].experienceInYears}"
+                                                                                                      " year",
+                                                                                                      style: SafeGoogleFont(
+                                                                                                        'Inter',
+                                                                                                        fontSize: 13 * ffem,
+                                                                                                        fontWeight: FontWeight.w700,
+                                                                                                        height: 1.2125 * ffem / fem,
+                                                                                                        color: const Color(0xff000000),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ],
                                                                                               ),
-                                                                                              const Spacer(),
-                                                                                              Image.asset(
-                                                                                                height: 8,
-                                                                                                width: 8,
-                                                                                                'assets/page-1/images/star.png',
-                                                                                                fit: BoxFit.cover,
+                                                                                            ),
+                                                                                            Container(
+                                                                                              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 19.05 * fem, 0.81 * fem),
+                                                                                              constraints: BoxConstraints(
+                                                                                                maxWidth: 3 * fem,
                                                                                               ),
-                                                                                              const SizedBox(width: 2),
-                                                                                              Text(
-                                                                                                listController.cousnellorlist_data[index].averageRating,
+                                                                                              child: Text(
+                                                                                                '.\n.\n.\n.\n.\n.\n.\n.\n.',
                                                                                                 textAlign: TextAlign.center,
                                                                                                 style: SafeGoogleFont(
                                                                                                   'Inter',
                                                                                                   fontSize: 9 * ffem,
-                                                                                                  fontWeight: FontWeight.w700,
-                                                                                                  height: 1 * ffem / fem,
-                                                                                                  color: const Color(0xff000000),
+                                                                                                  fontWeight: FontWeight.w400,
+                                                                                                  height: 0.4849999746 * ffem / fem,
+                                                                                                  color: const Color(0xff9a9898),
                                                                                                 ),
                                                                                               ),
-                                                                                            ],
-                                                                                          ),
+                                                                                            ),
+                                                                                            Container(
+                                                                                              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 23.67 * fem, 1.09 * fem),
+                                                                                              child: Column(
+                                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                                children: [
+                                                                                                  Container(
+                                                                                                    margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 5.45 * fem),
+                                                                                                    child: Text(
+                                                                                                      'Session',
+                                                                                                      style: SafeGoogleFont(
+                                                                                                        'Inter',
+                                                                                                        fontSize: 11 * ffem,
+                                                                                                        fontWeight: FontWeight.w500,
+                                                                                                        height: 1.2125 * ffem / fem,
+                                                                                                        color: const Color(0xff8d8888),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  Container(
+                                                                                                    margin: EdgeInsets.fromLTRB(2.42 * fem, 3 * fem, 0 * fem, 0 * fem),
+                                                                                                    child: Text(
+                                                                                                      '${listController.cousnellorlist_data[index].totalSessions}',
+                                                                                                      style: SafeGoogleFont(
+                                                                                                        'Inter',
+                                                                                                        fontSize: 13 * ffem,
+                                                                                                        fontWeight: FontWeight.w700,
+                                                                                                        height: 1.2125 * ffem / fem,
+                                                                                                        color: const Color(0xff000000),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ],
+                                                                                              ),
+                                                                                            ),
+                                                                                            Container(
+                                                                                              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 26.73 * fem, 0.95 * fem),
+                                                                                              constraints: BoxConstraints(
+                                                                                                maxWidth: 3 * fem,
+                                                                                              ),
+                                                                                              child: Text(
+                                                                                                '.\n.\n.\n.\n.\n.\n.\n.\n.',
+                                                                                                textAlign: TextAlign.center,
+                                                                                                style: SafeGoogleFont(
+                                                                                                  'Inter',
+                                                                                                  fontSize: 9 * ffem,
+                                                                                                  fontWeight: FontWeight.w400,
+                                                                                                  height: 0.4849999746 * ffem / fem,
+                                                                                                  color: const Color(0xff9a9898),
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                            Container(
+                                                                                              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 17.6 * fem, 0 * fem),
+                                                                                              child: Column(
+                                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                                children: [
+                                                                                                  Container(
+                                                                                                    margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 6.53 * fem),
+                                                                                                    child: Text(
+                                                                                                      'Rewards',
+                                                                                                      style: SafeGoogleFont(
+                                                                                                        'Inter',
+                                                                                                        fontSize: 11 * ffem,
+                                                                                                        fontWeight: FontWeight.w500,
+                                                                                                        height: 1.2125 * ffem / fem,
+                                                                                                        color: const Color(0xff8d8888),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  Container(
+                                                                                                    margin: EdgeInsets.fromLTRB(0 * fem, 3 * fem, 3.09 * fem, 0 * fem),
+                                                                                                    child: Text(
+                                                                                                      " ${listController.cousnellorlist_data[index].rewardPoints} +",
+                                                                                                      style: SafeGoogleFont(
+                                                                                                        'Inter',
+                                                                                                        fontSize: 13 * ffem,
+                                                                                                        fontWeight: FontWeight.w700,
+                                                                                                        height: 1.2125 * ffem / fem,
+                                                                                                        color: const Color(0xff000000),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ],
+                                                                                              ),
+                                                                                            ),
+                                                                                            Container(
+                                                                                              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 16.73 * fem, 1.88 * fem),
+                                                                                              constraints: BoxConstraints(
+                                                                                                maxWidth: 3 * fem,
+                                                                                              ),
+                                                                                              child: Text(
+                                                                                                '.\n.\n.\n.\n.\n.\n.\n.\n.',
+                                                                                                textAlign: TextAlign.center,
+                                                                                                style: SafeGoogleFont(
+                                                                                                  'Inter',
+                                                                                                  fontSize: 9 * ffem,
+                                                                                                  fontWeight: FontWeight.w400,
+                                                                                                  height: 0.4849999746 * ffem / fem,
+                                                                                                  color: const Color(0xff9a9898),
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                            Column(
+                                                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                              children: [
+                                                                                                Container(
+                                                                                                  margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 6.53 * fem),
+                                                                                                  child: Text(
+                                                                                                    'Reviews',
+                                                                                                    style: SafeGoogleFont(
+                                                                                                      'Inter',
+                                                                                                      fontSize: 11 * ffem,
+                                                                                                      fontWeight: FontWeight.w500,
+                                                                                                      height: 1.2125 * ffem / fem,
+                                                                                                      color: const Color(0xff8d8888),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                Container(
+                                                                                                  margin: EdgeInsets.fromLTRB(0 * fem, 3 * fem, 4.34 * fem, 0 * fem),
+                                                                                                  child: Text(
+                                                                                                    '${listController.cousnellorlist_data[index].reviews}',
+                                                                                                    style: SafeGoogleFont(
+                                                                                                      'Inter',
+                                                                                                      fontSize: 13 * ffem,
+                                                                                                      fontWeight: FontWeight.w700,
+                                                                                                      height: 1.2125 * ffem / fem,
+                                                                                                      color: const Color(0xff000000),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ],
                                                                                         ),
-                                                                                      ],
+                                                                                      ),
                                                                                     ),
-                                                                                  ),
-                                                                                ),
 
-//============================================================================! Btns Upper Part ! =========================================================
+//==========================================================================================! Btns !=======================================
 
-                                                                                Positioned(
-                                                                                  left: 15.095703125 * fem,
-                                                                                  top: 120.1729736328 * fem,
-                                                                                  child: SizedBox(
-                                                                                    width: 330.19 * fem,
-                                                                                    height: 41.88 * fem,
-                                                                                    child: Row(
-                                                                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                                                                      children: [
-                                                                                        Container(
-                                                                                          margin: EdgeInsets.fromLTRB(0 * fem, 1.35 * fem, 23.41 * fem, 3.21 * fem),
-                                                                                          height: double.infinity,
-                                                                                          child: Column(
-                                                                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                            children: [
-                                                                                              Container(
-                                                                                                margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 3.33 * fem),
-                                                                                                child: Text(
-                                                                                                  'Experience',
-                                                                                                  style: SafeGoogleFont(
-                                                                                                    'Inter',
-                                                                                                    fontSize: 11 * ffem,
-                                                                                                    fontWeight: FontWeight.w500,
-                                                                                                    height: 1.2125 * ffem / fem,
-                                                                                                    color: const Color(0xFF8D8888),
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ),
-                                                                                              Container(
-                                                                                                margin: EdgeInsets.fromLTRB(0 * fem, 3 * fem, 1.34 * fem, 0 * fem),
-                                                                                                child: Text(
-                                                                                                  "${listController.cousnellorlist_data[index].experienceInYears}"
-                                                                                                  " year",
-                                                                                                  style: SafeGoogleFont(
-                                                                                                    'Inter',
-                                                                                                    fontSize: 13 * ffem,
-                                                                                                    fontWeight: FontWeight.w700,
-                                                                                                    height: 1.2125 * ffem / fem,
-                                                                                                    color: const Color(0xff000000),
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ),
-                                                                                        Container(
-                                                                                          margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 19.05 * fem, 0.81 * fem),
-                                                                                          constraints: BoxConstraints(
-                                                                                            maxWidth: 3 * fem,
-                                                                                          ),
-                                                                                          child: Text(
-                                                                                            '.\n.\n.\n.\n.\n.\n.\n.\n.',
-                                                                                            textAlign: TextAlign.center,
-                                                                                            style: SafeGoogleFont(
-                                                                                              'Inter',
-                                                                                              fontSize: 9 * ffem,
-                                                                                              fontWeight: FontWeight.w400,
-                                                                                              height: 0.4849999746 * ffem / fem,
-                                                                                              color: const Color(0xff9a9898),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ),
-                                                                                        Container(
-                                                                                          margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 23.67 * fem, 1.09 * fem),
-                                                                                          child: Column(
-                                                                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                            children: [
-                                                                                              Container(
-                                                                                                margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 5.45 * fem),
-                                                                                                child: Text(
-                                                                                                  'Session',
-                                                                                                  style: SafeGoogleFont(
-                                                                                                    'Inter',
-                                                                                                    fontSize: 11 * ffem,
-                                                                                                    fontWeight: FontWeight.w500,
-                                                                                                    height: 1.2125 * ffem / fem,
-                                                                                                    color: const Color(0xff8d8888),
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ),
-                                                                                              Container(
-                                                                                                margin: EdgeInsets.fromLTRB(2.42 * fem, 3 * fem, 0 * fem, 0 * fem),
-                                                                                                child: Text(
-                                                                                                  '${listController.cousnellorlist_data[index].totalSessions}',
-                                                                                                  style: SafeGoogleFont(
-                                                                                                    'Inter',
-                                                                                                    fontSize: 13 * ffem,
-                                                                                                    fontWeight: FontWeight.w700,
-                                                                                                    height: 1.2125 * ffem / fem,
-                                                                                                    color: const Color(0xff000000),
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ),
-                                                                                        Container(
-                                                                                          margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 26.73 * fem, 0.95 * fem),
-                                                                                          constraints: BoxConstraints(
-                                                                                            maxWidth: 3 * fem,
-                                                                                          ),
-                                                                                          child: Text(
-                                                                                            '.\n.\n.\n.\n.\n.\n.\n.\n.',
-                                                                                            textAlign: TextAlign.center,
-                                                                                            style: SafeGoogleFont(
-                                                                                              'Inter',
-                                                                                              fontSize: 9 * ffem,
-                                                                                              fontWeight: FontWeight.w400,
-                                                                                              height: 0.4849999746 * ffem / fem,
-                                                                                              color: const Color(0xff9a9898),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ),
-                                                                                        Container(
-                                                                                          margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 17.6 * fem, 0 * fem),
-                                                                                          child: Column(
-                                                                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                            children: [
-                                                                                              Container(
-                                                                                                margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 6.53 * fem),
-                                                                                                child: Text(
-                                                                                                  'Rewards',
-                                                                                                  style: SafeGoogleFont(
-                                                                                                    'Inter',
-                                                                                                    fontSize: 11 * ffem,
-                                                                                                    fontWeight: FontWeight.w500,
-                                                                                                    height: 1.2125 * ffem / fem,
-                                                                                                    color: const Color(0xff8d8888),
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ),
-                                                                                              Container(
-                                                                                                margin: EdgeInsets.fromLTRB(0 * fem, 3 * fem, 3.09 * fem, 0 * fem),
-                                                                                                child: Text(
-                                                                                                  " ${listController.cousnellorlist_data[index].rewardPoints} +",
-                                                                                                  style: SafeGoogleFont(
-                                                                                                    'Inter',
-                                                                                                    fontSize: 13 * ffem,
-                                                                                                    fontWeight: FontWeight.w700,
-                                                                                                    height: 1.2125 * ffem / fem,
-                                                                                                    color: const Color(0xff000000),
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ),
-                                                                                        Container(
-                                                                                          margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 16.73 * fem, 1.88 * fem),
-                                                                                          constraints: BoxConstraints(
-                                                                                            maxWidth: 3 * fem,
-                                                                                          ),
-                                                                                          child: Text(
-                                                                                            '.\n.\n.\n.\n.\n.\n.\n.\n.',
-                                                                                            textAlign: TextAlign.center,
-                                                                                            style: SafeGoogleFont(
-                                                                                              'Inter',
-                                                                                              fontSize: 9 * ffem,
-                                                                                              fontWeight: FontWeight.w400,
-                                                                                              height: 0.4849999746 * ffem / fem,
-                                                                                              color: const Color(0xff9a9898),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ),
-                                                                                        Column(
-                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                    Positioned(
+                                                                                      left: 15.095703125 * fem,
+                                                                                      top: 180.1729736328 * fem,
+                                                                                      child: SizedBox(
+                                                                                        width: 330.19 * fem,
+                                                                                        height: 41.88 * fem,
+                                                                                        child: Row(
+                                                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                                           children: [
-                                                                                            Container(
-                                                                                              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 6.53 * fem),
-                                                                                              child: Text(
-                                                                                                'Reviews',
-                                                                                                style: SafeGoogleFont(
-                                                                                                  'Inter',
-                                                                                                  fontSize: 11 * ffem,
-                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                  height: 1.2125 * ffem / fem,
-                                                                                                  color: const Color(0xff8d8888),
+                                                                                            GestureDetector(
+                                                                                              onTap: () {
+                                                                                                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                                                                                  log("idddddddd => ${listController.cousnellorlist_data[index].id}");
+                                                                                                  return CounsellorDetailsScreen(
+                                                                                                    id: listController.cousnellorlist_data[index].id,
+                                                                                                  );
+                                                                                                }));
+                                                                                              },
+                                                                                              child: Container(
+                                                                                                width: 120,
+                                                                                                height: 40,
+                                                                                                decoration: ShapeDecoration(
+                                                                                                  color: Colors.white,
+                                                                                                  shape: RoundedRectangleBorder(
+                                                                                                    side: BorderSide(
+                                                                                                      width: 0.50,
+                                                                                                      color: Colors.black.withOpacity(0.7400000095367432),
+                                                                                                    ),
+                                                                                                    borderRadius: BorderRadius.circular(10),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                child: const SizedBox(
+                                                                                                  width: 100.09,
+                                                                                                  height: 16.05,
+                                                                                                  child: Center(
+                                                                                                    child: Text(
+                                                                                                      'Visit Profile',
+                                                                                                      textAlign: TextAlign.center,
+                                                                                                      style: TextStyle(
+                                                                                                        color: Color(0xFF262626),
+                                                                                                        fontSize: 13,
+                                                                                                        fontFamily: 'Inter',
+                                                                                                        fontWeight: FontWeight.w700,
+                                                                                                        height: 0.07,
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
                                                                                                 ),
                                                                                               ),
                                                                                             ),
-                                                                                            Container(
-                                                                                              margin: EdgeInsets.fromLTRB(0 * fem, 3 * fem, 4.34 * fem, 0 * fem),
-                                                                                              child: Text(
-                                                                                                '${listController.cousnellorlist_data[index].reviews}',
-                                                                                                style: SafeGoogleFont(
-                                                                                                  'Inter',
-                                                                                                  fontSize: 13 * ffem,
-                                                                                                  fontWeight: FontWeight.w700,
-                                                                                                  height: 1.2125 * ffem / fem,
-                                                                                                  color: const Color(0xff000000),
+                                                                                            GestureDetector(
+                                                                                              onTap: () {
+                                                                                                String id = listController.cousnellorlist_data[index].id;
+                                                                                                String name = listController.cousnellorlist_data[index].name;
+                                                                                                String designation = listController.cousnellorlist_data[index].designation;
+                                                                                                Navigator.push(context, MaterialPageRoute(builder: (context) => CounsellingSessionPage(id: listController.cousnellorlist_data[index].id, name: name, designation: designation, selectedIndex_get: 0, profileurl: listController.cousnellorlist_data[index].profilePic)));
+                                                                                              },
+                                                                                              child: Container(
+                                                                                                width: 120,
+                                                                                                height: 40,
+                                                                                                decoration: ShapeDecoration(
+                                                                                                  color: const Color(0xff1F0A68),
+                                                                                                  shape: RoundedRectangleBorder(
+                                                                                                    borderRadius: BorderRadius.circular(10),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                child: const SizedBox(
+                                                                                                  width: 110.09,
+                                                                                                  height: 16.05,
+                                                                                                  child: Center(
+                                                                                                    child: Text(
+                                                                                                      'Book Now',
+                                                                                                      textAlign: TextAlign.center,
+                                                                                                      style: TextStyle(
+                                                                                                        color: Colors.white,
+                                                                                                        fontSize: 13,
+                                                                                                        fontFamily: 'Inter',
+                                                                                                        fontWeight: FontWeight.w700,
+                                                                                                        height: 0.07,
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
                                                                                                 ),
                                                                                               ),
                                                                                             ),
                                                                                           ],
                                                                                         ),
-                                                                                      ],
+                                                                                      ),
                                                                                     ),
-                                                                                  ),
+                                                                                  ],
                                                                                 ),
-
-//==========================================================================================! Btns !=======================================
-
-                                                                                Positioned(
-                                                                                  left: 15.095703125 * fem,
-                                                                                  top: 180.1729736328 * fem,
-                                                                                  child: SizedBox(
-                                                                                    width: 330.19 * fem,
-                                                                                    height: 41.88 * fem,
-                                                                                    child: Row(
-                                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                      children: [
-                                                                                        GestureDetector(
-                                                                                          onTap: () {
-                                                                                            Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                                                                              log("idddddddd => ${listController.cousnellorlist_data[index].id}");
-                                                                                              return CounsellorDetailsScreen(
-                                                                                                id: listController.cousnellorlist_data[index].id,
-                                                                                              );
-                                                                                            }));
-                                                                                          },
-                                                                                          child: Container(
-                                                                                            width: 120,
-                                                                                            height: 40,
-                                                                                            decoration: ShapeDecoration(
-                                                                                              color: Colors.white,
-                                                                                              shape: RoundedRectangleBorder(
-                                                                                                side: BorderSide(
-                                                                                                  width: 0.50,
-                                                                                                  color: Colors.black.withOpacity(0.7400000095367432),
-                                                                                                ),
-                                                                                                borderRadius: BorderRadius.circular(10),
-                                                                                              ),
-                                                                                            ),
-                                                                                            child: const SizedBox(
-                                                                                              width: 100.09,
-                                                                                              height: 16.05,
-                                                                                              child: Center(
-                                                                                                child: Text(
-                                                                                                  'Visit Profile',
-                                                                                                  textAlign: TextAlign.center,
-                                                                                                  style: TextStyle(
-                                                                                                    color: Color(0xFF262626),
-                                                                                                    fontSize: 13,
-                                                                                                    fontFamily: 'Inter',
-                                                                                                    fontWeight: FontWeight.w700,
-                                                                                                    height: 0.07,
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ),
-                                                                                        GestureDetector(
-                                                                                          onTap: () {
-                                                                                            String id = listController.cousnellorlist_data[index].id;
-                                                                                            String name = listController.cousnellorlist_data[index].name;
-                                                                                            String designation = listController.cousnellorlist_data[index].designation;
-                                                                                            Navigator.push(context, MaterialPageRoute(builder: (context) => CounsellingSessionPage(id: listController.cousnellorlist_data[index].id, name: name, designation: designation, selectedIndex_get: 0, profileurl: listController.cousnellorlist_data[index].profilePic)));
-                                                                                          },
-                                                                                          child: Container(
-                                                                                            width: 120,
-                                                                                            height: 40,
-                                                                                            decoration: ShapeDecoration(
-                                                                                              color: const Color(0xff1F0A68),
-                                                                                              shape: RoundedRectangleBorder(
-                                                                                                borderRadius: BorderRadius.circular(10),
-                                                                                              ),
-                                                                                            ),
-                                                                                            child: const SizedBox(
-                                                                                              width: 110.09,
-                                                                                              height: 16.05,
-                                                                                              child: Center(
-                                                                                                child: Text(
-                                                                                                  'Book Now',
-                                                                                                  textAlign: TextAlign.center,
-                                                                                                  style: TextStyle(
-                                                                                                    color: Colors.white,
-                                                                                                    fontSize: 13,
-                                                                                                    fontFamily: 'Inter',
-                                                                                                    fontWeight: FontWeight.w700,
-                                                                                                    height: 0.07,
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ),
-                                                                                      ],
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              ],
+                                                                              ),
                                                                             ),
-                                                                          ),
+                                                                          ],
                                                                         ),
-                                                                      ],
+                                                                      ),
                                                                     ),
-                                                                  ),
+                                                                  ],
                                                                 ),
-                                                              ],
+                                                              ),
                                                             ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                ),
+                                                          ],
+                                                        );
+                                                      } else {
+                                                        const Center(
+                                                          child:
+                                                              CircularProgressIndicator(),
+                                                        );
+                                                      }
+                                                    }),
                                               ),
                                             ),
                                 ],
@@ -966,5 +909,51 @@ class _CounsellorListPage_offlineState
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (context) => const HomePageContainer()));
     return true;
+  }
+}
+
+class AppBar extends StatelessWidget {
+  const AppBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const HomePageContainer()));
+            },
+            child: const Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Color(0xff1f0a68),
+                size: 25,
+              ),
+            ),
+          ),
+        ),
+        const Text(
+          'Find Counsellors',
+          style: TextStyle(
+            color: Color(0xff1f0a68),
+            fontSize: 18,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w600,
+            height: 0,
+          ),
+        ),
+      ],
+    );
   }
 }
