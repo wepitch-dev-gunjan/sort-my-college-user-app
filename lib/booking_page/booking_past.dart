@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/other/api_service.dart';
@@ -34,6 +36,7 @@ class _BookingPastState extends State<BookingPast> {
 
   @override
   Widget build(BuildContext context) {
+    log("Bookings=$bookings");
     var mWidth = MediaQuery.sizeOf(context).width;
     return isLoading
         ? const Center(child: CircularProgressIndicator())
@@ -103,7 +106,7 @@ class _BookingPastState extends State<BookingPast> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  '${bookings[index]["booked_entity"]['email']}',
+                                                  '${bookings[index]["booked_entity"]['designation']}',
                                                   // bookings[index]
                                                   //         .booked_entity
                                                   //         ?.email ??
