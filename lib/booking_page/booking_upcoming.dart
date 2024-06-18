@@ -108,7 +108,7 @@ class _BookingUpcomingState extends State<BookingUpcoming> {
                                                 ),
                                               ),
                                               Text(
-                                                '${bookings[index]["booked_entity"]['email']}',
+                                                '${bookings[index]["booked_entity"]['designation']}',
                                                 // bookings[index]
                                                 //         .booked_entity
                                                 //         ?.email ??

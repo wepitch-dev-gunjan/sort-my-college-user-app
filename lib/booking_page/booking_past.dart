@@ -107,11 +107,6 @@ class _BookingPastState extends State<BookingPast> {
                                                 ),
                                                 Text(
                                                   '${bookings[index]["booked_entity"]['designation']}',
-                                                  // bookings[index]
-                                                  //         .booked_entity
-                                                  //         ?.email ??
-                                                  //     'N/A',
-                                                  // textAlign: TextAlign.left,
                                                   style: SafeGoogleFont(
                                                     "Inter",
                                                     color:

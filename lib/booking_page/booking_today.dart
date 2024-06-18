@@ -135,7 +135,7 @@ class _BookingTodayState extends State<BookingToday> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  '${bookings[index]["booked_entity"]['email']}',
+                                                  '${bookings[index]["booked_entity"]['designation']}',
                                                   // bookings[index]
                                                   //         .booked_entity
                                                   //         ?.email ??

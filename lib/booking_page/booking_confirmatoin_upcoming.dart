@@ -48,7 +48,7 @@ class _BookingConfirmationUpcomingState
   bool isConfirmed = true;
 
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     if (isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
@@ -263,11 +263,11 @@ class _BookingConfirmationUpcomingState
                                         fontSize: 17,
                                         height: 1),
                                   ),
-                                  booking['booked_entity']['qualification'] !=
+                                  booking['booked_entity']['designation'] !=
                                           null
                                       ? Text(
                                           booking['booked_entity']
-                                              ['qualification'][0],
+                                              ['designation'],
                                           style: SafeGoogleFont(
                                             "Inter",
                                             fontSize: 13,
@@ -694,4 +694,3 @@ class _BookingConfirmationUpcomingState
     );
   }
 }
-

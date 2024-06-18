@@ -261,11 +261,11 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                                         fontSize: 17,
                                         height: 1),
                                   ),
-                                  booking['booked_entity']['qualification'] !=
+                                  booking['booked_entity']['designation'] !=
                                           null
                                       ? Text(
                                           booking['booked_entity']
-                                              ['qualification'][0],
+                                              ['designation'],
                                           style: SafeGoogleFont(
                                             "Inter",
                                             fontSize: 13,
