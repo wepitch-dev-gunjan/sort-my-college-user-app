@@ -781,273 +781,281 @@ class _HomePageState extends State<HomePage> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: Padding(
             padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-            child: Column(
+            child: Stack(
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Column(
                   children: [
-                    CircleAvatar(
-                      radius: 38,
-                      backgroundImage: NetworkImage(
-                          latestSessionsModel.counsellorProfilePic!),
-                    ),
-                    const SizedBox(width: 8),
-                    Column(
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      // mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        // const SizedBox(height: 10),
-                        Text(
-                          latestSessionsModel.counsellorName ?? "N/A",
-                          style: const TextStyle(
-                            color: Color(0xFF1F0A68),
-                            fontSize: 15,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w500,
-                            height: 0,
-                          ),
+                        CircleAvatar(
+                          radius: 38,
+                          backgroundImage: NetworkImage(
+                              latestSessionsModel.counsellorProfilePic!),
                         ),
-                        const SizedBox(height: 3),
-                        SizedBox(
-                          width: 190.25,
-                          child: Text(
-                            latestSessionsModel.counsellorDesignation!,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500,
-                              height: 0,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Row(
+                        const SizedBox(width: 8),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Image.asset(
-                              "assets/page-1/images/clock-circular-outline-Ra1.png",
-                              height: 12,
-                              width: 12,
+                            const SizedBox(height: 10),
+                            Text(
+                              latestSessionsModel.counsellorName ?? "N/A",
+                              style: const TextStyle(
+                                color: Color(0xFF1F0A68),
+                                fontSize: 15,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w500,
+                                height: 0,
+                              ),
                             ),
-                            const SizedBox(width: 4),
+                            const SizedBox(height: 3),
                             SizedBox(
-                              width: 121.13,
+                              width: 190.25,
                               child: Text(
-                                latestSessionsModel.sessionTime != null
-                                    ? '${(latestSessionsModel.sessionTime! ~/ 60) % 12 == 0 ? 12 : (latestSessionsModel.sessionTime! ~/ 60) % 12}:${(latestSessionsModel.sessionTime! % 60).toString().padLeft(2, '0')} ${(latestSessionsModel.sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
-                                    : 'N/A',
+                                latestSessionsModel.counsellorDesignation!,
                                 style: const TextStyle(
-                                  color: Color(0xFF414040),
-                                  fontSize: 12,
+                                  color: Colors.black,
+                                  fontSize: 16,
                                   fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0.08,
+                                  fontWeight: FontWeight.w500,
+                                  height: 0,
                                 ),
                               ),
                             ),
+                            const SizedBox(height: 4),
+                            Row(
+                              children: [
+                                Image.asset(
+                                  "assets/page-1/images/clock-circular-outline-Ra1.png",
+                                  height: 12,
+                                  width: 12,
+                                ),
+                                const SizedBox(width: 4),
+                                SizedBox(
+                                  width: 121.13,
+                                  child: Text(
+                                    latestSessionsModel.sessionTime != null
+                                        ? '${(latestSessionsModel.sessionTime! ~/ 60) % 12 == 0 ? 12 : (latestSessionsModel.sessionTime! ~/ 60) % 12}:${(latestSessionsModel.sessionTime! % 60).toString().padLeft(2, '0')} ${(latestSessionsModel.sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
+                                        : 'N/A',
+                                    style: const TextStyle(
+                                      color: Color(0xFF414040),
+                                      fontSize: 12,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w400,
+                                      height: 0.08,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            Row(
+                              children: [
+                                Container(
+                                  width: 13,
+                                  height: 13,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/page-1/images/calender.png"),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 6),
+                                SizedBox(
+                                  width: 121.13,
+                                  child: Text(
+                                    "${latestSessionsModel.sessionDate}",
+                                    style: const TextStyle(
+                                      color: Color(0xFF414040),
+                                      fontSize: 12,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w400,
+                                      height: 0.08,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            Row(
+                              children: [
+                                Container(
+                                  width: 12,
+                                  height: 12,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/page-1/images/rate.png"),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                SizedBox(
+                                  width: 121.13,
+                                  child: Text(
+                                    ' ${latestSessionsModel.sessionFee}/-',
+                                    style: const TextStyle(
+                                      color: Color(0xFF414040),
+                                      fontSize: 12,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w400,
+                                      height: 0.08,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
                           ],
                         ),
-                        const SizedBox(height: 4),
-                        Row(
-                          children: [
-                            Container(
-                              width: 13,
-                              height: 13,
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      "assets/page-1/images/calender.png"),
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 6),
-                            SizedBox(
-                              width: 121.13,
-                              child: Text(
-                                "${latestSessionsModel.sessionDate}",
-                                style: const TextStyle(
-                                  color: Color(0xFF414040),
-                                  fontSize: 12,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0.08,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 4),
-                        Row(
-                          children: [
-                            Container(
-                              width: 12,
-                              height: 12,
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      "assets/page-1/images/rate.png"),
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            SizedBox(
-                              width: 121.13,
-                              child: Text(
-                                ' ${latestSessionsModel.sessionFee}/-',
-                                style: const TextStyle(
-                                  color: Color(0xFF414040),
-                                  fontSize: 12,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0.08,
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
                       ],
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        shareLinks();
-                      },
-                      child: Center(
-                        child: Image.asset(
-                          "assets/page-1/images/group-38-oFX.png",
-                          color: const Color(0xFF1F0A68),
-                          height: 16,
-                        ),
-                      ),
+                    const SizedBox(height: 12),
+                    Container(
+                      height: 0.47,
+                      width: width * 0.85,
+                      color: const Color(0xffAFAFAF).withOpacity(.78),
                     ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                Container(
-                  height: 0.47,
-                  width: width * 0.85,
-                  color: const Color(0xffAFAFAF).withOpacity(.78),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.014,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return CounsellorDetailsScreen(
-                                id: latestSessionsModel.counsellorId!,
-                              );
-                            },
-                          ),
-                        );
-                      },
-                      child: Container(
-                        width: 120.14,
-                        height: 33,
-                        decoration: ShapeDecoration(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              width: 0.50,
-                              color:
-                                  Colors.black.withOpacity(0.7400000095367432),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.014,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return CounsellorDetailsScreen(
+                                    id: latestSessionsModel.counsellorId!,
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: 120.14,
+                            height: 33,
+                            decoration: ShapeDecoration(
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 0.50,
+                                  color: Colors.black
+                                      .withOpacity(0.7400000095367432),
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        child: const SizedBox(
-                          width: 119.09,
-                          height: 16.05,
-                          child: Center(
-                            child: Text(
-                              'Visit Profile',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color(0xFF262626),
-                                fontSize: 14,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w700,
-                                height: 0.07,
+                            child: const SizedBox(
+                              width: 119.09,
+                              height: 16.05,
+                              child: Center(
+                                child: Text(
+                                  'Visit Profile',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Color(0xFF262626),
+                                    fontSize: 14,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w700,
+                                    height: 0.07,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(width: 30),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              log("Session Id=> ${latestSessionsModel.sessionId}");
-                              return CheckOutScreen(
-                                designation:
-                                    latestSessionsModel.counsellorDesignation!,
-                                name: latestSessionsModel.counsellorName!,
-                                profilepicurl:
-                                    latestSessionsModel.counsellorProfilePic!,
-                                id: latestSessionsModel.counsellorId!,
-                                sessionId: latestSessionsModel.sessionId!,
-                              );
-                            },
-                          ),
-                        );
-                      },
-                      child: Container(
-                        width: 120,
-                        height: 33,
-                        decoration: ShapeDecoration(
-                          color: const Color(0xff1F0A68),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        child: const SizedBox(
-                          width: 119.09,
-                          height: 14.05,
-                          child: Center(
-                            child: Text(
-                              'Book Now',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w700,
-                                height: 0.07,
+                        const SizedBox(width: 30),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  log("Session Id=> ${latestSessionsModel.sessionId}");
+                                  return CheckOutScreen(
+                                    designation: latestSessionsModel
+                                        .counsellorDesignation!,
+                                    name: latestSessionsModel.counsellorName!,
+                                    profilepicurl: latestSessionsModel
+                                        .counsellorProfilePic!,
+                                    id: latestSessionsModel.counsellorId!,
+                                    sessionId: latestSessionsModel.sessionId!,
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: 120,
+                            height: 33,
+                            decoration: ShapeDecoration(
+                              color: const Color(0xff1F0A68),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: const SizedBox(
+                              width: 119.09,
+                              height: 14.05,
+                              child: Center(
+                                child: Text(
+                                  'Book Now',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w700,
+                                    height: 0.07,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
                         ),
+                      ],
+                    ),
+                    const SizedBox(height: 6),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        totalCards,
+                        (index) {
+                          return Icon(
+                            index == cardIndex
+                                ? Icons.circle
+                                : Icons.circle_outlined,
+                            color: const Color(0xff1F0A68),
+                            size: 8,
+                          );
+                        },
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 6),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                    totalCards,
-                    (index) {
-                      return Icon(
-                        index == cardIndex
-                            ? Icons.circle
-                            : Icons.circle_outlined,
-                        color: const Color(0xff1F0A68),
-                        size: 8,
-                      );
+                Positioned(
+                  top: 5,
+                  right: 10,
+                  child: GestureDetector(
+                    onTap: () {
+                      shareLinks();
                     },
+                    child: Center(
+                      child: Image.asset(
+                        "assets/page-1/images/group-38-oFX.png",
+                        color: const Color(0xFF1F0A68),
+                        height: 20,
+                      ),
+                    ),
                   ),
                 ),
               ],

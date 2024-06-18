@@ -175,7 +175,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                       Row(
                                         children: [
                                           Text(
-                                            counsellor['name'],
+                                            counsellor['designation'],
                                             style: const TextStyle(
                                                 fontSize: 14,
                                                 color: Color(0xff1f0a68),
@@ -183,9 +183,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(
-                                        height: 2,
-                                      ),
+                                      const SizedBox(height: 2),
                                       Row(
                                         children: [
                                           Image.asset(
