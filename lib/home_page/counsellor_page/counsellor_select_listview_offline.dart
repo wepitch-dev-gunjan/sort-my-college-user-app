@@ -994,6 +994,7 @@ class AppBar extends StatelessWidget {
             child: const Padding(
               padding: EdgeInsets.only(left: 10),
               child: Icon(
+              
                 Icons.arrow_back_ios,
                 color: Color(0xff1f0a68),
                 size: 25,

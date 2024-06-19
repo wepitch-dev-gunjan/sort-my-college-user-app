@@ -105,7 +105,7 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
                         borderRadius: BorderRadius.circular(10 * fem),
                       ),
                       child: SizedBox(
-                        height: 30,
+                        height: 20,
                         child: TextFormField(
                           cursorColor: Colors.black,
                           controller: phoneController,

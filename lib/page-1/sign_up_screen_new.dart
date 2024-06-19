@@ -40,7 +40,7 @@ class _Signup extends State<SignupScreenNew> {
       dismissOnTap: false,
     );
 
-      ApiService.callVerifyOtpByPhone(phoneNumber).then((value) async {
+    ApiService.callVerifyOtpByPhone(phoneNumber).then((value) async {
       print(value);
 
       if (value["message"]["description"] == "Message in progress") {
@@ -49,14 +49,15 @@ class _Signup extends State<SignupScreenNew> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString("name", _nameController.text.toString());
         if (!mounted) return;
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => OtpScreenNew(phoneNumber)));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => OtpScreenNew(phoneNumber)));
       } else {
         EasyLoading.showToast(value["message"]["description"],
             toastPosition: EasyLoadingToastPosition.bottom);
       }
     });
   }
+
   bool isChecked = false;
   @override
   Widget build(BuildContext context) {
@@ -80,33 +81,44 @@ class _Signup extends State<SignupScreenNew> {
               const SizedBox(
                 height: 40,
               ),
-              const Text('Please enter your details and we will',style: TextStyle(fontWeight: FontWeight.w600),),
-              const Text('text you a code which will allow',style: TextStyle(fontWeight: FontWeight.w600),),
-              const Text('you to log in!',style: TextStyle(fontWeight: FontWeight.w600),),
+              const Text(
+                'Please enter your details and we will',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+              const Text(
+                'text you a code which will allow',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+              const Text(
+                'you to log in!',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
               Column(
                 children: [
                   Container(
                     // autogroupltfbWFK (AXy8yJFgfd4aiSGkjeLtfb)
-                    padding:
-                    EdgeInsets.fromLTRB(60 * fem, 32 * fem, 60 * fem, 51 * fem),
+                    padding: EdgeInsets.fromLTRB(
+                        60 * fem, 32 * fem, 60 * fem, 51 * fem),
                     width: double.infinity,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
                           // autogroups3swDQd (AXy84jvvc4rqKvoPDJs3sw)
-                          margin:
-                          EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 20 * fem),
+                          margin: EdgeInsets.fromLTRB(
+                              0 * fem, 0 * fem, 0 * fem, 20 * fem),
                           padding: EdgeInsets.fromLTRB(
                               15 * fem, 15 * fem, 15 * fem, 13 * fem),
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            border: Border.all(color: ColorsConst.appBarColor,),
+                            border: Border.all(
+                              color: ColorsConst.appBarColor,
+                            ),
                             color: const Color(0xffffffff),
                             borderRadius: BorderRadius.circular(10 * fem),
                           ),
                           child: SizedBox(
-                            height: 30,
+                            height: 20,
                             child: TextFormField(
                               cursorColor: Colors.black,
                               controller: _nameController,
@@ -114,8 +126,8 @@ class _Signup extends State<SignupScreenNew> {
                                 LengthLimitingTextInputFormatter(40),
                               ],
                               decoration: const InputDecoration(
-                                hintStyle:
-                                TextStyle(color: Colors.black54, fontSize: 15.0),
+                                hintStyle: TextStyle(
+                                    color: Colors.black54, fontSize: 15.0),
                                 hintText: "Full Name",
                                 border: InputBorder.none,
                                 focusedBorder: InputBorder.none,
@@ -132,29 +144,31 @@ class _Signup extends State<SignupScreenNew> {
                         ),
                         Container(
                           // autogrouprbz9U5f (AXy8AQS9uGhFg15ZzJrBz9)
-                          margin:
-                          EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 20 * fem),
+                          margin: EdgeInsets.fromLTRB(
+                              0 * fem, 0 * fem, 0 * fem, 20 * fem),
                           padding: EdgeInsets.fromLTRB(
                               15 * fem, 15 * fem, 15 * fem, 13 * fem),
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            border: Border.all(color: ColorsConst.appBarColor,),
+                            border: Border.all(
+                              color: ColorsConst.appBarColor,
+                            ),
                             color: const Color(0xffffffff),
                             borderRadius: BorderRadius.circular(10 * fem),
                           ),
                           child: SizedBox(
-                            height: 30,
+                            height: 20,
                             child: TextFormField(
                               cursorColor: Colors.black,
                               controller: phonecontroller,
                               keyboardType: TextInputType.phone,
                               // keyboardType: TextInputType.phone, changed for testing purpose
-                              inputFormatters:  [
-                                 LengthLimitingTextInputFormatter(14),
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(14),
                               ],
                               decoration: const InputDecoration(
-                                hintStyle:
-                                TextStyle(color: Colors.black54, fontSize: 15.0),
+                                hintStyle: TextStyle(
+                                    color: Colors.black54, fontSize: 15.0),
                                 hintText: "Phone Number",
                                 border: InputBorder.none,
                                 focusedBorder: InputBorder.none,
@@ -172,7 +186,7 @@ class _Signup extends State<SignupScreenNew> {
                         InkWell(
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
-                          onTap: (){
+                          onTap: () {
                             setState(() {
                               isChecked = !isChecked;
                             });
@@ -198,7 +212,9 @@ class _Signup extends State<SignupScreenNew> {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 8,),
+                        const SizedBox(
+                          height: 8,
+                        ),
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
@@ -221,7 +237,8 @@ class _Signup extends State<SignupScreenNew> {
                                     fontSize: 16, fontWeight: FontWeight.bold)),
                           ),
                         ),
-                        const Divider(color: Colors.black, endIndent: 60, indent: 60),
+                        const Divider(
+                            color: Colors.black, endIndent: 60, indent: 60),
                         const SizedBox(
                           height: 12,
                         ),
@@ -243,7 +260,8 @@ class _Signup extends State<SignupScreenNew> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>const LoginScreenNew()));
+                                        builder: (context) =>
+                                            const LoginScreenNew()));
                               },
                               child: Text(
                                 'Log in',
@@ -272,7 +290,6 @@ class _Signup extends State<SignupScreenNew> {
       ),
     );
   }
-
 
   bool validateMobile(String value) {
     String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
@@ -314,4 +331,3 @@ class _Signup extends State<SignupScreenNew> {
       ..indicatorType = EasyLoadingIndicatorType.circle;
   }
 }
-
