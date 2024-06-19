@@ -20,7 +20,7 @@ class Btn extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: 36.h,
+        height: 30.h,
         width: 110.w,
         decoration: BoxDecoration(
           color: btnColor ?? Colors.white,

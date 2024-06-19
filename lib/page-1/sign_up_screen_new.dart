@@ -96,7 +96,6 @@ class _Signup extends State<SignupScreenNew> {
               Column(
                 children: [
                   Container(
-                    // autogroupltfbWFK (AXy8yJFgfd4aiSGkjeLtfb)
                     padding: EdgeInsets.fromLTRB(
                         60 * fem, 32 * fem, 60 * fem, 51 * fem),
                     width: double.infinity,
@@ -104,7 +103,6 @@ class _Signup extends State<SignupScreenNew> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          // autogroups3swDQd (AXy84jvvc4rqKvoPDJs3sw)
                           margin: EdgeInsets.fromLTRB(
                               0 * fem, 0 * fem, 0 * fem, 20 * fem),
                           padding: EdgeInsets.fromLTRB(
@@ -143,7 +141,6 @@ class _Signup extends State<SignupScreenNew> {
                           ),
                         ),
                         Container(
-                          // autogrouprbz9U5f (AXy8AQS9uGhFg15ZzJrBz9)
                           margin: EdgeInsets.fromLTRB(
                               0 * fem, 0 * fem, 0 * fem, 20 * fem),
                           padding: EdgeInsets.fromLTRB(
@@ -212,9 +209,7 @@ class _Signup extends State<SignupScreenNew> {
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 8,
-                        ),
+                        const SizedBox(height: 8),
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
@@ -239,9 +234,7 @@ class _Signup extends State<SignupScreenNew> {
                         ),
                         const Divider(
                             color: Colors.black, endIndent: 60, indent: 60),
-                        const SizedBox(
-                          height: 12,
-                        ),
+                        const SizedBox(height: 12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
