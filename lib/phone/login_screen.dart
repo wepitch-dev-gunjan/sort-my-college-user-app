@@ -8,16 +8,16 @@ import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
 import '../other/constants.dart';
 
-class LoginScreenNew extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
   static String verify = '';
 
-  const LoginScreenNew({super.key});
+  const LoginScreen({super.key});
 
   @override
   _LoginScreenNewState createState() => _LoginScreenNewState();
 }
 
-class _LoginScreenNewState extends State<LoginScreenNew> {
+class _LoginScreenNewState extends State<LoginScreen> {
   TextEditingController countryController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -214,20 +214,6 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
                         ),
                       ],
                     ),
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     launchUrlString(
-                    //         'https://sortmycollege.com/terms-and-conditions/');
-                    //   },
-                    //   child: Text(
-                    //     "By continuing , I agree with the Terms and Conditions , Privacy Policy",
-                    //     style: SafeGoogleFont(
-                    //       "Roboto",
-                    //       fontSize: 10,
-                    //       fontWeight: FontWeight.w500,
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -270,35 +256,6 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
     });
   }
 
-  // void onTapGettingstarted(BuildContext context, String phone) async {
-  //   await EasyLoading.show(
-  //     status: "Loading...",
-  //     dismissOnTap: false,
-  //   );
-  //
-  //   ApiService.callVerifyOtp(phone).then((value) async {
-  //     print(value);
-  //
-  //     if (value["message"] == "Email sent successfully") {
-  //       EasyLoading.showToast(value["message"],
-  //           toastPosition: EasyLoadingToastPosition.bottom,);
-  //       SharedPreferences prefs = await SharedPreferences.getInstance();
-  //       prefs.setString("name", nameController.text.toString());
-  //       if (!mounted) return;
-  //       Navigator.pushReplacement(context,
-  //           MaterialPageRoute(builder: (context) => const PhoneOtpScreenNew()));
-  //     } else if (value["error"] == "Something went wrong!") {
-  //       EasyLoading.showToast(
-  //         "404 Page Not Found!",
-  //         toastPosition: EasyLoadingToastPosition.bottom,
-  //       );
-  //     } else {
-  //       EasyLoading.showToast(value["error"],
-  //           toastPosition: EasyLoadingToastPosition.bottom);
-  //     }
-  //   });
-  // }
-
   bool validateMobile(String value) {
     String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
     RegExp regExp = RegExp(patttern);
@@ -312,41 +269,6 @@ class _LoginScreenNewState extends State<LoginScreenNew> {
     bool isvaluevalid = true;
     if (phoneController.text.toString().isEmpty) {
       EasyLoading.showToast(AppConstants.phoneerror,
-          toastPosition: EasyLoadingToastPosition.bottom);
-      isvaluevalid = false;
-    }
-    return isvaluevalid;
-  }
-
-  // bool check_val() {
-  //   bool isvaluevalid = true;
-  //
-  //   if (nameController.text.toString().trim().isEmpty) {
-  //     EasyLoading.showToast(AppConstants.USER_EMAIL,
-  //         toastPosition: EasyLoadingToastPosition.bottom);
-  //     isvaluevalid = false;
-  //   } else if (phoneController.text.toString().trim().isEmpty) {
-  //     EasyLoading.showToast(AppConstants.phoneerror,
-  //         toastPosition: EasyLoadingToastPosition.bottom);
-  //     isvaluevalid = false;
-  //   } else if (validateMobile(phoneController.text.toString().trim())) {
-  //     EasyLoading.showToast(AppConstants.phonenotvalid,
-  //         toastPosition: EasyLoadingToastPosition.bottom);
-  //     isvaluevalid = false;
-  //   }
-  //
-  //   return isvaluevalid;
-  // }
-
-  bool isEmail(String em) {
-    bool isvaluevalid = false;
-    String p =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regExp = RegExp(p);
-    if (regExp.hasMatch(em)) {
-      isvaluevalid = true;
-    } else {
-      EasyLoading.showToast(AppConstants.valid_email,
           toastPosition: EasyLoadingToastPosition.bottom);
       isvaluevalid = false;
     }

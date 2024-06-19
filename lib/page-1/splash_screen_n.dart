@@ -3,7 +3,7 @@ import 'package:myapp/home_page/homepagecontainer.dart';
 import 'package:myapp/page-1/shared.dart';
 import 'package:myapp/page-1/sign-up.dart';
 import 'package:myapp/page-1/sign_up_screen_new.dart';
-import 'package:myapp/phone/login_screen_n.dart';
+import 'package:myapp/phone/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -108,7 +108,7 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const LoginScreenNew()));
+                                builder: (context) => const LoginScreen()));
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 0,

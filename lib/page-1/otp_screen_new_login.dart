@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/constants.dart';
+import 'package:myapp/page-1/sign_up_screen_new.dart';
+import 'package:myapp/phone/login_screen.dart';
 import 'package:myapp/slide_screen.dart';
 import 'package:myapp/utils.dart';
 import 'package:otp_text_field/otp_text_field.dart';
@@ -231,23 +233,15 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
                                         value["already_registered"] == false) {
                                       EasyLoading.dismiss();
                                       EasyLoading.showToast(
-                                          "You are register now thanks for register",
+                                          "You are not registred. Plese registred now.",
                                           toastPosition:
                                               EasyLoadingToastPosition.bottom);
-
-                                      SharedPreferences prefs =
-                                          await SharedPreferences.getInstance();
-                                      prefs.setString(
-                                          "phone_number", widget.phoneNumber);
-                                      prefs.setBool("authLogin", true);
-                                      prefs.setString("auth", value["token"]);
-                                      prefs.setString("token", value["token"]);
 
                                       Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const QNAScreen()));
+                                                  const SignupScreenNew()));
                                     } else {
                                       EasyLoading.dismiss();
                                       EasyLoading.showToast(value["error"],

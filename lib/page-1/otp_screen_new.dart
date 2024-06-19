@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/constants.dart';
-import 'package:myapp/phone/login_screen_n.dart';
+import 'package:myapp/phone/login_screen.dart';
 import 'package:myapp/slide_screen.dart';
 import 'package:myapp/utils.dart';
 import 'package:otp_text_field/otp_text_field.dart';
@@ -212,7 +212,7 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
 
 
                                      Navigator.pushReplacement(context,
-                                          MaterialPageRoute(builder: (context) =>  const LoginScreenNew()));
+                                          MaterialPageRoute(builder: (context) =>  const LoginScreen()));
 
                                       /*Navigator.pushReplacement(context,
                                           MaterialPageRoute(builder: (context) =>  MyHomePage()));*/
