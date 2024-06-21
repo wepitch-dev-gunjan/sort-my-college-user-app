@@ -108,8 +108,10 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
       child: Scaffold(
         backgroundColor: const Color(0xffffffff),
         appBar: AppBar(
+          centerTitle: false,
           backgroundColor: const Color(0xffffffff),
           surfaceTintColor: const Color(0xffffffff),
+          titleSpacing: -10,
           title: Text(
             'Webinar Details',
             style: SafeGoogleFont("Inter",

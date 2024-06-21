@@ -204,6 +204,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       child: Scaffold(
         backgroundColor: ColorsConst.whiteColor,
         appBar: AppBar(
+          centerTitle: false,
           titleSpacing: -10,
           backgroundColor: ColorsConst.whiteColor,
           surfaceTintColor: ColorsConst.whiteColor,

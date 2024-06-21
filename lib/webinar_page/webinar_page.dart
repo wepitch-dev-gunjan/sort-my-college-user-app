@@ -39,30 +39,15 @@ class _WebinarPageState extends State<WebinarPage> {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
-     
         SystemNavigator.pop();
       },
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          centerTitle: false,
           automaticallyImplyLeading: false,
           backgroundColor: const Color(0xffffffff),
           foregroundColor: Colors.white,
-          // titleSpacing: 60,
-          // leading: Padding(
-          //   padding: const EdgeInsets.only(left: 0, top: 18, bottom: 18),
-          //   child: GestureDetector(
-          //     onTap: () {
-          //       Navigator.pushReplacement(
-          //           context,
-          //           MaterialPageRoute(
-          //               builder: (context) => const HomePageContainer()));
-          //     },
-          //     child: Image.asset(
-          //       'assets/page-1/images/back.png',
-          //     ),
-          //   ),
-          // ),
           title: Padding(
             padding: const EdgeInsets.only(left: 10),
             child: Text(

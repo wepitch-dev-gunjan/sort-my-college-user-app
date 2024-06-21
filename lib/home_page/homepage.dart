@@ -22,7 +22,6 @@ import 'package:myapp/widget/webinar_detail_page_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import '../booking_page/checkout_screen.dart';
 import '../other/api_service.dart';
 import 'entrance_preparation/screens/entrance_preparation_screen.dart';
@@ -107,7 +106,7 @@ class _HomePageState extends State<HomePage> {
           title: Row(
             children: [
               const SizedBox(
-                width: 18,
+                width: 10,
               ),
               Expanded(
                 child: Text(
@@ -128,7 +127,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.white,
           foregroundColor: Colors.white,
           leading: Padding(
-            padding: const EdgeInsets.only(left: 30, top: 18, bottom: 18),
+            padding: const EdgeInsets.only(left: 20, top: 18, bottom: 18),
             child: GestureDetector(
               onTap: () {
                 _scaffoldKey.currentState?.openDrawer();

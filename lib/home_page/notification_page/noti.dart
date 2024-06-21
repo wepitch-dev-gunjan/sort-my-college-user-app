@@ -45,6 +45,7 @@ class _Notification2State extends State<Notification2> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        centerTitle: false,
         backgroundColor: Colors.white,
         leading: Padding(
           padding: const EdgeInsets.only(left: 20),

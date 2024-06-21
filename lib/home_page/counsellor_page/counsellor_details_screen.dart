@@ -81,6 +81,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
     return Scaffold(
       backgroundColor: ColorsConst.whiteColor,
       appBar: AppBar(
+        centerTitle: false,
         surfaceTintColor: ColorsConst.whiteColor,
         titleSpacing: -16,
         title: isLoading == true

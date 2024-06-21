@@ -48,6 +48,7 @@ class _NewsScreen extends State<NewsScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: false,
           surfaceTintColor: ColorsConst.whiteColor,
           automaticallyImplyLeading: false,
           backgroundColor: ColorsConst.whiteColor,

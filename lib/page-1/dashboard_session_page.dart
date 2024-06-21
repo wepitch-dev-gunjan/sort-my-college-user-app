@@ -13,9 +13,7 @@ class CounsellingSessionPage extends StatefulWidget {
       required this.id,
       required this.designation,
       required this.selectedIndex_get,
-      required this.profileurl
-      
-      });
+      required this.profileurl});
 
   final String name;
   final String id;
@@ -28,7 +26,6 @@ class CounsellingSessionPage extends StatefulWidget {
 }
 
 class _CounsellingSessionPageState extends State<CounsellingSessionPage> {
-
   late PageController _controller;
   int selectedIndex = 0;
 
@@ -40,8 +37,6 @@ class _CounsellingSessionPageState extends State<CounsellingSessionPage> {
   void getEmail() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("cid", widget.id);
-
-
 
     email = prefs.getString("email") ?? "N/A";
 
@@ -69,6 +64,7 @@ class _CounsellingSessionPageState extends State<CounsellingSessionPage> {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
+        centerTitle: false,
         surfaceTintColor: AppColors.whiteColor,
         backgroundColor: const Color(0xffffffff),
         foregroundColor: Colors.white,
@@ -95,7 +91,6 @@ class _CounsellingSessionPageState extends State<CounsellingSessionPage> {
           ),
         ),
         titleSpacing: -5,
-
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -144,17 +139,15 @@ class _CounsellingSessionPageState extends State<CounsellingSessionPage> {
               controller: _controller,
               children: [
                 Counseling_Session_group(
-                  name: widget.name,
-                  id: widget.id,
-                  designation: widget.designation,
-                  profilepic:widget.profileurl
-                ),
+                    name: widget.name,
+                    id: widget.id,
+                    designation: widget.designation,
+                    profilepic: widget.profileurl),
                 Counseling_Session_Personnel(
                     name: widget.name,
                     id: widget.id,
                     designation: widget.designation,
-                    profilepic:widget.profileurl
-                )
+                    profilepic: widget.profileurl)
               ],
             ),
           )

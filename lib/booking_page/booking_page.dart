@@ -54,26 +54,12 @@ class _BookingPageState extends State<BookingPage> {
       },
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: false,
           automaticallyImplyLeading: false,
           backgroundColor: const Color(0xffffffff),
           foregroundColor: Colors.white,
-          // leading: Padding(
-          //   padding: const EdgeInsets.only(left: 0, top: 18, bottom: 18),
-          //   child: GestureDetector(
-          //     onTap: () {
-          //       Navigator.pushReplacement(
-          //           context,
-          //           MaterialPageRoute(
-          //               builder: (context) => const HomePageContainer()));
-          //     },
-          //     child: Image.asset(
-          //       'assets/page-1/images/back.png',
-          //     ),
-          //   ),
-          // ),
-          //titleSpacing: 108,
           title: Padding(
-            padding: const EdgeInsets.only(left: 20),
+            padding: const EdgeInsets.only(left: 10),
             child: Text(
               "My Booking",
               style: SafeGoogleFont("Inter",

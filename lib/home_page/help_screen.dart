@@ -30,6 +30,7 @@ class _HelpScreenState extends State<HelpScreen> {
     return Scaffold(
       backgroundColor: ColorsConst.whiteColor,
       appBar: AppBar(
+        centerTitle: false,
         surfaceTintColor: ColorsConst.whiteColor,
         backgroundColor: ColorsConst.whiteColor,
         leading: Padding(

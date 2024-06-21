@@ -154,17 +154,21 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Scaffold(
           backgroundColor: ColorsConst.whiteColor,
           appBar: AppBar(
+            centerTitle: false,
             surfaceTintColor: ColorsConst.whiteColor,
             automaticallyImplyLeading: false,
             backgroundColor: const Color(0xffffffff),
             foregroundColor: Colors.white,
-            titleSpacing: 28,
-            title: Text(
-              "My Profile",
-              style: SafeGoogleFont("Inter",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: ColorsConst.appBarColor),
+            // titleSpacing: 28,
+            title: Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                "My Profile",
+                style: SafeGoogleFont("Inter",
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: ColorsConst.appBarColor),
+              ),
             ),
           ),
           body: Padding(

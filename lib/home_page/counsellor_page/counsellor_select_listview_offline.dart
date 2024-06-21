@@ -934,13 +934,13 @@ class _CounsellorListPage_offlineState
                                         child: CircularProgressIndicator(),
                                       ),
                                     ),
-                                  if (!isMoreDataLoading && !hasMoreData)
-                                    const Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Center(
-                                        child: Text("No more counsellors"),
-                                      ),
-                                    ),
+                                  // if (!isMoreDataLoading && !hasMoreData)
+                                  //   const Padding(
+                                  //     padding: EdgeInsets.all(10),
+                                  //     child: Center(
+                                  //       child: Text("No more counsellors"),
+                                  //     ),
+                                  //   ),
                                 ],
                               ),
                             ),
@@ -994,7 +994,6 @@ class AppBar extends StatelessWidget {
             child: const Padding(
               padding: EdgeInsets.only(left: 10),
               child: Icon(
-              
                 Icons.arrow_back_ios,
                 color: Color(0xff1f0a68),
                 size: 25,
