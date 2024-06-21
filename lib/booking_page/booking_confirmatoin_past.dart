@@ -196,7 +196,7 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                       isSessionExpired(sessionDate, sessionTime,
                                               sessionDuration)
                                           ? Fluttertoast.showToast(
-                                              msg: 'Event is has been done')
+                                              msg: 'Session has ended')
                                           : launchURL(
                                               booking['booking_data']
                                                   ['session_link'],
@@ -413,6 +413,26 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                               //     fontSize: 14,
                               //   ),
                               // )
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          Row(
+                            children: [
+                              Text(
+                                "Session Duration : ",
+                                style: SafeGoogleFont(
+                                  "Inter",
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Text(
+                                "$sessionDuration min.",
+                                style: SafeGoogleFont(
+                                  "Inter",
+                                  fontSize: 14,
+                                ),
+                              ),
                             ],
                           ),
                           const SizedBox(

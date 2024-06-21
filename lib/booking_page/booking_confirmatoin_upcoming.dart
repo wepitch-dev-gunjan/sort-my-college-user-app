@@ -397,9 +397,29 @@ class _BookingConfirmationUpcomingState
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-
                               Text(
                                 sessionTime,
+                                style: SafeGoogleFont(
+                                  "Inter",
+                                  fontSize: 14,
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          Row(
+                            children: [
+                              Text(
+                                "Session Duration : ",
+                                style: SafeGoogleFont(
+                                  "Inter",
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+
+                              Text(
+                                "$sessionDuration min.",
                                 style: SafeGoogleFont(
                                   "Inter",
                                   fontSize: 14,

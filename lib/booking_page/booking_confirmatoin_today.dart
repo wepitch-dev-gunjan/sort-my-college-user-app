@@ -395,7 +395,6 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-
                               Text(
                                 sessionTime,
                                 style: SafeGoogleFont(
@@ -403,14 +402,26 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                                   fontSize: 14,
                                 ),
                               )
-
-                              // Text(
-                              //   " :${booking['booking_data']['session_time']}",
-                              //   style: SafeGoogleFont(
-                              //     "Inter",
-                              //     fontSize: 14,
-                              //   ),
-                              // )
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          Row(
+                            children: [
+                              Text(
+                                "Session Duration : ",
+                                style: SafeGoogleFont(
+                                  "Inter",
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Text(
+                                "$sessionDuration min.",
+                                style: SafeGoogleFont(
+                                  "Inter",
+                                  fontSize: 14,
+                                ),
+                              )
                             ],
                           ),
                           const SizedBox(
