@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:myapp/booking_page/booking_confirmatoin_upcoming.dart';
 import '../other/api_service.dart';
@@ -37,6 +39,7 @@ class _BookingUpcomingState extends State<BookingUpcoming> {
 
   @override
   Widget build(BuildContext context) {
+    log("Booking $bookings");
     // String title = "Session starts in";
     // String time = "25:15";
     var mWidth = MediaQuery.sizeOf(context).width;
@@ -168,14 +171,39 @@ class _BookingUpcomingState extends State<BookingUpcoming> {
                                       const Spacer(),
                                       Column(
                                         children: [
-                                          Text(
-                                            "${bookings[index]['booking_data']['session_type']}",
-                                            // "${bookings[index]['booking_data']['session_type']} Session",
-                                            style: SafeGoogleFont("Inter",
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: mWidth * 0.038,
-                                                color: const Color(0xff1F0A68)),
-                                          ),
+                                          bookings[index]['booking_data']
+                                                      ['session_type'] ==
+                                                  'Group'
+                                              ? SizedBox(
+                                                  width: 118,
+                                                  child: Text(
+                                                    "${bookings[index]['booking_data']['session_topic']}",
+                                                    // textAlign: TextAlign.left,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+
+                                                    style: SafeGoogleFont(
+                                                        "Inter",
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize:
+                                                            mWidth * 0.038,
+                                                        color: const Color(
+                                                            0xff1F0A68)),
+                                                  ),
+                                                )
+                                              : Text(
+                                                  "${bookings[index]['booking_data']['session_type']}",
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+
+                                                  style: SafeGoogleFont("Inter",
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: mWidth * 0.038,
+                                                      color: const Color(
+                                                          0xff1F0A68)),
+                                                ),
                                           const SizedBox(
                                             height: 5,
                                           ),

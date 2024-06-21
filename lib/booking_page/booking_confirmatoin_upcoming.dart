@@ -332,6 +332,34 @@ class _BookingConfirmationUpcomingState
                               )
                             ],
                           ),
+                          booking['booking_data']['session_type'] == 'Group'
+                              ? Padding(
+                                  padding: const EdgeInsets.only(top: 4),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Session Topic : ",
+                                        style: SafeGoogleFont(
+                                          "Inter",
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          "${booking['booking_data']['session_topic']}",
+                                          style: SafeGoogleFont(
+                                            "Inter",
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              : const SizedBox(),
                           const SizedBox(
                             height: 4,
                           ),
