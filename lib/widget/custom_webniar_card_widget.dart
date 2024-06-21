@@ -206,7 +206,7 @@ class _CustomWebinarCardState extends State<CustomWebinarCard> {
                                                       'Participant is already registered');
                                             } else {
                                               var value = await ApiService
-                                                  .webinar_regiter(widget
+                                                  .webinar_register(widget
                                                       .trandingWebinarModel
                                                       .id!);
 
@@ -469,9 +469,7 @@ class _CustomWebinarCard1State extends State<CustomWebinarCard1> {
                         width: double.infinity,
                         color: const Color(0xffAFAFAF),
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
+                      const SizedBox(height: 8),
                       Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: Row(
@@ -550,7 +548,7 @@ class _CustomWebinarCard1State extends State<CustomWebinarCard1> {
                                                     Navigator.pop(context);
                                                   } else {
                                                     var value = await ApiService
-                                                        .webinar_regiter(widget
+                                                        .webinar_register(widget
                                                             .webinarModel.id!);
                                                     if (value["error"] ==
                                                         "Participant is already registered") {

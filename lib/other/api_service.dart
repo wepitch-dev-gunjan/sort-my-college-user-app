@@ -93,10 +93,9 @@ class ApiService {
     return {};
   }
 
-  static Future<Map<String, dynamic>> webinar_regiter(String id) async {
+  static Future webinar_register(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
-
     final headers = {
       'Content-Type': 'application/json',
       "Authorization": token,
@@ -106,11 +105,7 @@ class ApiService {
 
     final response = await http.put(url, headers: headers);
 
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body.toString());
-      return data;
-    }
-    return {};
+    return jsonDecode(response.body);
   }
 
   static Future<List<BannerImageModel>> getBannerImage() async {

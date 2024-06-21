@@ -461,6 +461,9 @@ class _HomePageState extends State<HomePage> {
                                           TrandingWebinarModel trending =
                                               counsellorSessionProvider
                                                   .trendingWebinarList[index];
+
+                                          var isRegistered =
+                                              trending.registered;
                                           return Column(
                                             children: [
                                               GestureDetector(
@@ -675,37 +678,24 @@ class _HomePageState extends State<HomePage> {
                                                                                 ),
                                                                                 TextButton(
                                                                                   onPressed: () async {
-                                                                                    var isRegistred = trending.registered;
-
-                                                                                    if (isRegistred! && trending.webinarStartingInDays == 0) {
-                                                                                      launchUrlString(trending.webinarJoinUrl!);
-                                                                                    } else if (isRegistred == true) {
+                                                                                    if (isRegistered == true) {
                                                                                       Fluttertoast.showToast(msg: 'Participant is already registered');
                                                                                     } else {
-                                                                                      var value = await ApiService.webinar_regiter(trending.id!);
+                                                                                      var value = await ApiService.webinar_register(trending.id!);
 
                                                                                       if (value["error"] == "Participant is already registered") {
                                                                                         Fluttertoast.showToast(msg: 'Participant is already registered');
                                                                                       } else if (value["message"] == "Registration completed") {
-                                                                                        Fluttertoast.showToast(msg: 'Registration completed Thanks for registration');
+                                                                                        Fluttertoast.showToast(msg: 'Registration completed. Thanks for registering.');
 
                                                                                         setState(() {
-                                                                                          isRegistred = true;
-
-                                                                                          log("$isRegistred");
+                                                                                          isRegistered = true; // Update the registered status locally
                                                                                         });
-                                                                                        // Navigator.push(
-                                                                                        //   context,
-                                                                                        //   MaterialPageRoute(
-                                                                                        //     builder: (context) => const HomePage(),
-                                                                                        //   ),
-                                                                                        // );
                                                                                       }
                                                                                     }
                                                                                     if (mounted) {
                                                                                       Navigator.pop(context);
                                                                                     }
-                                                                                    //await _updateRegistrationStatus(true);
                                                                                   },
                                                                                   child: const Text('Yes'),
                                                                                 ),
@@ -714,24 +704,25 @@ class _HomePageState extends State<HomePage> {
                                                                           },
                                                                         );
                                                                       } else {
-                                                                        const Text(
-                                                                            'Has Been Registered');
+                                                                        // If already registered, optionally handle this case
+                                                                        Fluttertoast.showToast(
+                                                                            msg:
+                                                                                'Participant is already registered');
                                                                       }
                                                                     },
                                                                     regdate:
                                                                         trending
                                                                             .registeredDate,
-                                                                    title: trending
-                                                                            .registered!
+                                                                    title: isRegistered!
                                                                         ? (trending.webinarStartingInDays ==
                                                                                 0
                                                                             ? 'Join Now'
                                                                             : 'Starting in ${trending.webinarStartingInDays} days')
-                                                                        : 'Join Now',
+                                                                        : 'Register Now',
                                                                     isRegisterNow:
                                                                         trending
-                                                                            .registered!,
-                                                                  ),
+                                                                            .registered!, // Reflects the current registration status
+                                                                  )
                                                                 ],
                                                               ),
                                                             ),

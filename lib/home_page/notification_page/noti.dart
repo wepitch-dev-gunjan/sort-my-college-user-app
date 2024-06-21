@@ -43,8 +43,9 @@ class _Notification2State extends State<Notification2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        foregroundColor: Colors.white,
+        backgroundColor: Colors.white,
         leading: Padding(
           padding: const EdgeInsets.only(left: 20),
           child: IconButton(

@@ -342,7 +342,7 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                                                     Navigator.pop(context);
                                                   } else {
                                                     var value = await ApiService
-                                                        .webinar_regiter(widget
+                                                        .webinar_register(widget
                                                             .webinarModel.id!);
                                                     if (value["error"] ==
                                                         "Participant is already registered") {

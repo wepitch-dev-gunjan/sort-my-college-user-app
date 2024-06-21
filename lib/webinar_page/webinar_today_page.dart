@@ -332,7 +332,7 @@ class _CustomWebinarCard1State extends State<CustomWebinarCard1> {
                                                 Navigator.pop(context);
                                               } else {
                                                 var value = await ApiService
-                                                    .webinar_regiter(widget
+                                                    .webinar_register(widget
                                                         .webinarModel.id!);
                                                 if (value["error"] ==
                                                     "Participant is already registered") {

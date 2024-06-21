@@ -88,6 +88,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // log("dddddddddddddd=${widget.webinarRegister}");
     Duration difference = DateTime.now().difference(widget.registrationDate);
     var diff = daysBetween(DateTime.now(), widget.registrationDate);
     var pastdays;
@@ -487,7 +488,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                       msg: 'Participant is already registered');
                                   Navigator.pop(context);
                                 } else {
-                                  var value = await ApiService.webinar_regiter(
+                                  var value = await ApiService.webinar_register(
                                       widget.webinarId!);
                                   if (value["error"] ==
                                       "Participant is already registered") {
