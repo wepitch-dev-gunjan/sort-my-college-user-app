@@ -1273,6 +1273,82 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+// class RegisterNowWidget extends StatelessWidget {
+//   final VoidCallback onPressed;
+//   final String? regdate;
+//   final bool isRegisterNow;
+
+//   const RegisterNowWidget({
+//     super.key,
+//     required this.onPressed,
+//     required this.regdate,
+//     required this.isRegisterNow,
+//   });
+
+//   String getButtonText() {
+//     DateTime today = DateTime.now();
+//     DateTime webinarDate = DateTime.parse(regdate!);
+//     int daysDifference = webinarDate.difference(today).inDays;
+
+//     if (daysDifference < 0) {
+//       return "Happened ${-daysDifference} days ago";
+//     } else if (daysDifference == 0) {
+//       return isRegisterNow ? "Join Now" : "Register Now";
+//     } else {
+//       return " Starting in $daysDifference days";
+//     }
+//   }
+
+//   Color getButtonColor() {
+//     DateTime today = DateTime.now();
+//     DateTime webinarDate = DateTime.parse(regdate!);
+//     int daysDifference = webinarDate.difference(today).inDays;
+
+//     if (daysDifference < 0) {
+//       return Colors.white;
+//     } else if (daysDifference == 0) {
+//       return const Color(0XFF1F0A68);
+//     } else {
+//       return Colors.white;
+//     }
+//   }
+
+//   Color getTextColor() {
+//     DateTime today = DateTime.now();
+//     DateTime webinarDate = DateTime.parse(regdate!);
+//     int daysDifference = webinarDate.difference(today).inDays;
+
+//     if (daysDifference < 0 || daysDifference > 0) {
+//       return Colors.black;
+//     } else {
+//       return Colors.white;
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       height: 40,
+//       width: 232,
+//       child: ElevatedButton(
+//         onPressed: onPressed,
+//         style: ElevatedButton.styleFrom(
+//           elevation: 2,
+//           shape: RoundedRectangleBorder(
+//             borderRadius: BorderRadius.circular(8),
+//           ),
+//           foregroundColor: getTextColor(),
+//           backgroundColor: getButtonColor(),
+//         ),
+//         child: Text(
+//           getButtonText(),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
 
 class RegisterNowWidget extends StatelessWidget {
   final VoidCallback onPressed;
@@ -1289,37 +1365,43 @@ class RegisterNowWidget extends StatelessWidget {
   String getButtonText() {
     DateTime now = DateTime.now();
     DateTime webinarDate = DateTime.parse(regdate!);
-    int daysDifference = webinarDate.difference(now).inDays;
+    Duration difference = webinarDate.difference(now);
 
-    if (daysDifference < 0) {
-      return "Happened ${-daysDifference} days ago";
-    } else if (daysDifference == 0) {
-      return isRegisterNow ? "Join Now" : "Register Now";
+    if (difference.isNegative) {
+      if (difference.inDays.abs() > 0) {
+        return "Happened ${-difference.inDays} days ago";
+      } else {
+        return "Happened ${-difference.inHours} hours ago";
+      }
+    } else if (difference.inDays >= 1) {
+      return "Starting in ${difference.inDays} days";
     } else {
-      return "Starting in $daysDifference days";
+      return "Starting in ${difference.inHours} hours";
     }
   }
 
   Color getButtonColor() {
     DateTime now = DateTime.now();
     DateTime webinarDate = DateTime.parse(regdate!);
-    int daysDifference = webinarDate.difference(now).inDays;
+    Duration difference = webinarDate.difference(now);
 
-    if (daysDifference < 0) {
+    if (difference.isNegative) {
       return Colors.white;
-    } else if (daysDifference == 0) {
-      return const Color(0XFF1F0A68);
+    } else if (difference.inDays >= 1 || difference.inHours > 0) {
+      return Colors.white;
     } else {
-      return Colors.white;
+      return const Color(0XFF1F0A68);
     }
   }
 
   Color getTextColor() {
     DateTime now = DateTime.now();
     DateTime webinarDate = DateTime.parse(regdate!);
-    int daysDifference = webinarDate.difference(now).inDays;
+    Duration difference = webinarDate.difference(now);
 
-    if (daysDifference < 0 || daysDifference > 0) {
+    if (difference.isNegative) {
+      return Colors.black;
+    } else if (difference.inDays >= 1 || difference.inHours > 0) {
       return Colors.black;
     } else {
       return Colors.white;
