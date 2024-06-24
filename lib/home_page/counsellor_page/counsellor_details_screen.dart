@@ -175,12 +175,19 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                       const SizedBox(height: 6),
                                       Row(
                                         children: [
-                                          Text(
-                                            counsellor['designation'],
-                                            style: const TextStyle(
-                                                fontSize: 14,
-                                                color: Color(0xff1f0a68),
-                                                fontWeight: FontWeight.w600),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                1.7,
+                                            child: Text(
+                                              counsellor['designation'],
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontSize: 14,
+                                                  color: Color(0xff1f0a68),
+                                                  fontWeight: FontWeight.w600),
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -223,6 +230,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                   ),
                                   const Spacer(),
                                   Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Container(
                                         width: 110,
@@ -326,9 +334,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                   ),
                                 ],
                               ),
-                              const SizedBox(
-                                height: 20,
-                              ),
+                              const SizedBox(height: 20),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,

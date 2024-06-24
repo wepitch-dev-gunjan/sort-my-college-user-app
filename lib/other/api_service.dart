@@ -238,6 +238,7 @@ class ApiService {
     });
     var data;
     if (response.statusCode == 200) {
+      log("webinar Detail +>${response.body.toString()}");
       data = jsonDecode(response.body.toString());
       // return List<WebinarDetailsModel>.from(
       //     data.map((x) => WebinarDetailsModel.fromJson(x)));

@@ -203,37 +203,15 @@ class _BookingTodayState extends State<BookingToday> {
                                         const Spacer(),
                                         Column(
                                           children: [
-                                            bookings[index]['booking_data']
-                                                        ['session_type'] ==
-                                                    'Group'
-                                                ? SizedBox(
-                                                    width: 118,
-                                                    child: Text(
-                                                      "${bookings[index]['booking_data']['session_topic']}",
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: SafeGoogleFont(
-                                                          "Inter",
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize:
-                                                              mWidth * 0.038,
-                                                          color: const Color(
-                                                              0xff1F0A68)),
-                                                    ),
-                                                  )
-                                                : Text(
-                                                    "${bookings[index]['booking_data']['session_type']}",
-                                                    textAlign: TextAlign.center,
-                                                    style: SafeGoogleFont(
-                                                        "Inter",
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize:
-                                                            mWidth * 0.038,
-                                                        color: const Color(
-                                                            0xff1F0A68)),
-                                                  ),
+                                            Text(
+                                              "${bookings[index]['booking_data']['session_type']}",
+                                              textAlign: TextAlign.center,
+                                              style: SafeGoogleFont("Inter",
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: mWidth * 0.038,
+                                                  color:
+                                                      const Color(0xff1F0A68)),
+                                            ),
                                             const SizedBox(
                                               height: 5,
                                             ),

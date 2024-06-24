@@ -296,8 +296,9 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                                         widget.webinarModel.webnar_startdays ==
                                             0) {
                                     } else if (_isRegistrationStarting) {
-                                      // Fluttertoast.showToast(
-                                      //     msg: 'Participant is already registered');
+                                      Fluttertoast.showToast(
+                                          msg:
+                                              'Participant is already registered');
                                     } else {
                                       showDialog(
                                         context: context,

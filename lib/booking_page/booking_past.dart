@@ -163,39 +163,15 @@ class _BookingPastState extends State<BookingPast> {
                                         const Spacer(),
                                         Column(
                                           children: [
-                                            bookings[index]['booking_data']
-                                                        ['session_type'] ==
-                                                    'Group'
-                                                ? SizedBox(
-                                                    width: 118,
-                                                    child: Text(
-                                                      "${bookings[index]['booking_data']['session_topic']}",
-                                                     
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-
-                                                      style: SafeGoogleFont(
-                                                          "Inter",
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize:
-                                                              mWidth * 0.038,
-                                                          color: const Color(
-                                                              0xff1F0A68)),
-                                                    ),
-                                                  )
-                                                : Text(
-                                                    "${bookings[index]['booking_data']['session_type']}",
-                                                    textAlign: TextAlign.center,
-                                                    style: SafeGoogleFont(
-                                                        "Inter",
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize:
-                                                            mWidth * 0.038,
-                                                        color: const Color(
-                                                            0xff1F0A68)),
-                                                  ),
+                                            Text(
+                                              "${bookings[index]['booking_data']['session_type']}",
+                                              textAlign: TextAlign.center,
+                                              style: SafeGoogleFont("Inter",
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: mWidth * 0.038,
+                                                  color:
+                                                      const Color(0xff1F0A68)),
+                                            ),
                                             const SizedBox(
                                               height: 5,
                                             ),
@@ -217,14 +193,14 @@ class _BookingPastState extends State<BookingPast> {
                                                   );
                                                 },
                                                 child: Container(
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                    ),
-                                                    child: Center(
-                                                        child: Text(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
                                                       "View booking",
                                                       style: SafeGoogleFont(
                                                           "Inter",
@@ -233,7 +209,9 @@ class _BookingPastState extends State<BookingPast> {
                                                           fontSize:
                                                               mWidth * 0.032,
                                                           color: Colors.black),
-                                                    ))),
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ],
