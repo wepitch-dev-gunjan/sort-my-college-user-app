@@ -1273,6 +1273,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+
 class RegisterNowWidget extends StatelessWidget {
   final VoidCallback onPressed;
   final String? regdate;
@@ -1286,23 +1287,23 @@ class RegisterNowWidget extends StatelessWidget {
   });
 
   String getButtonText() {
-    DateTime today = DateTime.now();
+    DateTime now = DateTime.now();
     DateTime webinarDate = DateTime.parse(regdate!);
-    int daysDifference = webinarDate.difference(today).inDays;
+    int daysDifference = webinarDate.difference(now).inDays;
 
     if (daysDifference < 0) {
       return "Happened ${-daysDifference} days ago";
     } else if (daysDifference == 0) {
       return isRegisterNow ? "Join Now" : "Register Now";
     } else {
-      return " Starting in $daysDifference days";
+      return "Starting in $daysDifference days";
     }
   }
 
   Color getButtonColor() {
-    DateTime today = DateTime.now();
+    DateTime now = DateTime.now();
     DateTime webinarDate = DateTime.parse(regdate!);
-    int daysDifference = webinarDate.difference(today).inDays;
+    int daysDifference = webinarDate.difference(now).inDays;
 
     if (daysDifference < 0) {
       return Colors.white;
@@ -1314,9 +1315,9 @@ class RegisterNowWidget extends StatelessWidget {
   }
 
   Color getTextColor() {
-    DateTime today = DateTime.now();
+    DateTime now = DateTime.now();
     DateTime webinarDate = DateTime.parse(regdate!);
-    int daysDifference = webinarDate.difference(today).inDays;
+    int daysDifference = webinarDate.difference(now).inDays;
 
     if (daysDifference < 0 || daysDifference > 0) {
       return Colors.black;
