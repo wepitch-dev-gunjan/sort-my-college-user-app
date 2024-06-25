@@ -78,8 +78,6 @@ class _HomePageState extends State<HomePage> {
   var str;
   List<String> imgUrlList = [];
 
-
-
   @override
   Widget build(BuildContext context) {
     var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
@@ -492,30 +490,31 @@ class _HomePageState extends State<HomePage> {
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            WebinarDetailsPageWidget(
-                                                              webinarId:
-                                                                  trending.id,
-                                                              webinarImg: trending
-                                                                  .webinarImage,
-                                                              webinarTitle: trending
-                                                                  .webinarTitle,
-                                                              webinarDate: trending
-                                                                  .webinarDate,
-                                                              webinarBy: trending
-                                                                  .webinarBy,
-                                                              webinarStartDays:
-                                                                  trending
-                                                                      .webinarStartingInDays,
-                                                              webinarRegister:
-                                                                  trending
-                                                                      .registered!,
-                                                              registrationDate:
-                                                                  registrationDate,
-                                                              webinarJoinUrl:
-                                                                  trending
-                                                                      .webinarJoinUrl,
-                                                            )),
+                                                        builder: (context) {
+                                                      log("WEbinar redgi${trending.registered}");
+                                                      return WebinarDetailsPageWidget(
+                                                        webinarId: trending.id,
+                                                        registerdDate: trending
+                                                            .registeredDate,
+                                                        webinarImg: trending
+                                                            .webinarImage,
+                                                        webinarTitle: trending
+                                                            .webinarTitle,
+                                                        webinarDate: trending
+                                                            .webinarDate,
+                                                        webinarBy:
+                                                            trending.webinarBy,
+                                                        webinarStartDays: trending
+                                                            .webinarStartingInDays,
+                                                        webinarRegister:
+                                                            trending
+                                                                .registered!,
+                                                        registrationDate:
+                                                            registrationDate,
+                                                        webinarJoinUrl: trending
+                                                            .webinarJoinUrl,
+                                                      );
+                                                    }),
                                                   );
                                                 },
                                                 child: Card(
@@ -672,66 +671,69 @@ class _HomePageState extends State<HomePage> {
                                                                   ),
 
                                                                   RegisterNowWidget(
-                                                                      onPressed:
-                                                                          () async {
-                                                                        DateTime
-                                                                            today =
-                                                                            DateTime.now();
+                                                                    onPressed:
+                                                                        () async {
+                                                                      log("Registered Date=>> ${trending.registeredDate}");
+                                                                      DateTime
+                                                                          today =
+                                                                          DateTime
+                                                                              .now();
+                                                                      DateTime
+                                                                          webinarDate =
+                                                                          DateTime.parse(
+                                                                              trending.registeredDate!);
+                                                                      int daysDifference = webinarDate
+                                                                          .difference(
+                                                                              today)
+                                                                          .inDays;
 
-                                                                        DateTime
-                                                                            webinarDate =
-                                                                            DateTime.parse(trending.registeredDate!);
-                                                                        int daysDifference = webinarDate
-                                                                            .difference(today)
-                                                                            .inDays;
+                                                                      if (!trending
+                                                                          .registered!) {
+                                                                        showDialog(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (BuildContext context) {
+                                                                            return AlertDialog(
+                                                                              title: const Text("Register"),
+                                                                              content: const Text("Are you sure you want to register for this webinar?"),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                  child: const Text("Cancel"),
+                                                                                  onPressed: () {
+                                                                                    Navigator.of(context).pop();
+                                                                                  },
+                                                                                ),
+                                                                                TextButton(
+                                                                                  child: const Text("Yes"),
+                                                                                  onPressed: () async {
+                                                                                    await ApiService.webinar_register(trending.id!);
 
-                                                                        if (daysDifference ==
-                                                                                0 &&
-                                                                            !isRegistered) {
-                                                                          showDialog(
-                                                                            context:
-                                                                                context,
-                                                                            builder:
-                                                                                (BuildContext context) {
-                                                                              return AlertDialog(
-                                                                                title: const Text("Register"),
-                                                                                content: const Text("Are you sure you want to register for this webinar?"),
-                                                                                actions: [
-                                                                                  TextButton(
-                                                                                    child: const Text("Cancel"),
-                                                                                    onPressed: () {
-                                                                                      Navigator.of(context).pop();
-                                                                                    },
-                                                                                  ),
-                                                                                  TextButton(
-                                                                                    child: const Text("Yes"),
-                                                                                    onPressed: () async {
-                                                                                      await ApiService.webinar_register(trending.id!);
-
-                                                                                      setState(() {
-                                                                                        isRegistered = true;
-                                                                                        trending.registered=true;
-                                                                                      });
-                                                                                      Navigator.of(context).pop();
-                                                                                    },
-                                                                                  ),
-                                                                                ],
-                                                                              );
-                                                                            },
-                                                                          );
-                                                                        } else if (daysDifference ==
-                                                                                0 &&
-                                                                            isRegistered!) {
-                                                                          launchUrlString(
-                                                                              trending.webinarJoinUrl!);
-                                                                        }
-                                                                      },
-                                                                      regdate:
-                                                                          trending
-                                                                              .registeredDate,
-                                                                      isRegisterNow:
-                                                                          trending
-                                                                              .registered!)
+                                                                                    // Update the state to reflect registration
+                                                                                    setState(() {
+                                                                                      trending.registered = true;
+                                                                                    });
+                                                                                    Navigator.of(context).pop();
+                                                                                  },
+                                                                                ),
+                                                                              ],
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      } else if (daysDifference ==
+                                                                          0) {
+                                                                        // Join the webinar if it is happening today and the user is already registered
+                                                                        launchUrlString(
+                                                                            trending.webinarJoinUrl!);
+                                                                      }
+                                                                    },
+                                                                    regdate:
+                                                                        trending
+                                                                            .registeredDate,
+                                                                    isRegisterNow:
+                                                                        trending
+                                                                            .registered!,
+                                                                  )
 
                                                                   // customRegisterNow(
                                                                   //     onPressed:
@@ -1273,6 +1275,97 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+class RegisterNowWidget extends StatelessWidget {
+  final VoidCallback onPressed;
+  final String? regdate;
+  final bool isRegisterNow;
+
+  const RegisterNowWidget({
+    super.key,
+    required this.onPressed,
+    required this.regdate,
+    required this.isRegisterNow,
+  });
+
+  String getButtonText() {
+    if (!isRegisterNow) {
+      return "Register Now";
+    }
+
+    DateTime today = DateTime.now();
+    DateTime webinarDate = DateTime.parse(regdate!);
+    int daysDifference = webinarDate.difference(today).inDays;
+
+    if (daysDifference < 0) {
+      return "Happened ${-daysDifference} days ago";
+    } else if (daysDifference == 0) {
+      return "Join Now";
+    } else {
+      return "Starting in $daysDifference days";
+    }
+  }
+
+  Color getButtonColor() {
+    if (!isRegisterNow) {
+      return const Color(0XFF1F0A68);
+    }
+
+    DateTime today = DateTime.now();
+    DateTime webinarDate = DateTime.parse(regdate!);
+    int daysDifference = webinarDate.difference(today).inDays;
+
+    if (daysDifference < 0) {
+      return Colors.white;
+    } else if (daysDifference == 0) {
+      return const Color(0XFF1F0A68);
+    } else {
+      return Colors.white;
+    }
+  }
+
+  Color getTextColor() {
+    if (!isRegisterNow) {
+      return Colors.white;
+    }
+
+    DateTime today = DateTime.now();
+    DateTime webinarDate = DateTime.parse(regdate!);
+    int daysDifference = webinarDate.difference(today).inDays;
+
+    if (daysDifference < 0 || daysDifference > 0) {
+      return Colors.black;
+    } else {
+      return Colors.white;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 40,
+      width: 232,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          foregroundColor: getTextColor(),
+          backgroundColor: getButtonColor(),
+        ),
+        child: Text(
+          getButtonText(),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+// ye isse phle wala hai
+
 // class RegisterNowWidget extends StatelessWidget {
 //   final VoidCallback onPressed;
 //   final String? regdate;
@@ -1348,85 +1441,3 @@ class _HomePageState extends State<HomePage> {
 //   }
 // }
 
-
-
-class RegisterNowWidget extends StatelessWidget {
-  final VoidCallback onPressed;
-  final String? regdate;
-  final bool isRegisterNow;
-
-  const RegisterNowWidget({
-    super.key,
-    required this.onPressed,
-    required this.regdate,
-    required this.isRegisterNow,
-  });
-
-  String getButtonText() {
-    DateTime now = DateTime.now();
-    DateTime webinarDate = DateTime.parse(regdate!);
-    Duration difference = webinarDate.difference(now);
-
-    if (difference.isNegative) {
-      if (difference.inDays.abs() > 0) {
-        return "Happened ${-difference.inDays} days ago";
-      } else {
-        return "Happened ${-difference.inHours} hours ago";
-      }
-    } else if (difference.inDays >= 1) {
-      return "Starting in ${difference.inDays} days";
-    } else {
-      return "Starting in ${difference.inHours} hours";
-    }
-  }
-
-  Color getButtonColor() {
-    DateTime now = DateTime.now();
-    DateTime webinarDate = DateTime.parse(regdate!);
-    Duration difference = webinarDate.difference(now);
-
-    if (difference.isNegative) {
-      return Colors.white;
-    } else if (difference.inDays >= 1 || difference.inHours > 0) {
-      return Colors.white;
-    } else {
-      return const Color(0XFF1F0A68);
-    }
-  }
-
-  Color getTextColor() {
-    DateTime now = DateTime.now();
-    DateTime webinarDate = DateTime.parse(regdate!);
-    Duration difference = webinarDate.difference(now);
-
-    if (difference.isNegative) {
-      return Colors.black;
-    } else if (difference.inDays >= 1 || difference.inHours > 0) {
-      return Colors.black;
-    } else {
-      return Colors.white;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40,
-      width: 232,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          elevation: 2,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          foregroundColor: getTextColor(),
-          backgroundColor: getButtonColor(),
-        ),
-        child: Text(
-          getButtonText(),
-        ),
-      ),
-    );
-  }
-}

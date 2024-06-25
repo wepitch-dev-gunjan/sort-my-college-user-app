@@ -20,9 +20,11 @@ class WebinarDetailsPageWidget extends StatefulWidget {
       webinarBy,
       webinarJoinUrl;
 
-  late bool webinarRegister;
+  final bool webinarRegister;
   final int? webinarStartDays;
   DateTime registrationDate;
+
+  final String? registerdDate;
 
   WebinarDetailsPageWidget(
       {required this.webinarId,
@@ -34,6 +36,7 @@ class WebinarDetailsPageWidget extends StatefulWidget {
       required this.webinarStartDays,
       required this.webinarRegister,
       required this.registrationDate,
+      this.registerdDate,
       required this.webinarJoinUrl,
       super.key});
 
@@ -64,30 +67,31 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
 
     setState(() {
       value = value;
-      widget.webinarRegister = isStarting;
+      // widget.webinarRegister = isStarting;
     });
   }
 
-  Future<void> _updateRegistrationStatus(bool isStarting) async {
-    setState(() {
-      widget.webinarRegister = isStarting;
-    });
+  // Future<void> _updateRegistrationStatus(bool isStarting) async {
+  //   setState(() {
+  //     widget.webinarRegister = isStarting;
+  //   });
 
-    if (isStarting) {
-      await _prefs.setInt(
-        'startingTimestamp',
-        DateTime.now().millisecondsSinceEpoch,
-      );
-    } else {
-      await _prefs.remove('startingTimestamp');
-    }
-    await _prefs.setBool('isRegistrationStarting', isStarting);
-  }
+  //   if (isStarting) {
+  //     await _prefs.setInt(
+  //       'startingTimestamp',
+  //       DateTime.now().millisecondsSinceEpoch,
+  //     );
+  //   } else {
+  //     await _prefs.remove('startingTimestamp');
+  //   }
+  //   await _prefs.setBool('isRegistrationStarting', isStarting);
+  // }
 
   bool has24HoursPassed = false;
 
   @override
   Widget build(BuildContext context) {
+    bool isRegistered = widget.webinarRegister;
     // log("dddddddddddddd=${widget.webinarRegister}");
     Duration difference = DateTime.now().difference(widget.registrationDate);
     var diff = daysBetween(DateTime.now(), widget.registrationDate);
@@ -449,92 +453,141 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 11.0, vertical: 10),
           child: Card(
-            color: Colors.white,
-            child: webinarDetailWidget(
-              onPressed: () async {
-                _isRegistrationStarting = widget.webinarRegister;
+              color: Colors.white,
+              child: RegisterNowWidget(
+                onPressed: () async {
+                  log("redgfisfsitflj${widget.webinarRegister}");
+                  DateTime today = DateTime.now();
 
-                log("_isRegistred=>$_isRegistrationStarting");
+                  DateTime webinarDate = DateTime.parse(widget.registerdDate!);
+                  int daysDifference = webinarDate.difference(today).inDays;
 
-                if (has24HoursPassed) {
-                  Fluttertoast.showToast(
-                      msg: 'Webinar Happened ${diff.abs()} days ago');
-                } else {
-                  if (widget.webinarRegister && widget.webinarStartDays == 0) {
-                    launchUrlString(widget.webinarJoinUrl!);
-                  } else if (_isRegistrationStarting) {
-                    Fluttertoast.showToast(
-                        msg: 'Participant is already registered');
-                  } else {
+                  if (daysDifference == 0 && !isRegistered) {
                     showDialog(
                       context: context,
-                      builder: (context) {
+                      builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text(
-                            'Do you want to register for the webinar?',
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
+                          title: const Text("Register"),
+                          content: const Text(
+                            "Are you sure you want to register for this webinar?",
                           ),
                           actions: [
                             TextButton(
+                              child: const Text("Cancel"),
                               onPressed: () {
-                                Navigator.pop(context);
+                                Navigator.of(context).pop();
                               },
-                              child: const Text('Cancel'),
                             ),
                             TextButton(
+                              child: const Text("Yes"),
                               onPressed: () async {
-                                if (_isRegistrationStarting) {
-                                  Fluttertoast.showToast(
-                                      msg: 'Participant is already registered');
-                                  Navigator.pop(context);
-                                } else {
-                                  var value = await ApiService.webinar_register(
-                                      widget.webinarId!);
-                                  if (value["error"] ==
-                                      "Participant is already registered") {
-                                    Fluttertoast.showToast(
-                                        msg:
-                                            'Participant is already registered');
-                                  } else if (value["message"] ==
-                                      "Registration completed") {
-                                    Fluttertoast.showToast(
-                                        msg:
-                                            'Registration completed. Thanks for registering');
-                                    setState(() {
-                                      widget.webinarRegister = true;
+                                await ApiService.webinar_register(
+                                    widget.webinarId!);
 
-                                      _isRegistrationStarting =
-                                          widget.webinarRegister;
-                                    });
-                                  }
-                                  if (mounted) {
-                                    Navigator.pop(context);
-                                  }
-
-                                  await _updateRegistrationStatus(true);
-                                }
+                                setState(() {
+                                  isRegistered = true;
+                                  // widget.webinarRegister = true;
+                                });
+                                Navigator.of(context).pop();
                               },
-                              child: const Text('Yes'),
                             ),
                           ],
                         );
                       },
                     );
+                  } else if (daysDifference == 0 && isRegistered) {
+                    launchUrlString(widget.webinarJoinUrl!);
                   }
-                }
-              },
-              title: widget.webinarRegister
-                  ? (widget.webinarStartDays == 0
-                      ? 'Join Now'
-                      : has24HoursPassed
-                          ? 'Happened in ${diff.abs()} days ago'
-                          : 'Starting in ${widget.webinarStartDays} days')
-                  : 'Join Now',
-              isRegisterNow: has24HoursPassed ? false : widget.webinarRegister,
-            ),
-          ),
+                },
+                regdate: widget.registerdDate,
+                isRegisterNow: widget.webinarRegister,
+              )
+
+              // child: webinarDetailWidget(
+              //   onPressed: () async {
+              //     _isRegistrationStarting = widget.webinarRegister;
+
+              //     log("_isRegistred=>$_isRegistrationStarting");
+
+              //     if (has24HoursPassed) {
+              //       Fluttertoast.showToast(
+              //           msg: 'Webinar Happened ${diff.abs()} days ago');
+              //     } else {
+              //       if (widget.webinarRegister && widget.webinarStartDays == 0) {
+              //         launchUrlString(widget.webinarJoinUrl!);
+              //       } else if (_isRegistrationStarting) {
+              //         Fluttertoast.showToast(
+              //             msg: 'Participant is already registered');
+              //       } else {
+              //         showDialog(
+              //           context: context,
+              //           builder: (context) {
+              //             return AlertDialog(
+              //               title: const Text(
+              //                 'Do you want to register for the webinar?',
+              //                 style: TextStyle(
+              //                   fontSize: 16,
+              //                 ),
+              //               ),
+              //               actions: [
+              //                 TextButton(
+              //                   onPressed: () {
+              //                     Navigator.pop(context);
+              //                   },
+              //                   child: const Text('Cancel'),
+              //                 ),
+              //                 TextButton(
+              //                   onPressed: () async {
+              //                     if (_isRegistrationStarting) {
+              //                       Fluttertoast.showToast(
+              //                           msg: 'Participant is already registered');
+              //                       Navigator.pop(context);
+              //                     } else {
+              //                       var value = await ApiService.webinar_register(
+              //                           widget.webinarId!);
+              //                       if (value["error"] ==
+              //                           "Participant is already registered") {
+              //                         Fluttertoast.showToast(
+              //                             msg:
+              //                                 'Participant is already registered');
+              //                       } else if (value["message"] ==
+              //                           "Registration completed") {
+              //                         Fluttertoast.showToast(
+              //                             msg:
+              //                                 'Registration completed. Thanks for registering');
+              //                         setState(() {
+              //                           widget.webinarRegister = true;
+
+              //                           _isRegistrationStarting =
+              //                               widget.webinarRegister;
+              //                         });
+              //                       }
+              //                       if (mounted) {
+              //                         Navigator.pop(context);
+              //                       }
+
+              //                       await _updateRegistrationStatus(true);
+              //                     }
+              //                   },
+              //                   child: const Text('Yes'),
+              //                 ),
+              //               ],
+              //             );
+              //           },
+              //         );
+              //       }
+              //     }
+              //   },
+              //   title: widget.webinarRegister
+              //       ? (widget.webinarStartDays == 0
+              //           ? 'Join Now'
+              //           : has24HoursPassed
+              //               ? 'Happened in ${diff.abs()} days ago'
+              //               : 'Starting in ${widget.webinarStartDays} days')
+              //       : 'Join Now',
+              //   isRegisterNow: has24HoursPassed ? false : widget.webinarRegister,
+              ),
+          // ),
         ),
       ),
     );
