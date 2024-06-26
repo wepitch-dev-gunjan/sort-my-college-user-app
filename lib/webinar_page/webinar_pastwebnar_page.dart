@@ -175,7 +175,7 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
       has24HoursPassed = false;
     }
 
-    bool isRegistered=widget.webinarModel.registered;
+    bool isRegistered = widget.webinarModel.registered;
 
     return GestureDetector(
       onTap: () {
@@ -292,12 +292,12 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                               onPressed: () async {
                                 DateTime today = DateTime.now();
 
-                                DateTime webinarDate =
-                                    DateTime.parse(widget.webinarModel.resisterDate!);
+                                DateTime webinarDate = DateTime.parse(
+                                    widget.webinarModel.resisterDate!);
                                 int daysDifference =
                                     webinarDate.difference(today).inDays;
 
-                                if (daysDifference == 0 && !isRegistered) {
+                                if (!isRegistered) {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -320,6 +320,7 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                                                   widget.webinarModel.id!);
                                               setState(() {
                                                 isRegistered = true;
+                                                widget.webinarModel.registered=true;
                                                 // widget. = true;
                                               });
                                               Navigator.of(context).pop();

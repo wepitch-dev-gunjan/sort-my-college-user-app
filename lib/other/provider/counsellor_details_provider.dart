@@ -155,26 +155,24 @@ class CounsellorDetailsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   void fetchWebinar_Data(String params) async {
-  isLoading = true; 
-  notifyListeners();
+    isLoading = true;
+    notifyListeners();
 
-  webinarList.clear();
-  var webinar = await ApiService.getWebinarData(params);
+    webinarList.clear();
+    var webinar = await ApiService.getWebinarData(params);
 
-  // log("Webinaers=>>>>> $webinar");
+   
 
-  if (webinar.isEmpty) {
-    isLoading = false;
-  } else {
-    webinarList = webinar;
-    isLoading = false;
+    if (webinar.isEmpty) {
+      isLoading = false;
+    } else {
+      webinarList = webinar;
+      isLoading = false;
+    }
+
+    notifyListeners(); // Notify listeners after setting isLoading to false
   }
-
-  notifyListeners(); // Notify listeners after setting isLoading to false
-}
-
 
   void fetchTrendingWebinar() async {
     trendingWebinarList.clear();

@@ -723,6 +723,7 @@ class _HomePageState extends State<HomePage> {
 
                                                                                           // Update the state to reflect registration
                                                                                           setState(() {
+                                                                                            // isRegistered=true;
                                                                                             trending.registered = true;
                                                                                           });
                                                                                           Navigator.of(context).pop();

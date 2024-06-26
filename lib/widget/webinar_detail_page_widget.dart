@@ -20,7 +20,7 @@ class WebinarDetailsPageWidget extends StatefulWidget {
       webinarBy,
       webinarJoinUrl;
 
-  final bool webinarRegister;
+   bool webinarRegister;
   final int? webinarStartDays;
   DateTime registrationDate;
 
@@ -91,8 +91,8 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    bool isRegistered = widget.webinarRegister;
-    // log("dddddddddddddd=${widget.webinarRegister}");
+    bool isRegistere = widget.webinarRegister;
+
     Duration difference = DateTime.now().difference(widget.registrationDate);
     var diff = daysBetween(DateTime.now(), widget.registrationDate);
     var pastdays;
@@ -456,13 +456,12 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
               color: Colors.white,
               child: RegisterNowWidget(
                 onPressed: () async {
-                  log("redgfisfsitflj${widget.webinarRegister}");
                   DateTime today = DateTime.now();
 
                   DateTime webinarDate = DateTime.parse(widget.registerdDate!);
                   int daysDifference = webinarDate.difference(today).inDays;
 
-                  if (daysDifference == 0 && !isRegistered) {
+                  if (!widget.webinarRegister) {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -485,7 +484,8 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                     widget.webinarId!);
 
                                 setState(() {
-                                  isRegistered = true;
+                                  isRegistere = true;
+                                  widget.webinarRegister=true;
                                   // widget.webinarRegister = true;
                                 });
                                 Navigator.of(context).pop();
@@ -495,7 +495,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                         );
                       },
                     );
-                  } else if (daysDifference == 0 && isRegistered) {
+                  } else if (daysDifference == 0 && isRegistere) {
                     launchUrlString(widget.webinarJoinUrl!);
                   }
                 },
