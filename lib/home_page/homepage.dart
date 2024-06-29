@@ -694,21 +694,10 @@ class _HomePageState extends State<HomePage> {
                                                                         RegisterNowWidget(
                                                                           onPressed:
                                                                               () async {
-                                                                            log("Registered Date=>> ${trending.registeredDate}");
-                                                                            DateTime
-                                                                                today =
-                                                                                DateTime.now();
-                                                                            DateTime
-                                                                                webinarDate =
-                                                                                DateTime.parse(trending.registeredDate!);
-                                                                            int daysDifference =
-                                                                                webinarDate.difference(today).inDays;
-
-                                                                            if (daysDifference == 0 &&
-                                                                                trending.registered == true &&
-                                                                                trending.canJoin == false) {
-                                                                              Fluttertoast.showToast(msg: 'The webinar will start 10 minutes early.');
-                                                                            }
+                                                                            var daysDifference = calculateDaysDifference(
+                                                                                registeredDate: trending.registeredDate!,
+                                                                                webinarRegister: trending.registered!,
+                                                                                canJoin: trending.canJoin!);
 
                                                                             if (!trending
                                                                                 .registered!) {
@@ -729,7 +718,6 @@ class _HomePageState extends State<HomePage> {
                                                                                         child: const Text("Yes"),
                                                                                         onPressed: () async {
                                                                                           await ApiService.webinar_register(trending.id!);
-                                                                                          await ApiService.webinar_register(trending.id!);
 
                                                                                           // Update the state to reflect registration
                                                                                           setState(() {
@@ -746,8 +734,8 @@ class _HomePageState extends State<HomePage> {
                                                                             } else if (daysDifference == 0 &&
                                                                                 isRegistered &&
                                                                                 trending.canJoin == true) {
-                                                                              await ApiService.webinar_register(trending.id!);
                                                                               launchUrlString(trending.webinarJoinUrl!);
+                                                                              await ApiService.webinar_register(trending.id!);
                                                                             }
                                                                           },
                                                                           regdate:
@@ -1258,6 +1246,33 @@ class RegisterNowWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+int calculateDaysDifference(
+    {required String registeredDate,
+    required bool webinarRegister,
+    required bool canJoin}) {
+  DateTime parseDate(String dateString) {
+    return DateTime.parse(dateString.split('T')[0]);
+  }
+
+  DateTime truncateTime(DateTime dateTime) {
+    return DateTime(dateTime.year, dateTime.month, dateTime.day);
+  }
+
+  DateTime today = truncateTime(DateTime.now());
+  DateTime webinarDate = truncateTime(parseDate(registeredDate));
+  int daysDifference = webinarDate.difference(today).inDays;
+
+  if (daysDifference == 0 && webinarRegister && !canJoin) {
+    Fluttertoast.showToast(msg: 'The webinar will start 10 minutes early.');
+  } else if (daysDifference > 0 && !canJoin && webinarRegister) {
+    Fluttertoast.showToast(msg: 'Webinar Starting in $daysDifference days');
+  } else if (daysDifference < 0) {
+    Fluttertoast.showToast(msg: 'Webinar happened ${-daysDifference} days ago');
+  }
+
+  return daysDifference;
 }
 
 

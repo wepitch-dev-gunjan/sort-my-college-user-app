@@ -458,10 +458,10 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
               color: Colors.white,
               child: RegisterNowWidget(
                 onPressed: () async {
-                  DateTime today = DateTime.now();
-
-                  DateTime webinarDate = DateTime.parse(widget.registerdDate!);
-                  int daysDifference = webinarDate.difference(today).inDays;
+                  var daysDifference = calculateDaysDifference(
+                      registeredDate: widget.registerdDate!,
+                      webinarRegister: widget.webinarRegister,
+                      canJoin: widget.canJoin!);
 
                   if (!widget.webinarRegister) {
                     showDialog(

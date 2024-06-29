@@ -291,18 +291,12 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
 
                             RegisterNowWidget(
                               onPressed: () async {
-                                DateTime today = DateTime.now();
-
-                                DateTime webinarDate = DateTime.parse(
-                                    widget.webinarModel.resisterDate!);
-                                int daysDifference =
-                                    webinarDate.difference(today).inDays;
-
-                                if (daysDifference == 0) {
-                                  Fluttertoast.showToast(
-                                      msg:
-                                          'The webinar will start 10 minutes early.');
-                                }
+                                var daysDifference = calculateDaysDifference(
+                                    registeredDate:
+                                        widget.webinarModel.resisterDate!,
+                                    webinarRegister:
+                                        widget.webinarModel.registered,
+                                    canJoin: widget.webinarModel.canJoin!);
 
                                 if (!isRegistered) {
                                   showDialog(

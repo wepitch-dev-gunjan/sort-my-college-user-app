@@ -284,13 +284,12 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
 
                             RegisterNowWidget(
                               onPressed: () async {
-                                // bool isRegistere=widget.isRegisterNow;
-                                DateTime today = DateTime.now();
-
-                                DateTime webinarDate = DateTime.parse(
-                                    widget.webinarModel.resisterDate!);
-                                int daysDifference =
-                                    webinarDate.difference(today).inDays;
+                                var daysDifference = calculateDaysDifference(
+                                    registeredDate:
+                                        widget.webinarModel.resisterDate!,
+                                    webinarRegister:
+                                        widget.webinarModel.registered,
+                                    canJoin: widget.webinarModel.canJoin!);
 
                                 if (!isRegistered) {
                                   showDialog(
