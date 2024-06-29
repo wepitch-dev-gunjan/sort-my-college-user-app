@@ -468,8 +468,9 @@ class _HomePageState extends State<HomePage> {
                                               itemBuilder: (context, index) {
                                                 TrandingWebinarModel trending =
                                                     counsellorSessionProvider
-                                                            .trendingWebinarList[
-                                                        index];
+                                                        .trendingWebinarList
+                                                        .reversed
+                                                        .toList()[index];
 
                                                 DateTime webinarDate =
                                                     DateTime.parse(trending
@@ -512,7 +513,7 @@ class _HomePageState extends State<HomePage> {
                                                           MaterialPageRoute(
                                                               builder:
                                                                   (context) {
-                                                            log("Webinar registered: ${trending.registered}");
+                                                            log("Webinar registered: ${trending.canJoin}");
                                                             return WebinarDetailsPageWidget(
                                                               webinarId:
                                                                   trending.id,
@@ -538,6 +539,8 @@ class _HomePageState extends State<HomePage> {
                                                               webinarJoinUrl:
                                                                   trending
                                                                       .webinarJoinUrl,
+                                                              canJoin: trending
+                                                                  .canJoin,
                                                             );
                                                           }),
                                                         );
@@ -701,6 +704,11 @@ class _HomePageState extends State<HomePage> {
                                                                             int daysDifference =
                                                                                 webinarDate.difference(today).inDays;
 
+                                                                            if (daysDifference ==
+                                                                                0) {
+                                                                              Fluttertoast.showToast(msg: 'The webinar will start 10 minutes early.');
+                                                                            }
+
                                                                             if (!trending
                                                                                 .registered!) {
                                                                               showDialog(
@@ -733,9 +741,9 @@ class _HomePageState extends State<HomePage> {
                                                                                   );
                                                                                 },
                                                                               );
-                                                                            } else if (daysDifference ==
-                                                                                0) {
-                                                                              // Join the webinar if it is happening today and the user is already registered
+                                                                            } else if (daysDifference == 0 &&
+                                                                                isRegistered &&
+                                                                                trending.canJoin == true) {
                                                                               launchUrlString(trending.webinarJoinUrl!);
                                                                             }
                                                                           },
@@ -743,6 +751,8 @@ class _HomePageState extends State<HomePage> {
                                                                               trending.registeredDate,
                                                                           isRegisterNow:
                                                                               trending.registered!,
+                                                                          canJoin:
+                                                                              trending.canJoin!,
                                                                         )
                                                                       ],
                                                                     ),
@@ -1144,16 +1154,105 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+// class RegisterNowWidget extends StatelessWidget {
+//   final VoidCallback onPressed;
+//   final String? regdate;
+//   final bool isRegisterNow;
+
+//   const RegisterNowWidget({
+//     super.key,
+//     required this.onPressed,
+//     required this.regdate,
+//     required this.isRegisterNow,
+//   });
+
+//   String getButtonText() {
+//     if (!isRegisterNow) {
+//       return "Register Now";
+//     }
+
+//     DateTime today = DateTime.now();
+//     DateTime webinarDate = DateTime.parse(regdate!);
+//     int daysDifference = webinarDate.difference(today).inDays;
+
+//     if (daysDifference < 0) {
+//       return "Happened ${-daysDifference} days ago";
+//     } else if (daysDifference == 0) {
+//       return "Join Now";
+//     } else {
+//       return "Starting in $daysDifference days";
+//     }
+//   }
+
+//   Color getButtonColor() {
+//     if (!isRegisterNow) {
+//       return const Color(0XFF1F0A68);
+//     }
+
+//     DateTime today = DateTime.now();
+//     DateTime webinarDate = DateTime.parse(regdate!);
+//     int daysDifference = webinarDate.difference(today).inDays;
+
+//     if (daysDifference < 0) {
+//       return Colors.white;
+//     } else if (daysDifference == 0) {
+//       return const Color(0XFF1F0A68);
+//     } else {
+//       return Colors.white;
+//     }
+//   }
+
+//   Color getTextColor() {
+//     if (!isRegisterNow) {
+//       return Colors.white;
+//     }
+
+//     DateTime today = DateTime.now();
+//     DateTime webinarDate = DateTime.parse(regdate!);
+//     int daysDifference = webinarDate.difference(today).inDays;
+
+//     if (daysDifference < 0 || daysDifference > 0) {
+//       return Colors.black;
+//     } else {
+//       return Colors.white;
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       height: 40,
+//       width: 232,
+//       child: ElevatedButton(
+//         onPressed: onPressed,
+//         style: ElevatedButton.styleFrom(
+//           elevation: 2,
+//           shape: RoundedRectangleBorder(
+//             borderRadius: BorderRadius.circular(8),
+//           ),
+//           foregroundColor: getTextColor(),
+//           backgroundColor: getButtonColor(),
+//         ),
+//         child: Text(
+//           getButtonText(),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 class RegisterNowWidget extends StatelessWidget {
   final VoidCallback onPressed;
   final String? regdate;
   final bool isRegisterNow;
+  final bool canJoin;
 
   const RegisterNowWidget({
     super.key,
     required this.onPressed,
     required this.regdate,
     required this.isRegisterNow,
+    required this.canJoin,
   });
 
   String getButtonText() {
@@ -1167,8 +1266,10 @@ class RegisterNowWidget extends StatelessWidget {
 
     if (daysDifference < 0) {
       return "Happened ${-daysDifference} days ago";
-    } else if (daysDifference == 0) {
+    } else if (daysDifference == 0 && canJoin == true) {
       return "Join Now";
+    } else if (daysDifference == 0) {
+      return "Starting today";
     } else {
       return "Starting in $daysDifference days";
     }
@@ -1185,7 +1286,7 @@ class RegisterNowWidget extends StatelessWidget {
 
     if (daysDifference < 0) {
       return Colors.white;
-    } else if (daysDifference == 0) {
+    } else if (daysDifference == 0 && canJoin == true) {
       return const Color(0XFF1F0A68);
     } else {
       return Colors.white;
@@ -1201,10 +1302,12 @@ class RegisterNowWidget extends StatelessWidget {
     DateTime webinarDate = DateTime.parse(regdate!);
     int daysDifference = webinarDate.difference(today).inDays;
 
-    if (daysDifference < 0 || daysDifference > 0) {
+    if (daysDifference < 0) {
       return Colors.black;
-    } else {
+    } else if (daysDifference == 0 && canJoin == true) {
       return Colors.white;
+    } else {
+      return Colors.black;
     }
   }
 
@@ -1230,6 +1333,8 @@ class RegisterNowWidget extends StatelessWidget {
     );
   }
 }
+
+
 
 
 

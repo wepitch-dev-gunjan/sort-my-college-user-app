@@ -193,6 +193,7 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
               webinarRegister: widget.webinarModel.registered,
               registrationDate: registrationDate,
               webinarJoinUrl: widget.webinarModel.joinUrl!,
+              canJoin: widget.webinarModel.canJoin,
             ),
           ),
         );
@@ -297,6 +298,12 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                                 int daysDifference =
                                     webinarDate.difference(today).inDays;
 
+                                if (daysDifference == 0) {
+                                  Fluttertoast.showToast(
+                                      msg:
+                                          'The webinar will start 10 minutes early.');
+                                }
+
                                 if (!isRegistered) {
                                   showDialog(
                                     context: context,
@@ -320,7 +327,8 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                                                   widget.webinarModel.id!);
                                               setState(() {
                                                 isRegistered = true;
-                                                widget.webinarModel.registered=true;
+                                                widget.webinarModel.registered =
+                                                    true;
                                                 // widget. = true;
                                               });
                                               Navigator.of(context).pop();
@@ -331,12 +339,14 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                                     },
                                   );
                                 } else if (daysDifference == 0 &&
-                                    isRegistered) {
+                                    isRegistered &&
+                                    widget.webinarModel.canJoin == true) {
                                   launchUrlString(widget.webinarModel.joinUrl!);
                                 }
                               },
                               regdate: widget.webinarModel.resisterDate,
                               isRegisterNow: widget.webinarModel.registered,
+                              canJoin: widget.webinarModel.canJoin!,
                             )
 
                             // RegisterNowWidget(

@@ -174,7 +174,7 @@ class ApiService {
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
 
-      // log("Trending Webinars=>>>>>>>>>$data");
+      log("Trending Webinars=>>>>>>>>>$data");
       return List<TrandingWebinarModel>.from(
           data.map((x) => TrandingWebinarModel.fromJson(x)));
     }

@@ -185,6 +185,7 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
               webinarRegister: widget.webinarModel.registered,
               registrationDate: registrationDate,
               webinarJoinUrl: widget.webinarModel.joinUrl!,
+              canJoin: widget.webinarModel.canJoin,
             ),
           ),
         );
@@ -326,12 +327,14 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                                     },
                                   );
                                 } else if (daysDifference == 0 &&
-                                    isRegistered) {
+                                    isRegistered &&
+                                    widget.webinarModel.registered == true) {
                                   launchUrlString(widget.webinarModel.joinUrl!);
                                 }
                               },
                               regdate: widget.webinarModel.resisterDate,
                               isRegisterNow: widget.webinarModel.registered,
+                              canJoin: widget.webinarModel.canJoin!,
                             )
                             // customRegisterNow(
                             //     onPressed: () async {

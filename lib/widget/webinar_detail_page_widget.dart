@@ -20,9 +20,10 @@ class WebinarDetailsPageWidget extends StatefulWidget {
       webinarBy,
       webinarJoinUrl;
 
-   bool webinarRegister;
+  bool webinarRegister;
   final int? webinarStartDays;
   DateTime registrationDate;
+  final bool? canJoin;
 
   final String? registerdDate;
 
@@ -38,7 +39,8 @@ class WebinarDetailsPageWidget extends StatefulWidget {
       required this.registrationDate,
       this.registerdDate,
       required this.webinarJoinUrl,
-      super.key});
+      super.key,
+      this.canJoin});
 
   @override
   State<WebinarDetailsPageWidget> createState() =>
@@ -485,7 +487,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
 
                                 setState(() {
                                   isRegistere = true;
-                                  widget.webinarRegister=true;
+                                  widget.webinarRegister = true;
                                   // widget.webinarRegister = true;
                                 });
                                 Navigator.of(context).pop();
@@ -495,12 +497,15 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                         );
                       },
                     );
-                  } else if (daysDifference == 0 && isRegistere) {
+                  } else if (daysDifference == 0 &&
+                      isRegistere &&
+                      widget.canJoin == true) {
                     launchUrlString(widget.webinarJoinUrl!);
                   }
                 },
                 regdate: widget.registerdDate,
                 isRegisterNow: widget.webinarRegister,
+                canJoin: widget.canJoin!,
               )
 
               // child: webinarDetailWidget(
