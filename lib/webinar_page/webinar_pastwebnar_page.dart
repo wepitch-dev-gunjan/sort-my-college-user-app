@@ -226,7 +226,8 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${widget.webinarModel.webinarBy}',
+                        '${widget.webinarModel.webinarTitle}',
+                        // '${widget.webinarModel.webinarBy}',
                         style: SafeGoogleFont(
                           "Inter",
                           fontSize: 16,
@@ -249,7 +250,7 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                             height: 3,
                           ),
                           Text(
-                            '${widget.webinarModel.webinarTitle}',
+                            '${widget.webinarModel.webinarBy}',
                             overflow: TextOverflow.ellipsis,
                             style: SafeGoogleFont(
                               "Inter",

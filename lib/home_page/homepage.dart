@@ -596,7 +596,9 @@ class _HomePageState extends State<HomePage> {
                                                                 children: [
                                                                   Text(
                                                                     trending
-                                                                        .webinarBy!,
+                                                                        .webinarTitle!,
+                                                                    // trending
+                                                                    //     .webinarBy!,
                                                                     style:
                                                                         SafeGoogleFont(
                                                                       "Inter",
@@ -634,7 +636,7 @@ class _HomePageState extends State<HomePage> {
                                                                           const SizedBox(
                                                                               height: 3),
                                                                           Text(
-                                                                            trending.webinarTitle!,
+                                                                            trending.webinarBy!,
                                                                             style:
                                                                                 SafeGoogleFont(
                                                                               "Inter",

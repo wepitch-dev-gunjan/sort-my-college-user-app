@@ -1,5 +1,7 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:myapp/home_page/homepage.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/provider/counsellor_details_provider.dart';
 import 'package:myapp/shared/colors_const.dart';
@@ -10,9 +12,6 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-
-import '../home_page/homepage.dart';
-import '../widget/custom_webniar_card_widget.dart';
 
 class WebinarUpcomingPage extends StatefulWidget {
   const WebinarUpcomingPage({super.key});
@@ -26,6 +25,7 @@ class _WebinarUpcomingPageState extends State<WebinarUpcomingPage> {
   void initState() {
     super.initState();
     context.read<CounsellorDetailsProvider>().fetchWebinar_Data("Upcoming");
+    // context.read<CounsellorDetailsProvider>().fetchMyWebinar();
   }
 
   @override
@@ -37,7 +37,7 @@ class _WebinarUpcomingPageState extends State<WebinarUpcomingPage> {
         : counsellorSessionProvider.webinarList.isEmpty
             ? Center(
                 child: Text(
-                  "No Upcoming Webinars",
+                  "No Webinar",
                   style: SafeGoogleFont("Inter"),
                 ),
               )
@@ -50,7 +50,7 @@ class _WebinarUpcomingPageState extends State<WebinarUpcomingPage> {
                   WebinarModel webinarModel = reversedList[index];
                   return Padding(
                     padding: const EdgeInsets.only(left: 12, right: 12, top: 8),
-                    child: WebinarUpComingWidget(
+                    child: WebinarUpcomingPageDataWidget(
                       showDuration: false,
                       title: "Learn more about CUET and IPMAT",
                       isRegisterNow: true,
@@ -67,8 +67,8 @@ class _WebinarUpcomingPageState extends State<WebinarUpcomingPage> {
   }
 }
 
-class WebinarUpComingWidget extends StatefulWidget {
-  const WebinarUpComingWidget(
+class WebinarUpcomingPageDataWidget extends StatefulWidget {
+  const WebinarUpcomingPageDataWidget(
       {super.key,
       required this.isRegisterNow,
       required this.btnTitle,
@@ -93,10 +93,10 @@ class WebinarUpComingWidget extends StatefulWidget {
   final WebinarModel webinarModel;
 
   @override
-  State<WebinarUpComingWidget> createState() => _WebinarUpComingWidgetState();
+  State<WebinarUpcomingPageDataWidget> createState() => _WebinarUpcomingPageDataWidgetState();
 }
 
-class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
+class _WebinarUpcomingPageDataWidgetState extends State<WebinarUpcomingPageDataWidget> {
   late SharedPreferences _prefs;
   bool _isRegistrationStarting = false;
   String register_status = '';
@@ -158,14 +158,22 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.47,
       child: cardView(context),
     );
   }
 
   Widget cardView(BuildContext context) {
+    bool has24HoursPassed = false;
     DateTime registrationDate =
         DateTime.parse(widget.webinarModel.resisterDate!);
+    Duration difference = DateTime.now().difference(registrationDate);
+    var pastdays;
+    if (difference.inHours >= 24) {
+      has24HoursPassed = true;
+      pastdays = difference.inDays;
+    } else {
+      has24HoursPassed = false;
+    }
 
     bool isRegistered = widget.webinarModel.registered;
 
@@ -218,7 +226,8 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${widget.webinarModel.webinarBy}',
+                        '${widget.webinarModel.webinarTitle}',
+                        // '${widget.webinarModel.webinarBy}',
                         style: SafeGoogleFont(
                           "Inter",
                           fontSize: 16,
@@ -226,39 +235,29 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                         ),
                       ),
                       const SizedBox(height: 4),
-                      Row(
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${widget.webinarModel.webinarDate}',
-                                style: SafeGoogleFont(
-                                  "Inter",
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                '${widget.webinarModel.webinarTitle}',
-                                overflow: TextOverflow.clip,
-                                style: SafeGoogleFont(
-                                  "Inter",
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
+                          Text(
+                            '${widget.webinarModel.webinarDate}',
+                            style: SafeGoogleFont(
+                              "Inter",
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                          // customEnrollButton(
-                          //     onPresssed: () {},
-                          //     title: "Free Enroll",
-                          //     context: context)
+                          const SizedBox(
+                            height: 3,
+                          ),
+                          Text(
+                            '${widget.webinarModel.webinarBy}',
+                            overflow: TextOverflow.ellipsis,
+                            style: SafeGoogleFont(
+                              "Inter",
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(
@@ -293,8 +292,6 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
 
                             RegisterNowWidget(
                               onPressed: () async {
-                                // bool isRegistere=widget.isRegisterNow;
-
                                 var daysDifference = calculateDaysDifference(
                                     registeredDate:
                                         widget.webinarModel.resisterDate!,
@@ -346,32 +343,24 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                               isRegisterNow: widget.webinarModel.registered,
                               canJoin: widget.webinarModel.canJoin!,
                             )
+
+                            // RegisterNowWidget(
+
+                            //     regdate: widget.webinarModel.resisterDate,
+                            //     isRegisterNow: widget.webinarModel.registered),
                             // customRegisterNow(
                             //     onPressed: () async {
+                            //       // log("MyWebinar=>>>>>>>>${widget.webinarModel.registered}");
                             //       _isRegistrationStarting =
                             //           widget.webinarModel.registered;
-                            //       bool has24HoursPassed = false;
-                            //       var diff = daysBetween(
-                            //           DateTime.now(),
-                            //           DateTime.parse(
-                            //               widget.webinarModel.resisterDate!));
-                            //       if (diff < 0) {
-                            //         has24HoursPassed = true;
-                            //       } else if (diff > 0) {
-                            //         has24HoursPassed = false; // in future
-                            //       } else if (diff == 0) {
-                            //         has24HoursPassed = false; // in today
-                            //       }
-
                             //       if (has24HoursPassed) {
                             //         Fluttertoast.showToast(
-                            //             msg: 'Webinar Happened in Past');
+                            //             msg:
+                            //                 'Webinar Happened $pastdays days ago');
                             //       } else {
                             //         if (widget.webinarModel.registered &&
                             //             widget.webinarModel.webnar_startdays ==
                             //                 0) {
-                            //           launchUrlString(
-                            //               widget.webinarModel.joinUrl!);
                             //         } else if (_isRegistrationStarting) {
                             //           Fluttertoast.showToast(
                             //               msg:
@@ -435,13 +424,16 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                             //         }
                             //       }
                             //     },
-                            //     regdate: widget.webinarModel.resisterDate!,
                             //     title: widget.webinarModel.registered
                             //         ? (widget.webinarModel.webnar_startdays == 0
                             //             ? 'Join Now'
-                            //             : 'Starting in ${widget.webinarModel.webnar_startdays} days')
+                            //             : (has24HoursPassed
+                            //                 ? 'Happened $pastdays days ago'
+                            //                 : 'Starting in ${widget.webinarModel.webnar_startdays} days'))
                             //         : 'Register Now',
-                            //     isRegisterNow: widget.webinarModel.registered),
+                            //     isRegisterNow: has24HoursPassed
+                            //         ? false
+                            //         : widget.webinarModel.registered),
                           ],
                         ),
                       ),
@@ -459,35 +451,15 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
   Widget customRegisterNow({
     required VoidCallback onPressed,
     required String title,
-    required String regdate,
     required bool isRegisterNow,
   }) {
-    bool has24HoursPassed = false;
-    DateTime registrationDate = DateTime.parse(regdate);
-    //Duration difference = registrationDate.difference(DateTime.now());
-
-    var diff = daysBetween(DateTime.now(), registrationDate);
-    var showdiff = diff.abs();
-
-    if (diff < 0) {
-      has24HoursPassed = true; // in past webinar done
-      //pastdays = difference.inDays;
-    } else if (diff > 0) {
-      has24HoursPassed = false; // in future
-    } else if (diff == 0) {
-      has24HoursPassed = false; // in today
-    }
-
-    isRegisterNow = has24HoursPassed;
-
     Color buttonColor =
-        //isRegisterNow ? const Color(0xFF1F0A68) : const Color(0xFFFFFFFF);
-        isRegisterNow ? ColorsConst.grayColor : const Color(0xFF1F0A68);
-    Color textColor = isRegisterNow ? Colors.black : Colors.white;
+        isRegisterNow ? const Color(0xff1F0A68) : ColorsConst.grayColor;
+    Color textColor = isRegisterNow ? Colors.white : Colors.black;
 
     return SizedBox(
       height: 35,
-      width: 232,
+      width: 238,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -500,7 +472,7 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
           backgroundColor: buttonColor,
         ),
         child: Text(
-          has24HoursPassed == false ? title : "Happened $showdiff days ago",
+          title,
           style: SafeGoogleFont(
             "Inter",
             fontSize: 15,
@@ -512,37 +484,8 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
   }
 }
 
-const fontColor = Color(0xff8E8989);
-
-Widget customButton1({
-  required BuildContext context,
-  required VoidCallback onPressed,
-  required String title,
-}) {
-  return SizedBox(
-    width: double.infinity,
-    height: 47,
-    child: OutlinedButton(
-      onPressed: onPressed,
-      style: OutlinedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        foregroundColor:
-            title.contains('Join Now') ? Colors.black : Colors.white10,
-        backgroundColor: title.contains('Join Now')
-            ? Colors.white10
-            : const Color(0xff1F0A68),
-      ),
-      child: Text(
-        title,
-        style: SafeGoogleFont(
-          "Inter",
-          fontSize: 20,
-          color: title.contains('Join Now') ? Colors.black : Colors.white,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-    ),
-  );
+int daysBetween(DateTime from, DateTime to) {
+  from = DateTime(from.year, from.month, from.day);
+  to = DateTime(to.year, to.month, to.day);
+  return (to.difference(from).inHours / 24).round();
 }
