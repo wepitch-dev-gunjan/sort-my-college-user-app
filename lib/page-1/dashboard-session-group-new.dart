@@ -236,6 +236,8 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
     context
         .read<CounsellorDetailsProvider>()
         .fetchCounsellor_session(id: widget.id);
+
+        
   }
 
   void configLoading() {
@@ -266,9 +268,12 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
         id: widget.id, date: date, sessionType: "Group");
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
+    
     double baseWidth = 430;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
