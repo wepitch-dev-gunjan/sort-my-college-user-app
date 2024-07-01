@@ -196,7 +196,7 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                       isSessionExpired(sessionDate, sessionTime,
                                               sessionDuration)
                                           ? Fluttertoast.showToast(
-                                              msg: 'Session has ended')
+                                              msg: 'Event is has been done')
                                           : launchURL(
                                               booking['booking_data']
                                                   ['session_link'],

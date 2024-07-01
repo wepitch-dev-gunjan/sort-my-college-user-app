@@ -537,6 +537,7 @@ class ApiService {
     final url = Uri.parse('${AppConstants.baseUrl}/user/');
 
     final response = await http.get(url, headers: headers);
+    log("Profile Data${response.body}");
 
     if (response.statusCode == 200) {
       var value = jsonDecode(response.body.toString());

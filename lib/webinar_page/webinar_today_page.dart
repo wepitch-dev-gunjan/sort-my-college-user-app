@@ -49,7 +49,11 @@ class _WebinarTodayPageState extends State<WebinarTodayPage> {
                       counsellorSessionProvider.webinarList.reversed.toList();
                   WebinarModel webinarModel = reversedList[index];
                   return Padding(
-                    padding: const EdgeInsets.only(left: 12, right: 12, top: 8),
+                    padding: const EdgeInsets.only(
+                      left: 12,
+                      right: 12,
+                      top: 8,
+                    ),
                     child: WebinarUpComingWidget(
                       showDuration: false,
                       title: "Learn more about CUET and IPMAT",
@@ -149,16 +153,13 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
 
     Duration diff = dt1.difference(dt2);
 
-//print(diff.inDays);
-//output (in days): 1198
-
     print(diff.inMinutes);
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.47,
+      // height: MediaQuery.of(context).size.height * 0.47,
       child: cardView(context),
     );
   }
@@ -238,9 +239,7 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          const SizedBox(
-                            height: 3,
-                          ),
+                          const SizedBox(height: 3),
                           Text(
                             '${widget.webinarModel.webinarTitle}',
                             overflow: TextOverflow.ellipsis,
@@ -252,17 +251,13 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 10),
                       Container(
                         height: 1,
                         width: double.infinity,
                         color: const Color(0xffAFAFAF),
                       ),
-                      const SizedBox(
-                        height: 14,
-                      ),
+                      const SizedBox(height: 14),
                       Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: Row(
