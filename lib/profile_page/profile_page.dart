@@ -182,8 +182,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       alignment: Alignment.bottomRight,
                       children: [
                         Container(
-                          height: 130,
-                          width: 140,
+                          height: 120,
+                          width: 120,
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                           ),
