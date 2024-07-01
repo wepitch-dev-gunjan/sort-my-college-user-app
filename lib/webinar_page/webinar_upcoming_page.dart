@@ -93,10 +93,12 @@ class WebinarUpcomingPageDataWidget extends StatefulWidget {
   final WebinarModel webinarModel;
 
   @override
-  State<WebinarUpcomingPageDataWidget> createState() => _WebinarUpcomingPageDataWidgetState();
+  State<WebinarUpcomingPageDataWidget> createState() =>
+      _WebinarUpcomingPageDataWidgetState();
 }
 
-class _WebinarUpcomingPageDataWidgetState extends State<WebinarUpcomingPageDataWidget> {
+class _WebinarUpcomingPageDataWidgetState
+    extends State<WebinarUpcomingPageDataWidget> {
   late SharedPreferences _prefs;
   bool _isRegistrationStarting = false;
   String register_status = '';
@@ -304,6 +306,7 @@ class _WebinarUpcomingPageDataWidgetState extends State<WebinarUpcomingPageDataW
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
+                                        backgroundColor: Colors.white,
                                         title: const Text("Register"),
                                         content: const Text(
                                           "Are you sure you want to register for this webinar?",

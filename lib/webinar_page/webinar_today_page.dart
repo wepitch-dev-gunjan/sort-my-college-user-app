@@ -296,6 +296,7 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
+                                        backgroundColor: Colors.white,
                                         title: const Text("Register"),
                                         content: const Text(
                                           "Are you sure you want to register for this webinar?",
@@ -327,7 +328,7 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                                   );
                                 } else if (daysDifference == 0 &&
                                     isRegistered &&
-                                    widget.webinarModel.registered == true) {
+                                    widget.webinarModel.canJoin == true) {
                                   launchUrlString(widget.webinarModel.joinUrl!);
                                 }
                               },

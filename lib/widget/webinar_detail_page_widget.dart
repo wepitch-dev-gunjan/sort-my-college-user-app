@@ -468,6 +468,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
+                          backgroundColor: Colors.white,
                           title: const Text("Register"),
                           content: const Text(
                             "Are you sure you want to register for this webinar?",
