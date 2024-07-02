@@ -193,30 +193,32 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                               Column(
                                 children: [
                                   customButton(
-                                      context: context,
-                                      onPressed: () {
-                                        log("canJOin123456${canJoin}");
-                                        if (!canJoin) {
+                                    context: context,
+                                    onPressed: () {
+                                      if (!canJoin) {
+                                        if (isSessionExpired(sessionDate,
+                                            sessionTime, sessionDuration)) {
+                                          Fluttertoast.showToast(
+                                              msg: 'Event has been done');
+                                        } else {
                                           Fluttertoast.showToast(
                                               msg:
                                                   'The session will start 10 minutes early.');
-                                        } else if (isSessionExpired(sessionDate,
-                                            sessionTime, sessionDuration)) {
-                                          Fluttertoast.showToast(
-                                              msg: 'Event is has been done');
-                                        } else {
-                                          launchURL(
-                                            booking['booking_data']
-                                                ['session_link'],
-                                            context,
-                                          );
                                         }
-                                      },
-                                      title: "JOIN NOW",
-                                      sessionDate: sessionDate,
-                                      sessionTime: sessionTime,
-                                      sessionDuration: sessionDuration,
-                                      canJoin: canJoin),
+                                      } else {
+                                        launchURL(
+                                          booking['booking_data']
+                                              ['session_link'],
+                                          context,
+                                        );
+                                      }
+                                    },
+                                    title: "JOIN NOW",
+                                    sessionDate: sessionDate,
+                                    sessionTime: sessionTime,
+                                    sessionDuration: sessionDuration,
+                                    canJoin: canJoin,
+                                  ),
 
                                   const SizedBox(height: 4),
                                   // widget.isUpcoming
@@ -442,7 +444,6 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                               ),
                               Text(
                                 " : ${booking['booking_data']['session_fee']}",
-                                // " : ${widget.bookingData.sessionFee}/-",
                                 style: SafeGoogleFont(
                                   "Inter",
                                   fontSize: 14,
@@ -463,8 +464,6 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                               ),
                               Text(
                                 " : ${booking['booking_data']['session_status']}",
-                                // " : ${widget.bookingData.sessionStatus} Closed",
-
                                 style: SafeGoogleFont(
                                   "Inter",
                                   fontSize: 14,
@@ -485,7 +484,6 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                               ),
                               Text(
                                 " : ${booking['booking_data']['session_available_slots']}/${booking['booking_data']['session_slots']}",
-                                // " : ${widget.bookingData.sessionAvailableSlots}/${widget.bookingData.sessionSlots}",
                                 style: SafeGoogleFont(
                                   "Inter",
                                   fontSize: 14,
@@ -561,7 +559,6 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                     Padding(
                       padding: const EdgeInsets.only(left: 14, right: 20),
                       child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             "Session Type",

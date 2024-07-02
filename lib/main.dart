@@ -50,9 +50,7 @@ class MyApp extends StatelessWidget {
           title: 'SMC App',
           debugShowCheckedModeBanner: false,
           scrollBehavior: MyCustomScrollBehavior(),
-          theme: ThemeData(
-            primarySwatch: Colors.grey,
-          ),
+          theme: ThemeData(primarySwatch: Colors.grey),
           home: SplashScreen1(isLoggedIn: isLoggedIn),
           builder: EasyLoading.init(),
         ),

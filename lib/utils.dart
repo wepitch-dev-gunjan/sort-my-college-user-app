@@ -83,56 +83,6 @@ TextStyle SafeGoogleFont(
   }
 }
 
-// class SessionDate {
-//   static DateTime now = DateTime.now();
-//
-//   static String todayDate = DateFormat("d MMM").format(now);
-//   static String year = Jiffy.now().format(pattern: "yyyy");
-//   static String get todayDay {
-//     String day = Jiffy.parse("$todayDate $year", pattern: "d MMM yyyy")
-//         .format(pattern: 'EEEE')
-//         .toString();
-//
-//     return day;
-//   }
-//
-//   final List<DateModel> dates = [
-//     DateModel(
-//         index: 0,
-//         day: todayDay,
-//         formattedDate: todayDate,
-//         date: "$todayDate $year")
-//   ];
-//
-//   void getDates() {
-//     var myFormat = DateFormat('d MMM');
-//     DateTime today_Num = DateTime.now();
-//     String today_str = myFormat.format(today_Num);
-//
-//     for (int i = 1; i <= 5; i++) {
-//
-//       String yesterday_str = myFormat.format(today_Num.subtract(Duration(days: i))).toString();
-//       //print(yesterday_str); //15
-//
-//       String formattedDate = todayDate.replaceAll(
-//           today_str, yesterday_str );
-//
-//       String day = Jiffy.parse("$formattedDate $year", pattern: "d MMM yyyy")
-//           .format(pattern: 'EEEE')
-//           .toString()
-//           .substring(0, 3);
-//
-//       //console.log(formattedDate);
-//
-//       dates.add(DateModel(
-//           index: i,
-//           day: day,
-//           formattedDate: formattedDate,
-//           date: "$formattedDate $year"));
-//     }
-//   }
-// }
-
 class SessionDate {
   static DateTime now = DateTime.now();
 

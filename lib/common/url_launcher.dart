@@ -29,7 +29,6 @@ void launchURL(String url, BuildContext context) async {
   }
 }
 
-
 bool isSessionExpired(
     String sessionDate, String sessionTime, int sessionDuration) {
   // Parse date

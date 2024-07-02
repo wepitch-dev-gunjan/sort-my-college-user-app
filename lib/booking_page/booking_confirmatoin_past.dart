@@ -200,31 +200,32 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                               Column(
                                 children: [
                                   customButton(
-                                      context: context,
-                                      onPressed: () {
-                                        if (!canJoin['isAboutToStart']) {
-                                          Fluttertoast.showToast(
-                                            msg:
-                                                'The session will start 10 minutes early.',
-                                          );
-                                        } else if (isSessionExpired(sessionDate,
+                                    context: context,
+                                    onPressed: () {
+                                      if (!canJoin) {
+                                        if (isSessionExpired(sessionDate,
                                             sessionTime, sessionDuration)) {
                                           Fluttertoast.showToast(
-                                            msg: 'Event is has been done',
-                                          );
+                                              msg: 'Event has been done');
                                         } else {
-                                          launchURL(
-                                            booking['booking_data']
-                                                ['session_link'],
-                                            context,
-                                          );
+                                          Fluttertoast.showToast(
+                                              msg:
+                                                  'The session will start 10 minutes early.');
                                         }
-                                      },
-                                      title: "JOIN NOW",
-                                      sessionDate: sessionDate,
-                                      sessionTime: sessionTime,
-                                      sessionDuration: sessionDuration,
-                                      canJoin: canJoin['isAboutToStart']),
+                                      } else {
+                                        launchURL(
+                                          booking['booking_data']
+                                              ['session_link'],
+                                          context,
+                                        );
+                                      }
+                                    },
+                                    title: "JOIN NOW",
+                                    sessionDate: sessionDate,
+                                    sessionTime: sessionTime,
+                                    sessionDuration: sessionDuration,
+                                    canJoin: canJoin,
+                                  ),
                                   const SizedBox(
                                     height: 4,
                                   ),
