@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:myapp/booking_page/booking_confirmatoin_upcoming.dart';
+import 'package:myapp/utils/common.dart';
 import '../other/api_service.dart';
 import '../utils.dart';
 
@@ -15,6 +16,7 @@ class BookingUpcoming extends StatefulWidget {
 class _BookingUpcomingState extends State<BookingUpcoming> {
   bool isLoading = true;
   List bookings = [];
+  var canjoin;
   @override
   void initState() {
     super.initState();
@@ -37,9 +39,21 @@ class _BookingUpcomingState extends State<BookingUpcoming> {
     });
   }
 
+  //  isSessionAboutToStart() async {
+  //   final upcomingData = await ApiService.isSessionAboutToStart(
+  //       id:bookings );
+
+  //   setState(() {
+  //     bookings = upcomingData;
+
+  //     isLoading = false;
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
-    log("Booking $bookings");
+    Console.data(bookings, value: "Upcomming Booking");
+    // log();
     // String title = "Session starts in";
     // String time = "25:15";
     var mWidth = MediaQuery.sizeOf(context).width;
@@ -191,9 +205,13 @@ class _BookingUpcomingState extends State<BookingUpcoming> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) {
+                                                    // log("id${bookings[index]['booking_data']["_id"]}");
                                                     return BookingConfirmationUpcoming(
                                                       id: bookings[index]
                                                           ['_id'],
+                                                      bookingID: bookings[index]
+                                                              ['booking_data']
+                                                          ["_id"],
                                                     );
                                                   }),
                                                 );

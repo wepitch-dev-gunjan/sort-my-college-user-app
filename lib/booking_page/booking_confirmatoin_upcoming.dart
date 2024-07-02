@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/other/constants.dart';
+import 'package:myapp/utils/common.dart';
 import '../common/url_launcher.dart';
 import '../other/api_service.dart';
 import '../shared/colors_const.dart';
@@ -11,7 +12,10 @@ import 'booking_confirmatoin_past.dart';
 
 class BookingConfirmationUpcoming extends StatefulWidget {
   final String id;
-  const BookingConfirmationUpcoming({super.key, required this.id});
+  final String bookingID;
+
+  const BookingConfirmationUpcoming(
+      {super.key, required this.id, required this.bookingID});
 
   @override
   State<BookingConfirmationUpcoming> createState() =>
@@ -22,11 +26,13 @@ class _BookingConfirmationUpcomingState
     extends State<BookingConfirmationUpcoming> {
   bool isLoading = true;
   var booking;
+  var canJoin;
 
   @override
   void initState() {
     super.initState();
     getUpcomingBooking(widget.id);
+    isSessionAboutToStart(widget.bookingID);
   }
 
   getUpcomingBooking(String id) async {
@@ -34,16 +40,20 @@ class _BookingConfirmationUpcomingState
         today: false, past: false, upcoming: true, id: id);
 
     setState(() {
-      log("Res=$response");
       booking = response;
-      // log("Booking3=${booking}");
+      isLoading = false;
+    });
+  }
 
+  isSessionAboutToStart(String id) async {
+    final response = await ApiService.isSessionAboutToStart(id: id);
+    setState(() {
+      canJoin = response;
       isLoading = false;
     });
   }
 
   bool isExpired = false;
-
   bool isUpcoming = false;
   bool isConfirmed = true;
 
@@ -55,7 +65,8 @@ class _BookingConfirmationUpcomingState
       );
     }
 
-    log("${booking['booking_data']['session_duration']}");
+    // Console.data(canJoin, value: "canjoindata");
+    log("Canjoin Datakljhgfkjlh32154656=$canJoin");
     String sessionDate = DateFormat('dd-MM-yyyy')
         .format(DateTime.parse(booking['booking_data']['session_date']));
 
@@ -190,23 +201,50 @@ class _BookingConfirmationUpcomingState
                               ),
                               Column(
                                 children: [
+                                  // customButton(
+                                  //   context: context,
+                                  //   onPressed: () {
+                                  //     isSessionExpired(sessionDate, sessionTime,
+                                  //             sessionDuration)
+                                  //         ? Fluttertoast.showToast(
+                                  //             msg: 'Event is has been done')
+                                  //         : launchURL(
+                                  //             booking['booking_data']
+                                  //                 ['session_link'],
+                                  //             context);
+                                  //   },
+                                  //   title: "JOIN NOW",
+                                  //   sessionDate: sessionDate,
+                                  //   sessionTime: sessionTime,
+                                  //   sessionDuration: sessionDuration,
+                                  // ),
                                   customButton(
-                                    context: context,
-                                    onPressed: () {
-                                      isSessionExpired(sessionDate, sessionTime,
-                                              sessionDuration)
-                                          ? Fluttertoast.showToast(
-                                              msg: 'Event is has been done')
-                                          : launchURL(
-                                              booking['booking_data']
-                                                  ['session_link'],
-                                              context);
-                                    },
-                                    title: "JOIN NOW",
-                                    sessionDate: sessionDate,
-                                    sessionTime: sessionTime,
-                                    sessionDuration: sessionDuration,
-                                  ),
+                                      context: context,
+                                      onPressed: () {
+                                        if (!canJoin['isAboutToStart']) {
+                                          Fluttertoast.showToast(
+                                            msg:
+                                                'The session will start 10 minutes early.',
+                                          );
+                                        } else if (isSessionExpired(sessionDate,
+                                            sessionTime, sessionDuration)) {
+                                          Fluttertoast.showToast(
+                                            msg: 'Event is has been done',
+                                          );
+                                        } else {
+                                          launchURL(
+                                            booking['booking_data']
+                                                ['session_link'],
+                                            context,
+                                          );
+                                        }
+                                      },
+                                      title: "JOIN NOW",
+                                      sessionDate: sessionDate,
+                                      sessionTime: sessionTime,
+                                      sessionDuration: sessionDuration,
+                                      canJoin: canJoin['isAboutToStart']),
+
                                   const SizedBox(
                                     height: 4,
                                   ),

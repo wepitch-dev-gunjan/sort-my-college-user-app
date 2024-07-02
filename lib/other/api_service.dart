@@ -1065,6 +1065,8 @@ class ApiService {
       {required bool past, required bool today, required bool upcoming}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
+
+    log("token${token}");
     final url = Uri.parse(past == true
         ? "${AppConstants.baseUrl}/user/booking?past=true"
         : today == true
@@ -1077,6 +1079,27 @@ class ApiService {
     };
     final response = await http.get(url, headers: headers);
     // log('Response=> ${response.body}');
+    // const encoder = JsonEncoder.withIndent('  ');
+    // final prettyString = encoder.convert(jsonDecode(response.body));
+
+    // log("pretty data${prettyString}");
+
+    return jsonDecode(response.body);
+  }
+
+  static Future isSessionAboutToStart({required String id}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+
+    log("token${token}");
+    final url = Uri.parse(
+        "${AppConstants.baseUrl}/counsellor/session/About-to-start/$id");
+
+    final headers = {
+      "Content-Type": "application/json",
+      "Authorization": token,
+    };
+    final response = await http.get(url, headers: headers);
 
     return jsonDecode(response.body);
   }
@@ -1097,14 +1120,11 @@ class ApiService {
             ? "$baseUrl?today=true"
             : "$baseUrl?upcoming=true");
 
-    // log("Url=>>>>>- $url");
-
     final headers = {
       "Content-Type": "application/json",
       "Authorization": token,
     };
     final response = await http.get(url, headers: headers);
-    // log('Response=> ${response.body}');
 
     return jsonDecode(response.body);
   }

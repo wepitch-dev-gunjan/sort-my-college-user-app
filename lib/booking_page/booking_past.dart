@@ -187,6 +187,10 @@ class _BookingPastState extends State<BookingPast> {
                                                         return BookingConfirmationPast(
                                                           id: bookings[index]
                                                               ['_id'],
+                                                          bookingID: bookings[
+                                                                      index][
+                                                                  'booking_data']
+                                                              ["_id"],
                                                         );
                                                       },
                                                     ),

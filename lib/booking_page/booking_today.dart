@@ -227,6 +227,10 @@ class _BookingTodayState extends State<BookingToday> {
                                                           BookingConfirmationToday(
                                                         id: bookings[index]
                                                             ['_id'],
+                                                        bookingID: bookings[
+                                                                    index]
+                                                                ['booking_data']
+                                                            ["_id"],
                                                       ),
                                                     ),
                                                   );

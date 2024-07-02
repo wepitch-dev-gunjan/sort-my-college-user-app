@@ -7,10 +7,13 @@ import 'package:myapp/other/constants.dart';
 import '../common/url_launcher.dart';
 import '../shared/colors_const.dart';
 import '../utils.dart';
+import 'booking_confirmatoin_past.dart';
 
 class BookingConfirmationToday extends StatefulWidget {
   final String id;
-  const BookingConfirmationToday({super.key, required this.id});
+  final String bookingID;
+  const BookingConfirmationToday(
+      {super.key, required this.id, required this.bookingID});
 
   @override
   State<BookingConfirmationToday> createState() =>
@@ -20,11 +23,13 @@ class BookingConfirmationToday extends StatefulWidget {
 class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
   bool isLoading = true;
   var booking;
+  var canJoin = false;
 
   @override
   void initState() {
     super.initState();
     getpastBooking(widget.id);
+    isSessionAboutToStart(widget.bookingID);
   }
 
   getpastBooking(String id) async {
@@ -32,10 +37,16 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
         past: false, today: true, upcoming: false, id: id);
 
     setState(() {
-      log("Res=$res");
       booking = res;
-      // log("Booking3=${booking}");
+      isLoading = false;
+    });
+  }
 
+  isSessionAboutToStart(String id) async {
+    final response =
+        await ApiService.isSessionAboutToStart(id: widget.bookingID);
+    setState(() {
+      canJoin = response['isAboutToStart'];
       isLoading = false;
     });
   }
@@ -53,7 +64,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
       );
     }
 
-    log("${booking['booking_data']['session_duration']}");
+    // log("${booking['booking_data']['session_duration']}");
     String sessionDate = DateFormat('dd-MM-yyyy')
         .format(DateTime.parse(booking['booking_data']['session_date']));
 
@@ -97,19 +108,14 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
               margin: const EdgeInsets.only(left: 16, right: 16, top: 26),
               decoration: const BoxDecoration(
                   border: Border(
-                      right: BorderSide(
-                width: 0.5,
-                color: Colors.grey,
-              ))),
+                      right: BorderSide(width: 0.5, color: Colors.grey))),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Column(
                       children: [
-                        const SizedBox(
-                          height: 11,
-                        ),
+                        const SizedBox(height: 11),
                         Image.asset(
                           "${AppConstants.imagePath}${booking['booking_data']['session_status'] == "Available" || booking['booking_data']['session_status'] == "Booked" ? "bookingimg.png" : "bookingimg.png"}",
                           height: 105,
@@ -171,9 +177,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                                                 fontWeight: FontWeight.w600,
                                               ),
                                             ),
-                                            const SizedBox(
-                                              width: 2,
-                                            ),
+                                            const SizedBox(width: 2),
                                             Text(
                                               "",
                                               style: SafeGoogleFont(
@@ -189,25 +193,32 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                               Column(
                                 children: [
                                   customButton(
-                                    context: context,
-                                    onPressed: () {
-                                      isSessionExpired(sessionDate, sessionTime,
-                                              sessionDuration)
-                                          ? Fluttertoast.showToast(
-                                              msg: 'Event is has been done')
-                                          : launchURL(
-                                              booking['booking_data']
-                                                  ['session_link'],
-                                              context);
-                                    },
-                                    title: "JOIN NOW",
-                                    sessionDate: sessionDate,
-                                    sessionTime: sessionTime,
-                                    sessionDuration: sessionDuration,
-                                  ),
-                                  const SizedBox(
-                                    height: 4,
-                                  ),
+                                      context: context,
+                                      onPressed: () {
+                                        log("canJOin123456${canJoin}");
+                                        if (!canJoin) {
+                                          Fluttertoast.showToast(
+                                              msg:
+                                                  'The session will start 10 minutes early.');
+                                        } else if (isSessionExpired(sessionDate,
+                                            sessionTime, sessionDuration)) {
+                                          Fluttertoast.showToast(
+                                              msg: 'Event is has been done');
+                                        } else {
+                                          launchURL(
+                                            booking['booking_data']
+                                                ['session_link'],
+                                            context,
+                                          );
+                                        }
+                                      },
+                                      title: "JOIN NOW",
+                                      sessionDate: sessionDate,
+                                      sessionTime: sessionTime,
+                                      sessionDuration: sessionDuration,
+                                      canJoin: canJoin),
+
+                                  const SizedBox(height: 4),
                                   // widget.isUpcoming
                                   //     ? const SizedBox()
                                   //     : Text(
@@ -222,35 +233,23 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
+                        const SizedBox(height: 16),
                         Container(
                           height: 0.5,
                           color: Colors.grey,
                           width: double.infinity,
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
+                        const SizedBox(height: 16),
                         Padding(
-                          padding: const EdgeInsets.only(
-                            left: 14,
-                          ),
+                          padding: const EdgeInsets.only(left: 14),
                           child: Row(
                             children: [
                               CircleAvatar(
                                 radius: 30,
                                 backgroundImage: NetworkImage(
-                                    "${booking['booked_entity']['profile_pic']}"
-                                    // widget
-                                    //       .counsellorDetails.profilePic ??
-                                    //   "https://media.gettyimages.com/id/1334712074/vector/coming-soon-message.jpg?s=612x612&w=0&k=20&c=0GbpL-k_lXkXC4LidDMCFGN_Wo8a107e5JzTwYteXaw=",
-                                    ),
+                                    "${booking['booked_entity']['profile_pic']}"),
                               ),
-                              const SizedBox(
-                                width: 8,
-                              ),
+                              const SizedBox(width: 8),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -279,9 +278,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
+                        const SizedBox(height: 16),
                         Container(
                           height: 0.5,
                           color: Colors.grey,
@@ -289,9 +286,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.only(left: 14.0),
                       child: Column(
@@ -306,9 +301,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                               fontWeight: FontWeight.w300,
                             ),
                           ),
-                          const SizedBox(
-                            height: 14,
-                          ),
+                          const SizedBox(height: 14),
                           Row(
                             children: [
                               Text(
@@ -321,8 +314,6 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                               ),
                               Text(
                                 " : ${booking['booking_data']['_id']}",
-
-                                // " : ${widget.bookingData.id}",
                                 style: SafeGoogleFont(
                                   "Inter",
                                   fontSize: 14,
@@ -358,9 +349,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                                   ),
                                 )
                               : const SizedBox(),
-                          const SizedBox(
-                            height: 4,
-                          ),
+                          const SizedBox(height: 4),
                           Row(
                             children: [
                               Text(
@@ -380,9 +369,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                               )
                             ],
                           ),
-                          const SizedBox(
-                            height: 4,
-                          ),
+                          const SizedBox(height: 4),
                           Row(
                             children: [
                               Text(
@@ -393,7 +380,6 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-
                               Text(
                                 " : $sessionDate",
                                 style: SafeGoogleFont(
@@ -401,18 +387,9 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                                   fontSize: 14,
                                 ),
                               )
-                              // Text(
-                              //   " : ${booking['booking_data']['session_date']}",
-                              //   style: SafeGoogleFont(
-                              //     "Inter",
-                              //     fontSize: 14,
-                              //   ),
-                              // )
                             ],
                           ),
-                          const SizedBox(
-                            height: 4,
-                          ),
+                          const SizedBox(height: 4),
                           Row(
                             children: [
                               Text(
@@ -452,9 +429,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                               )
                             ],
                           ),
-                          const SizedBox(
-                            height: 4,
-                          ),
+                          const SizedBox(height: 4),
                           Row(
                             children: [
                               Text(
@@ -475,9 +450,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                               )
                             ],
                           ),
-                          const SizedBox(
-                            height: 4,
-                          ),
+                          const SizedBox(height: 4),
                           Row(
                             children: [
                               Text(
@@ -499,9 +472,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                               )
                             ],
                           ),
-                          const SizedBox(
-                            height: 4,
-                          ),
+                          const SizedBox(height: 4),
                           Row(
                             children: [
                               Text(
@@ -522,9 +493,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                               )
                             ],
                           ),
-                          const SizedBox(
-                            height: 4,
-                          ),
+                          const SizedBox(height: 4),
                           Row(
                             children: [
                               Text(
@@ -544,9 +513,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                               )
                             ],
                           ),
-                          const SizedBox(
-                            height: 4,
-                          ),
+                          const SizedBox(height: 4),
                           Row(
                             children: [
                               Text(
@@ -557,7 +524,6 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-
                               Text(
                                 " : ${DateFormat('dd-MM-yyyy').format(DateTime.parse(booking['booking_data']['updatedAt']))}",
                                 style: SafeGoogleFont(
@@ -565,22 +531,12 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                                   fontSize: 14,
                                 ),
                               )
-                              // Text(
-                              //   "last",
-                              //   // " : ${Jiffy.parse(widget.bookingData.updatedAt!).format(pattern: 'dd/MM/yyyy')}",
-                              //   style: SafeGoogleFont(
-                              //     "Inter",
-                              //     fontSize: 14,
-                              //   ),
-                              // )
                             ],
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 17,
-                    ),
+                    const SizedBox(height: 17),
                     Container(
                       height: 0.5,
                       width: double.infinity,
@@ -730,41 +686,4 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
             ),
     );
   }
-}
-
-Widget customButton({
-  required BuildContext context,
-  required String sessionDate,
-  sessionTime,
-  required int sessionDuration,
-  required VoidCallback onPressed,
-  required String title,
-}) {
-  return SizedBox(
-    width: 137,
-    height: 38,
-    child: OutlinedButton(
-      onPressed: onPressed,
-      style: OutlinedButton.styleFrom(
-          foregroundColor:
-              isSessionExpired(sessionDate, sessionTime, sessionDuration)
-                  ? Colors.white
-                  : Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          backgroundColor:
-              isSessionExpired(sessionDate, sessionTime, sessionDuration)
-                  ? Colors.grey
-                  : const Color(0xff1F0A68)),
-      child: Text(
-        title,
-        style: SafeGoogleFont(
-          "Inter",
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    ),
-  );
 }

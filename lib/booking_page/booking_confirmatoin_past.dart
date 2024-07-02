@@ -10,7 +10,9 @@ import '../utils.dart';
 
 class BookingConfirmationPast extends StatefulWidget {
   final String id;
-  const BookingConfirmationPast({super.key, required this.id});
+  final String bookingID;
+  const BookingConfirmationPast(
+      {super.key, required this.id, required this.bookingID});
 
   @override
   State<BookingConfirmationPast> createState() =>
@@ -20,6 +22,7 @@ class BookingConfirmationPast extends StatefulWidget {
 class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
   bool isLoading = true;
   var booking;
+  var canJoin;
 
   // String sessionTime = "";
   // String sessionDate = "";
@@ -28,16 +31,22 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
   void initState() {
     super.initState();
     getpastBooking(widget.id);
+    isSessionAboutToStart(widget.bookingID);
   }
 
   getpastBooking(String id) async {
     final res = await ApiService.getUserBooking(
         past: true, today: false, upcoming: false, id: id);
-
     setState(() {
-      log("Res=$res");
       booking = res;
+      isLoading = false;
+    });
+  }
 
+  isSessionAboutToStart(String id) async {
+    final response = await ApiService.isSessionAboutToStart(id: id);
+    setState(() {
+      canJoin = response;
       isLoading = false;
     });
   }
@@ -55,7 +64,7 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
       );
     }
 
-    log("${booking['booking_data']['session_duration']}");
+    // log("${booking['booking_data']['session_duration']}");
     String sessionDate = DateFormat('dd-MM-yyyy')
         .format(DateTime.parse(booking['booking_data']['session_date']));
 
@@ -191,22 +200,31 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                               Column(
                                 children: [
                                   customButton(
-                                    context: context,
-                                    onPressed: () {
-                                      isSessionExpired(sessionDate, sessionTime,
-                                              sessionDuration)
-                                          ? Fluttertoast.showToast(
-                                              msg: 'Event is has been done')
-                                          : launchURL(
-                                              booking['booking_data']
-                                                  ['session_link'],
-                                              context);
-                                    },
-                                    title: "JOIN NOW",
-                                    sessionDate: sessionDate,
-                                    sessionTime: sessionTime,
-                                    sessionDuration: sessionDuration,
-                                  ),
+                                      context: context,
+                                      onPressed: () {
+                                        if (!canJoin['isAboutToStart']) {
+                                          Fluttertoast.showToast(
+                                            msg:
+                                                'The session will start 10 minutes early.',
+                                          );
+                                        } else if (isSessionExpired(sessionDate,
+                                            sessionTime, sessionDuration)) {
+                                          Fluttertoast.showToast(
+                                            msg: 'Event is has been done',
+                                          );
+                                        } else {
+                                          launchURL(
+                                            booking['booking_data']
+                                                ['session_link'],
+                                            context,
+                                          );
+                                        }
+                                      },
+                                      title: "JOIN NOW",
+                                      sessionDate: sessionDate,
+                                      sessionTime: sessionTime,
+                                      sessionDuration: sessionDuration,
+                                      canJoin: canJoin['isAboutToStart']),
                                   const SizedBox(
                                     height: 4,
                                   ),
@@ -745,31 +763,66 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
   }
 }
 
+// Widget customButton({
+//   required BuildContext context,
+//   required String sessionDate,
+//   sessionTime,
+//   required int sessionDuration,
+//   required VoidCallback onPressed,
+//   required String title,
+// }) {
+//   return SizedBox(
+//     width: 137,
+//     height: 38,
+//     child: OutlinedButton(
+//       onPressed: onPressed,
+//       style: OutlinedButton.styleFrom(
+//           foregroundColor:
+//               isSessionExpired(sessionDate, sessionTime, sessionDuration)
+//                   ? Colors.white
+//                   : Colors.white,
+//           shape: RoundedRectangleBorder(
+//             borderRadius: BorderRadius.circular(10),
+//           ),
+//           backgroundColor:
+//               isSessionExpired(sessionDate, sessionTime, sessionDuration)
+//                   ? Colors.grey
+//                   : const Color(0xff1F0A68)),
+//       child: Text(
+//         title,
+//         style: SafeGoogleFont(
+//           "Inter",
+//           fontSize: 12,
+//           fontWeight: FontWeight.w600,
+//         ),
+//       ),
+//     ),
+//   );
+// }
+
 Widget customButton({
   required BuildContext context,
   required String sessionDate,
-  sessionTime,
+  required String sessionTime,
   required int sessionDuration,
   required VoidCallback onPressed,
   required String title,
+  required bool canJoin,
 }) {
+  bool isExpired = isSessionExpired(sessionDate, sessionTime, sessionDuration);
+
   return SizedBox(
     width: 137,
     height: 38,
     child: OutlinedButton(
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(
-          foregroundColor:
-              isSessionExpired(sessionDate, sessionTime, sessionDuration)
-                  ? Colors.white
-                  : Colors.white,
+          foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
           backgroundColor:
-              isSessionExpired(sessionDate, sessionTime, sessionDuration)
-                  ? Colors.grey
-                  : const Color(0xff1F0A68)),
+              (isExpired || !canJoin) ? Colors.grey : const Color(0xff1F0A68)),
       child: Text(
         title,
         style: SafeGoogleFont(

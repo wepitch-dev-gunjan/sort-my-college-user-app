@@ -14,7 +14,6 @@ import 'package:myapp/page-1/splash_screen_1.dart';
 import 'package:myapp/utils.dart';
 import 'package:provider/provider.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool? isLoggedIn = await MyApp.loggIn();
@@ -61,4 +60,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

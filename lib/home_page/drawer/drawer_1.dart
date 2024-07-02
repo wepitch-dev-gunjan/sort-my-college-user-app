@@ -231,6 +231,7 @@ class _Drawer1State extends State<Drawer1> {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
+                        backgroundColor: Colors.white,
                         title: const Text('Alert!'),
                         content: const Text('Are you sure to logout!'),
                         actions: [
