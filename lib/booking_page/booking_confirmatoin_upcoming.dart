@@ -26,7 +26,7 @@ class _BookingConfirmationUpcomingState
     extends State<BookingConfirmationUpcoming> {
   bool isLoading = true;
   var booking;
-  var canJoin;
+  var canJoin=false;
 
   @override
   void initState() {
@@ -201,23 +201,7 @@ class _BookingConfirmationUpcomingState
                               ),
                               Column(
                                 children: [
-                                  // customButton(
-                                  //   context: context,
-                                  //   onPressed: () {
-                                  //     isSessionExpired(sessionDate, sessionTime,
-                                  //             sessionDuration)
-                                  //         ? Fluttertoast.showToast(
-                                  //             msg: 'Event is has been done')
-                                  //         : launchURL(
-                                  //             booking['booking_data']
-                                  //                 ['session_link'],
-                                  //             context);
-                                  //   },
-                                  //   title: "JOIN NOW",
-                                  //   sessionDate: sessionDate,
-                                  //   sessionTime: sessionTime,
-                                  //   sessionDuration: sessionDuration,
-                                  // ),
+                                 
                                 customButton(
                                     context: context,
                                     onPressed: () {

@@ -22,7 +22,7 @@ class BookingConfirmationPast extends StatefulWidget {
 class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
   bool isLoading = true;
   var booking;
-  var canJoin;
+  var canJoin = false;
 
   // String sessionTime = "";
   // String sessionDate = "";
