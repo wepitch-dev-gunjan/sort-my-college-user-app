@@ -26,7 +26,7 @@ class _BookingConfirmationUpcomingState
     extends State<BookingConfirmationUpcoming> {
   bool isLoading = true;
   var booking;
-  var canJoin=false;
+  var canJoin = false;
 
   @override
   void initState() {
@@ -59,6 +59,8 @@ class _BookingConfirmationUpcomingState
 
   @override
   Widget build(BuildContext context) {
+    var bookingSlot = booking['booking_data']['session_slots'] -
+        booking['booking_data']['session_available_slots'];
     if (isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
@@ -201,8 +203,7 @@ class _BookingConfirmationUpcomingState
                               ),
                               Column(
                                 children: [
-                                 
-                                customButton(
+                                  customButton(
                                     context: context,
                                     onPressed: () {
                                       if (!canJoin) {
@@ -546,7 +547,7 @@ class _BookingConfirmationUpcomingState
                                 ),
                               ),
                               Text(
-                                " : ${booking['booking_data']['session_available_slots']}/${booking['booking_data']['session_slots']}",
+                                " : $bookingSlot/${booking['booking_data']['session_slots']}",
                                 // " : ${widget.bookingData.sessionAvailableSlots}/${widget.bookingData.sessionSlots}",
                                 style: SafeGoogleFont(
                                   "Inter",

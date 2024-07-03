@@ -64,7 +64,10 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
       );
     }
 
-    // log("${booking['booking_data']['session_duration']}");
+    var bookingSlot = booking['booking_data']['session_slots'] -
+        booking['booking_data']['session_available_slots'];
+
+    // log("BookingSlot=========>>>>------$bookingSlot");
     String sessionDate = DateFormat('dd-MM-yyyy')
         .format(DateTime.parse(booking['booking_data']['session_date']));
 
@@ -545,8 +548,8 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                 ),
                               ),
                               Text(
-                                " : ${booking['booking_data']['session_available_slots']}/${booking['booking_data']['session_slots']}",
-                                // " : ${widget.bookingData.sessionAvailableSlots}/${widget.bookingData.sessionSlots}",
+                                " : $bookingSlot/${booking['booking_data']['session_slots']}",
+                                // " : ${widgbet.bookingData.sessionAvailableSlots}/${widget.bookingData.sessionSlots}",
                                 style: SafeGoogleFont(
                                   "Inter",
                                   fontSize: 14,
@@ -554,9 +557,7 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                               )
                             ],
                           ),
-                          const SizedBox(
-                            height: 4,
-                          ),
+                          const SizedBox(height: 4),
                           Row(
                             children: [
                               Text(
@@ -576,9 +577,7 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                               )
                             ],
                           ),
-                          const SizedBox(
-                            height: 4,
-                          ),
+                          const SizedBox(height: 4),
                           Row(
                             children: [
                               Text(

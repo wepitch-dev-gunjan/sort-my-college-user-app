@@ -58,6 +58,8 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
 
   @override
   Widget build(BuildContext context) {
+    var bookingSlot = booking['booking_data']['session_slots'] -
+        booking['booking_data']['session_available_slots'];
     if (isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
@@ -483,7 +485,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                                 ),
                               ),
                               Text(
-                                " : ${booking['booking_data']['session_available_slots']}/${booking['booking_data']['session_slots']}",
+                                " : $bookingSlot/${booking['booking_data']['session_slots']}",
                                 style: SafeGoogleFont(
                                   "Inter",
                                   fontSize: 14,
