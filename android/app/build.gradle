@@ -56,7 +56,7 @@ android {
         applicationId "com.sortmycollege"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 21
+        versionCode 22
         versionName flutterVersionName
     }
 
