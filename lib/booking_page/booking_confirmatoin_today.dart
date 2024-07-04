@@ -44,7 +44,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
 
   isSessionAboutToStart(String id) async {
     final response =
-        await ApiService.isSessionAboutToStart(id: widget.bookingID);
+        await ApiService.isSessionAboutToStart(id: id);
     setState(() {
       canJoin = response['isAboutToStart'];
       isLoading = false;
@@ -58,13 +58,16 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
 
   @override
   Widget build(BuildContext context) {
-    var bookingSlot = booking['booking_data']['session_slots'] -
-        booking['booking_data']['session_available_slots'];
+    log('CanJoin=========>---$canJoin');
+    
     if (isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
       );
     }
+
+    var bookingSlot = booking['booking_data']['session_slots'] -
+        booking['booking_data']['session_available_slots'];
 
     // log("${booking['booking_data']['session_duration']}");
     String sessionDate = DateFormat('dd-MM-yyyy')
@@ -197,6 +200,9 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                                   customButton(
                                     context: context,
                                     onPressed: () {
+                                      log("$sessionTime");
+                                      log("$sessionDate");
+                                      log("$sessionTime");
                                       if (!canJoin) {
                                         if (isSessionExpired(sessionDate,
                                             sessionTime, sessionDuration)) {

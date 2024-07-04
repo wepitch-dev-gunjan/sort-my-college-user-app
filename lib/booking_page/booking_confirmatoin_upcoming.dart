@@ -59,13 +59,15 @@ class _BookingConfirmationUpcomingState
 
   @override
   Widget build(BuildContext context) {
-    var bookingSlot = booking['booking_data']['session_slots'] -
-        booking['booking_data']['session_available_slots'];
+   
     if (isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
       );
     }
+
+     var bookingSlot = booking['booking_data']['session_slots'] -
+        booking['booking_data']['session_available_slots'];
 
     // Console.data(canJoin, value: "canjoindata");
     log("Canjoin Datakljhgfkjlh32154656=$canJoin");

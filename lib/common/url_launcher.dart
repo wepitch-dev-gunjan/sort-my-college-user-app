@@ -62,5 +62,6 @@ bool isSessionExpired(
   DateTime now = DateTime.now();
 
   // Check if the session is expired
+  log("123${combinedDateTime.isBefore(now)}");
   return combinedDateTime.isBefore(now);
 }
