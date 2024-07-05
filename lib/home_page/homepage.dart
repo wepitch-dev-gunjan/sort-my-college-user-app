@@ -342,9 +342,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     Align(
                       child: Container(
                         constraints: const BoxConstraints(
@@ -374,9 +372,7 @@ class _HomePageState extends State<HomePage> {
                                 .toList()),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     counsellorSessionProvider.popularWorkShopList.isEmpty
                         ? const SizedBox()
                         : Column(
@@ -398,9 +394,7 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                               ),
-                              const SizedBox(
-                                height: 4,
-                              ),
+                              const SizedBox(height: 4),
                               SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.28,
@@ -607,15 +601,12 @@ class _HomePageState extends State<HomePage> {
                                                                         .webinarTitle!,
                                                                     // trending
                                                                     //     .webinarBy!,
-                                                                    style:
-                                                                        SafeGoogleFont(
-                                                                      "Inter",
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                    ),
+                                                                    style: SafeGoogleFont(
+                                                                        "Inter",
+                                                                        fontSize:
+                                                                            16,
+                                                                        fontWeight:
+                                                                            FontWeight.w600),
                                                                   ),
                                                                   const SizedBox(
                                                                       height:

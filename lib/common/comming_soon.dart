@@ -42,9 +42,7 @@ class CommingSoonPage extends StatelessWidget {
                             const TextStyle(fontWeight: FontWeight.w500))),
               ],
             ),
-            const SizedBox(
-              height: 10.0,
-            ),
+            const SizedBox(height: 10.0),
           ],
         ),
       ),
