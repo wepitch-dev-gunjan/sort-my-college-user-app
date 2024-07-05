@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:myapp/common/comming_soon.dart';
 import 'package:myapp/home_page/coming_soon.dart';
 import 'package:myapp/home_page/counsellor_page/counsellor_details_screen.dart';
 import 'package:myapp/home_page/drawer/drawer_1.dart';
@@ -214,9 +215,16 @@ class _HomePageState extends State<HomePage> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const EntrancePreparationScreen(),
+                                          const CommingSoonPage(),
                                     ),
                                   );
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) =>
+                                  //         const EntrancePreparationScreen(),
+                                  //   ),
+                                  // );
                                 },
                                 child: Visibility(
                                   //visible: true,
