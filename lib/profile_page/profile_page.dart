@@ -193,6 +193,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ? Image.network(
                                         path.toString(),
                                         fit: BoxFit.cover,
+                                        filterQuality: FilterQuality.low,
                                         errorBuilder: (BuildContext context,
                                             Object exception,
                                             StackTrace? stackTrace) {

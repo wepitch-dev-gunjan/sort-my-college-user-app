@@ -641,6 +641,7 @@ class ApiService {
     var url = Uri.parse("${AppConstants.baseUrl}/ep/institute/user");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
+    log("token$token");
     final response = await http.get(url, headers: {
       "Authorization": token,
     });

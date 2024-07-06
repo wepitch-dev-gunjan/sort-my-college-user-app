@@ -43,14 +43,16 @@ class TextWithIcon extends StatelessWidget {
   final IconData icon;
   final double? fontSize;
   final FontWeight? fontWeight;
-  final Color? color;
+  final Color? textColor;
+  final Color? iconColor;
   const TextWithIcon(
       {super.key,
       required this.text,
       required this.icon,
       this.fontSize,
       this.fontWeight,
-      this.color});
+      this.textColor,
+      this.iconColor});
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +61,14 @@ class TextWithIcon extends StatelessWidget {
         Icon(
           icon,
           size: 20,
+          color: iconColor,
         ),
         const SizedBox(width: 2.0),
         Text(
           text,
           style: GoogleFonts.lato(
               fontSize: fontSize ?? 10.sp,
-              color: color ?? Colors.black,
+              color: textColor ?? Colors.black,
               fontWeight: fontWeight ?? FontWeight.w400),
         ),
       ],

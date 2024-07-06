@@ -211,20 +211,20 @@ class _HomePageState extends State<HomePage> {
                             Expanded(
                               child: GestureDetector(
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const CommingSoonPage(),
-                                    ),
-                                  );
                                   // Navigator.push(
                                   //   context,
                                   //   MaterialPageRoute(
                                   //     builder: (context) =>
-                                  //         const EntrancePreparationScreen(),
+                                  //         const CommingSoonPage(),
                                   //   ),
                                   // );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const EntrancePreparationScreen(),
+                                    ),
+                                  );
                                 },
                                 child: Visibility(
                                   //visible: true,

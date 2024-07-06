@@ -90,6 +90,7 @@ class _Drawer1State extends State<Drawer1> {
                                   Image.network(
                                     path,
                                     fit: BoxFit.cover,
+                                    filterQuality: FilterQuality.none,
                                     loadingBuilder: (BuildContext context,
                                         Widget child,
                                         ImageChunkEvent? loadingProgress) {

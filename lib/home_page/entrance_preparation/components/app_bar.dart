@@ -3,11 +3,11 @@ import '../../../shared/colors_const.dart';
 
 class EpAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final IconData icon;
+  final IconData? icon;
   const EpAppBar({
     super.key,
     required this.title,
-    required this.icon,
+    this.icon,
   });
 
   @override

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/home_page/entrance_preparation/screens/visit_profile_page.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/constants.dart';
 import 'package:shimmer/shimmer.dart';
@@ -142,7 +144,7 @@ class EpCard extends StatelessWidget {
                               const TextWithIcon(
                                   text: " Open until 9:00 PM",
                                   fontWeight: FontWeight.w600,
-                                  color: Color(0xff4BD058),
+                                  textColor: Color(0xff4BD058),
                                   icon: Icons.access_time_outlined),
                               const SizedBox(height: 3),
                               const TextWithIcon(
@@ -159,7 +161,13 @@ class EpCard extends StatelessWidget {
                         children: [
                           Btn(
                             btnName: "Visit Profile",
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          VisitProfilePage()));
+                            },
                           ),
                           Btn(
                             btnName: "Send Enquiry",

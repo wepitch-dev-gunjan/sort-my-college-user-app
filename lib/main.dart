@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
       ],
       child: ScreenUtilInit(
         designSize: ScreenUtil.defaultSize,
+        minTextAdapt: true,
         child: GetMaterialApp(
           title: 'SMC App',
           debugShowCheckedModeBanner: false,
