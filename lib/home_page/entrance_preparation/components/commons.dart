@@ -8,20 +8,23 @@ class Btn extends StatelessWidget {
   final String btnName;
   final Color? btnColor;
   final Color? textColor;
+  final double? height, width;
   const Btn(
       {super.key,
       required this.onTap,
       required this.btnName,
       this.btnColor,
-      this.textColor});
+      this.textColor,
+      this.height,
+      this.width});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: 30.h,
-        width: 110.w,
+        height: height ?? 30.h,
+        width: width ?? 110.w,
         decoration: BoxDecoration(
           color: btnColor ?? Colors.white,
           border: Border.all(color: ColorsConst.appBarColor),

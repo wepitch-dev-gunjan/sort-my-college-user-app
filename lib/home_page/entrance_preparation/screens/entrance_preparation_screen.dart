@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/home_page/entrance_preparation/screens/visit_profile_page.dart';
 import 'package:myapp/other/api_service.dart';
@@ -165,8 +164,9 @@ class EpCard extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          VisitProfilePage()));
+                                      builder: (context) => VisitProfilePage(
+                                            id: data[index]['_id'],
+                                          )));
                             },
                           ),
                           Btn(

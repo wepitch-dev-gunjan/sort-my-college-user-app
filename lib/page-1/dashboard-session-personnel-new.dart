@@ -641,8 +641,8 @@ class _Counseling_Session_PersonnelState
                                                                   builder:
                                                                       (context) {
                                                                     return CheckOutScreen(
-                                                                      sessionId: id,
-                                                                    
+                                                                        sessionId:
+                                                                            id,
                                                                         name: widget
                                                                             .name,
                                                                         id: widget
@@ -1059,27 +1059,22 @@ List<String> sampleViewDetails = [
 
 bool isDateIsSame(String date, List<Sessions> sessions) {
   for (final element in sessions) {
-    var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "d MMM");
+    var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
     if (date.contains(apiDate)) {
-      console.log("yess");
       return true;
     }
   }
-  console.log("nope");
-
   return false;
 }
 
 String slotCount(String date, List<Sessions> sessions) {
-  for (final element in sessions) {
-    var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "d MMM");
+  dynamic totalSlots = 0;
 
-    if (element.sessionType == "Personal") {
-      if (date.contains(apiDate)) {
-        return element.sessionAvailableSlots.toString();
-      }
+  for (final element in sessions) {
+    var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
+    if (date.contains(apiDate) && element.sessionType == "Group") {
+      totalSlots += element.sessionAvailableSlots ?? 0;
     }
   }
-
-  return "";
+  return totalSlots > 0 ? totalSlots.toString() : "";
 }

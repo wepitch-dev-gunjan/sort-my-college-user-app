@@ -35,16 +35,11 @@ class Counseling_Session_group extends StatefulWidget {
 
 class _Counseling_Session_groupState extends State<Counseling_Session_group>
     with SingleTickerProviderStateMixin {
-//phone pe  members
-// SANDBOX
-// PRODUCTION
   late int bookedslot;
   String environment = "PRODUCTION";
   String appId = "";
   String merchantId = "SORTMYCOLLONLINE";
 
-// PGTESTPAYUAT
-// SORTMYCOLLONLINE
   bool enableLogging = true;
   String saltKey = "fd064c88-80c4-4ef1-bf9f-0628189916a5";
   String saltIndex = "2";
@@ -56,165 +51,10 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
   String apiEndPoint = "/pg/v1/pay";
   String? packageName = 'com.sortmycollege';
 
-  //widget members
   bool isExpanded = false;
   SessionDate sessionDate = SessionDate();
   String selectedDate = Jiffy.now().format(pattern: "d MMM");
   String selectedSessionDate = Jiffy.now().format(pattern: "dd/M/yyyy");
-
-  late Razorpay razorpay;
-  String key = "";
-
-  void startPgTransaction(String? id, String? sessionDate, sessionPrice) {
-    /* try {
-      body = getCheckSum(sessionPrice);
-      var response = PhonePePaymentSdk.startTransaction(
-          body, callBackUrl, checkSum, packageName);
-      response.then((val) {
-        setState(() {
-          if (val != null) {
-            String status = val["status"].toString();
-            String error = val["error"].toString();
-            if (status == "SUCCESS") {
-              AppConst1.showToast("Payment Successfully");
-              EasyLoading.show(
-                  status: "Loading...",
-                  dismissOnTap: false);
-              ApiService.sessionBooked(
-                  id!)
-                  .then((value) {
-                if (value["message"] ==
-                    "Counseling session booked successfully") {
-                  EasyLoading.showToast(
-                      value["message"],
-                      toastPosition:
-                      EasyLoadingToastPosition.bottom);
-                  context
-                      .read<CounsellorDetailsProvider>()
-                      .fetchCounsellor_session(
-                      id: widget.id);
-                  var date = Jiffy.parse(
-                      sessionDate!)
-                      .format(
-                      pattern: "yyyy-M-d");
-                  context
-                      .read<CounsellorDetailsProvider>()
-                      .fetchCounsellor_session(
-                      id: widget.id,
-                      sessionType: "Group",
-                      date: date);
-                  setState(() {});
-                } else {
-                  EasyLoading.showToast(
-                      value["error"],
-                      toastPosition:
-                      EasyLoadingToastPosition.bottom);
-                }
-              });
-            } else {
-              AppConst1.showToast("Transaction failed please try again $error");
-              print('Error:    ${error}');
-            }
-          }
-        });
-      }).catchError((error) {
-        handleError(error);
-        AppConst1.showToast("Transaction failed please try again $error");
-        print('Error:    ${error}');
-        return <dynamic>{};
-      });
-    } catch (error) {
-      handleError(error);
-      AppConst1.showToast("Transaction failed please try again $error");
-    }*/
-  }
-
-  void PhonePayInit() {
-    /* PhonePePaymentSdk.init(environment, appId, merchantId, enableLogging)
-        .then((val) => {
-      setState(() {
-        result = 'PhonePe SDK Initialized - $val';
-        print(result);
-        //handleException: Invalid appId!
-      })
-    })
-        .catchError((error) {
-      handleError(error);
-      return <dynamic>{};
-    });*/
-  }
-
-  // void startPgTransaction() {
-  //   try {
-  //     body = getCheckSum();
-  //     var response = PhonePePaymentSdk.startTransaction(
-  //         body, callBackUrl, checkSum, packageName);
-  //     response.then((val) {
-  //       setState(() {
-  //         if (val != null) {
-  //           String status = val["status"].toString();
-  //           String error = val["error"].toString();
-  //         }
-  //       });
-  //     }).catchError((error) {
-  //       handleError(error);
-  //       AppConst1.showToast("Transaction failed please try again $error");
-  //       print('Error:    ${error}');
-  //       return <dynamic>{};
-  //     });
-  //   } catch (error) {
-  //     handleError(error);
-  //     AppConst1.showToast("Transaction failed please try again $error");
-  //   }
-  // }
-
-  // getCheckSum(sessionPrice) {
-  //   var requestData = {
-  //     "merchantId": merchantId,
-  //     "merchantTransactionId": "transaction_123",
-  //     "merchantUserId": "90223250",
-  //     "amount": 100,
-  //     "mobileNumber": "9999999999",
-  //     "callbackUrl": callBackUrl,
-  //     "paymentInstrument": {
-  //       "type": "PAY_PAGE",
-  //     },
-  //   };
-  //   String base64Body = base64.encode(utf8.encode(json.encode(requestData)));
-  //   checkSum =
-  //   "${sha256.convert(utf8.encode(base64Body + apiEndPoint + saltKey)).toString()}###$saltIndex";
-  //
-  //   return base64Body;
-  // }
-
-  getCheckSum(int sessionPrice) {
-    int price = int.parse(sessionPrice.toString());
-    price * 100;
-    // String strPrice = price.toString();
-    String strPrice = '1';
-    var requestData = {
-      "merchantId": merchantId,
-      "merchantTransactionId": "transaction_123",
-      "merchantUserId": "90223250",
-      "amount": strPrice,
-      "mobileNumber": "9999999999",
-      "callbackUrl": callBackUrl,
-      "paymentInstrument": {
-        "type": "PAY_PAGE",
-      },
-    };
-    String base64Body = base64.encode(utf8.encode(json.encode(requestData)));
-    checkSum =
-        "${sha256.convert(utf8.encode(base64Body + apiEndPoint + saltKey)).toString()}###$saltIndex";
-
-    return base64Body;
-  }
-
-  void handleError(error) {
-    setState(() {
-      result = {"error": error};
-    });
-  }
 
   late TabController tabController;
 
@@ -222,17 +62,12 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
   void initState() {
     super.initState();
 
-    //PhonePayInit();
-    // body = getCheckSum();
     sessionDate.getDates();
     tabController =
         TabController(length: sessionDate.dates.length, vsync: this);
     configLoading();
     fetchDataFromApi();
 
-    // Fluttertoast.showToast(msg: "abc");
-
-    //fetchDataFromApiAll();
     context
         .read<CounsellorDetailsProvider>()
         .fetchCounsellor_session(id: widget.id);
@@ -285,13 +120,11 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  // frame12Fje (1879:51)
                   width: double.infinity,
                   height: 100,
                   child: Stack(
                     children: [
                       Positioned(
-                        // frame311tGg (2620:3569)
                         left: 14 * fem,
                         top: 20,
                         child: SizedBox(
@@ -305,6 +138,13 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                 tabs: sessionDate.dates.map((e) {
                                   return GestureDetector(
                                     onTap: () {
+                                      var data = isDateIsSame(
+                                          e.formattedDate,
+                                          counsellorSessionProvider
+                                                  .allDetails.sessions ??
+                                              []);
+
+                                      log("data$data");
                                       tabController.animateTo(e.index);
                                       String date = Jiffy.parse(e.date,
                                               pattern: "d MMM yyyy")
@@ -436,9 +276,6 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                     ],
                   ),
                 ),
-                // IconButton(onPressed: (){
-                //   startPgTransaction();
-                // }, icon: Icon(Icons.add)),
                 Expanded(
                   child: counsellorSessionProvider
                                   .allDetails.totalAvailableSlots ==
@@ -479,7 +316,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                   physics: const ScrollPhysics(),
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
-                                    // log("message=>-${counsellorSessionProvider.details.sessions![index].sessionTopic}");
+                                    log("message=>-${counsellorSessionProvider.details.sessions![index].sessionTopic}");
                                     dynamic bookedslot =
                                         counsellorSessionProvider.details
                                                 .sessions![index].sessionSlots -
@@ -853,29 +690,53 @@ List<String> sampleViewDetails = [
   "\u2022 duration:",
 ];
 
+// bool isDateIsSame(String date, List<Sessions> sessions) {
+//   log("data$date");
+//   for (final element in sessions) {
+//     var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "d MMM");
+//     if (date.contains(apiDate)) {
+//       return true;
+//     }
+//   }
+
+//   return false;
+// }
+
+// String slotCount(String date, List<Sessions> sessions) {
+//   for (final element in sessions) {
+//     var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
+//     if (element.sessionType == "Group") {
+//       if (date.contains(apiDate)) {
+//         return element.sessionAvailableSlots.toString();
+//       }
+//     }
+//   }
+
+//   return "";
+// }
+
+
+
+
 bool isDateIsSame(String date, List<Sessions> sessions) {
   for (final element in sessions) {
-    var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "d MMM");
+    var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
     if (date.contains(apiDate)) {
-      // console.log("yess");
       return true;
     }
   }
-  //console.log("nope");
-
   return false;
 }
 
 String slotCount(String date, List<Sessions> sessions) {
+  dynamic totalSlots = 0;
+  
   for (final element in sessions) {
-    var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "d MMM");
-
-    if (element.sessionType == "Group") {
-      if (date.contains(apiDate)) {
-        return element.sessionAvailableSlots.toString();
-      }
+    var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
+    if (date.contains(apiDate) && element.sessionType == "Group") {
+      totalSlots += element.sessionAvailableSlots ?? 0;
     }
   }
-
-  return "";
+  
+  return totalSlots > 0 ? totalSlots.toString() : "";
 }

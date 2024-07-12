@@ -647,7 +647,7 @@ class ApiService {
     });
 
     if (response.statusCode == 200) {
-      log("EpData=>>>> ${response.body}");
+      // log("EpData=>>>> ${response.body}");
 
       return jsonDecode(response.body);
     }
@@ -898,6 +898,8 @@ class ApiService {
       headers: {"Content-Type": "application/json", "Authorization": token},
     );
     var data;
+
+    log("Counsellor Data=$data");
 
     // console.log(
     //     "COunsellor data1=>---------${jsonDecode(response.body.toString())}");
@@ -1166,7 +1168,7 @@ class ApiService {
     return [];
   }
 
-  static Future<List<KeyFeaturesModel>> getKeyFeatures(String id) async {
+  static Future getKeyFeatures(String id) async {
     var url = Uri.parse("${AppConstants.baseUrl}/ep/key-featuresForUser/$id");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
@@ -1174,23 +1176,13 @@ class ApiService {
       //"Content-Type": "application/json",
       "Authorization": token,
     });
-    print(token);
-    var data;
-    //console.log("Counsellor List : ${response.body}");
-    if (response.statusCode == 200) {
-      data = jsonDecode(response.body.toString());
-      return List<KeyFeaturesModel>.from(
-          data.map((x) => KeyFeaturesModel.fromJson(x)));
-    }
-    if (response.statusCode == 404) {
-      return [
-        KeyFeaturesModel(
-          name: "none",
-          keyFeaturesIcon: "",
-        ),
-      ];
-    }
-    return [];
+
+    // if (response.statusCode == 200) {
+    //   var data = jsonDecode(response.body.toString());
+    //   return data;
+    // }
+    // log("dataHEre=>${response.body}");
+    return jsonDecode(response.body);
   }
 
   static Future<List<FacultiesModel>> getFaculties(String id) async {
