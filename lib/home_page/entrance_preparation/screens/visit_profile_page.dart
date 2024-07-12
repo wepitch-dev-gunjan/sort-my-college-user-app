@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/home_page/entrance_preparation/components/app_bar.dart';
 import 'package:myapp/home_page/entrance_preparation/components/commons.dart';
+import 'package:myapp/home_page/entrance_preparation/screens/send_enquiry_page.dart';
 import 'package:myapp/other/api_service.dart';
 import '../components/ep_comp.dart';
 
@@ -75,7 +74,12 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
                           TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                     ),
                     Btn(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SendEnquiryPage()));
+                        },
                         btnName: "Send Enquiry",
                         textColor: Colors.white,
                         height: 40,
@@ -143,7 +147,7 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
             ],
           ),
         ),
-        SizedBox(height: 5.0),
+        const SizedBox(height: 5.0),
         Container(
           height: 45,
           decoration: BoxDecoration(

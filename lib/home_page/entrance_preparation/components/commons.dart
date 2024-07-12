@@ -8,7 +8,7 @@ class Btn extends StatelessWidget {
   final String btnName;
   final Color? btnColor;
   final Color? textColor;
-  final double? height, width;
+  final double? height, width, borderRadius;
   const Btn(
       {super.key,
       required this.onTap,
@@ -16,6 +16,7 @@ class Btn extends StatelessWidget {
       this.btnColor,
       this.textColor,
       this.height,
+      this.borderRadius,
       this.width});
 
   @override
@@ -28,14 +29,15 @@ class Btn extends StatelessWidget {
         decoration: BoxDecoration(
           color: btnColor ?? Colors.white,
           border: Border.all(color: ColorsConst.appBarColor),
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(borderRadius ?? 6),
         ),
         child: Center(
-            child: Text(
-          btnName,
-          style: TextStyle(
-              fontWeight: FontWeight.w600, color: textColor ?? Colors.black),
-        )),
+          child: Text(
+            btnName,
+            style: TextStyle(
+                fontWeight: FontWeight.w600, color: textColor ?? Colors.black),
+          ),
+        ),
       ),
     );
   }
