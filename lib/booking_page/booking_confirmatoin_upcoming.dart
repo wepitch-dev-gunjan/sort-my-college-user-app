@@ -1,9 +1,7 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/other/constants.dart';
-import 'package:myapp/utils/common.dart';
 import '../common/url_launcher.dart';
 import '../other/api_service.dart';
 import '../shared/colors_const.dart';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:myapp/home_page/entrance_preparation/components/app_bar.dart';
 import 'package:myapp/home_page/entrance_preparation/components/commons.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -18,7 +17,7 @@ class SendEnquiryPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomCalendar(),
+              const CustomCalendar(),
               const SizedBox(height: 20),
               const CusChips(),
               const SizedBox(height: 20),
@@ -40,6 +39,7 @@ class SendEnquiryPage extends StatelessWidget {
         child: Btn(
           onTap: () {},
           btnName: "Send Enquiry",
+          // ignore: prefer_const_constructors
           btnColor: Color(0XFF1F0A68),
           textColor: Colors.white,
           height: 45,
@@ -98,7 +98,7 @@ class _CusChipsState extends State<CusChips> {
                         selectedItems.remove(timeLst[i]);
                       }
                     });
-                    print(selectedItems);
+                    // print(selectedItems);
                   },
                   child: Container(
                     margin: const EdgeInsets.only(right: 5.0),
@@ -129,6 +129,8 @@ class _CusChipsState extends State<CusChips> {
 }
 
 class CustomCalendar extends StatefulWidget {
+  const CustomCalendar({super.key});
+
   @override
   _CustomCalendarState createState() => _CustomCalendarState();
 }

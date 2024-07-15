@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/home_page/entrance_preparation/components/app_bar.dart';
+import '../components/commons.dart';
 
 class AnnouncementScreen extends StatelessWidget {
   const AnnouncementScreen({super.key});

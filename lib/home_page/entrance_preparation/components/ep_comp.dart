@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../utils.dart';
 import '../screens/announcement_screen.dart';
 import '../screens/faculties_screen.dart';
-import '../screens/visit_profile_page.dart';
 import 'commons.dart';
 
 class Faculties extends StatelessWidget {
@@ -105,7 +103,7 @@ class FacultiesCard extends StatelessWidget {
 class Courses extends StatelessWidget {
   final List courses;
   final String title;
-  Courses({
+  const Courses({
     super.key,
     required this.courses,
     required this.title,
@@ -140,7 +138,7 @@ class Courses extends StatelessWidget {
                 btnName: courses[i],
                 btnColor: const Color(0xff1F0A68),
                 textColor: Colors.white,
-                width: 80,
+                width: 75.w,
               ),
           ],
         )
@@ -155,7 +153,7 @@ final List<String> pgCourses = ["NEET", "CUET", "CLAT", "CAT"];
 class CourseSendEnquiryCard extends StatelessWidget {
   final String courseName;
 
-  CourseSendEnquiryCard({required this.courseName});
+  const CourseSendEnquiryCard({super.key, required this.courseName});
 
   @override
   Widget build(BuildContext context) {
@@ -313,8 +311,6 @@ class CourseSendEnquiryCard extends StatelessWidget {
   }
 }
 
-
-
 class ProfileCard extends StatefulWidget {
   const ProfileCard({super.key});
 
@@ -334,8 +330,11 @@ class _ProfileCardState extends State<ProfileCard> {
             height: 190.h,
             width: 398.w,
             child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.asset("assets/page-1/images/webinarBanner.png")),
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                "assets/page-1/images/webinarBanner.png",
+              ),
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -393,7 +392,8 @@ class _ProfileCardState extends State<ProfileCard> {
                 ],
               )
             ],
-          )
+          ),
+          const SizedBox(height: 5.0),
         ],
       ),
     );
@@ -472,7 +472,6 @@ class _AboutUsState extends State<AboutUs> {
     );
   }
 }
-
 
 class FullSizeBtns extends StatelessWidget {
   const FullSizeBtns({
