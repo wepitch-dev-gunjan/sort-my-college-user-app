@@ -1,14 +1,18 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../utils.dart';
 import '../screens/announcement_screen.dart';
-import '../screens/faculties_screen.dart';
+import '../screens/Faculties_all_screen.dart';
 import 'commons.dart';
 
 class Faculties extends StatelessWidget {
+  final dynamic facultiesData;
   const Faculties({
     super.key,
+    required this.facultiesData,
   });
 
   @override
@@ -25,7 +29,9 @@ class Faculties extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const FacultiesScreen(),
+                builder: (context) => AllFacultiesScreen(
+                  facultiesData: facultiesData,
+                ),
               ),
             );
           },
@@ -42,60 +48,75 @@ class Faculties extends StatelessWidget {
 }
 
 class FacultiesCard extends StatelessWidget {
+  final dynamic faculties;
   const FacultiesCard({
     super.key,
+    required this.faculties,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          for (int i = 0; i < 5; i++)
-            const SizedBox(
-              height: 70,
-              width: 200,
-              child: Card(
-                  color: Colors.white,
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Flexible(
-                          child: Column(
-                            children: [
-                              Text(
-                                "Dr.Kumar",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    overflow: TextOverflow.ellipsis,
-                                    fontWeight: FontWeight.w500),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 25.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          child: Faculties(facultiesData: faculties),
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              for (int i = 0; i < faculties.length; i++)
+                SizedBox(
+                  height: 70,
+                  width: 200,
+                  child: Card(
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "${faculties[i]['name']}",
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        overflow: TextOverflow.ellipsis,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    "${faculties[i]['qualifications']}",
+                                    style: const TextStyle(
+                                        fontSize: 10,
+                                        overflow: TextOverflow.ellipsis,
+                                        fontWeight: FontWeight.w500),
+                                  )
+                                ],
                               ),
-                              Text(
-                                "MBBS and MS in HumanAnato",
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    overflow: TextOverflow.ellipsis,
-                                    fontWeight: FontWeight.w500),
-                              )
-                            ],
-                          ),
+                            ),
+                            const SizedBox(width: 5.0),
+                            SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: CircleAvatar(
+                                radius: 25,
+                                backgroundImage: NetworkImage(
+                                    "${faculties[i]['display_pic']}"),
+                              ),
+                            )
+                          ],
                         ),
-                        SizedBox(width: 5.0),
-                        SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: CircleAvatar(
-                            radius: 25,
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-            ),
-        ],
-      ),
+                      )),
+                ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

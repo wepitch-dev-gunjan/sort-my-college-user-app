@@ -56,17 +56,17 @@ class CounsellorDetailsProvider extends ChangeNotifier {
     // notifyListeners();
   }
 
-  void fetchFaculties(String id) async {
-    var faculties = await ApiService.getFaculties(id);
-    isLoading = true;
-    if (faculties.isEmpty) {
-      isLoading = true;
-    } else {
-      facultiesList = faculties;
-      isLoading = false;
-    }
-    notifyListeners();
-  }
+  // void fetchFaculties(String id) async {
+  //   var faculties = await ApiService.getFaculties(id);
+  //   isLoading = true;
+  //   if (faculties.isEmpty) {
+  //     isLoading = true;
+  //   } else {
+  //     facultiesList = faculties;
+  //     isLoading = false;
+  //   }
+  //   notifyListeners();
+  // }
 
   void fetchAnnouncements(String id) async {
     var announcements = await ApiService.getAnnouncements(id);

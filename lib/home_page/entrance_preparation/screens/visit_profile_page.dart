@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myapp/home_page/entrance_preparation/components/commons.dart';
@@ -17,11 +19,13 @@ class VisitProfilePage extends StatefulWidget {
 
 class _VisitProfilePageState extends State<VisitProfilePage> {
   List keyFeatures = [];
+  var faculties;
   bool isLoading = true;
 
   @override
   void initState() {
     getKeyFeatures(widget.id);
+    getFacultiesData(widget.id);
     super.initState();
   }
 
@@ -29,6 +33,15 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
     final res = await ApiService.getKeyFeatures(id);
     setState(() {
       keyFeatures = res;
+      isLoading = false;
+    });
+  }
+
+  getFacultiesData(String id) async {
+    final res = await ApiService.getFaculties(id: id);
+
+    setState(() {
+      faculties = res;
       isLoading = false;
     });
   }
@@ -53,7 +66,9 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
                   const FullSizeBtns(),
                   const AboutUs(),
                   const CourseSection(),
-                  const FacultiesCard(),
+                  FacultiesCard(
+                    faculties: faculties,
+                  ),
                   KeyFeatures(keyFeatures: keyFeatures),
                   const ReviewCard(),
                   const GiveReviewSection()
@@ -116,8 +131,6 @@ class CourseSection extends StatelessWidget {
           Courses(courses: ugCourses, title: "Undergraduate Courses"),
           const SizedBox(height: 20.0),
           Courses(courses: pgCourses, title: "Postgraduate Courses"),
-          const SizedBox(height: 25.0),
-          const Faculties(),
         ],
       ),
     );

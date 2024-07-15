@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import '../components/commons.dart';
 
-class FacultiesScreen extends StatelessWidget {
-  const FacultiesScreen({super.key});
+class AllFacultiesScreen extends StatefulWidget {
+  final dynamic facultiesData;
+  const AllFacultiesScreen({super.key, required this.facultiesData});
 
   @override
+  State<AllFacultiesScreen> createState() => _AllFacultiesScreen();
+}
+
+class _AllFacultiesScreen extends State<AllFacultiesScreen> {
+  @override
   Widget build(BuildContext context) {
+    // log("facultieData=$faculties");
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const EpAppBar(title: "Faculties"),
