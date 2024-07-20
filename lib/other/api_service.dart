@@ -15,9 +15,6 @@ import '../model/announcements_model.dart';
 import '../model/counsellor_data.dart';
 import '../model/counsellor_sessions.dart';
 import '../model/course_model.dart';
-import '../model/ep_model.dart';
-import '../model/faculties_model.dart';
-import '../model/key_features_model.dart';
 import '../model/response_model.dart';
 import 'constants.dart';
 import 'dart:developer' as console show log;
@@ -1256,5 +1253,65 @@ class ApiService {
       ];
     }
     return [];
+  }
+
+  static Future<Map<String, dynamic>> followInstitute(
+      String id, Function setIsLoading) async {
+    setIsLoading(true);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+
+    final body = jsonEncode({"user_id": id});
+    final headers = {
+      'Content-Type': 'application/json',
+      "Authorization": token,
+    };
+    final url =
+        Uri.parse('${AppConstants.baseUrl}/ep/institute/user/$id/follow');
+
+    final response = await http.put(url, headers: headers, body: body);
+    setIsLoading(false);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body.toString());
+      return data;
+    }
+
+    if (response.statusCode == 400) {
+      return {"error": "Counsellor is already followed by the user"};
+    }
+
+    return {};
+  }
+
+  static Future<Map<String, dynamic>> unfollowInstitute(
+      String id, Function setIsLoading) async {
+    setIsLoading(true);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+
+    final body = jsonEncode({"user_id": id});
+    final headers = {
+      'Content-Type': 'application/json',
+      "Authorization": token,
+    };
+    final url =
+        Uri.parse('${AppConstants.baseUrl}/ep/institute/user/$id/unfollow');
+
+    final response = await http.put(url, headers: headers, body: body);
+    setIsLoading(false);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body.toString());
+
+      log("Unfollow Api Response$data");
+      return data;
+    }
+
+    if (response.statusCode == 400) {
+      return {"error": "Counsellor is already followed by the user"};
+    }
+
+    return {};
   }
 }

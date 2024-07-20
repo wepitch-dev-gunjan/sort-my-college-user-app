@@ -219,10 +219,12 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${widget.webinarModel.webinarBy}',
+                        '${widget.webinarModel.webinarTitle}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: SafeGoogleFont(
                           "Inter",
-                          fontSize: 16,
+                          fontSize: 15,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -241,7 +243,7 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                           ),
                           const SizedBox(height: 3),
                           Text(
-                            '${widget.webinarModel.webinarTitle}',
+                            '${widget.webinarModel.webinarBy}',
                             overflow: TextOverflow.ellipsis,
                             style: SafeGoogleFont(
                               "Inter",

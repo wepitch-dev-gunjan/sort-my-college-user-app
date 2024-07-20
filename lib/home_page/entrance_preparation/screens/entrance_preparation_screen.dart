@@ -1,9 +1,11 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/home_page/entrance_preparation/screens/send_enquiry_page.dart';
 import 'package:myapp/home_page/entrance_preparation/screens/visit_profile_page.dart';
 import 'package:myapp/other/api_service.dart';
 import '../../../shared/colors_const.dart';
+import '../../../utils.dart';
 import '../components/commons.dart';
 import '../components/shimmer_effect.dart';
 
@@ -55,137 +57,314 @@ class EpCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: data.length,
-      itemBuilder: (context, index) {
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Card(
-                color: ColorsConst.whiteColor,
-                surfaceTintColor: ColorsConst.whiteColor,
-                elevation: 3,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                radius: 40,
-                                backgroundImage: NetworkImage(
-                                    "${data[index]['profile_pic']}"),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(width: 5.0),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                data[index]['name'],
-                                style: GoogleFonts.lato(
-                                  textStyle: TextStyle(
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.w700,
+    return Column(
+      children: [
+        const TopSlider(),
+        Expanded(
+          child: ListView.builder(
+            itemCount: data.length,
+            // physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Card(
+                      color: ColorsConst.whiteColor,
+                      surfaceTintColor: ColorsConst.whiteColor,
+                      elevation: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 4, top: 15, right: 15),
+                                  child: Column(
+                                    children: [
+                                      CircleAvatar(
+                                        // minRadius: 30,
+                                        // maxRadius: 40,
+                                        radius: 40,
+                                        backgroundImage: NetworkImage(
+                                            "${data[index]['profile_pic']}"),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                              const Row(
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    size: 14,
-                                    color: Colors.amber,
-                                  ),
-                                  SizedBox(width: 4),
-                                  Text(
-                                    "4.5",
-                                    style: TextStyle(
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w500),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 8.0),
-                              Row(
-                                children: [
-                                  Container(
-                                    height: 20,
-                                    width: 40,
-                                    decoration: BoxDecoration(
-                                      color: ColorsConst.appBarColor,
-                                      borderRadius: BorderRadius.circular(8),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          data[index]['name'],
+                                          style: SafeGoogleFont(
+                                            'Inter',
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w700,
+                                            height: 1.2125,
+                                            color: const Color(0xFF41403F),
+                                          ),
+                                        ),
+                                        // GestureDetector(
+                                        //   onTap: () {
+                                        //     shareLinks();
+                                        //   },
+                                        //   child: Container(
+                                        //     margin:
+                                        //         const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                        //     width: 17.42.w,
+                                        //     height: 18.86.h,
+                                        //     child: Image.asset(
+                                        //         'assets/page-1/images/group-38-oFX.png',
+                                        //         width: 17.42.w,
+                                        //         height: 18.86.h),
+                                        //   ),
+                                        // ),
+                                      ],
                                     ),
-                                    child: const Center(
-                                      child: Text(
-                                        'CUET',
-                                        style: TextStyle(
-                                            color: ColorsConst.whiteColor,
-                                            fontSize: 9,
-                                            fontWeight: FontWeight.w400),
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.star,
+                                          size: 14,
+                                          color: Colors.amber,
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          "4.5",
+                                          style: TextStyle(
+                                              fontSize: 10.sp,
+                                              fontWeight: FontWeight.w700),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(height: 5.0),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 4),
+                                          height: 16,
+                                          // width: 40,
+                                          decoration: BoxDecoration(
+                                            color: ColorsConst.appBarColor,
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              'CUET',
+                                              style: TextStyle(
+                                                  color: ColorsConst.whiteColor,
+                                                  fontSize: 10.sp,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 5),
+                                    const TextWithIcon(
+                                        text: "C-SCHEME JAIPUR",
+                                        icon: Icons.location_on_sharp),
+                                    const SizedBox(height: 3),
+                                    const TextWithIcon(
+                                        text: " Open until 9:00 PM",
+                                        fontWeight: FontWeight.w600,
+                                        textColor: Color(0xff4BD058),
+                                        icon: Icons.access_time_outlined),
+                                    const SizedBox(height: 3),
+                                    const TextWithIcon(
+                                        text: "10+ Yrs In Business",
+                                        fontWeight: FontWeight.w600,
+                                        icon: Icons.work),
+                                  ],
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 8.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Btn(
+                                  btnName: "Visit Profile",
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => VisitProfilePage(
+                                          id: data[index]['_id'],
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 5),
-                              const TextWithIcon(
-                                  text: "C-SCHEME JAIPUR",
-                                  icon: Icons.location_on_sharp),
-                              const SizedBox(height: 3),
-                              const TextWithIcon(
-                                  text: " Open until 9:00 PM",
-                                  fontWeight: FontWeight.w600,
-                                  textColor: Color(0xff4BD058),
-                                  icon: Icons.access_time_outlined),
-                              const SizedBox(height: 3),
-                              const TextWithIcon(
-                                  text: "10+ Yrs In Business",
-                                  fontWeight: FontWeight.w600,
-                                  icon: Icons.work),
-                            ],
-                          )
-                        ],
+                                    );
+                                  },
+                                ),
+                                Btn(
+                                  btnName: "Send Enquiry",
+                                  btnColor: ColorsConst.appBarColor,
+                                  textColor: Colors.white,
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SendEnquiryPage()));
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 10.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Btn(
-                            btnName: "Visit Profile",
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => VisitProfilePage(
-                                            id: data[index]['_id'],
-                                          )));
-                            },
-                          ),
-                          Btn(
-                            btnName: "Send Enquiry",
-                            btnColor: ColorsConst.appBarColor,
-                            textColor: Colors.white,
-                            onTap: () {},
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            )
-          ],
-        );
-      },
+                    ),
+                  )
+                ],
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }
+
+class TopSlider extends StatefulWidget {
+  const TopSlider({super.key});
+
+  @override
+  State<TopSlider> createState() => _TopSliderState();
+}
+
+class _TopSliderState extends State<TopSlider> {
+  List sliderTextList = [
+    'What entrance examinations should I prepare for?',
+    'How to ace my entrance exams with top strategies?',
+    'Which entrance exams are crucial for my dream career?'
+  ];
+  int selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    double baseWidth = 460;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double ffem = fem * 0.97;
+    return Column(
+      children: [
+        SizedBox(
+          width: double.infinity,
+          height: 100.35 * fem,
+          child: Padding(
+            padding: EdgeInsets.only(
+              right: MediaQuery.of(context).size.width / 20,
+              left: MediaQuery.of(context).size.width / 20,
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  child: Align(
+                      child: Container(
+                    height: 60.5,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: const Offset(0, 1),
+                          blurRadius: 2,
+                          color: Colors.black.withOpacity(0.1),
+                        ),
+                      ],
+                    ),
+                  )),
+                ),
+                Positioned(
+                  left: 150 * fem,
+                  bottom: 20 * fem,
+                  child: Row(
+                    children: [
+                      for (int i = 0; i < 3; i++)
+                        TabPageSelectorIndicator(
+                          backgroundColor: selectedIndex == i
+                              ? const Color(0xff1F0A68)
+                              : Colors.grey,
+                          borderColor: Colors.transparent,
+                          size: 7,
+                        ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  left: 13.28515625 * fem,
+                  top: 27.3145446777 * fem,
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: SizedBox(
+                      width: 245 * fem,
+                      height: 40 * fem,
+                      child: CarouselSlider(
+                        items: [
+                          for (int i = 0; i < sliderTextList.length; i++)
+                            Text(
+                              sliderTextList[i],
+                              style: SafeGoogleFont(
+                                'Inter',
+                                fontSize: 14 * ffem,
+                                fontWeight: FontWeight.w500,
+                                height: 1.3252271925 * ffem / fem,
+                                color: const Color(0xFF2A2F33),
+                              ),
+                            ),
+                        ],
+                        options: CarouselOptions(
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              selectedIndex = index;
+                            });
+                          },
+                          viewportFraction: 1,
+                          autoPlay: true,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 290.75 * fem,
+                  top: 10 * fem,
+                  bottom: 10,
+                  child: Align(
+                    child: SizedBox(
+                      width: 100.5 * fem,
+                      height: 128.5 * fem,
+                      child: Image.asset(
+                        'assets/page-1/images/graduation-hat.png',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+
+
+
+
+
+
 
 
 

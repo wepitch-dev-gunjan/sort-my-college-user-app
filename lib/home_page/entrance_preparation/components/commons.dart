@@ -3,9 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../shared/colors_const.dart';
 
-
-
-
 class EpAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final IconData? icon;
@@ -23,17 +20,23 @@ class EpAppBar extends StatelessWidget implements PreferredSizeWidget {
       surfaceTintColor: ColorsConst.whiteColor,
       title: Text(
         title,
-        style: const TextStyle(color: ColorsConst.appBarColor),
-      ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: Icon(
-            icon,
-            color: ColorsConst.appBarColor,
-          ),
+        style: const TextStyle(
+          color: Color(0xff1f0a68),
+          fontSize: 18,
+          fontFamily: 'Inter',
+          fontWeight: FontWeight.w600,
+          height: 0,
         ),
-      ],
+      ),
+      // actions: [
+      //   Padding(
+      //     padding: const EdgeInsets.only(right: 10),
+      //     child: Icon(
+      //       icon,
+      //       color: ColorsConst.appBarColor,
+      //     ),
+      //   ),
+      // ],
       titleSpacing: -10,
       leading: IconButton(
         onPressed: () {
@@ -51,12 +54,12 @@ class EpAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
-
 class Btn extends StatelessWidget {
   final Function() onTap;
   final String btnName;
   final Color? btnColor;
   final Color? textColor;
+  final Widget? child;
   final double? height, width, borderRadius;
   const Btn(
       {super.key,
@@ -64,6 +67,7 @@ class Btn extends StatelessWidget {
       required this.btnName,
       this.btnColor,
       this.textColor,
+      this.child,
       this.height,
       this.borderRadius,
       this.width});
@@ -77,17 +81,56 @@ class Btn extends StatelessWidget {
         width: width ?? 110.w,
         decoration: BoxDecoration(
           color: btnColor ?? Colors.white,
-          border: Border.all(color: ColorsConst.appBarColor),
+          border: Border.all(color: ColorsConst.appBarColor, width: 1),
           borderRadius: BorderRadius.circular(borderRadius ?? 6),
         ),
-        child: Center(
-          child: Text(
-            btnName,
-            style: TextStyle(
-                fontWeight: FontWeight.w600, color: textColor ?? Colors.black),
-          ),
-        ),
+        child: child ??
+            Center(
+              child: Text(
+                btnName,
+                style: TextStyle(
+                  color: textColor ?? const Color(0xFF262626),
+                  fontSize: 13,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w700,
+                  height: 0.07,
+                ),
+              ),
+            ),
       ),
+    );
+  }
+}
+
+class FollowerBtn extends StatelessWidget {
+  final Function() onTap;
+
+  final Color? btnColor;
+
+  final Widget? child;
+  final double? height, width, borderRadius;
+  const FollowerBtn(
+      {super.key,
+      required this.onTap,
+      this.btnColor,
+      this.child,
+      this.height,
+      this.borderRadius,
+      this.width});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+          height: height ?? 30.h,
+          width: width ?? 110.w,
+          decoration: BoxDecoration(
+            color: btnColor ?? Colors.white,
+            border: Border.all(color: ColorsConst.appBarColor),
+            borderRadius: BorderRadius.circular(borderRadius ?? 6),
+          ),
+          child: child),
     );
   }
 }

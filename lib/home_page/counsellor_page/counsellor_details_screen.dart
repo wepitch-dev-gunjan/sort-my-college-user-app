@@ -42,7 +42,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
   int followerCount = 0;
   bool isLoading = true;
 
-  bool hasFollowedBefore = false;
+  // bool hasFollowedBefore = false;
   double rating_val = 1;
   String feedback_msg = '';
 
@@ -250,8 +250,12 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                                       counsellor['_id'],
                                                       setIsFollowingLoading);
 
+                                              log("value$isFollowing");
+
                                               isFollowing =
                                                   value["data"]["followed"];
+
+                                              log("Isfollow$value");
                                               followerCount = followerCount - 1;
 
                                               setState(() {});
@@ -260,9 +264,11 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                                   .Follow_councellor(
                                                       counsellor['_id'],
                                                       setIsFollowingLoading);
+                                              log("value1$value");
 
                                               isFollowing =
                                                   value["data"]["followed"];
+                                              log("Isfollow$isFollowing");
                                               followerCount = followerCount + 1;
 
                                               setState(() {});
@@ -486,24 +492,31 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                               ),
                               const SizedBox(height: 14),
                               Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  Image.asset(
-                                    'assets/page-1/images/diploma.png',
-                                    fit: BoxFit.cover,
-                                    height: 18,
-                                    width: 18,
+                                  const SizedBox(width: 8),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Image.asset(
+                                        'assets/page-1/images/diploma.png',
+                                        fit: BoxFit.cover,
+                                        height: 18,
+                                        width: 18,
+                                      ),
+                                    ],
                                   ),
                                   const SizedBox(width: 6),
-                                  Text(
-                                    counsellor['qualifications'].join(', '),
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      height: 1.7034202251,
-                                      color: Color(0xff8e8989),
+                                  Expanded(
+                                    child: Text(
+                                      counsellor['qualifications'].join(', '),
+                                      textAlign: TextAlign.start,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.7034202251,
+                                        color: Color(0xff8e8989),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -725,14 +738,17 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                     ),
 
                               const SizedBox(height: 16),
-                              const Text('Give a Review',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
+                              const Text(
+                                'Give a Review',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                               const SizedBox(height: 8),
                               Row(
                                 children: [
                                   RatingBar.builder(
-                                    initialRating: 1,
+                                    initialRating: 5,
                                     minRating: 1,
                                     direction: Axis.horizontal,
                                     allowHalfRating: true,

@@ -48,6 +48,7 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    log("idd${widget.id}");
     return isLoading
         ? const Scaffold(
             backgroundColor: Colors.white,
@@ -62,7 +63,9 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const ProfileCard(),
+                  ProfileCard(
+                    id: widget.id,
+                  ),
                   const FullSizeBtns(),
                   const AboutUs(),
                   const CourseSection(),

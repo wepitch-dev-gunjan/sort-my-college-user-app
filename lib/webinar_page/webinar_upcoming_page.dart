@@ -229,6 +229,8 @@ class _WebinarUpcomingPageDataWidgetState
                     children: [
                       Text(
                         '${widget.webinarModel.webinarTitle}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         // '${widget.webinarModel.webinarBy}',
                         style: SafeGoogleFont(
                           "Inter",

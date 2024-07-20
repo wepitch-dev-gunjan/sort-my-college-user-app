@@ -228,6 +228,8 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                       Text(
                         '${widget.webinarModel.webinarTitle}',
                         // '${widget.webinarModel.webinarBy}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: SafeGoogleFont(
                           "Inter",
                           fontSize: 16,
@@ -301,7 +303,6 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
 
                                 if (!isRegistered) {
                                   showDialog(
-                                  
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(

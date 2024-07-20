@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/other/api_service.dart';
 import '../../../utils.dart';
 import '../screens/announcement_screen.dart';
 import '../screens/Faculties_all_screen.dart';
@@ -81,16 +83,17 @@ class FacultiesCard extends StatelessWidget {
                           children: [
                             Flexible(
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "${faculties[i]['name']}",
+                                    faculties[i]['name'] ?? "N/A",
                                     style: const TextStyle(
                                         fontSize: 15,
                                         overflow: TextOverflow.ellipsis,
                                         fontWeight: FontWeight.w500),
                                   ),
                                   Text(
-                                    "${faculties[i]['qualifications']}",
+                                    faculties[i]['qualifications'] ?? "N/A",
                                     style: const TextStyle(
                                         fontSize: 10,
                                         overflow: TextOverflow.ellipsis,
@@ -287,36 +290,7 @@ class CourseSendEnquiryCard extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return AlertDialog(
-                      backgroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              GestureDetector(
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Icon(Icons.close)),
-                            ],
-                          ),
-                          Image.asset("assets/page-1/images/Check.png"),
-                          const SizedBox(height: 20),
-                          const Text(
-                            'ENQUIRY SUBMITTED',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
+                    return const EnquirySubmittedDialog();
                   },
                 );
               },
@@ -332,8 +306,89 @@ class CourseSendEnquiryCard extends StatelessWidget {
   }
 }
 
+class EnquirySubmittedDialog extends StatefulWidget {
+  const EnquirySubmittedDialog({super.key});
+
+  @override
+  _EnquirySubmittedDialogState createState() => _EnquirySubmittedDialogState();
+}
+
+class _EnquirySubmittedDialogState extends State<EnquirySubmittedDialog> {
+  int _counter = 3;
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_counter == 0) {
+        Navigator.of(context).pop();
+        _timer.cancel();
+      } else {
+        setState(() {
+          _counter--;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Icon(Icons.close)),
+            ],
+          ),
+          Image.asset("assets/page-1/images/Check.png"),
+          const SizedBox(height: 20),
+          const Text(
+            'ENQUIRY SUBMITTED',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            'Closing in $_counter seconds',
+            style: const TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w500,
+              color: Colors.red,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class ProfileCard extends StatefulWidget {
-  const ProfileCard({super.key});
+  final String id;
+  const ProfileCard({super.key, required this.id});
 
   @override
   State<ProfileCard> createState() => _ProfileCardState();
@@ -341,8 +396,17 @@ class ProfileCard extends StatefulWidget {
 
 class _ProfileCardState extends State<ProfileCard> {
   bool isFollowing = false;
+  bool isFollowLoading = false;
+
+  setIsFollowingLoading(bool state) {
+    setState(() {
+      isFollowLoading = state;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    log("id in profilecard${widget.id}");
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       child: Column(
@@ -391,25 +455,59 @@ class _ProfileCardState extends State<ProfileCard> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Btn(
-                      onTap: () {
-                        setState(() {
-                          if (!isFollowing) {
+                  FollowerBtn(
+                    onTap: () async {
+                      setState(() async {
+                        if (!isFollowing) {
+                          log("Id found=>${widget.id}");
+                          var value = await ApiService.unfollowInstitute(
+                              widget.id, setIsFollowingLoading);
+
+                          if (value['message' ==
+                              "User has unfollowed the institute"]) {
                             isFollowing = true;
                           } else {
                             isFollowing = false;
                           }
-                        });
-                      },
-                      textColor: isFollowing ? Colors.black : Colors.white,
-                      btnColor:
-                          isFollowing ? Colors.white : const Color(0xff1F0A68),
-                      btnName: isFollowing ? "Follow" : "Following"),
+                        } else {
+                          var value = await ApiService.followInstitute(
+                              widget.id, setIsFollowingLoading);
+
+                          log("Unfollow$value");
+
+                          log("Follow$value");
+                          isFollowing = false;
+                        }
+                      });
+                    },
+                    btnColor:
+                        isFollowing ? Colors.white : const Color(0xff1F0A68),
+                    child: Center(
+                      child: isFollowLoading
+                          ? const SizedBox(
+                              height: 15,
+                              width: 15,
+                              child: CircularProgressIndicator(
+                                backgroundColor: Colors.white,
+                                strokeWidth: 2.0,
+                              ))
+                          : Text(
+                              isFollowing ? "Follow" : "Following",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: isFollowing
+                                      ? Colors.black
+                                      : Colors.white),
+                            ),
+                    ),
+                  ),
                   const SizedBox(height: 3.0),
                   const TextWithIcon(
-                      text: "456 Following",
-                      fontWeight: FontWeight.w600,
-                      icon: Icons.person),
+                    text: "456 Following",
+                    fontWeight: FontWeight.w600,
+                    icon: Icons.group,
+                    iconColor: Color(0xff451470),
+                  ),
                 ],
               )
             ],
