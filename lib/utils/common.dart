@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
+
 String convertSessionTime(String sessionTime) {
   int time = int.parse(sessionTime);
   String hour = ((time ~/ 60) % 12).toString();
@@ -40,4 +42,16 @@ class Console {
     const String reset = '\x1B[0m';
     log("${red}value$prettyString$reset");
   }
+}
+
+final GlobalKey<ScaffoldMessengerState> snackbarKey =
+    GlobalKey<ScaffoldMessengerState>();
+
+void ShowSnackBarMsg(String message, {Color? color}) {
+  final snackBar = SnackBar(
+    content: Text(message),
+    duration: const Duration(seconds: 3),
+    backgroundColor: color,
+  );
+  snackbarKey.currentState?.showSnackBar(snackBar);
 }

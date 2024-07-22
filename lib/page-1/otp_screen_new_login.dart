@@ -10,6 +10,7 @@ import 'package:myapp/page-1/splash_screen_n.dart';
 import 'package:myapp/phone/login_screen.dart';
 import 'package:myapp/slide_screen.dart';
 import 'package:myapp/utils.dart';
+import 'package:myapp/utils/common.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -237,10 +238,13 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
                                         value["already_registered"] == false) {
                                       log("value1$value");
                                       EasyLoading.dismiss();
-                                      EasyLoading.showToast(
+                                      ShowSnackBarMsg(
                                           "You are not registred. Plese registred now.",
-                                          toastPosition:
-                                              EasyLoadingToastPosition.bottom);
+                                          color: Colors.red);
+                                      // EasyLoading.showToast(
+                                      //     "You are not registred. Plese registred now.",
+                                      //     toastPosition:
+                                      //         EasyLoadingToastPosition.bottom);
 
                                       Navigator.pushReplacement(
                                           context,

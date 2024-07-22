@@ -13,6 +13,7 @@ import 'package:myapp/other/provider/user_booking_provider.dart';
 import 'package:myapp/page-1/shared.dart';
 import 'package:myapp/page-1/splash_screen_1.dart';
 import 'package:myapp/utils.dart';
+import 'package:myapp/utils/common.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
         child: GetMaterialApp(
           title: 'SMC App',
           debugShowCheckedModeBanner: false,
+          scaffoldMessengerKey: snackbarKey,
           scrollBehavior: MyCustomScrollBehavior(),
           theme: ThemeData(primarySwatch: Colors.grey),
           home: SplashScreen1(isLoggedIn: isLoggedIn),

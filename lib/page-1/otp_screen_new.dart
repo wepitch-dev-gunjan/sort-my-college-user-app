@@ -6,13 +6,13 @@ import 'package:myapp/other/constants.dart';
 import 'package:myapp/phone/login_screen.dart';
 import 'package:myapp/slide_screen.dart';
 import 'package:myapp/utils.dart';
+import 'package:myapp/utils/common.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class OtpScreenNew extends StatefulWidget {
   final String phoneNumber;
-  const OtpScreenNew(this.phoneNumber,{super.key});
+  const OtpScreenNew(this.phoneNumber, {super.key});
 
   @override
   State<OtpScreenNew> createState() => _OtpScreenNewState();
@@ -89,13 +89,13 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                   ),
                 ),
                 child: Padding(
-                  padding:  EdgeInsets.only(
-                      top: 40, left: 20, right: 20, bottom: ffem*50),
+                  padding: EdgeInsets.only(
+                      top: 40, left: 20, right: 20, bottom: ffem * 50),
                   child: Column(
                     children: [
                       Container(
-                        padding:
-                        EdgeInsets.fromLTRB(73 * fem, 10 * fem, 47 * fem, 6 * fem),
+                        padding: EdgeInsets.fromLTRB(
+                            73 * fem, 10 * fem, 47 * fem, 6 * fem),
                         width: double.infinity,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -104,7 +104,8 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                                 controller: otpController,
                                 length: 4,
                                 width: MediaQuery.of(context).size.width,
-                                textFieldAlignment: MainAxisAlignment.spaceAround,
+                                textFieldAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 fieldWidth: 40,
                                 //fieldStyle: FieldStyle.box,
                                 outlineBorderRadius: 15,
@@ -117,11 +118,8 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                                   otp = pin;
                                 }),
                             const SizedBox(height: 16),
-
                             Text(
                                 "${duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}"),
-
-
                             Container(
                               // didntreceiveanotpresendotpX1s (437:94)
                               margin: EdgeInsets.fromLTRB(
@@ -144,22 +142,28 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                                     onTap: () {
                                       if (isResendOtpEnabled) {
                                         EasyLoading.show();
-                                        ApiService.callVerifyOtpByPhone(widget.phoneNumber)
+                                        ApiService.callVerifyOtpByPhone(
+                                                widget.phoneNumber)
                                             .then((value) {
-                                          if (value["message"]["description"]==
+                                          if (value["message"]["description"] ==
                                               "Message in progress") {
-                                            duration = const Duration(minutes: 2);
+                                            duration =
+                                                const Duration(minutes: 2);
                                             setState(() {
                                               isResendOtpEnabled = false;
                                             });
                                             startTimer();
-                                            EasyLoading.showToast(value["message"]["description"],
+                                            EasyLoading.showToast(
+                                                value["message"]["description"],
                                                 toastPosition:
-                                                EasyLoadingToastPosition.bottom);
+                                                    EasyLoadingToastPosition
+                                                        .bottom);
                                           } else {
-                                            EasyLoading.showToast(value["message"]["description"],
+                                            EasyLoading.showToast(
+                                                value["message"]["description"],
                                                 toastPosition:
-                                                EasyLoadingToastPosition.bottom);
+                                                    EasyLoadingToastPosition
+                                                        .bottom);
                                           }
                                         });
                                       } else {}
@@ -177,7 +181,8 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                                         color: isResendOtpEnabled
                                             ? const Color(0xff000000)
                                             : Colors.grey,
-                                        decorationColor: const Color(0xff000000),
+                                        decorationColor:
+                                            const Color(0xff000000),
                                       ),
                                     ),
                                   ),
@@ -188,18 +193,23 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                               onTap: () async {
                                 if (otp.isEmpty) {
                                   EasyLoading.showToast(AppConstants.otperror,
-                                      toastPosition: EasyLoadingToastPosition.bottom);
+                                      toastPosition:
+                                          EasyLoadingToastPosition.bottom);
                                 } else {
-
                                   await EasyLoading.show(dismissOnTap: false);
                                   ApiService()
                                       .verify_otp_phone_2(
-                                      otp: otp.toString().trim(), number: widget.phoneNumber)
+                                          otp: otp.toString().trim(),
+                                          number: widget.phoneNumber)
                                       .then((value) async {
-                                    if (value["message"] == "OTP verified successfully" && value["already_registered"] == true)
-                                    {
-                                      EasyLoading.showToast("You are already registered user please go to login page",
-                                          toastPosition: EasyLoadingToastPosition.bottom );
+                                    if (value["message"] ==
+                                            "OTP verified successfully" &&
+                                        value["already_registered"] == true) {
+                                      // EasyLoading.showToast("You are already registered user please go to login page",
+                                      //     toastPosition: EasyLoadingToastPosition.bottom );
+                                      ShowSnackBarMsg(
+                                          "You are already registered user please go to login page",
+                                          color: Colors.orange);
 
                                       EasyLoading.dismiss();
 
@@ -209,36 +219,41 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                                       prefs.setString("auth", value["token"]);
                                       prefs.setString("token", value["token"]);*/
 
-
-
-                                     Navigator.pushReplacement(context,
-                                          MaterialPageRoute(builder: (context) =>  const LoginScreen()));
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const LoginScreen()));
 
                                       /*Navigator.pushReplacement(context,
                                           MaterialPageRoute(builder: (context) =>  MyHomePage()));*/
-
-                                    }
-                                    else if(value["message"] == "OTP verified successfully" && value["already_registered"] == false)
-                                    {
+                                    } else if (value["message"] ==
+                                            "OTP verified successfully" &&
+                                        value["already_registered"] == false) {
                                       EasyLoading.dismiss();
 
                                       EasyLoading.showToast(value["message"],
-                                          toastPosition: EasyLoadingToastPosition.bottom );
+                                          toastPosition:
+                                              EasyLoadingToastPosition.bottom);
 
-                                      SharedPreferences prefs = await SharedPreferences.getInstance();
-                                      prefs.setString("phone_number", widget.phoneNumber);
+                                      SharedPreferences prefs =
+                                          await SharedPreferences.getInstance();
+                                      prefs.setString(
+                                          "phone_number", widget.phoneNumber);
                                       prefs.setBool("authLogin", true);
                                       prefs.setString("auth", value["token"]);
                                       prefs.setString("token", value["token"]);
 
-                                      Navigator.pushReplacement(context,
-                                          MaterialPageRoute(builder: (context) =>  const QNAScreen()));
-
-                                    }
-                                    else {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const QNAScreen()));
+                                    } else {
                                       EasyLoading.dismiss();
                                       EasyLoading.showToast(value["message"],
-                                          toastPosition: EasyLoadingToastPosition.bottom);
+                                          toastPosition:
+                                              EasyLoadingToastPosition.bottom);
                                     }
                                   });
                                 }
@@ -269,7 +284,6 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                           ],
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -298,7 +312,8 @@ void configLoading() {
     ..boxShadow = <BoxShadow>[]
     ..indicatorType = EasyLoadingIndicatorType.circle;
 }
+
 void onTapGettingstarted(BuildContext context) {
-  Navigator.pushReplacement(context,
-      MaterialPageRoute(builder: (context) =>  const QNAScreen()));
+  Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => const QNAScreen()));
 }
