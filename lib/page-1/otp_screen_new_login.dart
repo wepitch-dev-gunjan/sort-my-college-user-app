@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/constants.dart';
 import 'package:myapp/page-1/sign_up_screen_new.dart';
+import 'package:myapp/page-1/splash_screen_1.dart';
+import 'package:myapp/page-1/splash_screen_n.dart';
 import 'package:myapp/phone/login_screen.dart';
 import 'package:myapp/slide_screen.dart';
 import 'package:myapp/utils.dart';
@@ -216,6 +219,7 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
                                           await SharedPreferences.getInstance();
                                       prefs.setString(
                                           "phone_number", widget.phoneNumber);
+
                                       prefs.setBool("authLogin", true);
                                       prefs.setString("auth", value["token"]);
                                       prefs.setString("token", value["token"]);
@@ -231,6 +235,7 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
                                     } else if (value["message"] ==
                                             "OTP verified successfully" &&
                                         value["already_registered"] == false) {
+                                      log("value1$value");
                                       EasyLoading.dismiss();
                                       EasyLoading.showToast(
                                           "You are not registred. Plese registred now.",
@@ -241,7 +246,7 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const SignupScreenNew()));
+                                                  const SplashScreenNew()));
                                     } else {
                                       EasyLoading.dismiss();
                                       EasyLoading.showToast(value["error"],

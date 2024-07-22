@@ -1,10 +1,7 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:myapp/home_page/homepagecontainer.dart';
-import 'package:myapp/page-1/shared.dart';
-import 'package:myapp/page-1/sign-up.dart';
 import 'package:myapp/page-1/sign_up_screen_new.dart';
 import 'package:myapp/phone/login_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SplashScreenNew extends StatefulWidget {
@@ -19,6 +16,7 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
 
   @override
   Widget build(BuildContext context) {
+    log("Splash Screen New");
     var mHeight = MediaQuery.sizeOf(context).height;
     var mWidth = MediaQuery.sizeOf(context).width;
     print(mHeight);
@@ -34,7 +32,7 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
               width: mWidth * 0.5,
               height: mHeight * 0.06,
               padding: const EdgeInsets.all(0),
-              margin: EdgeInsets.fromLTRB(0, mHeight * 0.10,7, 36),
+              margin: EdgeInsets.fromLTRB(0, mHeight * 0.10, 7, 36),
               child: Image.asset(
                 'assets/page-1/images/sortmycollege-logo-1.png',
                 fit: BoxFit.fitWidth,
@@ -98,7 +96,7 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
               height: mHeight * 0.06,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 50,right: 50),
+              padding: const EdgeInsets.only(left: 50, right: 50),
               child: Column(
                 children: [
                   SizedBox(
@@ -140,7 +138,7 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
                                 builder: (context) => const SignupScreenNew()));
                       },
                       style: ElevatedButton.styleFrom(
-                        elevation: 0,
+                          elevation: 0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -170,24 +168,24 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
   }
 }
 
-void onTapGettingStarted(BuildContext context) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  var token = prefs.getString("token");
-  if (token != null) {
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                token == null ? const Signup() : const HomePageContainer()));
-    SharedPre.saveAuthLogin(true);
-  } else {
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                token == null ? const Signup() : const HomePageContainer()));
-  }
-}
+// void onTapGettingStarted(BuildContext context) async {
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//   var token = prefs.getString("token");
+//   if (token != null) {
+//     Navigator.pushReplacement(
+//         context,
+//         MaterialPageRoute(
+//             builder: (context) =>
+//                 token == null ? const Signup() : const HomePageContainer()));
+//     SharedPre.saveAuthLogin(true);
+//   } else {
+//     Navigator.pushReplacement(
+//         context,
+//         MaterialPageRoute(
+//             builder: (context) =>
+//                 token == null ? const Signup() : const HomePageContainer()));
+//   }
+// }
 // void onTapLogIn(BuildContext context) async {
 //   SharedPreferences prefs = await SharedPreferences.getInstance();
 //   var token = prefs.getString("token");

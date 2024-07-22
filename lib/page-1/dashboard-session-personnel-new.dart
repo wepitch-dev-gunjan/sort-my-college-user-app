@@ -1072,7 +1072,7 @@ String slotCount(String date, List<Sessions> sessions) {
 
   for (final element in sessions) {
     var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
-    if (date.contains(apiDate) && element.sessionType == "Group") {
+    if (date.contains(apiDate) && element.sessionType == "Personal") {
       totalSlots += element.sessionAvailableSlots ?? 0;
     }
   }

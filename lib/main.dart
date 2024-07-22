@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,12 +27,15 @@ class MyApp extends StatelessWidget {
 
   final bool isLoggedIn;
 
+
+
   static Future<bool?> loggIn() async {
     return await SharedPre.getAuthLogin();
   }
 
   @override
   Widget build(BuildContext context) {
+    log("Isloging$isLoggedIn");
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => FollowerProvider()),

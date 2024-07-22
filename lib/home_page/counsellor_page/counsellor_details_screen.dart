@@ -648,80 +648,88 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                                           ColorsConst
                                                               .whiteColor,
                                                       color: Colors.white,
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          const SizedBox(
-                                                              height: 14),
-                                                          Center(
-                                                            child: Container(
-                                                              height: 46,
-                                                              width: 46,
-                                                              decoration:
-                                                                  const BoxDecoration(
-                                                                color: Colors
-                                                                    .black26,
-                                                                shape: BoxShape
-                                                                    .circle,
-                                                              ),
-                                                              child: Center(
-                                                                child: ClipOval(
-                                                                  child: Image
-                                                                      .network(
-                                                                    testimonial[
-                                                                            'profile_pic'] ??
-                                                                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9b7ve9oIilsA8oz5bbsrKZvAe2oT7ESuFKKUO3eHWRL0LEnOQnzz4lRHYAg&s',
-                                                                    fit: BoxFit
-                                                                        .cover,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal: 15),
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            const SizedBox(
+                                                                height: 14),
+                                                            Center(
+                                                              child: Container(
+                                                                height: 46,
+                                                                width: 46,
+                                                                decoration:
+                                                                    const BoxDecoration(
+                                                                  color: Colors
+                                                                      .black26,
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                ),
+                                                                child: Center(
+                                                                  child:
+                                                                      ClipOval(
+                                                                    child: Image
+                                                                        .network(
+                                                                      testimonial[
+                                                                              'profile_pic'] ??
+                                                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9b7ve9oIilsA8oz5bbsrKZvAe2oT7ESuFKKUO3eHWRL0LEnOQnzz4lRHYAg&s',
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 12),
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Image.asset(
-                                                                'assets/page-1/images/group-MqT.png',
-                                                                width: 15,
-                                                                height: 15.35,
-                                                              ),
-                                                              const SizedBox(
-                                                                  width: 6),
-                                                              Text(
-                                                                testimonial['rating'] !=
-                                                                        null
-                                                                    ? '${testimonial['rating']}'
-                                                                    : '1',
-                                                                style:
-                                                                    const TextStyle(
-                                                                        fontSize:
-                                                                            12),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 12),
-                                                          Center(
-                                                            child: Text(
-                                                              testimonial[
-                                                                      'message'] ??
-                                                                  'good',
-                                                              style:
-                                                                  const TextStyle(
+                                                            const SizedBox(
+                                                                height: 12),
+                                                            Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Image.asset(
+                                                                  'assets/page-1/images/group-MqT.png',
+                                                                  width: 15,
+                                                                  height: 15.35,
+                                                                ),
+                                                                const SizedBox(
+                                                                    width: 6),
+                                                                Text(
+                                                                  testimonial['rating'] !=
+                                                                          null
+                                                                      ? '${testimonial['rating']}'
+                                                                      : '1',
+                                                                  style: const TextStyle(
                                                                       fontSize:
                                                                           12),
+                                                                ),
+                                                              ],
                                                             ),
-                                                          ),
-                                                          const SizedBox(
-                                                              height: 14),
-                                                        ],
+                                                            const SizedBox(
+                                                                height: 12),
+                                                            Center(
+                                                              child: Text(
+                                                                testimonial[
+                                                                        'message'] ??
+                                                                    'good',
+                                                                style: const TextStyle(
+                                                                    fontStyle:
+                                                                        FontStyle
+                                                                            .italic,
+                                                                    fontSize:
+                                                                        12),
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                                height: 14),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -780,10 +788,11 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                     feedback_msg = value;
                                   },
                                   controller: controller,
+                                  cursorHeight: 22,
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
                                       contentPadding: const EdgeInsets.only(
-                                          left: 8.0, top: 14, bottom: 10),
+                                          left: 8.0, top: 4.0),
                                       hintText: 'comment',
                                       hintStyle: const TextStyle(
                                           color: Colors.black45),

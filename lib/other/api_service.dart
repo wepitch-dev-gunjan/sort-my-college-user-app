@@ -538,6 +538,7 @@ class ApiService {
 
     if (response.statusCode == 200) {
       var value = jsonDecode(response.body.toString());
+      log("name$value");
 
       if (value[0]['name'] == null) {
         prefs.setString('name', "NA");
