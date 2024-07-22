@@ -208,7 +208,7 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                                       // EasyLoading.showToast("You are already registered user please go to login page",
                                       //     toastPosition: EasyLoadingToastPosition.bottom );
                                       ShowSnackBarMsg(
-                                          "You are already registered user please go to login page",
+                                        "Already registered? Please log in.",
                                           color: Colors.orange);
 
                                       EasyLoading.dismiss();

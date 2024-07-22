@@ -239,7 +239,7 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
                                       log("value1$value");
                                       EasyLoading.dismiss();
                                       ShowSnackBarMsg(
-                                          "You are not registred. Plese registred now.",
+                                          "You are not registred. Plese registre now.",
                                           color: Colors.red);
                                       // EasyLoading.showToast(
                                       //     "You are not registred. Plese registred now.",

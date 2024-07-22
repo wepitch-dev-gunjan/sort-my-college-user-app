@@ -28,8 +28,6 @@ class MyApp extends StatelessWidget {
 
   final bool isLoggedIn;
 
-
-
   static Future<bool?> loggIn() async {
     return await SharedPre.getAuthLogin();
   }
