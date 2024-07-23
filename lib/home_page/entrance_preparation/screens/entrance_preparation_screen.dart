@@ -68,11 +68,13 @@ class EpCard extends StatelessWidget {
               return Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.fromLTRB(14, 0, 14, 10),
+                    // padding: const EdgeInsets.symmetric(
+                    //     horizontal: 14, vertical: 10),
                     child: Card(
                       color: ColorsConst.whiteColor,
                       surfaceTintColor: ColorsConst.whiteColor,
-                      elevation: 3,
+                      elevation: 2,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -149,7 +151,7 @@ class EpCard extends StatelessWidget {
                                         Container(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 4),
-                                          height: 16,
+                                          height: 14,
                                           // width: 40,
                                           decoration: BoxDecoration(
                                             color: ColorsConst.appBarColor,
@@ -161,7 +163,7 @@ class EpCard extends StatelessWidget {
                                               'CUET',
                                               style: TextStyle(
                                                   color: ColorsConst.whiteColor,
-                                                  fontSize: 10.sp,
+                                                  fontSize: 11.sp,
                                                   fontWeight: FontWeight.w400),
                                             ),
                                           ),

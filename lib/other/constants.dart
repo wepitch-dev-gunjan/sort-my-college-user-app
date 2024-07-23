@@ -1,8 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AppConstants {
-  static String baseUrl = 'https://www.sortmycollegeapp.com';
+  static String  baseUrl = dotenv.env['BASEURL'] ?? "";
   static String counsellorlistEndpoint = '/counsellor/';
   static String sendotpRequest = '/user/auth/sendOTPEmail';
   static String sendotpphoneRequest = '/user/auth/sendOTPPhone';

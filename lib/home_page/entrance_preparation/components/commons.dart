@@ -78,11 +78,12 @@ class Btn extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: height ?? 30.h,
-        width: width ?? 110.w,
+        width: width ?? 120.w,
         decoration: BoxDecoration(
           color: btnColor ?? Colors.white,
-          border: Border.all(color: ColorsConst.appBarColor, width: 1),
-          borderRadius: BorderRadius.circular(borderRadius ?? 6),
+          border: Border.all(
+              color: Colors.black.withOpacity(0.7400000095367432), width: 0.50),
+          borderRadius: BorderRadius.circular(borderRadius ?? 10),
         ),
         child: child ??
             Center(

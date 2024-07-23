@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -18,9 +19,14 @@ import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  bool? isLoggedIn = await MyApp.loggIn();
-  runApp(MyApp(isLoggedIn: isLoggedIn!));
-  // DependencyInjection.init();
+
+  try {
+    await dotenv.load(fileName: ".env");
+    bool? isLoggedIn = await MyApp.loggIn();
+    runApp(MyApp(isLoggedIn: isLoggedIn!));
+  } catch (e) {
+    log('Failed to load .env file: $e');
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -34,18 +40,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("Isloging$isLoggedIn");
+    log("Isloggedin: $isLoggedIn");
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => FollowerProvider()),
-        ChangeNotifierProvider(
-            create: (context) => CounsellorDetailsProvider()),
+        ChangeNotifierProvider(create: (context) => CounsellorDetailsProvider()),
         ChangeNotifierProvider(create: (context) => UserBookingProvider()),
-        ChangeNotifierProvider(
-            create: (context) =>
-                NewsProvider(newsApiService: NewsApiService())),
-        ChangeNotifierProvider(
-            create: (context) => NewsProvider1(newsService: NewsService())),
+        ChangeNotifierProvider(create: (context) => NewsProvider(newsApiService: NewsApiService())),
+        ChangeNotifierProvider(create: (context) => NewsProvider1(newsService: NewsService())),
       ],
       child: ScreenUtilInit(
         designSize: ScreenUtil.defaultSize,
