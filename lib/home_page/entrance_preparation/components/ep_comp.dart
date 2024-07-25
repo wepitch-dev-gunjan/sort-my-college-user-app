@@ -428,9 +428,10 @@ class _ProfileCardState extends State<ProfileCard> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const TextWithIcon(
+                  TextWithIcon(
                       text: "C-SCHEME JAIPUR",
                       fontWeight: FontWeight.w600,
+                      fontSize: 12.sp,
                       icon: Icons.location_on_sharp),
                   const SizedBox(height: 3),
                   const TextWithIcon(

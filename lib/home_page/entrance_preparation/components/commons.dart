@@ -18,6 +18,7 @@ class EpAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: false,
+
       backgroundColor: ColorsConst.whiteColor,
       surfaceTintColor: ColorsConst.whiteColor,
       title: Text(
@@ -39,7 +40,7 @@ class EpAppBar extends StatelessWidget implements PreferredSizeWidget {
       //     ),
       //   ),
       // ],
-      titleSpacing: -10,
+      titleSpacing: -5,
       leading: IconButton(
         onPressed: () {
           Navigator.pop(context);

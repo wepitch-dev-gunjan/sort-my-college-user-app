@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/home_page/model/banner_image_model.dart';
@@ -13,7 +12,7 @@ import 'package:myapp/model/counsellor_sessions.dart';
 import 'package:myapp/model/cousnellor_list_model.dart';
 import 'package:myapp/model/faculties_model.dart';
 import 'package:myapp/model/key_features_model.dart';
-import 'package:myapp/webinar_page/model/webinar_details_model.dart';
+// import 'package:myapp/webinar_page/model/webinar_details_model.dart';
 import 'package:myapp/webinar_page/webinar_model.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../model/course_model.dart';
@@ -25,7 +24,7 @@ class CounsellorDetailsProvider extends ChangeNotifier {
   List<CounsellorModel> counsellorModel = [];
   List<CounsellorData> counsellorData = [];
   List<WebinarModel> webinarList = [];
-  List<WebinarDetailsModel> webinarDetailsList = [];
+  // List<WebinarDetailsModel> webinarDetailsList = [];
   List<BannerImageModel> bannerImageList = [];
   List<TrandingWebinarModel> trendingWebinarList = [];
   List<LatestSessionsModel> popularWorkShopList = [];

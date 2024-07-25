@@ -170,7 +170,9 @@ class _ReviewCardState extends State<ReviewCard> {
                                   const SizedBox(height: 5),
                                   const Text(
                                     "Name",
-                                    style: TextStyle(fontSize: 12),
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500),
                                   ),
                                   RatingBarIndicator(
                                     rating: 3.5,

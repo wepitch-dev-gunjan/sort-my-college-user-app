@@ -63,7 +63,7 @@ class EpCard extends StatelessWidget {
     double ffem = fem * 0.97;
     return Column(
       children: [
-        const SizedBox(height: 10.0),
+        const SizedBox(height: 15.0),
         const TopSlider(),
         Expanded(
           child: ListView.builder(
@@ -103,8 +103,8 @@ class EpCard extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 5.0),
+                                        padding: const EdgeInsets.only(
+                                            right: 5.0, top: 12.0),
                                         child: Row(
                                           children: [
                                             Expanded(

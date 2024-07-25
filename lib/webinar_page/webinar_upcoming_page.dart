@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/home_page/homepage.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/provider/counsellor_details_provider.dart';
