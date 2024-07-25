@@ -339,6 +339,8 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                                 } else if (daysDifference == 0 &&
                                     isRegistered &&
                                     widget.webinarModel.canJoin == true) {
+                                  await ApiService.webinar_join(
+                                      widget.webinarModel.id!);
                                   launchUrlString(widget.webinarModel.joinUrl!);
                                 }
                               },

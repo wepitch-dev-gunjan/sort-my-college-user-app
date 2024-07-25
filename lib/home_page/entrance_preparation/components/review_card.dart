@@ -36,7 +36,7 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
           child: Row(
             children: [
               RatingBar.builder(
-                initialRating: 1,
+                initialRating: 5,
                 minRating: 1,
                 direction: Axis.horizontal,
                 allowHalfRating: true,

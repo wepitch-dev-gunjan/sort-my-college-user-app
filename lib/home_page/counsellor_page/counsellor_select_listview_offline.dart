@@ -131,7 +131,7 @@ class _CounsellorListPage_offlineState
                     margin: EdgeInsets.fromLTRB(
                         0 * fem, 0 * fem, 0 * fem, 0.5 * fem),
                     padding: EdgeInsets.fromLTRB(
-                        20 * fem, 60.79 * fem, 2 * fem, 12.40 * fem),
+                        8 * fem, 50.79 * fem, 2 * fem, 0 * fem),
                     width: double.infinity,
                     decoration: const BoxDecoration(
                       color: Colors.white,
@@ -980,27 +980,42 @@ class AppBar extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        GestureDetector(
+        InkWell(
           onTap: () {
             Navigator.pop(context);
           },
-          child: GestureDetector(
-            onTap: () {
+          child: IconButton(
+            onPressed: () {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const HomePageContainer()));
+              //
             },
-            child: const Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: Color(0xff1f0a68),
-                size: 25,
-              ),
-            ),
+            icon: const Icon(Icons.arrow_back_ios, color: Color(0xff1F0A68)),
           ),
         ),
+        // GestureDetector(
+        //   onTap: () {
+        //     Navigator.pop(context);
+        //   },
+        //   child: GestureDetector(
+        //     onTap: () {
+        //       Navigator.pushReplacement(
+        //           context,
+        //           MaterialPageRoute(
+        //               builder: (context) => const HomePageContainer()));
+        //     },
+        //     child: const Padding(
+        //       padding: EdgeInsets.only(left: 10),
+        //       child: Icon(
+        //         Icons.arrow_back_ios,
+        //         color: Color(0xff1f0a68),
+        //         size: 25,
+        //       ),
+        //     ),
+        //   ),
+        // ),
         const Text(
           'Find Counsellors',
           style: TextStyle(

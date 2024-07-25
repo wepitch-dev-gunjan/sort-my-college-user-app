@@ -222,7 +222,7 @@ class _HomePageState extends State<HomePage> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const EntrancePreparationScreen(),
+                                          const EpWithHomePage(),
                                     ),
                                   );
                                 },
@@ -736,8 +736,8 @@ class _HomePageState extends State<HomePage> {
                                                                             } else if (daysDifference == 0 &&
                                                                                 isRegistered &&
                                                                                 trending.canJoin == true) {
+                                                                              await ApiService.webinar_join(trending.id!);
                                                                               launchUrlString(trending.webinarJoinUrl!);
-                                                                              await ApiService.webinar_register(trending.id!);
                                                                             }
                                                                           },
                                                                           regdate:
@@ -1132,6 +1132,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void onTapgotocounsellor(BuildContext context) {
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => const HomePageContainer_2()));
+  }
+
+  void onTapgotoEP(BuildContext context) {
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (context) => const HomePageContainer_2()));
   }

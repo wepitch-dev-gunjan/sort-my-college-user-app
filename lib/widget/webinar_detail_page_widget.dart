@@ -501,6 +501,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                   } else if (daysDifference == 0 &&
                       isRegistere &&
                       widget.canJoin == true) {
+                    await ApiService.webinar_join(widget.webinarId!);
                     launchUrlString(widget.webinarJoinUrl!);
                   }
                 },

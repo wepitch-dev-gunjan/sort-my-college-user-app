@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../shared/colors_const.dart';
+import '../../../utils.dart';
 
 class EpAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -138,36 +140,56 @@ class FollowerBtn extends StatelessWidget {
 
 class TextWithIcon extends StatelessWidget {
   final String text;
-  final IconData icon;
+  final IconData? icon;
+  final String? assetImage;
   final double? fontSize;
   final FontWeight? fontWeight;
   final Color? textColor;
   final Color? iconColor;
-  const TextWithIcon(
-      {super.key,
-      required this.text,
-      required this.icon,
-      this.fontSize,
-      this.fontWeight,
-      this.textColor,
-      this.iconColor});
+
+  const TextWithIcon({
+    super.key,
+    required this.text,
+    this.icon,
+    this.assetImage,
+    this.fontSize,
+    this.fontWeight,
+    this.textColor,
+    this.iconColor,
+  });
 
   @override
   Widget build(BuildContext context) {
+    double baseWidth = 460;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double ffem = fem * 0.97;
     return Row(
       children: [
-        Icon(
-          icon,
-          size: 18.sp,
-          color: iconColor,
-        ),
-        const SizedBox(width: 2.0),
+        if (icon != null)
+          Icon(icon, size: 18.sp, color: iconColor)
+        else if (assetImage != null)
+          Image.asset(assetImage!, width: 16, height: 16),
+        const SizedBox(width: 4.0),
         Text(
           text,
-          style: GoogleFonts.lato(
-              fontSize: fontSize ?? 10.sp,
-              color: textColor ?? Colors.black,
-              fontWeight: fontWeight ?? FontWeight.w400),
+          style: SafeGoogleFont(
+            'Inter',
+            fontSize: fontSize ?? 12 * ffem,
+            fontWeight: fontWeight ?? FontWeight.w400,
+            height: 1.2125 * ffem / fem,
+            color: textColor ?? const Color(0xff696969),
+          ),
+          // style: SafeGoogleFont('Inter',
+          //     fontSize: fontSize ?? 10,
+          //     fontWeight: fontWeight ?? FontWeight.w400,
+          //     height: 1.2125,
+          //     color: textColor ?? Colors.black),
+
+          //  style: GoogleFonts.lato(
+          //         fontSize: fontSize ?? 10.sp,
+          //         color: textColor ?? Color(0xff5c5b5b),
+          //         fontWeight: fontWeight ?? FontWeight.w400,
+          //       ),
         ),
       ],
     );

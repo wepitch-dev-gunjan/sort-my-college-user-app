@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myapp/home_page/entrance_preparation/components/commons.dart';
@@ -20,13 +19,23 @@ class VisitProfilePage extends StatefulWidget {
 class _VisitProfilePageState extends State<VisitProfilePage> {
   List keyFeatures = [];
   var faculties;
+  var instituteDetails;
   bool isLoading = true;
 
   @override
   void initState() {
     getKeyFeatures(widget.id);
     getFacultiesData(widget.id);
+    getInstituteDetails(widget.id);
     super.initState();
+  }
+
+  getInstituteDetails(String id) async {
+    final res = await ApiService.getInstituteDetails(id: id);
+    setState(() {
+      instituteDetails = res;
+      isLoading = false;
+    });
   }
 
   getKeyFeatures(String id) async {
@@ -48,30 +57,26 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    log("idd${widget.id}");
+    // log("instituteDetails${instituteDetails}");
     return isLoading
         ? const Scaffold(
             backgroundColor: Colors.white,
             body: Center(child: CircularProgressIndicator()))
         : Scaffold(
             backgroundColor: Colors.white,
-            appBar: const EpAppBar(
-              title: "SortMyCollege",
+            appBar: EpAppBar(
+              title: instituteDetails['name'] ?? "N/A",
               icon: Icons.more_vert,
             ),
             body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ProfileCard(
-                    id: widget.id,
-                  ),
+                  ProfileCard(id: widget.id, data: instituteDetails),
                   const FullSizeBtns(),
                   const AboutUs(),
                   const CourseSection(),
-                  FacultiesCard(
-                    faculties: faculties,
-                  ),
+                  FacultiesCard(faculties: faculties),
                   KeyFeatures(keyFeatures: keyFeatures),
                   const ReviewCard(),
                   const GiveReviewSection()

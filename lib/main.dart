@@ -12,10 +12,10 @@ import 'package:myapp/other/provider/counsellor_details_provider.dart';
 import 'package:myapp/other/provider/follower_provider.dart';
 import 'package:myapp/other/provider/user_booking_provider.dart';
 import 'package:myapp/page-1/shared.dart';
-import 'package:myapp/page-1/splash_screen_1.dart';
 import 'package:myapp/utils.dart';
 import 'package:myapp/utils/common.dart';
 import 'package:provider/provider.dart';
+import 'page-1/splash_screen_1.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,10 +44,14 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => FollowerProvider()),
-        ChangeNotifierProvider(create: (context) => CounsellorDetailsProvider()),
+        ChangeNotifierProvider(
+            create: (context) => CounsellorDetailsProvider()),
         ChangeNotifierProvider(create: (context) => UserBookingProvider()),
-        ChangeNotifierProvider(create: (context) => NewsProvider(newsApiService: NewsApiService())),
-        ChangeNotifierProvider(create: (context) => NewsProvider1(newsService: NewsService())),
+        ChangeNotifierProvider(
+            create: (context) =>
+                NewsProvider(newsApiService: NewsApiService())),
+        ChangeNotifierProvider(
+            create: (context) => NewsProvider1(newsService: NewsService())),
       ],
       child: ScreenUtilInit(
         designSize: ScreenUtil.defaultSize,
@@ -65,3 +69,48 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// /// Example without a datasource
+// class DataTable2SimpleDemo extends StatelessWidget {
+//   const DataTable2SimpleDemo();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.all(16),
+//       child: DataTable2(
+      
+//           columnSpacing: 12,
+//           horizontalMargin: 12,
+//           minWidth: 600,
+//           columns: const [
+//             DataColumn2(
+//               label: Text('Price Band'),
+//               size: ColumnSize.L,
+//             ),
+//             DataColumn(
+//               label: Text('Column B'),
+//             ),
+//             DataColumn(
+//               label: Text('Column C'),
+//             ),
+//             DataColumn(
+//               label: Text('Column D'),
+//             ),
+//             DataColumn(
+//               label: Text('Column NUMBERS'),
+//               numeric: true,
+//             ),
+//           ],
+//           rows: List<DataRow>.generate(
+//               20,
+//               (index) => const DataRow(cells: [
+//                     DataCell(Text('A')),
+//                     DataCell(Text('B')),
+//                     DataCell(Text('C')),
+//                     DataCell(Text('D')),
+//                     DataCell(Text("E"))
+//                   ]))),
+//     );
+//   }
+// }

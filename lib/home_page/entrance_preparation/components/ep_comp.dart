@@ -388,7 +388,8 @@ class _EnquirySubmittedDialogState extends State<EnquirySubmittedDialog> {
 
 class ProfileCard extends StatefulWidget {
   final String id;
-  const ProfileCard({super.key, required this.id});
+  final dynamic data;
+  const ProfileCard({super.key, required this.id, required this.data});
 
   @override
   State<ProfileCard> createState() => _ProfileCardState();
@@ -416,9 +417,9 @@ class _ProfileCardState extends State<ProfileCard> {
             width: 398.w,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                "assets/page-1/images/webinarBanner.png",
-              ),
+              child: widget.data['cover_image'] != null
+                  ? Image.network(widget.data['cover_image'])
+                  : Image.asset("assets/page-1/images/comming_soon.png"),
             ),
           ),
           Row(
@@ -428,10 +429,12 @@ class _ProfileCardState extends State<ProfileCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const TextWithIcon(
-                      text: "C-SCHEME JAIPUR", icon: Icons.location_on_sharp),
+                      text: "C-SCHEME JAIPUR",
+                      fontWeight: FontWeight.w600,
+                      icon: Icons.location_on_sharp),
                   const SizedBox(height: 3),
                   const TextWithIcon(
-                      text: " Open until 9:00 PM",
+                      text: "Open until 9:00 PM",
                       fontWeight: FontWeight.w600,
                       textColor: Color(0xff4BD058),
                       icon: Icons.access_time_outlined),
@@ -445,9 +448,10 @@ class _ProfileCardState extends State<ProfileCard> {
                   InkWell(
                     onTap: () {},
                     child: const TextWithIcon(
-                        text: "DIRECTION",
-                        fontWeight: FontWeight.w600,
-                        icon: Icons.directions),
+                      text: "DIRECTION",
+                      fontWeight: FontWeight.w600,
+                      icon: Icons.directions,
+                    ),
                   ),
                 ],
               ),
@@ -502,11 +506,12 @@ class _ProfileCardState extends State<ProfileCard> {
                     ),
                   ),
                   const SizedBox(height: 3.0),
-                  const TextWithIcon(
-                    text: "456 Following",
-                    fontWeight: FontWeight.w600,
-                    icon: Icons.group,
-                    iconColor: Color(0xff451470),
+                  TextWithIcon(
+                    text: "8 Following",
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
+                    textColor: const Color(0xff5c5b5b),
+                    assetImage: "assets/page-1/images/group-NC9.png",
                   ),
                 ],
               )

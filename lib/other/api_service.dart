@@ -105,6 +105,21 @@ class ApiService {
     return jsonDecode(response.body);
   }
 
+  static Future webinar_join(String id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+    final headers = {
+      'Content-Type': 'application/json',
+      "Authorization": token,
+    };
+    final url = Uri.parse(
+        '${AppConstants.baseUrl}/admin/webinar/webinar-attended-user/$id');
+
+    final response = await http.put(url, headers: headers);
+
+    return jsonDecode(response.body);
+  }
+
   static Future<List<BannerImageModel>> getBannerImage() async {
     var url =
         Uri.parse("https://www.sortmycollegeapp.com/admin/home-page-banner");
@@ -1194,6 +1209,27 @@ class ApiService {
     print(token);
     var data;
     //console.log("Counsellor List : ${response.body}");
+    if (response.statusCode == 200) {
+      data = jsonDecode(response.body.toString());
+      return data;
+    }
+    if (response.statusCode == 404) {
+      return [];
+    }
+    return [];
+  }
+
+  static Future getInstituteDetails({required String id}) async {
+    var url = Uri.parse("${AppConstants.baseUrl}/ep/institute/user/$id");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+    final response = await http.get(url, headers: {
+      //"Content-Type": "application/json",
+      "Authorization": token,
+    });
+
+    var data;
+
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
       return data;

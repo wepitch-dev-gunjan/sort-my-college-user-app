@@ -1,11 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:http/http.dart';
 import 'package:myapp/home_page/entrance_preparation/screens/send_enquiry_page.dart';
 import 'package:myapp/home_page/entrance_preparation/screens/visit_profile_page.dart';
 import 'package:myapp/other/api_service.dart';
 import '../../../shared/colors_const.dart';
 import '../../../utils.dart';
+import '../../../utils/share_links.dart';
 import '../components/commons.dart';
 import '../components/shimmer_effect.dart';
 
@@ -50,27 +52,27 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
 
 class EpCard extends StatelessWidget {
   final dynamic data;
-  const EpCard({
-    super.key,
-    required this.data,
-  });
+  EpCard({super.key, required this.data});
+
+  List coursesList = ["CUET", "JEE", "CLET"];
 
   @override
   Widget build(BuildContext context) {
+    double baseWidth = 460;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double ffem = fem * 0.97;
     return Column(
       children: [
+        const SizedBox(height: 10.0),
         const TopSlider(),
         Expanded(
           child: ListView.builder(
             itemCount: data.length,
-            // physics: NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(14, 0, 14, 10),
-                    // padding: const EdgeInsets.symmetric(
-                    //     horizontal: 14, vertical: 10),
+                    padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
                     child: Card(
                       color: ColorsConst.whiteColor,
                       surfaceTintColor: ColorsConst.whiteColor,
@@ -88,8 +90,6 @@ class EpCard extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       CircleAvatar(
-                                        // minRadius: 30,
-                                        // maxRadius: 40,
                                         radius: 40,
                                         backgroundImage: NetworkImage(
                                             "${data[index]['profile_pic']}"),
@@ -97,96 +97,164 @@ class EpCard extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          data[index]['name'],
-                                          style: SafeGoogleFont(
-                                            'Inter',
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.w700,
-                                            height: 1.2125,
-                                            color: const Color(0xFF41403F),
-                                          ),
-                                        ),
-                                        // GestureDetector(
-                                        //   onTap: () {
-                                        //     shareLinks();
-                                        //   },
-                                        //   child: Container(
-                                        //     margin:
-                                        //         const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                                        //     width: 17.42.w,
-                                        //     height: 18.86.h,
-                                        //     child: Image.asset(
-                                        //         'assets/page-1/images/group-38-oFX.png',
-                                        //         width: 17.42.w,
-                                        //         height: 18.86.h),
-                                        //   ),
-                                        // ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.star,
-                                          size: 14,
-                                          color: Colors.amber,
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          "4.5",
-                                          style: TextStyle(
-                                              fontSize: 10.sp,
-                                              fontWeight: FontWeight.w700),
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(height: 5.0),
-                                    Row(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 4),
-                                          height: 14,
-                                          // width: 40,
-                                          decoration: BoxDecoration(
-                                            color: ColorsConst.appBarColor,
-                                            borderRadius:
-                                                BorderRadius.circular(4),
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              'CUET',
-                                              style: TextStyle(
-                                                  color: ColorsConst.whiteColor,
-                                                  fontSize: 11.sp,
-                                                  fontWeight: FontWeight.w400),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 5.0),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                data[index]['name'],
+                                                overflow: TextOverflow.ellipsis,
+                                                style: SafeGoogleFont(
+                                                  'Inter',
+                                                  fontSize: 22 * ffem,
+                                                  fontWeight: FontWeight.w700,
+                                                  height: 1.2125 * ffem / fem,
+                                                  color:
+                                                      const Color(0xFF41403F),
+                                                ),
+                                              ),
                                             ),
+                                            const SizedBox(width: 5.0),
+                                            InkWell(
+                                              onTap: () {
+                                                shareLinks();
+                                              },
+                                              child: Container(
+                                                margin:
+                                                    const EdgeInsets.fromLTRB(
+                                                        0, 3, 0, 0),
+                                                width: 17.42 * fem,
+                                                height: 18.86 * fem,
+                                                child: Image.asset(
+                                                  'assets/page-1/images/group-38-oFX.png',
+                                                  width: 17.42 * fem,
+                                                  height: 18.86 * fem,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.star,
+                                            size: 14,
+                                            color: Colors.amber,
+                                          ),
+                                          const SizedBox(width: 4),
+                                          Text(
+                                            "4.5",
+                                            style: TextStyle(
+                                                fontSize: 10.sp,
+                                                fontWeight: FontWeight.w700),
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(height: 5.0),
+                                      SizedBox(
+                                        child: SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            children: coursesList.isNotEmpty
+                                                ? List.generate(
+                                                    coursesList.length,
+                                                    (index) => Container(
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              right: 5.0),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 4.0,
+                                                              right: 4.0),
+                                                      height: 18 * fem,
+                                                      decoration: BoxDecoration(
+                                                        color: const Color(
+                                                            0xff1f0a68),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    3 * fem),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          coursesList[index],
+                                                          style: SafeGoogleFont(
+                                                            'Inter',
+                                                            fontSize: 11 * ffem,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            height: 1.0,
+                                                            color: const Color(
+                                                                0xffffffff),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                : [
+                                                    Container(
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              right: 5.0),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 4.0,
+                                                              right: 4.0),
+                                                      height: 18 * fem,
+                                                      decoration: BoxDecoration(
+                                                        color: const Color(
+                                                            0xff1f0a68),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    3 * fem),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          'N/A',
+                                                          style: SafeGoogleFont(
+                                                            'Inter',
+                                                            fontSize: 11 * ffem,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            height: 1.0,
+                                                            color: const Color(
+                                                                0xffffffff),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 5),
-                                    const TextWithIcon(
-                                        text: "C-SCHEME JAIPUR",
-                                        icon: Icons.location_on_sharp),
-                                    const SizedBox(height: 3),
-                                    const TextWithIcon(
-                                        text: " Open until 9:00 PM",
-                                        fontWeight: FontWeight.w600,
-                                        textColor: Color(0xff4BD058),
-                                        icon: Icons.access_time_outlined),
-                                    const SizedBox(height: 3),
-                                    const TextWithIcon(
-                                        text: "10+ Yrs In Business",
-                                        fontWeight: FontWeight.w600,
-                                        icon: Icons.work),
-                                  ],
-                                )
+                                      ),
+                                      const SizedBox(height: 5),
+                                      const TextWithIcon(
+                                          text: "C-SCHEME JAIPUR",
+                                          fontWeight: FontWeight.w600,
+                                          icon: Icons.location_on_sharp),
+                                      const SizedBox(height: 3),
+                                      const TextWithIcon(
+                                          text: " Open until 9:00 PM",
+                                          fontWeight: FontWeight.w600,
+                                          textColor: Color(0xff4BD058),
+                                          icon: Icons.access_time_outlined),
+                                      const SizedBox(height: 3),
+                                      const TextWithIcon(
+                                          text: "10+ Yrs In Business",
+                                          fontWeight: FontWeight.w600,
+                                          icon: Icons.work),
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                             const SizedBox(height: 8.0),
