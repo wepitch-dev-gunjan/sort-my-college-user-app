@@ -45,7 +45,6 @@ class _HomePageContainerState extends State<HomePageContainer> {
     return Scaffold(
       body: getBody(),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xffF2F2F2),
         type: BottomNavigationBarType.fixed,
         currentIndex: selectedIndex,
         iconSize: 22.0,

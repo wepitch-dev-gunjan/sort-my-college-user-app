@@ -40,8 +40,9 @@ class Faculties extends StatelessWidget {
           child: const Text(
             "View All",
             style: TextStyle(
-              fontWeight: FontWeight.w500,
-            ),
+                fontWeight: FontWeight.w600,
+                color: Color(0xff1F0A68),
+                fontSize: 12),
           ),
         ),
       ],
@@ -63,7 +64,7 @@ class FacultiesCard extends StatelessWidget {
       children: [
         const SizedBox(height: 25.0),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
           child: Faculties(facultiesData: faculties),
         ),
         SingleChildScrollView(
@@ -71,50 +72,53 @@ class FacultiesCard extends StatelessWidget {
           child: Row(
             children: [
               for (int i = 0; i < faculties.length; i++)
-                SizedBox(
-                  height: 70,
-                  width: 200,
-                  child: Card(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Flexible(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    faculties[i]['name'] ?? "N/A",
-                                    style: const TextStyle(
-                                        fontSize: 15,
-                                        overflow: TextOverflow.ellipsis,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  Text(
-                                    faculties[i]['qualifications'] ?? "N/A",
-                                    style: const TextStyle(
-                                        fontSize: 10,
-                                        overflow: TextOverflow.ellipsis,
-                                        fontWeight: FontWeight.w500),
-                                  )
-                                ],
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: SizedBox(
+                    height: 70,
+                    width: 200,
+                    child: Card(
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      faculties[i]['name'] ?? "N/A",
+                                      style: const TextStyle(
+                                          fontSize: 15,
+                                          overflow: TextOverflow.ellipsis,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    Text(
+                                      faculties[i]['qualifications'] ?? "N/A",
+                                      style: const TextStyle(
+                                          fontSize: 10,
+                                          overflow: TextOverflow.ellipsis,
+                                          fontWeight: FontWeight.w500),
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 5.0),
-                            SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: CircleAvatar(
-                                radius: 25,
-                                backgroundImage: NetworkImage(
-                                    "${faculties[i]['display_pic']}"),
-                              ),
-                            )
-                          ],
-                        ),
-                      )),
+                              const SizedBox(width: 5.0),
+                              SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: CircleAvatar(
+                                  radius: 25,
+                                  backgroundImage: NetworkImage(
+                                      "${faculties[i]['display_pic']}"),
+                                ),
+                              )
+                            ],
+                          ),
+                        )),
+                  ),
                 ),
             ],
           ),
@@ -162,6 +166,7 @@ class Courses extends StatelessWidget {
                 btnName: courses[i],
                 btnColor: const Color(0xff1F0A68),
                 textColor: Colors.white,
+                borderRadius: 5,
                 width: 75.w,
               ),
           ],
@@ -355,11 +360,11 @@ class _EnquirySubmittedDialogState extends State<EnquirySubmittedDialog> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Icon(Icons.close)),
+              // GestureDetector(
+              //     onTap: () {
+              //       Navigator.pop(context);
+              //     },
+              //     child: const Icon(Icons.close)),
             ],
           ),
           Image.asset("assets/page-1/images/Check.png"),
@@ -409,7 +414,7 @@ class _ProfileCardState extends State<ProfileCard> {
   Widget build(BuildContext context) {
     log("id in profilecard${widget.id}");
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
       child: Column(
         children: [
           SizedBox(
@@ -537,7 +542,7 @@ class _AboutUsState extends State<AboutUs> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -51,7 +51,6 @@ class _HomePageContainer_2State extends State<HomePageContainer_2> {
     return Scaffold(
       body: getBody(),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xffF2F2F2),
         type: BottomNavigationBarType.fixed,
         currentIndex: selectedIndex,
         iconSize: 22.0,
@@ -178,7 +177,6 @@ class _EpWithHomePageState extends State<EpWithHomePage> {
         child: getBody(),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xffF2F2F2),
         type: BottomNavigationBarType.fixed,
         currentIndex: selectedIndex,
         iconSize: 22.0,

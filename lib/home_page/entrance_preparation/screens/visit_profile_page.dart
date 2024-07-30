@@ -99,15 +99,17 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
                     ),
                     Btn(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  // ignore: prefer_const_constructors
-                                  builder: (context) => SendEnquiryPage()));
+                          // showDialog(
+                          //   context: context,
+                          //   builder: (BuildContext context) {
+                          //     return const EnquirySubmittedDialog();
+                          //   },
+                          // );
                         },
                         btnName: "Send Enquiry",
                         textColor: Colors.white,
                         height: 40,
+                        borderRadius: 5.0,
                         width: 160.w,
                         btnColor: const Color(0xff1F0A68))
                   ],
@@ -126,7 +128,7 @@ class CourseSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

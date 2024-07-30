@@ -9,6 +9,7 @@ import '../../../shared/colors_const.dart';
 import '../../../utils.dart';
 import '../../../utils/share_links.dart';
 import '../components/commons.dart';
+import '../components/ep_comp.dart';
 import '../components/shimmer_effect.dart';
 
 class EntrancePreparationScreen extends StatefulWidget {
@@ -279,11 +280,12 @@ class EpCard extends StatelessWidget {
                                   btnColor: ColorsConst.appBarColor,
                                   textColor: Colors.white,
                                   onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const SendEnquiryPage()));
+                                    // showDialog(
+                                    //   context: context,
+                                    //   builder: (BuildContext context) {
+                                    //     return const EnquirySubmittedDialog();
+                                    //   },
+                                    // );
                                   },
                                 ),
                               ],
