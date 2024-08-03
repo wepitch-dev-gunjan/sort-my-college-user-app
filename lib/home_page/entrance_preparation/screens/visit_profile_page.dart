@@ -4,13 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myapp/home_page/entrance_preparation/components/commons.dart';
 import 'package:myapp/home_page/entrance_preparation/screens/send_enquiry_page.dart';
 import 'package:myapp/other/api_service.dart';
+import '../../../utils/share_links.dart';
 import '../components/ep_comp.dart';
 import '../components/key_fetures.dart';
 import '../components/review_card.dart';
 
 class VisitProfilePage extends StatefulWidget {
   final String id;
-  const VisitProfilePage({super.key, required this.id});
+  final String title;
+  const VisitProfilePage({super.key, required this.id, required this.title});
 
   @override
   State<VisitProfilePage> createState() => _VisitProfilePageState();
@@ -65,8 +67,22 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
         : Scaffold(
             backgroundColor: Colors.white,
             appBar: EpAppBar(
-              title: instituteDetails['name'] ?? "N/A",
+              title: widget.title,
               icon: Icons.more_vert,
+              action: [
+                Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: GestureDetector(
+                      onTap: () {
+                        shareLinks();
+                      },
+                      child: Image.asset(
+                        "assets/page-1/images/share.png",
+                        color: const Color(0xff1F0A68),
+                        height: 23,
+                      ),
+                    )),
+              ],
             ),
             body: SingleChildScrollView(
               child: Column(
@@ -99,12 +115,12 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
                     ),
                     Btn(
                         onTap: () {
-                          // showDialog(
-                          //   context: context,
-                          //   builder: (BuildContext context) {
-                          //     return const EnquirySubmittedDialog();
-                          //   },
-                          // );
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const EnquirySubmittedDialog();
+                            },
+                          );
                         },
                         btnName: "Send Enquiry",
                         textColor: Colors.white,

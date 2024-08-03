@@ -9,6 +9,7 @@ class KeyFeatures extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(height: 20),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
           child: Column(
@@ -28,8 +29,8 @@ class KeyFeatures extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
               mainAxisExtent: 90,
             ),
             itemCount: keyFeatures.length,

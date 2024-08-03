@@ -1249,9 +1249,7 @@ class ApiService {
       //"Content-Type": "application/json",
       "Authorization": token,
     });
-    print(token);
     var data;
-    //console.log("Counsellor List : ${response.body}");
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
       return List<AnnouncementsModel>.from(
@@ -1273,7 +1271,6 @@ class ApiService {
       //"Content-Type": "application/json",
       "Authorization": token,
     });
-    print(token);
     var data;
     //console.log("Counsellor List : ${response.body}");
     if (response.statusCode == 200) {
@@ -1334,21 +1331,15 @@ class ApiService {
     };
     final url =
         Uri.parse('${AppConstants.baseUrl}/ep/institute/user/$id/unfollow');
-
     final response = await http.put(url, headers: headers, body: body);
     setIsLoading(false);
-
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body.toString());
-
-      log("Unfollow Api Response$data");
       return data;
     }
-
     if (response.statusCode == 400) {
       return {"error": "Counsellor is already followed by the user"};
     }
-
     return {};
   }
 }

@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:myapp/home_page/entrance_preparation/screens/send_enquiry_page.dart';
 import 'package:myapp/home_page/entrance_preparation/screens/visit_profile_page.dart';
 import 'package:myapp/other/api_service.dart';
@@ -66,14 +69,28 @@ class EpCard extends StatelessWidget {
       children: [
         const SizedBox(height: 15.0),
         const TopSlider(),
+        const SizedBox(height: 10.0),
         Expanded(
           child: ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
+              log("datainstute${data[index]['institute_timings']}");
+              // String getStartTimeForToday() {
+              //   String today =
+              //       DateFormat('EEEE').format(DateTime.now()).toUpperCase();
+              //   for (var timing in data[index]['institute_timings']['day']) {
+              //     if (timing.day == today) {
+              //       return timing.startTime;
+              //     }
+              //   }
+              //   return "Closed";
+              // }
+
+              // String startTime = getStartTimeForToday();
               return Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+                    padding: const EdgeInsets.fromLTRB(15, 0, 16, 0),
                     child: Card(
                       color: ColorsConst.whiteColor,
                       surfaceTintColor: ColorsConst.whiteColor,
@@ -87,13 +104,34 @@ class EpCard extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 4, top: 15, right: 15),
+                                      left: 15, top: 5, right: 15),
                                   child: Column(
                                     children: [
-                                      CircleAvatar(
-                                        radius: 40,
-                                        backgroundImage: NetworkImage(
-                                            "${data[index]['profile_pic']}"),
+                                      // CircleAvatar(
+                                      //   radius: 40,
+                                      //   backgroundImage: NetworkImage(
+                                      //       "${data[index]['profile_pic']}"),
+                                      // ),
+
+                                      SizedBox(
+                                        width: 95 * fem,
+                                        height: 104 * fem,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(75 * fem),
+                                          child: Image.network(
+                                            "${data[index]['profile_pic']}",
+                                            fit: BoxFit.cover,
+                                            errorBuilder: (BuildContext context,
+                                                Object exception,
+                                                StackTrace? stackTrace) {
+                                              return Image.asset(
+                                                'assets/page-1/images/comming_soon.png',
+                                                fit: BoxFit.cover,
+                                              );
+                                            },
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -152,7 +190,7 @@ class EpCard extends StatelessWidget {
                                           ),
                                           const SizedBox(width: 4),
                                           Text(
-                                            "4.5",
+                                            data[index]['rating'].toString(),
                                             style: TextStyle(
                                                 fontSize: 10.sp,
                                                 fontWeight: FontWeight.w700),
@@ -164,93 +202,89 @@ class EpCard extends StatelessWidget {
                                         child: SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
                                           child: Row(
-                                            children: coursesList.isNotEmpty
-                                                ? List.generate(
-                                                    coursesList.length,
-                                                    (index) => Container(
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                              right: 5.0),
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 4.0,
-                                                              right: 4.0),
-                                                      height: 18 * fem,
-                                                      decoration: BoxDecoration(
-                                                        color: const Color(
-                                                            0xff1f0a68),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    3 * fem),
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          coursesList[index],
-                                                          style: SafeGoogleFont(
-                                                            'Inter',
-                                                            fontSize: 11 * ffem,
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                            height: 1.0,
-                                                            color: const Color(
-                                                                0xffffffff),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  )
-                                                : [
-                                                    Container(
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                              right: 5.0),
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 4.0,
-                                                              right: 4.0),
-                                                      height: 18 * fem,
-                                                      decoration: BoxDecoration(
-                                                        color: const Color(
-                                                            0xff1f0a68),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    3 * fem),
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          'N/A',
-                                                          style: SafeGoogleFont(
-                                                            'Inter',
-                                                            fontSize: 11 * ffem,
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                            height: 1.0,
-                                                            color: const Color(
-                                                                0xffffffff),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                          ),
+                                              children: List.generate(
+                                            data[index]['courses'].length,
+                                            (index) => Container(
+                                              margin: const EdgeInsets.only(
+                                                  right: 5.0),
+                                              padding: const EdgeInsets.only(
+                                                  left: 4.0, right: 4.0),
+                                              height: 18 * fem,
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xff1f0a68),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        3 * fem),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  "${data[index]['courses'][index]['name'].toUpperCase() ?? "N/A"}",
+                                                  style: SafeGoogleFont(
+                                                    'Inter',
+                                                    fontSize: 11 * ffem,
+                                                    fontWeight: FontWeight.w700,
+                                                    height: 1.0,
+                                                    color:
+                                                        const Color(0xffffffff),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                              // : [
+                                              //     Container(
+                                              //       margin:
+                                              //           const EdgeInsets.only(
+                                              //               right: 5.0),
+                                              //       padding:
+                                              //           const EdgeInsets.only(
+                                              //               left: 4.0,
+                                              //               right: 4.0),
+                                              //       height: 18 * fem,
+                                              //       decoration: BoxDecoration(
+                                              //         color: const Color(
+                                              //             0xff1f0a68),
+                                              //         borderRadius:
+                                              //             BorderRadius
+                                              //                 .circular(
+                                              //                     3 * fem),
+                                              //       ),
+                                              //       child: Center(
+                                              //         child: Text(
+                                              //           'N/A',
+                                              //           style: SafeGoogleFont(
+                                              //             'Inter',
+                                              //             fontSize: 11 * ffem,
+                                              //             fontWeight:
+                                              //                 FontWeight.w700,
+                                              //             height: 1.0,
+                                              //             color: const Color(
+                                              //                 0xffffffff),
+                                              //           ),
+                                              //         ),
+                                              //       ),
+                                              //     ),
+                                              //   ],
+                                              ),
                                         ),
                                       ),
                                       const SizedBox(height: 5),
-                                      const TextWithIcon(
-                                          text: "C-SCHEME JAIPUR",
+                                      TextWithIcon(
+                                          text:
+                                              "${data[index]['address']['area']} ${data[index]['address']['city']} ${data[index]['address']['state']}",
                                           fontWeight: FontWeight.w600,
                                           icon: Icons.location_on_sharp),
                                       const SizedBox(height: 3),
-                                      const TextWithIcon(
-                                          text: " Open until 9:00 PM",
+                                      TextWithIcon(
+                                          text:
+                                              "Open until ${data[index]['institute_timings'][0]['start_time']}",
                                           fontWeight: FontWeight.w600,
-                                          textColor: Color(0xff4BD058),
+                                          textColor: const Color(0xff4BD058),
                                           icon: Icons.access_time_outlined),
                                       const SizedBox(height: 3),
-                                      const TextWithIcon(
-                                          text: "10+ Yrs In Business",
+                                      TextWithIcon(
+                                          text:
+                                              "${data[index]['years_of_experience'] ?? "N/A"}+ Yrs In Business",
                                           fontWeight: FontWeight.w600,
                                           icon: Icons.work),
                                     ],
@@ -260,7 +294,7 @@ class EpCard extends StatelessWidget {
                             ),
                             const SizedBox(height: 8.0),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Btn(
                                   btnName: "Visit Profile",
@@ -270,6 +304,7 @@ class EpCard extends StatelessWidget {
                                       MaterialPageRoute(
                                         builder: (context) => VisitProfilePage(
                                           id: data[index]['_id'],
+                                          title: data[index]['name'],
                                         ),
                                       ),
                                     );
@@ -280,12 +315,12 @@ class EpCard extends StatelessWidget {
                                   btnColor: ColorsConst.appBarColor,
                                   textColor: Colors.white,
                                   onTap: () {
-                                    // showDialog(
-                                    //   context: context,
-                                    //   builder: (BuildContext context) {
-                                    //     return const EnquirySubmittedDialog();
-                                    //   },
-                                    // );
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return const EnquirySubmittedDialog();
+                                      },
+                                    );
                                   },
                                 ),
                               ],

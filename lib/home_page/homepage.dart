@@ -1054,6 +1054,8 @@ class _HomePageState extends State<HomePage> {
                                         .counsellorProfilePic!,
                                     id: latestSessionsModel.counsellorId!,
                                     sessionId: latestSessionsModel.sessionId!,
+                                    sessionTime:
+                                        latestSessionsModel.sessionTime,
                                   );
                                 },
                               ),

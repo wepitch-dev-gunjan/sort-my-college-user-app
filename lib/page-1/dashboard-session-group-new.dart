@@ -583,17 +583,33 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                           MaterialPageRoute(
                                                             builder: (context) {
                                                               return CheckOutScreen(
-                                                                  sessionId: id,
-                                                                  designation:
-                                                                      widget
-                                                                          .designation,
-                                                                  name: widget
-                                                                      .name,
-                                                                  profilepicurl:
-                                                                      widget
-                                                                          .profilepic,
-                                                                  id: widget
-                                                                      .id);
+                                                                sessionId: id,
+                                                                designation: widget
+                                                                    .designation,
+                                                                name:
+                                                                    widget.name,
+                                                                profilepicurl:
+                                                                    widget
+                                                                        .profilepic,
+                                                                id: widget.id,
+                                                                sessionTopic:
+                                                                    counsellorSessionProvider
+                                                                        .details
+                                                                        .sessions![
+                                                                            index]
+                                                                        .sessionTopic,
+                                                                sessionDuration:
+                                                                    counsellorSessionProvider
+                                                                        .details
+                                                                        .sessions?[
+                                                                            index]
+                                                                        .sessionDuration,
+                                                                sessionTime: counsellorSessionProvider
+                                                                    .details
+                                                                    .sessions![
+                                                                        index]
+                                                                    .sessionTime!,
+                                                              );
                                                             },
                                                           ),
                                                         );
@@ -715,9 +731,6 @@ List<String> sampleViewDetails = [
 //   return "";
 // }
 
-
-
-
 bool isDateIsSame(String date, List<Sessions> sessions) {
   for (final element in sessions) {
     var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
@@ -730,13 +743,13 @@ bool isDateIsSame(String date, List<Sessions> sessions) {
 
 String slotCount(String date, List<Sessions> sessions) {
   dynamic totalSlots = 0;
-  
+
   for (final element in sessions) {
     var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
     if (date.contains(apiDate) && element.sessionType == "Group") {
       totalSlots += element.sessionAvailableSlots ?? 0;
     }
   }
-  
+
   return totalSlots > 0 ? totalSlots.toString() : "";
 }

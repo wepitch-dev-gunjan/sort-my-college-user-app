@@ -85,24 +85,26 @@ class FacultiesCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 5),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(11),
-                          color: const Color(0xff1F0A68),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.only(
-                            left: 5,
-                            right: 5,
-                            bottom: 2,
-                            top: 1,
+                      Center(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(11),
+                            color: const Color(0xff1F0A68),
                           ),
-                          child: Text(
-                            "Introduction",
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
+                          child: const Padding(
+                            padding: EdgeInsets.only(
+                              left: 5,
+                              right: 5,
+                              bottom: 2,
+                              top: 1,
+                            ),
+                            child: Text(
+                              "Introduction",
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),

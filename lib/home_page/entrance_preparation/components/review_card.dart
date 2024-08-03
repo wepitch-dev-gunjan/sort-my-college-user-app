@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -11,7 +13,7 @@ class GiveReviewSection extends StatefulWidget {
 }
 
 class _GiveReviewSectionState extends State<GiveReviewSection> {
-  double rating_val = 1;
+  double rating_val = 5;
   String feedback_msg = '';
   TextEditingController controller = TextEditingController();
   @override
@@ -38,7 +40,7 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemCount: 5,
-                itemSize: 18,
+                itemSize: 20,
                 itemBuilder: (context, _) => const Icon(
                   Icons.star,
                   color: Colors.amber,
@@ -76,6 +78,9 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
                   hintStyle: const TextStyle(color: Colors.black45),
                   suffixIcon: IconButton(
                     onPressed: () async {
+                      log("messege${controller.text}");
+                      log("rating${rating_val}");
+
                       // var value = await ApiService.Feedback_councellor(
                       //     widget.id, rating_val, feedback_msg);
                       // if (value["error"] ==

@@ -62,7 +62,7 @@ class FacultiesCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 25.0),
+        const SizedBox(height: 20.0),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
           child: Faculties(facultiesData: faculties),
@@ -391,10 +391,154 @@ class _EnquirySubmittedDialogState extends State<EnquirySubmittedDialog> {
   }
 }
 
+// class ProfileCard extends StatefulWidget {
+//   final String id;
+//   final dynamic data;
+//   const ProfileCard({super.key, required this.id, required this.data});
+
+//   @override
+//   State<ProfileCard> createState() => _ProfileCardState();
+// }
+
+// class _ProfileCardState extends State<ProfileCard> {
+//   bool isFollowing = false;
+//   bool isFollowLoading = false;
+//   int followerCount = 0;
+
+//   setIsFollowingLoading(bool state) {
+//     setState(() {
+//       isFollowLoading = state;
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+//       child: Column(
+//         children: [
+//           SizedBox(
+//             height: 190.h,
+//             width: 398.w,
+//             child: ClipRRect(
+//               borderRadius: BorderRadius.circular(10),
+//               child: widget.data['cover_image'] != null
+//                   ? Image.network(widget.data['cover_image'])
+//                   : Image.asset("assets/page-1/images/comming_soon.png"),
+//             ),
+//           ),
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.start,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   TextWithIcon(
+//                       text: "C-SCHEME JAIPUR",
+//                       fontWeight: FontWeight.w600,
+//                       fontSize: 12.sp,
+//                       icon: Icons.location_on_sharp),
+//                   const SizedBox(height: 3),
+//                   const TextWithIcon(
+//                       text: "Open until 9:00 PM",
+//                       fontWeight: FontWeight.w600,
+//                       textColor: Color(0xff4BD058),
+//                       icon: Icons.access_time_outlined),
+//                   const SizedBox(height: 3),
+//                   const TextWithIcon(
+//                       text: "4.9 (960)",
+//                       fontWeight: FontWeight.w600,
+//                       icon: Icons.star,
+//                       iconColor: Colors.amber),
+//                   const SizedBox(height: 3),
+//                   InkWell(
+//                     onTap: () {},
+//                     child: const TextWithIcon(
+//                       text: "DIRECTION",
+//                       fontWeight: FontWeight.w600,
+//                       icon: Icons.directions,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//               const Spacer(),
+//               Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   FollowerBtn(
+//                     onTap: () async {
+//                       setState(() async {
+//                         if (isFollowing) {
+//                           log("Id found=>${widget.id}");
+//                           var value = await ApiService.unfollowInstitute(
+//                               widget.id, setIsFollowingLoading);
+//                           log("valueUNfollow${value['status']}");
+
+//                           isFollowing = value['status'];
+//                           followerCount = followerCount - 1;
+//                           setState(() {});
+//                         } else {
+//                           var value = await ApiService.followInstitute(
+//                               widget.id, setIsFollowingLoading);
+//                           log("valuefollow${value['status']}");
+
+//                           isFollowing = value['status'];
+//                           followerCount = followerCount + 1;
+//                           setState(() {});
+//                         }
+//                       });
+//                     },
+//                     btnColor:
+//                         isFollowing ? Colors.white : const Color(0xff1F0A68),
+//                     child: Center(
+//                       child: isFollowLoading
+//                           ? const SizedBox(
+//                               height: 15,
+//                               width: 15,
+//                               child: CircularProgressIndicator(
+//                                 backgroundColor: Colors.white,
+//                                 strokeWidth: 2.0,
+//                               ))
+//                           : Text(
+//                               isFollowing ? "Following" : "Follow",
+//                               style: TextStyle(
+//                                   fontWeight: FontWeight.w600,
+//                                   color: isFollowing
+//                                       ? Colors.black
+//                                       : Colors.white),
+//                             ),
+//                     ),
+//                   ),
+//                   const SizedBox(height: 3.0),
+//                   Row(
+//                     children: [
+//                       SizedBox(width: 8),
+//                       TextWithIcon(
+//                         text: "$followerCount Following",
+//                         fontWeight: FontWeight.w500,
+//                         fontSize: 12,
+//                         textColor: const Color(0xff5c5b5b),
+//                         assetImage: "assets/page-1/images/group-NC9.png",
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               )
+//             ],
+//           ),
+//           const SizedBox(height: 5.0),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
 class ProfileCard extends StatefulWidget {
   final String id;
   final dynamic data;
-  const ProfileCard({super.key, required this.id, required this.data});
+  const ProfileCard({Key? key, required this.id, required this.data})
+      : super(key: key);
 
   @override
   State<ProfileCard> createState() => _ProfileCardState();
@@ -403,8 +547,16 @@ class ProfileCard extends StatefulWidget {
 class _ProfileCardState extends State<ProfileCard> {
   bool isFollowing = false;
   bool isFollowLoading = false;
+  int followerCount = 0;
 
-  setIsFollowingLoading(bool state) {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   followerCount = widget.data['followerCount'] ?? 0;
+  //   isFollowing = widget.data['isFollowing'] ?? false;
+  // }
+
+  void setIsFollowingLoading(bool state) {
     setState(() {
       isFollowLoading = state;
     });
@@ -412,7 +564,6 @@ class _ProfileCardState extends State<ProfileCard> {
 
   @override
   Widget build(BuildContext context) {
-    log("id in profilecard${widget.id}");
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
       child: Column(
@@ -429,6 +580,7 @@ class _ProfileCardState extends State<ProfileCard> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -467,28 +619,23 @@ class _ProfileCardState extends State<ProfileCard> {
                 children: [
                   FollowerBtn(
                     onTap: () async {
-                      setState(() async {
-                        if (!isFollowing) {
-                          log("Id found=>${widget.id}");
-                          var value = await ApiService.unfollowInstitute(
-                              widget.id, setIsFollowingLoading);
+                      if (isFollowing) {
+                        var value = await ApiService.unfollowInstitute(
+                            widget.id, setIsFollowingLoading);
 
-                          if (value['message' ==
-                              "User has unfollowed the institute"]) {
-                            isFollowing = true;
-                          } else {
-                            isFollowing = false;
-                          }
-                        } else {
-                          var value = await ApiService.followInstitute(
-                              widget.id, setIsFollowingLoading);
+                        isFollowing = value["status"];
+                        followerCount = value['followersCount'];
 
-                          log("Unfollow$value");
+                        setState(() {});
+                      } else {
+                        var value = await ApiService.followInstitute(
+                            widget.id, setIsFollowingLoading);
 
-                          log("Follow$value");
-                          isFollowing = false;
-                        }
-                      });
+                        isFollowing = value["status"];
+                        followerCount = value['followersCount'];
+
+                        setState(() {});
+                      }
                     },
                     btnColor:
                         isFollowing ? Colors.white : const Color(0xff1F0A68),
@@ -502,22 +649,27 @@ class _ProfileCardState extends State<ProfileCard> {
                                 strokeWidth: 2.0,
                               ))
                           : Text(
-                              isFollowing ? "Follow" : "Following",
+                              isFollowing ? "Following" : "Follow",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: isFollowing
-                                      ? Colors.black
-                                      : Colors.white),
+                                fontWeight: FontWeight.w600,
+                                color:
+                                    isFollowing ? Colors.black : Colors.white,
+                              ),
                             ),
                     ),
                   ),
                   const SizedBox(height: 3.0),
-                  TextWithIcon(
-                    text: "8 Following",
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12,
-                    textColor: const Color(0xff5c5b5b),
-                    assetImage: "assets/page-1/images/group-NC9.png",
+                  Row(
+                    children: [
+                      const SizedBox(width: 8),
+                      TextWithIcon(
+                        text: "$followerCount Following",
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
+                        textColor: const Color(0xff5c5b5b),
+                        assetImage: "assets/page-1/images/group-NC9.png",
+                      ),
+                    ],
                   ),
                 ],
               )

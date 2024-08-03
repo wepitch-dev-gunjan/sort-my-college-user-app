@@ -8,10 +8,12 @@ import '../../../utils.dart';
 class EpAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final IconData? icon;
+  final List<Widget>? action;
   const EpAppBar({
     super.key,
     required this.title,
     this.icon,
+    this.action
   });
 
   @override
@@ -31,15 +33,7 @@ class EpAppBar extends StatelessWidget implements PreferredSizeWidget {
           height: 0,
         ),
       ),
-      // actions: [
-      //   Padding(
-      //     padding: const EdgeInsets.only(right: 10),
-      //     child: Icon(
-      //       icon,
-      //       color: ColorsConst.appBarColor,
-      //     ),
-      //   ),
-      // ],
+      actions: action,
       titleSpacing: -5,
       leading: IconButton(
         onPressed: () {
@@ -80,7 +74,7 @@ class Btn extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: height ?? 30.h,
+        height: height ?? 32.h,
         width: width ?? 120.w,
         decoration: BoxDecoration(
           color: btnColor ?? Colors.white,
@@ -127,12 +121,12 @@ class FollowerBtn extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-          height: height ?? 30.h,
+          height: height ?? 35.h,
           width: width ?? 110.w,
           decoration: BoxDecoration(
             color: btnColor ?? Colors.white,
             border: Border.all(color: ColorsConst.appBarColor),
-            borderRadius: BorderRadius.circular(borderRadius ?? 6),
+            borderRadius: BorderRadius.circular(borderRadius ?? 5),
           ),
           child: child),
     );

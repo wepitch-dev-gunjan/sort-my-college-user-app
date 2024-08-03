@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:myapp/booking_page/booking_page.dart';
 import 'package:myapp/home_page/counsellor_page/counsellor_details_screen.dart';
 import 'package:myapp/other/api_service.dart';
@@ -17,7 +18,8 @@ class CheckOutScreen extends StatefulWidget {
   final String? id;
   final String designation;
   final String profilepicurl;
-  final String? sessionId;
+  final int? sessionTime, sessionDuration;
+  final String? sessionId, sessionTopic;
   const CheckOutScreen({
     required this.designation,
     required this.name,
@@ -25,6 +27,9 @@ class CheckOutScreen extends StatefulWidget {
     required this.profilepicurl,
     this.sessionId,
     super.key,
+    this.sessionTopic,
+    this.sessionDuration,
+    this.sessionTime,
   });
 
   @override
@@ -228,7 +233,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               )
             : Padding(
                 padding: const EdgeInsets.only(
-                    left: 8, right: 8, top: 30, bottom: 60),
+                    left: 8, right: 8, top: 30, bottom: 0),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -361,7 +366,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         child: Container(
                           padding: const EdgeInsets.only(
                               top: 12, left: 10, right: 10, bottom: 12),
-                          height: 170,
+                          height: 150,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -389,6 +394,108 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   )
                                 ],
                               ),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Session Topic',
+                                    style: TextStyle(
+                                        color: ColorsConst.black54Color,
+                                        fontSize: 12),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    widget.sessionTopic! ?? "N/A",
+                                    style: const TextStyle(
+                                      color: ColorsConst.black54Color,
+                                      fontSize: 13,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Session Date',
+                                    style: TextStyle(
+                                        color: ColorsConst.black54Color,
+                                        fontSize: 12),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    counsellorDetailController
+                                                .checkOutDetailsList
+                                                .isNotEmpty &&
+                                            counsellorDetailController
+                                                    .checkOutDetailsList[0]
+                                                    .sessionDate !=
+                                                null
+                                        ? DateFormat("yyyy-MM-dd").format(
+                                            DateTime.parse(
+                                                counsellorDetailController
+                                                    .checkOutDetailsList[0]
+                                                    .sessionDate!))
+                                        : "N/A",
+                                    style: const TextStyle(
+                                      color: ColorsConst.black54Color,
+                                      fontSize: 13,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Session time',
+                                    style: TextStyle(
+                                        color: ColorsConst.black54Color,
+                                        fontSize: 12),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    widget.sessionTime != null
+                                        ? '${(widget.sessionTime! ~/ 60) % 12 == 0 ? 12 : (widget.sessionTime! ~/ 60) % 12}:${(widget.sessionTime! % 60).toString().padLeft(2, '0')} ${(widget.sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
+                                        : 'N/A',
+                                    style: const TextStyle(
+                                      color: ColorsConst.black54Color,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Session Duration',
+                                    style: TextStyle(
+                                        color: ColorsConst.black54Color,
+                                        fontSize: 12),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    "${widget.sessionDuration} Min.",
+                                    style: const TextStyle(
+                                      color: ColorsConst.black54Color,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Card(
+                        elevation: 4,
+                        shadowColor: ColorsConst.whiteColor,
+                        color: ColorsConst.whiteColor,
+                        surfaceTintColor: ColorsConst.whiteColor,
+                        child: Container(
+                          padding: const EdgeInsets.only(
+                              top: 12, left: 10, right: 10, bottom: 12),
+                          height: 120,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
                               Row(
                                 children: [
                                   const Text(
