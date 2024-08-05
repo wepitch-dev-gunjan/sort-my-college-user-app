@@ -9,6 +9,7 @@ class LatestSessionsModel {
   int? sessionTime;
   String? sessionDate;
   String? sessionTopic;
+  int? sessionDuration;
   int? sessionFee;
 
   LatestSessionsModel({
@@ -20,7 +21,8 @@ class LatestSessionsModel {
     this.sessionTime,
     this.sessionDate,
     this.sessionFee,
-    this.sessionTopic
+    this.sessionTopic,
+    this.sessionDuration
   });
 
   LatestSessionsModel.fromJson(Map<String, dynamic> json) {
@@ -33,6 +35,8 @@ class LatestSessionsModel {
     sessionDate = json['session_date'];
     sessionFee = json['session_fee'];
      sessionTopic = json['session_topic'];
+     sessionDuration=json['session_duration'];
+   
   }
 
   Map<String, dynamic> toJson() {
@@ -47,6 +51,7 @@ class LatestSessionsModel {
     data['session_date'] = sessionDate;
     data['session_fee'] = sessionFee;
    data ['session_topic']=sessionTopic;
+   data['session_duration']=sessionDuration;
     return data;
   }
 }

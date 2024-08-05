@@ -19,14 +19,10 @@ import 'page-1/splash_screen_1.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  try {
     await dotenv.load(fileName: ".env");
     bool? isLoggedIn = await MyApp.loggIn();
     runApp(MyApp(isLoggedIn: isLoggedIn!));
-  } catch (e) {
-    log('Failed to load .env file: $e');
-  }
+ 
 }
 
 class MyApp extends StatelessWidget {
@@ -40,7 +36,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("Isloggedin: $isLoggedIn");
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => FollowerProvider()),

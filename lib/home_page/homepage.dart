@@ -515,7 +515,6 @@ class _HomePageState extends State<HomePage> {
                                                           MaterialPageRoute(
                                                               builder:
                                                                   (context) {
-                                                            log("Webinar registered: ${trending.canJoin}");
                                                             return WebinarDetailsPageWidget(
                                                               webinarId:
                                                                   trending.id,
@@ -785,41 +784,6 @@ class _HomePageState extends State<HomePage> {
     await _prefs.setBool('isRegistrationStarting', isStarting);
   }
 
-  Widget customRegisterNow({
-    required VoidCallback onPressed,
-    required String title,
-    required bool isRegisterNow,
-  }) {
-    Color buttonColor =
-        isRegisterNow ? const Color(0xff1F0A68) : ColorsConst.grayColor;
-    Color textColor = isRegisterNow ? Colors.white : Colors.black;
-
-    return SizedBox(
-      height: 35,
-      width: 238,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          shadowColor: ColorsConst.whiteColor,
-          elevation: 4,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-          foregroundColor: textColor,
-          backgroundColor: buttonColor,
-        ),
-        child: Text(
-          title,
-          style: SafeGoogleFont(
-            "Inter",
-            fontSize: 15,
-            fontWeight: isRegisterNow ? FontWeight.w500 : FontWeight.w500,
-          ),
-        ),
-      ),
-    );
-  }
-
   CustomWebinarCard buildCustomWebinarCard(
     TrandingWebinarModel trending,
   ) {
@@ -1056,6 +1020,9 @@ class _HomePageState extends State<HomePage> {
                                     sessionId: latestSessionsModel.sessionId!,
                                     sessionTime:
                                         latestSessionsModel.sessionTime,
+                                        sessionTopic:latestSessionsModel.sessionTopic ,
+                                        sessionDuration: latestSessionsModel.sessionDuration,
+
                                   );
                                 },
                               ),

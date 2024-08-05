@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'dart:developer';
-import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:jiffy/jiffy.dart';
@@ -8,9 +6,7 @@ import 'package:myapp/booking_page/checkout_screen.dart';
 import 'package:myapp/home_page/homepagecontainer_2.dart';
 import 'package:myapp/utils.dart';
 import 'package:provider/provider.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../booking_page/booking_page.dart';
 import '../model/counsellor_sessions.dart';
 import '../other/provider/counsellor_details_provider.dart';
@@ -549,16 +545,6 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                       sPref.setString(
                                                           'sessionid', id!);
 
-                                                      /*Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  CheckOutScreen(
-                                                                      designation: widget.designation,
-                                                                      name: widget
-                                                                          .name,
-                                                                      id: id)));*/
-
                                                       var sessionSlots =
                                                           counsellorSessionProvider
                                                               .details
@@ -731,10 +717,36 @@ List<String> sampleViewDetails = [
 //   return "";
 // }
 
+// bool isDateIsSame(String date, List<Sessions> sessions) {
+//   for (final element in sessions) {
+//     var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
+//     if (date.contains(apiDate)) {
+//       return true;
+//     }
+//   }
+//   return false;
+// }
+
+// String slotCount(String date, List<Sessions> sessions) {
+//   dynamic totalSlots = 0;
+
+//   for (final element in sessions) {
+//     var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
+//     if (date.contains(apiDate) && element.sessionType == "Group") {
+//       totalSlots += element.sessionAvailableSlots ?? 0;
+//     }
+//   }
+
+//   return totalSlots > 0 ? totalSlots.toString() : "";
+// }
+
 bool isDateIsSame(String date, List<Sessions> sessions) {
+  // Remove leading zeros from the input date
+  var formattedDate = date.replaceAll(RegExp(r'\b0'), '');
+
   for (final element in sessions) {
-    var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
-    if (date.contains(apiDate)) {
+    var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "d MMM");
+    if (formattedDate.contains(apiDate)) {
       return true;
     }
   }
@@ -744,9 +756,12 @@ bool isDateIsSame(String date, List<Sessions> sessions) {
 String slotCount(String date, List<Sessions> sessions) {
   dynamic totalSlots = 0;
 
+  // Remove leading zeros from the input date
+  var formattedDate = date.replaceAll(RegExp(r'\b0'), '');
+
   for (final element in sessions) {
-    var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
-    if (date.contains(apiDate) && element.sessionType == "Group") {
+    var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "d MMM");
+    if (formattedDate.contains(apiDate) && element.sessionType == "Group") {
       totalSlots += element.sessionAvailableSlots ?? 0;
     }
   }

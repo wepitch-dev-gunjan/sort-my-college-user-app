@@ -358,6 +358,140 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       SizedBox(
                         height: height * 0.06,
                       ),
+                      counsellorDetailController
+                                  .checkOutDetailsList[0].sessionType ==
+                              "Personal"
+                          ? const SizedBox()
+                          : Card(
+                              elevation: 4,
+                              shadowColor: ColorsConst.whiteColor,
+                              color: ColorsConst.whiteColor,
+                              surfaceTintColor: ColorsConst.whiteColor,
+                              child: Container(
+                                padding: const EdgeInsets.only(
+                                    top: 12, left: 10, right: 10, bottom: 12),
+                                height: 150,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          'Session Type',
+                                          style: TextStyle(
+                                              color: ColorsConst.black54Color,
+                                              fontSize: 12),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          counsellorDetailController
+                                                  .checkOutDetailsList
+                                                  .isNotEmpty
+                                              ? counsellorDetailController
+                                                      .checkOutDetailsList[0]
+                                                      .sessionType ??
+                                                  "N/A"
+                                              : "N/A",
+                                          style: const TextStyle(
+                                            color: ColorsConst.black54Color,
+                                            fontSize: 13,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          'Session Topic',
+                                          style: TextStyle(
+                                              color: ColorsConst.black54Color,
+                                              fontSize: 12),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          widget.sessionTopic! ?? "N/A",
+                                          style: const TextStyle(
+                                            color: ColorsConst.black54Color,
+                                            fontSize: 13,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          'Session Date',
+                                          style: TextStyle(
+                                              color: ColorsConst.black54Color,
+                                              fontSize: 12),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          counsellorDetailController
+                                                      .checkOutDetailsList
+                                                      .isNotEmpty &&
+                                                  counsellorDetailController
+                                                          .checkOutDetailsList[
+                                                              0]
+                                                          .sessionDate !=
+                                                      null
+                                              ? DateFormat("yyyy-MM-dd").format(
+                                                  DateTime.parse(
+                                                      counsellorDetailController
+                                                          .checkOutDetailsList[
+                                                              0]
+                                                          .sessionDate!))
+                                              : "N/A",
+                                          style: const TextStyle(
+                                            color: ColorsConst.black54Color,
+                                            fontSize: 13,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          'Session time',
+                                          style: TextStyle(
+                                              color: ColorsConst.black54Color,
+                                              fontSize: 12),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          widget.sessionTime != null
+                                              ? '${(widget.sessionTime! ~/ 60) % 12 == 0 ? 12 : (widget.sessionTime! ~/ 60) % 12}:${(widget.sessionTime! % 60).toString().padLeft(2, '0')} ${(widget.sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
+                                              : 'N/A',
+                                          style: const TextStyle(
+                                            color: ColorsConst.black54Color,
+                                            fontSize: 13,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          'Session Duration',
+                                          style: TextStyle(
+                                              color: ColorsConst.black54Color,
+                                              fontSize: 12),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          "${widget.sessionDuration} Min.",
+                                          style: const TextStyle(
+                                            color: ColorsConst.black54Color,
+                                            fontSize: 13,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                       Card(
                         elevation: 4,
                         shadowColor: ColorsConst.whiteColor,
@@ -366,136 +500,43 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         child: Container(
                           padding: const EdgeInsets.only(
                               top: 12, left: 10, right: 10, bottom: 12),
-                          height: 150,
+                          height: counsellorDetailController
+                                      .checkOutDetailsList[0].sessionType ==
+                                  "Personal"
+                              ? 150
+                              : 120,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Row(
-                                children: [
-                                  const Text(
-                                    'Session Type',
-                                    style: TextStyle(
-                                        color: ColorsConst.black54Color,
-                                        fontSize: 12),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    counsellorDetailController
-                                            .checkOutDetailsList.isNotEmpty
-                                        ? counsellorDetailController
-                                                .checkOutDetailsList[0]
-                                                .sessionType ??
-                                            "N/A"
-                                        : "N/A",
-                                    style: const TextStyle(
-                                      color: ColorsConst.black54Color,
-                                      fontSize: 13,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Text(
-                                    'Session Topic',
-                                    style: TextStyle(
-                                        color: ColorsConst.black54Color,
-                                        fontSize: 12),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    widget.sessionTopic! ?? "N/A",
-                                    style: const TextStyle(
-                                      color: ColorsConst.black54Color,
-                                      fontSize: 13,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Text(
-                                    'Session Date',
-                                    style: TextStyle(
-                                        color: ColorsConst.black54Color,
-                                        fontSize: 12),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    counsellorDetailController
-                                                .checkOutDetailsList
-                                                .isNotEmpty &&
-                                            counsellorDetailController
-                                                    .checkOutDetailsList[0]
-                                                    .sessionDate !=
-                                                null
-                                        ? DateFormat("yyyy-MM-dd").format(
-                                            DateTime.parse(
-                                                counsellorDetailController
-                                                    .checkOutDetailsList[0]
-                                                    .sessionDate!))
-                                        : "N/A",
-                                    style: const TextStyle(
-                                      color: ColorsConst.black54Color,
-                                      fontSize: 13,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Text(
-                                    'Session time',
-                                    style: TextStyle(
-                                        color: ColorsConst.black54Color,
-                                        fontSize: 12),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    widget.sessionTime != null
-                                        ? '${(widget.sessionTime! ~/ 60) % 12 == 0 ? 12 : (widget.sessionTime! ~/ 60) % 12}:${(widget.sessionTime! % 60).toString().padLeft(2, '0')} ${(widget.sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
-                                        : 'N/A',
-                                    style: const TextStyle(
-                                      color: ColorsConst.black54Color,
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  const Text(
-                                    'Session Duration',
-                                    style: TextStyle(
-                                        color: ColorsConst.black54Color,
-                                        fontSize: 12),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    "${widget.sessionDuration} Min.",
-                                    style: const TextStyle(
-                                      color: ColorsConst.black54Color,
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Card(
-                        elevation: 4,
-                        shadowColor: ColorsConst.whiteColor,
-                        color: ColorsConst.whiteColor,
-                        surfaceTintColor: ColorsConst.whiteColor,
-                        child: Container(
-                          padding: const EdgeInsets.only(
-                              top: 12, left: 10, right: 10, bottom: 12),
-                          height: 120,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
+                              counsellorDetailController
+                                          .checkOutDetailsList[0].sessionType ==
+                                      "Personal"
+                                  ? Row(
+                                      children: [
+                                        const Text(
+                                          'Session Type',
+                                          style: TextStyle(
+                                              color: ColorsConst.black54Color,
+                                              fontSize: 12),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          counsellorDetailController
+                                                  .checkOutDetailsList
+                                                  .isNotEmpty
+                                              ? counsellorDetailController
+                                                      .checkOutDetailsList[0]
+                                                      .sessionType ??
+                                                  "N/A"
+                                              : "N/A",
+                                          style: const TextStyle(
+                                            color: ColorsConst.black54Color,
+                                            fontSize: 13,
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  : const SizedBox(),
                               Row(
                                 children: [
                                   const Text(

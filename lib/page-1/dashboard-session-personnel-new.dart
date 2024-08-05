@@ -528,58 +528,6 @@ class _Counseling_Session_PersonnelState
                                                     ],
                                                   ),
                                                   GestureDetector(
-                                                    /*onTap: ()
-                                                    {
-                                                      EasyLoading.show(
-                                                          status: "Loading...",
-                                                          dismissOnTap: false);
-                                                      ApiService.sessionBooked(
-                                                              counsellorSessionProvider
-                                                                  .details
-                                                                  .sessions![
-                                                                      index]
-                                                                  .id!)
-                                                          .then((value) {
-                                                        if (value["message"] ==
-                                                            "Counseling session booked successfully") {
-                                                          EasyLoading.showToast(
-                                                              value["message"],
-                                                              toastPosition:
-                                                                  EasyLoadingToastPosition
-                                                                      .bottom);
-                                                          context
-                                                              .read<
-                                                                  CounsellorDetailsProvider>()
-                                                              .fetchCounsellor_session(
-                                                                  id: widget
-                                                                      .id);
-                                                          var date = Jiffy.parse(
-                                                                  counsellorSessionProvider
-                                                                      .details
-                                                                      .sessions![
-                                                                          index]
-                                                                      .sessionDate!)
-                                                              .format(
-                                                                  pattern:
-                                                                      "yyyy-M-d");
-                                                          context
-                                                              .read<
-                                                                  CounsellorDetailsProvider>()
-                                                              .fetchCounsellor_session(
-                                                                  id: widget.id,
-                                                                  sessionType:
-                                                                      "Personal",
-                                                                  date: date);
-                                                          setState(() {});
-                                                        } else {
-                                                          EasyLoading.showToast(
-                                                              value["error"],
-                                                              toastPosition:
-                                                                  EasyLoadingToastPosition
-                                                                      .bottom);
-                                                        }
-                                                      });
-                                                    },*/
                                                     child: Container(
                                                       width: 96,
                                                       height: 38,
@@ -651,7 +599,12 @@ class _Counseling_Session_PersonnelState
                                                                             widget
                                                                                 .designation,
                                                                         profilepicurl:
-                                                                            widget.profilepic);
+                                                                            widget.profilepic,
+                                                                            sessionDuration: 0,
+                                                                            sessionTime: 0,
+                                                                            sessionTopic:"null",
+                                                                            
+                                                                            );
                                                                   },
                                                                 ),
                                                               );
@@ -1057,10 +1010,35 @@ List<String> sampleViewDetails = [
   "\u2022 duration:",
 ];
 
+// bool isDateIsSame(String date, List<Sessions> sessions) {
+//   for (final element in sessions) {
+//     var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
+//     if (date.contains(apiDate)) {
+//       return true;
+//     }
+//   }
+//   return false;
+// }
+
+// String slotCount(String date, List<Sessions> sessions) {
+//   dynamic totalSlots = 0;
+
+//   for (final element in sessions) {
+//     var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
+//     if (date.contains(apiDate) && element.sessionType == "Personal") {
+//       totalSlots += element.sessionAvailableSlots ?? 0;
+//     }
+//   }
+//   return totalSlots > 0 ? totalSlots.toString() : "";
+// }
+
 bool isDateIsSame(String date, List<Sessions> sessions) {
+  // Remove leading zeros from the input date
+  var formattedDate = date.replaceAll(RegExp(r'\b0'), '');
+
   for (final element in sessions) {
-    var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
-    if (date.contains(apiDate)) {
+    var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "d MMM");
+    if (formattedDate.contains(apiDate)) {
       return true;
     }
   }
@@ -1070,11 +1048,15 @@ bool isDateIsSame(String date, List<Sessions> sessions) {
 String slotCount(String date, List<Sessions> sessions) {
   dynamic totalSlots = 0;
 
+  // Remove leading zeros from the input date
+  var formattedDate = date.replaceAll(RegExp(r'\b0'), '');
+
   for (final element in sessions) {
-    var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
-    if (date.contains(apiDate) && element.sessionType == "Personal") {
+    var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "d MMM");
+    if (formattedDate.contains(apiDate) && element.sessionType == "Personal") {
       totalSlots += element.sessionAvailableSlots ?? 0;
     }
   }
+
   return totalSlots > 0 ? totalSlots.toString() : "";
 }
