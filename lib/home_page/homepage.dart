@@ -842,7 +842,7 @@ class _HomePageState extends State<HomePage> {
                             SizedBox(
                               width: 190.25,
                               child: Text(
-                                latestSessionsModel.counsellorDesignation!,
+                                latestSessionsModel.sessionTopic!,
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
@@ -1009,7 +1009,7 @@ class _HomePageState extends State<HomePage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  log("Session Id=> ${latestSessionsModel.sessionId}");
+                                  // log("Session Id=> ${latestSessionsModel.sessionId}");
                                   return CheckOutScreen(
                                     designation: latestSessionsModel
                                         .counsellorDesignation!,
@@ -1020,9 +1020,10 @@ class _HomePageState extends State<HomePage> {
                                     sessionId: latestSessionsModel.sessionId!,
                                     sessionTime:
                                         latestSessionsModel.sessionTime,
-                                        sessionTopic:latestSessionsModel.sessionTopic ,
-                                        sessionDuration: latestSessionsModel.sessionDuration,
-
+                                    sessionTopic:
+                                        latestSessionsModel.sessionTopic,
+                                    sessionDuration:
+                                        latestSessionsModel.sessionDuration,
                                   );
                                 },
                               ),

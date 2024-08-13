@@ -166,7 +166,6 @@ class ApiService {
     });
     var data;
     if (response.statusCode == 200) {
-      log("Webinaers Today=>>>>> ${response.body}");
       data = jsonDecode(response.body.toString());
       return List<WebinarModel>.from(data.map((x) => WebinarModel.fromJson(x)));
     }
@@ -186,7 +185,6 @@ class ApiService {
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
 
-      log("Trending Webinars=>>>>>>>>>$data");
       return List<TrandingWebinarModel>.from(
           data.map((x) => TrandingWebinarModel.fromJson(x)));
     }
@@ -251,7 +249,6 @@ class ApiService {
     });
     var data;
     if (response.statusCode == 200) {
-      log("webinar Detail +>${response.body.toString()}");
       data = jsonDecode(response.body.toString());
       // return List<WebinarDetailsModel>.from(
       //     data.map((x) => WebinarDetailsModel.fromJson(x)));
@@ -549,11 +546,9 @@ class ApiService {
     final url = Uri.parse('${AppConstants.baseUrl}/user/');
 
     final response = await http.get(url, headers: headers);
-    log("Profile Data${response.body}");
 
     if (response.statusCode == 200) {
       var value = jsonDecode(response.body.toString());
-      log("name$value");
 
       if (value[0]['name'] == null) {
         prefs.setString('name', "NA");
@@ -654,7 +649,6 @@ class ApiService {
     var url = Uri.parse("${AppConstants.baseUrl}/ep/institute/user");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
-    log("token$token");
     final response = await http.get(url, headers: {
       "Authorization": token,
     });
@@ -708,7 +702,6 @@ class ApiService {
       "Content-Type": "application/json",
       "Authorization": token,
     });
-    log("sssssssssssss${response.body}");
     return jsonDecode(response.body);
 
     // if (response.statusCode == 200) {
@@ -1082,7 +1075,6 @@ class ApiService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
 
-    log("token${token}");
     final url = Uri.parse(past == true
         ? "${AppConstants.baseUrl}/user/booking?past=true"
         : today == true
@@ -1107,7 +1099,6 @@ class ApiService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
 
-    log("token${token}");
     final url = Uri.parse(
         "${AppConstants.baseUrl}/counsellor/session/About-to-start/$id");
 
@@ -1341,5 +1332,92 @@ class ApiService {
       return {"error": "Counsellor is already followed by the user"};
     }
     return {};
+  }
+
+  static Future getInstituteAnnouncements({required String id}) async {
+    var url =
+        Uri.parse("${AppConstants.baseUrl}/ep/announcements-for-user/$id");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+    final response = await http.get(url, headers: {
+      //"Content-Type": "application/json",
+      "Authorization": token,
+    });
+
+    var data;
+
+    if (response.statusCode == 200) {
+      data = jsonDecode(response.body.toString());
+      return data;
+    }
+    return [];
+  }
+
+  static Future<Map<String, dynamic>> epEnquiry(
+      {String? id, double? ratingVal, String? feedbackMsg}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+
+    final body = jsonEncode({"enquired_to": id});
+    final headers = {
+      'Content-Type': 'application/json',
+      "Authorization": token,
+    };
+    final url = Uri.parse('${AppConstants.baseUrl}/ep/enquiry');
+    final response = await http.post(url, headers: headers, body: body);
+    if (response.statusCode == 201) {
+      var data = jsonDecode(response.body.toString());
+      return data;
+    } else if (response.statusCode == 400) {
+      return {"error": "Feedback is already given by the user"};
+    } else {
+      return {"error": "Something went wrong"};
+    }
+  }
+
+  static Future<Map<String, dynamic>> epFeedback(
+      {String? id, double? ratingVal, String? feedbackMsg}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+
+    final body = jsonEncode(
+        {"institute_id": id, 'rating': ratingVal, 'comment': feedbackMsg});
+    final headers = {
+      'Content-Type': 'application/json',
+      "Authorization": token,
+    };
+    final url = Uri.parse('${AppConstants.baseUrl}/ep/feedback');
+    log("messege${feedbackMsg}");
+    log("rating${ratingVal}");
+    final response = await http.post(url, headers: headers, body: body);
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body.toString());
+      log("responsefeedback$data");
+      return data;
+    } else if (response.statusCode == 400) {
+      return {"error": "Feedback is already given by the user"};
+    } else {
+      return {"error": "Something went wrong"};
+    }
+  }
+
+  static Future getEpFeedback({required String id}) async {
+    var url = Uri.parse("${AppConstants.baseUrl}/ep/feedbacks/getall/$id");
+    log("url==$url");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+    final response = await http.get(url, headers: {
+      //"Content-Type": "application/json",
+      "Authorization": token,
+    });
+
+    var data;
+
+    if (response.statusCode == 200) {
+      data = jsonDecode(response.body.toString());
+      log("feedback$data");
+      return data;
+    }
+    return [];
   }
 }

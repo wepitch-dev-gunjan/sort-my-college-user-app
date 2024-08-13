@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:myapp/home_page/entrance_preparation/components/commons.dart';
-import 'package:myapp/home_page/entrance_preparation/screens/send_enquiry_page.dart';
 import 'package:myapp/other/api_service.dart';
 import '../../../utils/share_links.dart';
 import '../components/ep_comp.dart';
@@ -23,12 +22,14 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
   var faculties;
   var instituteDetails;
   bool isLoading = true;
+  List reviews = []; // Store the reviews here
 
   @override
   void initState() {
     getKeyFeatures(widget.id);
     getFacultiesData(widget.id);
     getInstituteDetails(widget.id);
+    getFeedback(widget.id); // Load initial reviews
     super.initState();
   }
 
@@ -57,9 +58,23 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
     });
   }
 
+  getFeedback(String id) async {
+    final res = await ApiService.getEpFeedback(id: id);
+    setState(() {
+      reviews = res['feedbacks'];
+      isLoading = false;
+    });
+  }
+
+  // Callback to add a new review to the list
+  void addReview(Map<String, dynamic> review) {
+    setState(() {
+      reviews.insert(0, review); // Add the new review at the top of the list
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // log("instituteDetails${instituteDetails}");
     return isLoading
         ? const Scaffold(
             backgroundColor: Colors.white,
@@ -89,13 +104,16 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ProfileCard(id: widget.id, data: instituteDetails),
-                  const FullSizeBtns(),
+                  FullSizeBtns(id: widget.id),
                   const AboutUs(),
-                  const CourseSection(),
+                  CourseSection(courses: instituteDetails),
                   FacultiesCard(faculties: faculties),
                   KeyFeatures(keyFeatures: keyFeatures),
-                  const ReviewCard(),
-                  const GiveReviewSection()
+                  ReviewCard(id: widget.id, reviews: reviews), // Pass reviews to ReviewCard
+                  GiveReviewSection(
+                    id: widget.id,
+                    onReviewAdded: addReview, // Pass the callback to GiveReviewSection
+                  )
                 ],
               ),
             ),
@@ -114,13 +132,18 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
                           TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                     ),
                     Btn(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return const EnquirySubmittedDialog();
-                            },
-                          );
+                        onTap: () async {
+                          final response =
+                              await ApiService.epEnquiry(id: widget.id);
+                          if (response['message'] ==
+                              'Enquiry added successfully') {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const EnquirySubmittedDialog();
+                              },
+                            );
+                          }
                         },
                         btnName: "Send Enquiry",
                         textColor: Colors.white,
@@ -135,10 +158,11 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
           );
   }
 }
-
 class CourseSection extends StatelessWidget {
+  final dynamic courses;
   const CourseSection({
     super.key,
+    required this.courses,
   });
 
   @override
@@ -154,9 +178,9 @@ class CourseSection extends StatelessWidget {
           ),
           const SizedBox(height: 10.0),
           const Divider(),
-          Courses(courses: ugCourses, title: "Undergraduate Courses"),
+          UgCourses(data: courses, title: "Undergraduate Courses"),
           const SizedBox(height: 20.0),
-          Courses(courses: pgCourses, title: "Postgraduate Courses"),
+          PgCourses(data: courses, title: "Postgraduate Courses"),
         ],
       ),
     );

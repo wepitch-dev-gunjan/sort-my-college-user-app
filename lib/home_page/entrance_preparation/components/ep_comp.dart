@@ -95,12 +95,14 @@ class FacultiesCard extends StatelessWidget {
                                           overflow: TextOverflow.ellipsis,
                                           fontWeight: FontWeight.w500),
                                     ),
-                                    Text(
-                                      faculties[i]['qualifications'] ?? "N/A",
-                                      style: const TextStyle(
-                                          fontSize: 10,
-                                          overflow: TextOverflow.ellipsis,
-                                          fontWeight: FontWeight.w500),
+                                    Center(
+                                      child: Text(
+                                        faculties[i]['qualifications'] ?? "N/A",
+                                        style: const TextStyle(
+                                            fontSize: 10,
+                                            overflow: TextOverflow.ellipsis,
+                                            fontWeight: FontWeight.w500),
+                                      ),
                                     )
                                   ],
                                 ),
@@ -128,56 +130,130 @@ class FacultiesCard extends StatelessWidget {
   }
 }
 
-class Courses extends StatelessWidget {
-  final List courses;
+class UgCourses extends StatelessWidget {
+  final dynamic data;
   final String title;
-  const Courses({
+  const UgCourses({
     super.key,
-    required this.courses,
+    required this.data,
     required this.title,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            for (int i = 0; i < courses.length; i++)
-              Btn(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return CourseSendEnquiryCard(courseName: courses[i]);
-                    },
-                  );
-                },
-                btnName: courses[i],
-                btnColor: const Color(0xff1F0A68),
-                textColor: Colors.white,
-                borderRadius: 5,
-                width: 75.w,
+    // Filter the courses to only include those with type "UG"
+    List ugCourses =
+        data['courses'].where((course) => course['type'] == "UG").toList();
+
+    return ugCourses.isNotEmpty
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-          ],
-        )
-      ],
-    );
+              const SizedBox(height: 10),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    for (int i = 0; i < ugCourses.length; i++)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Btn(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CourseSendEnquiryCard(
+                                    courseName: ugCourses[i]['name']);
+                              },
+                            );
+                          },
+                          btnName: ugCourses[i]['name'],
+                          btnColor: const Color(0xff1F0A68),
+                          textColor: Colors.white,
+                          borderRadius: 5,
+                          width: 75.w,
+                        ),
+                      ),
+                  ],
+                ),
+              )
+            ],
+          )
+        : SizedBox();
   }
 }
 
-final List<String> ugCourses = ["NEET", "JEE", "CLAT", "CUET"];
-final List<String> pgCourses = ["NEET", "CUET", "CLAT", "CAT"];
+class PgCourses extends StatelessWidget {
+  final dynamic data;
+  final String title;
+  const PgCourses({
+    super.key,
+    required this.data,
+    required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // Filter the courses to only include those with type "UG"
+    List ugCourses =
+        data['courses'].where((course) => course['type'] == "PG").toList();
+
+    return ugCourses.isNotEmpty
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    for (int i = 0; i < ugCourses.length; i++)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Btn(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CourseSendEnquiryCard(
+                                    courseName: ugCourses[i]['name']);
+                              },
+                            );
+                          },
+                          btnName: ugCourses[i]['name'],
+                          btnColor: const Color(0xff1F0A68),
+                          textColor: Colors.white,
+                          borderRadius: 5,
+                          width: 75.w,
+                        ),
+                      ),
+                  ],
+                ),
+              )
+            ],
+          )
+        : SizedBox();
+  }
+}
+
+final List<String> ugCourses = ["NEET", "JEE", "CLAT", "CUET", "CLAT"];
+final List<String> pgCourses = ["NEET", "CUET", "CLAT", "CAT", "JEE"];
 
 class CourseSendEnquiryCard extends StatelessWidget {
   final String courseName;
@@ -391,149 +467,6 @@ class _EnquirySubmittedDialogState extends State<EnquirySubmittedDialog> {
   }
 }
 
-// class ProfileCard extends StatefulWidget {
-//   final String id;
-//   final dynamic data;
-//   const ProfileCard({super.key, required this.id, required this.data});
-
-//   @override
-//   State<ProfileCard> createState() => _ProfileCardState();
-// }
-
-// class _ProfileCardState extends State<ProfileCard> {
-//   bool isFollowing = false;
-//   bool isFollowLoading = false;
-//   int followerCount = 0;
-
-//   setIsFollowingLoading(bool state) {
-//     setState(() {
-//       isFollowLoading = state;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-//       child: Column(
-//         children: [
-//           SizedBox(
-//             height: 190.h,
-//             width: 398.w,
-//             child: ClipRRect(
-//               borderRadius: BorderRadius.circular(10),
-//               child: widget.data['cover_image'] != null
-//                   ? Image.network(widget.data['cover_image'])
-//                   : Image.asset("assets/page-1/images/comming_soon.png"),
-//             ),
-//           ),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.start,
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   TextWithIcon(
-//                       text: "C-SCHEME JAIPUR",
-//                       fontWeight: FontWeight.w600,
-//                       fontSize: 12.sp,
-//                       icon: Icons.location_on_sharp),
-//                   const SizedBox(height: 3),
-//                   const TextWithIcon(
-//                       text: "Open until 9:00 PM",
-//                       fontWeight: FontWeight.w600,
-//                       textColor: Color(0xff4BD058),
-//                       icon: Icons.access_time_outlined),
-//                   const SizedBox(height: 3),
-//                   const TextWithIcon(
-//                       text: "4.9 (960)",
-//                       fontWeight: FontWeight.w600,
-//                       icon: Icons.star,
-//                       iconColor: Colors.amber),
-//                   const SizedBox(height: 3),
-//                   InkWell(
-//                     onTap: () {},
-//                     child: const TextWithIcon(
-//                       text: "DIRECTION",
-//                       fontWeight: FontWeight.w600,
-//                       icon: Icons.directions,
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//               const Spacer(),
-//               Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   FollowerBtn(
-//                     onTap: () async {
-//                       setState(() async {
-//                         if (isFollowing) {
-//                           log("Id found=>${widget.id}");
-//                           var value = await ApiService.unfollowInstitute(
-//                               widget.id, setIsFollowingLoading);
-//                           log("valueUNfollow${value['status']}");
-
-//                           isFollowing = value['status'];
-//                           followerCount = followerCount - 1;
-//                           setState(() {});
-//                         } else {
-//                           var value = await ApiService.followInstitute(
-//                               widget.id, setIsFollowingLoading);
-//                           log("valuefollow${value['status']}");
-
-//                           isFollowing = value['status'];
-//                           followerCount = followerCount + 1;
-//                           setState(() {});
-//                         }
-//                       });
-//                     },
-//                     btnColor:
-//                         isFollowing ? Colors.white : const Color(0xff1F0A68),
-//                     child: Center(
-//                       child: isFollowLoading
-//                           ? const SizedBox(
-//                               height: 15,
-//                               width: 15,
-//                               child: CircularProgressIndicator(
-//                                 backgroundColor: Colors.white,
-//                                 strokeWidth: 2.0,
-//                               ))
-//                           : Text(
-//                               isFollowing ? "Following" : "Follow",
-//                               style: TextStyle(
-//                                   fontWeight: FontWeight.w600,
-//                                   color: isFollowing
-//                                       ? Colors.black
-//                                       : Colors.white),
-//                             ),
-//                     ),
-//                   ),
-//                   const SizedBox(height: 3.0),
-//                   Row(
-//                     children: [
-//                       SizedBox(width: 8),
-//                       TextWithIcon(
-//                         text: "$followerCount Following",
-//                         fontWeight: FontWeight.w500,
-//                         fontSize: 12,
-//                         textColor: const Color(0xff5c5b5b),
-//                         assetImage: "assets/page-1/images/group-NC9.png",
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               )
-//             ],
-//           ),
-//           const SizedBox(height: 5.0),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
 class ProfileCard extends StatefulWidget {
   final String id;
   final dynamic data;
@@ -565,7 +498,8 @@ class _ProfileCardState extends State<ProfileCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+      padding:
+          const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 14, right: 13),
       child: Column(
         children: [
           SizedBox(
@@ -586,29 +520,32 @@ class _ProfileCardState extends State<ProfileCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextWithIcon(
-                      text: "C-SCHEME JAIPUR",
+                      text: "${widget.data['address']['area'] ?? "N/A"}",
                       fontWeight: FontWeight.w600,
-                      fontSize: 12.sp,
+                      fontSize: 11.sp,
                       icon: Icons.location_on_sharp),
                   const SizedBox(height: 3),
-                  const TextWithIcon(
+                  TextWithIcon(
                       text: "Open until 9:00 PM",
+                      fontSize: 11.sp,
                       fontWeight: FontWeight.w600,
-                      textColor: Color(0xff4BD058),
+                      textColor: const Color(0xff4BD058),
                       icon: Icons.access_time_outlined),
                   const SizedBox(height: 3),
-                  const TextWithIcon(
-                      text: "4.9 (960)",
+                  TextWithIcon(
+                      text: "${widget.data['rating'] ?? "0".toString()}",
+                      fontSize: 11.sp,
                       fontWeight: FontWeight.w600,
                       icon: Icons.star,
                       iconColor: Colors.amber),
                   const SizedBox(height: 3),
                   InkWell(
                     onTap: () {},
-                    child: const TextWithIcon(
+                    child: TextWithIcon(
                       text: "DIRECTION",
                       fontWeight: FontWeight.w600,
                       icon: Icons.directions,
+                      fontSize: 11.sp,
                     ),
                   ),
                 ],
@@ -617,13 +554,68 @@ class _ProfileCardState extends State<ProfileCard> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // FollowerBtn(
+                  //   onTap: () async {
+                  //     if (!isFollowing) {
+                  //       var value = await ApiService.unfollowInstitute(
+                  //           widget.id, setIsFollowingLoading);
+
+                  //       log("$value");
+
+                  //       isFollowing = value["status"];
+
+                  //       log("Foolow/Unfollow${isFollowing.runtimeType}");
+                  //       followerCount = value['followersCount'];
+
+                  //       setState(() {});
+                  //     } else {
+                  //       var value = await ApiService.followInstitute(
+                  //           widget.id, setIsFollowingLoading);
+
+                  //       isFollowing = value["status"];
+                  //       followerCount = value['followersCount'];
+                  //       log("$value");
+
+                  //       setState(() {});
+                  //     }
+                  //   },
+                  //   btnColor:
+                  //       isFollowing ? Colors.white : const Color(0xff1F0A68),
+                  //   child: Center(
+                  //     child: isFollowLoading
+                  //         ? const SizedBox(
+                  //             height: 15,
+                  //             width: 15,
+                  //             child: CircularProgressIndicator(
+                  //               backgroundColor: Colors.white,
+                  //               strokeWidth: 2.0,
+                  //             ))
+                  //         : Text(
+                  //             isFollowing ? 'Following' : 'Follow',
+                  //             style: SafeGoogleFont(
+                  //               'Inter',
+                  //               fontSize: 14,
+                  //               fontWeight: FontWeight.w500,
+                  //               height: 1.2125,
+                  //               color: isFollowing
+                  //                   ? Colors.black
+                  //                   : const Color(0xffffffff),
+                  //             ),
+                  //           ),
+                  //   ),
+                  // ),
                   FollowerBtn(
                     onTap: () async {
                       if (isFollowing) {
                         var value = await ApiService.unfollowInstitute(
                             widget.id, setIsFollowingLoading);
 
-                        isFollowing = value["status"];
+                        log("$value");
+
+                        // Convert string to bool
+                        isFollowing = value["status"].toLowerCase() == 'true';
+
+                        log("Follow/Unfollow: ${isFollowing.runtimeType}");
                         followerCount = value['followersCount'];
 
                         setState(() {});
@@ -631,8 +623,11 @@ class _ProfileCardState extends State<ProfileCard> {
                         var value = await ApiService.followInstitute(
                             widget.id, setIsFollowingLoading);
 
-                        isFollowing = value["status"];
+                        // Convert string to bool
+                        isFollowing = value["status"].toLowerCase() == 'true';
+
                         followerCount = value['followersCount'];
+                        log("$value");
 
                         setState(() {});
                       }
@@ -647,18 +642,24 @@ class _ProfileCardState extends State<ProfileCard> {
                               child: CircularProgressIndicator(
                                 backgroundColor: Colors.white,
                                 strokeWidth: 2.0,
-                              ))
+                              ),
+                            )
                           : Text(
-                              isFollowing ? "Following" : "Follow",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color:
-                                    isFollowing ? Colors.black : Colors.white,
+                              isFollowing ? 'Following' : 'Follow',
+                              style: SafeGoogleFont(
+                                'Inter',
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                height: 1.2125,
+                                color: isFollowing
+                                    ? Colors.black
+                                    : const Color(0xffffffff),
                               ),
                             ),
                     ),
                   ),
-                  const SizedBox(height: 3.0),
+
+                  const SizedBox(height: 8.0),
                   Row(
                     children: [
                       const SizedBox(width: 8),
@@ -756,8 +757,9 @@ class _AboutUsState extends State<AboutUs> {
 }
 
 class FullSizeBtns extends StatelessWidget {
+  final String id;
   const FullSizeBtns({
-    super.key,
+    super.key, required this.id,
   });
 
   @override
@@ -794,7 +796,7 @@ class FullSizeBtns extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const AnnouncementScreen()));
+                      builder: (context) =>  AnnouncementScreen(id: id,)));
             },
             child: Container(
               height: 40,

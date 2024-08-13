@@ -9,18 +9,12 @@ class EpAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final IconData? icon;
   final List<Widget>? action;
-  const EpAppBar({
-    super.key,
-    required this.title,
-    this.icon,
-    this.action
-  });
+  const EpAppBar({super.key, required this.title, this.icon, this.action});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: false,
-
       backgroundColor: ColorsConst.whiteColor,
       surfaceTintColor: ColorsConst.whiteColor,
       title: Text(
@@ -121,7 +115,7 @@ class FollowerBtn extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-          height: height ?? 35.h,
+          height: 35,
           width: width ?? 110.w,
           decoration: BoxDecoration(
             color: btnColor ?? Colors.white,
