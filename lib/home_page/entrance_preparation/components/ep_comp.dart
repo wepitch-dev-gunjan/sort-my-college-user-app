@@ -479,18 +479,42 @@ class _EnquirySubmittedDialogState extends State<EnquirySubmittedDialog> {
 
 class ProfileCard extends StatefulWidget {
   final String id;
-  final dynamic data;
-  const ProfileCard({Key? key, required this.id, required this.data})
-      : super(key: key);
+  // final dynamic data;
+
+  const ProfileCard({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
 
   @override
   State<ProfileCard> createState() => _ProfileCardState();
 }
 
 class _ProfileCardState extends State<ProfileCard> {
+  bool isLoading = true;
   bool isFollowing = false;
   bool isFollowLoading = false;
   int followerCount = 0;
+  dynamic data;
+
+  @override
+  void initState() {
+    super.initState();
+    getInstituteDetails(widget.id);
+    // followerCount = widget.data != null && widget.data['follower_count'] != null
+    //     ? widget.data['follower_count']
+    //     : 0;
+  }
+
+  getInstituteDetails(String id) async {
+    final res = await ApiService.getInstituteDetails(id: id);
+    setState(() {
+      data = res;
+
+      followerCount = data['follower_count'];
+      isLoading = false;
+    });
+  }
 
   void setIsFollowingLoading(bool state) {
     setState(() {
@@ -510,9 +534,9 @@ class _ProfileCardState extends State<ProfileCard> {
             width: 398.w,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: widget.data != null && widget.data['cover_image'] != null
+              child: data != null && data['cover_image'] != null
                   ? Image.network(
-                      widget.data['cover_image'],
+                      data['cover_image'],
                       fit: BoxFit.cover,
                       loadingBuilder: (BuildContext context, Widget child,
                           ImageChunkEvent? loadingProgress) {
@@ -541,10 +565,10 @@ class _ProfileCardState extends State<ProfileCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextWithIcon(
-                      text: widget.data != null &&
-                              widget.data['address'] != null &&
-                              widget.data['address']['area'] != null
-                          ? widget.data['address']['area']
+                      text: data != null &&
+                              data['address'] != null &&
+                              data['address']['area'] != null
+                          ? data['address']['area']
                           : "N/A",
                       fontWeight: FontWeight.w600,
                       fontSize: 11.sp,
@@ -558,8 +582,8 @@ class _ProfileCardState extends State<ProfileCard> {
                       icon: Icons.access_time_outlined),
                   const SizedBox(height: 3),
                   TextWithIcon(
-                      text: widget.data != null && widget.data['rating'] != null
-                          ? widget.data['rating'].toString()
+                      text: data != null && data['rating'] != null
+                          ? data['rating'].toString()
                           : "0",
                       fontSize: 11.sp,
                       fontWeight: FontWeight.w600,
@@ -581,56 +605,6 @@ class _ProfileCardState extends State<ProfileCard> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // FollowerBtn(
-                  //   onTap: () async {
-                  //     if (!isFollowing) {
-                  //       var value = await ApiService.unfollowInstitute(
-                  //           widget.id, setIsFollowingLoading);
-
-                  //       log("$value");
-
-                  //       isFollowing = value["status"];
-
-                  //       log("Foolow/Unfollow${isFollowing.runtimeType}");
-                  //       followerCount = value['followersCount'];
-
-                  //       setState(() {});
-                  //     } else {
-                  //       var value = await ApiService.followInstitute(
-                  //           widget.id, setIsFollowingLoading);
-
-                  //       isFollowing = value["status"];
-                  //       followerCount = value['followersCount'];
-                  //       log("$value");
-
-                  //       setState(() {});
-                  //     }
-                  //   },
-                  //   btnColor:
-                  //       isFollowing ? Colors.white : const Color(0xff1F0A68),
-                  //   child: Center(
-                  //     child: isFollowLoading
-                  //         ? const SizedBox(
-                  //             height: 15,
-                  //             width: 15,
-                  //             child: CircularProgressIndicator(
-                  //               backgroundColor: Colors.white,
-                  //               strokeWidth: 2.0,
-                  //             ))
-                  //         : Text(
-                  //             isFollowing ? 'Following' : 'Follow',
-                  //             style: SafeGoogleFont(
-                  //               'Inter',
-                  //               fontSize: 14,
-                  //               fontWeight: FontWeight.w500,
-                  //               height: 1.2125,
-                  //               color: isFollowing
-                  //                   ? Colors.black
-                  //                   : const Color(0xffffffff),
-                  //             ),
-                  //           ),
-                  //   ),
-                  // ),
                   FollowerBtn(
                     onTap: () async {
                       if (isFollowing) {
@@ -643,7 +617,7 @@ class _ProfileCardState extends State<ProfileCard> {
                         isFollowing = value["status"].toLowerCase() == 'true';
 
                         log("Follow/Unfollow: ${isFollowing.runtimeType}");
-                        followerCount = value['followersCount'];
+                        followerCount = followerCount - 1;
 
                         setState(() {});
                       } else {
@@ -653,7 +627,7 @@ class _ProfileCardState extends State<ProfileCard> {
                         // Convert string to bool
                         isFollowing = value["status"].toLowerCase() == 'true';
 
-                        followerCount = value['followersCount'];
+                        followerCount = followerCount = 1;
                         log("$value");
 
                         setState(() {});
@@ -685,7 +659,6 @@ class _ProfileCardState extends State<ProfileCard> {
                             ),
                     ),
                   ),
-
                   const SizedBox(height: 8.0),
                   Row(
                     children: [
@@ -711,7 +684,11 @@ class _ProfileCardState extends State<ProfileCard> {
 }
 
 class AboutUs extends StatefulWidget {
-  const AboutUs({super.key});
+  final dynamic about;
+  const AboutUs({
+    super.key,
+    required this.about,
+  });
 
   @override
   State<AboutUs> createState() => _AboutUsState();
@@ -719,8 +696,23 @@ class AboutUs extends StatefulWidget {
 
 class _AboutUsState extends State<AboutUs> {
   bool isExpanded = false;
+  final int initialItemCount = 5;
+
   @override
   Widget build(BuildContext context) {
+    // Check if 'about' exists and is not null
+    if (widget.about == null || widget.about['about'] == null) {
+      return SizedBox(); // Or return a placeholder widget
+    }
+
+    final aboutText = widget.about['about'];
+    if (aboutText.isEmpty) {
+      return SizedBox(); // Or return a placeholder widget
+    }
+
+    bool shouldShowReadMore = aboutText.length > initialItemCount;
+    int itemCount = isExpanded ? aboutText.length : initialItemCount;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
       child: Column(
@@ -733,7 +725,7 @@ class _AboutUsState extends State<AboutUs> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                for (int i = 0; i < (isExpanded ? 10 : 5); i++)
+                for (int i = 0; i < itemCount && i < aboutText.length; i++)
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -748,7 +740,7 @@ class _AboutUsState extends State<AboutUs> {
                       ),
                       Expanded(
                         child: Text(
-                          "Lorem Ipsum is simply dummy text of the printing",
+                          aboutText[i],
                           style: SafeGoogleFont(
                             "Inter",
                             fontSize: 12,
@@ -759,21 +751,22 @@ class _AboutUsState extends State<AboutUs> {
                       ),
                     ],
                   ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isExpanded = !isExpanded;
-                    });
-                  },
-                  child: Text(
-                    isExpanded ? "Read Less" : "Read More",
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+                if (shouldShowReadMore)
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isExpanded = !isExpanded;
+                      });
+                    },
+                    child: Text(
+                      isExpanded ? "Read Less" : "Read More",
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
           ),

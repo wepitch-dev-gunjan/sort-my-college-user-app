@@ -102,15 +102,13 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ProfileCard(id: widget.id, data: instituteDetails),
+                  ProfileCard(id: widget.id, ),
                   FullSizeBtns(id: widget.id),
-                  const AboutUs(),
+                  AboutUs(about: instituteDetails),
                   CourseSection(courses: instituteDetails),
                   FacultiesCard(faculties: faculties),
                   KeyFeatures(keyFeatures: keyFeatures),
-                  ReviewCard(
-                      id: widget.id,
-                      reviews: reviews), // Pass reviews to ReviewCard
+                  ReviewCard(id: widget.id, reviews: reviews),
                   GiveReviewSection(
                     id: widget.id,
                     onReviewAdded: addReview,

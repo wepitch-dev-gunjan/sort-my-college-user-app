@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import '../../../other/api_service.dart';
 
 class GiveReviewSection extends StatefulWidget {
@@ -107,9 +104,8 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
                           backgroundColor: Colors.green,
                         );
 
-                        // Update the reviews list in ReviewCard
                         widget.onReviewAdded({
-                          'user_name': 'User', // Replace with actual user name
+                          'user_name': 'User', 
                           'rating': rating_val,
                           'comment': feedback_msg,
                         });
