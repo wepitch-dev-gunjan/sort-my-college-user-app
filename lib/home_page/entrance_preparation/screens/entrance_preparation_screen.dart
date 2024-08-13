@@ -266,23 +266,53 @@ class EpCard extends StatelessWidget {
                                     );
                                   },
                                 ),
+                                // Btn(
+                                //   btnName: "Send Enquiry",
+                                //   btnColor: ColorsConst.appBarColor,
+                                //   textColor: Colors.white,
+                                //   onTap: () async {
+                                //     final response = await ApiService.epEnquiry(
+                                //         id: data[index]['_id'].toString());
+                                //     if (response['message'] ==
+                                //         'Enquiry added successfully') {
+                                //       showDialog(
+                                //         context: context,
+                                //         builder: (BuildContext context) {
+                                //           return const EnquirySubmittedDialog();
+                                //         },
+                                //       );
+                                //     }
+
+                                //   },
+                                // ),
                                 Btn(
                                   btnName: "Send Enquiry",
                                   btnColor: ColorsConst.appBarColor,
                                   textColor: Colors.white,
                                   onTap: () async {
-                                    final response = await ApiService.epEnquiry(
-                                        id: data[index]['_id'].toString());
-                                    if (response['message'] ==
-                                        'Enquiry added successfully') {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return const EnquirySubmittedDialog();
-                                        },
-                                      );
+                                    print('Button tapped'); // Debug log
+
+                                    try {
+                                      final response =
+                                          await ApiService.epEnquiry(
+                                              id: data[index]['_id']
+                                                  .toString());
+                                      log('Response received: $response'); // Debug log
+
+                                      if (response['message'] ==
+                                          'Enquiry added successfully') {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return const EnquirySubmittedDialog();
+                                          },
+                                        );
+                                      } else {
+                                        log('Unexpected response: ${response['message']}');
+                                      }
+                                    } catch (e) {
+                                      log('Error sending enquiry: $e');
                                     }
-                                
                                   },
                                 ),
                               ],

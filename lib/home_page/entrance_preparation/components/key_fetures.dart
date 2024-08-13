@@ -6,6 +6,10 @@ class KeyFeatures extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (keyFeatures.isEmpty) {
+      return const SizedBox();
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

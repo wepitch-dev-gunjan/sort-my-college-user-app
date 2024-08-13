@@ -59,6 +59,10 @@ class FacultiesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (faculties == null || faculties.isEmpty) {
+      return const SizedBox();
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -141,7 +145,10 @@ class UgCourses extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Filter the courses to only include those with type "UG"
+    if (data == null || data['courses'] == null) {
+      return const SizedBox();
+    }
+
     List ugCourses =
         data['courses'].where((course) => course['type'] == "UG").toList();
 
@@ -187,7 +194,7 @@ class UgCourses extends StatelessWidget {
               )
             ],
           )
-        : SizedBox();
+        : const SizedBox();
   }
 }
 
@@ -202,11 +209,14 @@ class PgCourses extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Filter the courses to only include those with type "UG"
-    List ugCourses =
+    if (data == null || data['courses'] == null) {
+      return const SizedBox();
+    }
+
+    List pgCourses =
         data['courses'].where((course) => course['type'] == "PG").toList();
 
-    return ugCourses.isNotEmpty
+    return pgCourses.isNotEmpty
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -223,7 +233,7 @@ class PgCourses extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    for (int i = 0; i < ugCourses.length; i++)
+                    for (int i = 0; i < pgCourses.length; i++)
                       Padding(
                         padding: const EdgeInsets.only(right: 10),
                         child: Btn(
@@ -232,11 +242,11 @@ class PgCourses extends StatelessWidget {
                               context: context,
                               builder: (BuildContext context) {
                                 return CourseSendEnquiryCard(
-                                    courseName: ugCourses[i]['name']);
+                                    courseName: pgCourses[i]['name']);
                               },
                             );
                           },
-                          btnName: ugCourses[i]['name'],
+                          btnName: pgCourses[i]['name'],
                           btnColor: const Color(0xff1F0A68),
                           textColor: Colors.white,
                           borderRadius: 5,
@@ -248,7 +258,7 @@ class PgCourses extends StatelessWidget {
               )
             ],
           )
-        : SizedBox();
+        : const SizedBox();
   }
 }
 
@@ -482,13 +492,6 @@ class _ProfileCardState extends State<ProfileCard> {
   bool isFollowLoading = false;
   int followerCount = 0;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   followerCount = widget.data['followerCount'] ?? 0;
-  //   isFollowing = widget.data['isFollowing'] ?? false;
-  // }
-
   void setIsFollowingLoading(bool state) {
     setState(() {
       isFollowLoading = state;
@@ -507,11 +510,29 @@ class _ProfileCardState extends State<ProfileCard> {
             width: 398.w,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: widget.data['cover_image'] != null
-                  ? Image.network(widget.data['cover_image'])
+              child: widget.data != null && widget.data['cover_image'] != null
+                  ? Image.network(
+                      widget.data['cover_image'],
+                      fit: BoxFit.cover,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) {
+                          return child;
+                        } else {
+                          return Image.asset(
+                              "assets/page-1/images/comming_soon.png");
+                        }
+                      },
+                      errorBuilder: (BuildContext context, Object error,
+                          StackTrace? stackTrace) {
+                        return Image.asset(
+                            "assets/page-1/images/comming_soon.png");
+                      },
+                    )
                   : Image.asset("assets/page-1/images/comming_soon.png"),
             ),
           ),
+          const SizedBox(height: 10.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -520,7 +541,11 @@ class _ProfileCardState extends State<ProfileCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextWithIcon(
-                      text: "${widget.data['address']['area'] ?? "N/A"}",
+                      text: widget.data != null &&
+                              widget.data['address'] != null &&
+                              widget.data['address']['area'] != null
+                          ? widget.data['address']['area']
+                          : "N/A",
                       fontWeight: FontWeight.w600,
                       fontSize: 11.sp,
                       icon: Icons.location_on_sharp),
@@ -533,7 +558,9 @@ class _ProfileCardState extends State<ProfileCard> {
                       icon: Icons.access_time_outlined),
                   const SizedBox(height: 3),
                   TextWithIcon(
-                      text: "${widget.data['rating'] ?? "0".toString()}",
+                      text: widget.data != null && widget.data['rating'] != null
+                          ? widget.data['rating'].toString()
+                          : "0",
                       fontSize: 11.sp,
                       fontWeight: FontWeight.w600,
                       icon: Icons.star,
@@ -759,7 +786,8 @@ class _AboutUsState extends State<AboutUs> {
 class FullSizeBtns extends StatelessWidget {
   final String id;
   const FullSizeBtns({
-    super.key, required this.id,
+    super.key,
+    required this.id,
   });
 
   @override
@@ -796,7 +824,9 @@ class FullSizeBtns extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>  AnnouncementScreen(id: id,)));
+                      builder: (context) => AnnouncementScreen(
+                            id: id,
+                          )));
             },
             child: Container(
               height: 40,

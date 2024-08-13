@@ -8,7 +8,8 @@ import '../../../other/api_service.dart';
 
 class GiveReviewSection extends StatefulWidget {
   final String id;
-  final Function(Map<String, dynamic>) onReviewAdded; // Callback to update reviews in ReviewCard
+  final Function(Map<String, dynamic>)
+      onReviewAdded; // Callback to update reviews in ReviewCard
 
   const GiveReviewSection({
     super.key,
@@ -93,12 +94,14 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
                       feedbackMsg: feedback_msg,
                     );
 
-                    if (value["error"] == "Feedback is already given by the user") {
+                    if (value["error"] ==
+                        "Feedback is already given by the user") {
                       Fluttertoast.showToast(
                         msg: "Feedback is already given by the user",
                       );
                     } else {
-                      if (value["message"] == "Feedback has been successfully added") {
+                      if (value["message"] ==
+                          "Feedback has been successfully added") {
                         Fluttertoast.showToast(
                           msg: "Feedback has been successfully added",
                           backgroundColor: Colors.green,
@@ -130,13 +133,13 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
 }
 
 class ReviewCard extends StatefulWidget {
-  final String id;
-  final List reviews;
+  final String? id; // Allow nullable id
+  final List? reviews; // Allow nullable reviews
 
   const ReviewCard({
     super.key,
-    required this.id,
-    required this.reviews,
+    this.id,
+    this.reviews,
   });
 
   @override
@@ -161,109 +164,119 @@ class _ReviewCardState extends State<ReviewCard> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.reviews.isEmpty
-        ? const SizedBox.shrink()
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    // Check for null and empty list
+    if (widget.reviews == null || widget.reviews!.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+          child: Text(
+            'Reviews',
+            style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                child: Text(
-                  'Reviews',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.26,
-                      child: PageView.builder(
-                        controller: _pageController,
-                        onPageChanged: (index) {
-                          setState(() {
-                            _currentPage = index;
-                          });
-                        },
-                        scrollDirection: Axis.horizontal,
-                        itemCount: widget.reviews.length,
-                        itemBuilder: (context, index) {
-                          double rating = widget.reviews[index]['rating'].toDouble();
-                          return Row(
-                            children: [
-                              Expanded(
-                                child: Card(
-                                  color: Colors.white,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 10),
-                                    child: Column(
-                                      children: [
-                                        const CircleAvatar(radius: 25),
-                                        const SizedBox(height: 5),
-                                        Text(
-                                          widget.reviews[index]['user_name'].toString(),
-                                          style: const TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        RatingBarIndicator(
-                                          rating: rating,
-                                          itemSize: 20,
-                                          itemBuilder: (context, index) =>
-                                              const Icon(Icons.star,
-                                                  color: Colors.amber),
-                                        ),
-                                        const SizedBox(height: 8),
-                                        Expanded(
-                                          child: Center(
-                                            child: Text(
-                                              widget.reviews[index]['comment'],
-                                              style: const TextStyle(
-                                                  fontSize: 13,
-                                                  fontStyle: FontStyle.italic),
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 3,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.26,
+                child: PageView.builder(
+                  controller: _pageController,
+                  onPageChanged: (index) {
+                    setState(() {
+                      _currentPage = index;
+                    });
+                  },
+                  scrollDirection: Axis.horizontal,
+                  itemCount: widget.reviews!.length,
+                  itemBuilder: (context, index) {
+                    // Add null checks for individual items
+                    var review = widget.reviews![index];
+                    double rating = (review['rating'] ?? 0).toDouble();
+                    String userName =
+                        review['user_name']?.toString() ?? 'Anonymous';
+                    String comment =
+                        review['comment']?.toString() ?? 'No comment available';
+
+                    return Row(
                       children: [
-                        for (int i = 0; i < widget.reviews.length.clamp(0, 5); i++)
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              height: 6,
-                              width: 6,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                color: i == _currentPage
-                                    ? Colors.black
-                                    : Colors.grey.shade400,
+                        Expanded(
+                          child: Card(
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 10),
+                              child: Column(
+                                children: [
+                                  const CircleAvatar(radius: 25),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    userName,
+                                    style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  RatingBarIndicator(
+                                    rating: rating,
+                                    itemSize: 20,
+                                    itemBuilder: (context, index) => const Icon(
+                                        Icons.star,
+                                        color: Colors.amber),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        comment,
+                                        style: const TextStyle(
+                                            fontSize: 13,
+                                            fontStyle: FontStyle.italic),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 3,
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
-                          )
+                          ),
+                        ),
                       ],
-                    )
-                  ],
+                    );
+                  },
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (int i = 0; i < widget.reviews!.length.clamp(0, 5); i++)
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Container(
+                        height: 6,
+                        width: 6,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: i == _currentPage
+                              ? Colors.black
+                              : Colors.grey.shade400,
+                        ),
+                      ),
+                    )
+                ],
+              )
             ],
-          );
+          ),
+        ),
+      ],
+    );
   }
 }

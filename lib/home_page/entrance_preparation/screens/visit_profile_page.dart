@@ -66,10 +66,9 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
     });
   }
 
-  // Callback to add a new review to the list
   void addReview(Map<String, dynamic> review) {
     setState(() {
-      reviews.insert(0, review); // Add the new review at the top of the list
+      reviews.insert(0, review);
     });
   }
 
@@ -109,10 +108,12 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
                   CourseSection(courses: instituteDetails),
                   FacultiesCard(faculties: faculties),
                   KeyFeatures(keyFeatures: keyFeatures),
-                  ReviewCard(id: widget.id, reviews: reviews), // Pass reviews to ReviewCard
+                  ReviewCard(
+                      id: widget.id,
+                      reviews: reviews), // Pass reviews to ReviewCard
                   GiveReviewSection(
                     id: widget.id,
-                    onReviewAdded: addReview, // Pass the callback to GiveReviewSection
+                    onReviewAdded: addReview,
                   )
                 ],
               ),
@@ -158,6 +159,7 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
           );
   }
 }
+
 class CourseSection extends StatelessWidget {
   final dynamic courses;
   const CourseSection({
