@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../utils.dart';
@@ -567,7 +568,6 @@ class _ProfileCardState extends State<ProfileCard> {
     final res = await ApiService.getInstituteDetails(id: id);
     setState(() {
       data = res;
-
       followerCount = data['follower_count'];
       isFollowing = data['following'];
       isLoading = false;
@@ -582,6 +582,9 @@ class _ProfileCardState extends State<ProfileCard> {
 
   @override
   Widget build(BuildContext context) {
+    String statusText = _getOpenStatus();
+    Color statusColor =
+        statusText == "Closed" ? Colors.red : const Color(0xff4BD058);
     return Padding(
       padding:
           const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 14, right: 13),
@@ -623,23 +626,23 @@ class _ProfileCardState extends State<ProfileCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextWithIcon(
-                      text: data != null &&
-                              data['address'] != null &&
-                              data['address']['area'] != null
-                          ? data['address']['area']
-                          : "N/A",
-                      fontWeight: FontWeight.w600,
-                      fontSize: 11.sp,
-                      icon: Icons.location_on_sharp),
+                    text: data != null &&
+                            data['address'] != null &&
+                            data['address']['area'] != null &&
+                            data['address']['city'] != null
+                        ? '${data['address']['area']}, ${data['address']['city']}'
+                        : "N/A",
+                    fontWeight: FontWeight.w600,
+                    fontSize: 11.sp,
+                    icon: Icons.location_on_sharp,
+                  ),
                   const SizedBox(height: 3),
                   TextWithIcon(
-                      text: data != null &&
-                              data['institute_timings'][0]['start_time'] != null
-                          ? "Open until ${data['institute_timings'][0]['start_time']}"
-                          : "N/A",
+                      text:
+                          _getOpenStatus(), // Use the method to get open status
                       fontSize: 11.sp,
                       fontWeight: FontWeight.w600,
-                      textColor: const Color(0xff4BD058),
+                      textColor: statusColor,
                       icon: Icons.access_time_outlined),
                   const SizedBox(height: 3),
                   TextWithIcon(
@@ -654,7 +657,6 @@ class _ProfileCardState extends State<ProfileCard> {
                   InkWell(
                     onTap: () async {
                       final Uri redirectLink = Uri.parse(data['direction_url']);
-
                       if (await canLaunchUrl(redirectLink)) {
                         await launchUrl(redirectLink);
                       } else {
@@ -681,7 +683,6 @@ class _ProfileCardState extends State<ProfileCard> {
                             widget.id, setIsFollowingLoading);
                         isFollowing = value["status"].toLowerCase() == 'true';
                         followerCount = followerCount - 1;
-
                         setState(() {});
                       } else {
                         var value = await ApiService.followInstitute(
@@ -738,6 +739,31 @@ class _ProfileCardState extends State<ProfileCard> {
         ],
       ),
     );
+  }
+
+  String _getOpenStatus() {
+    if (data == null || data['institute_timings'] == null) {
+      return "N/A";
+    }
+
+    // Get the current day
+    String today = DateFormat('EEEE').format(DateTime.now()).toUpperCase();
+
+    // Find the timing for the current day
+    var todayTiming = data['institute_timings'].firstWhere(
+      (timing) => timing['day'] == today,
+      orElse: () => null,
+    );
+
+    if (todayTiming != null) {
+      if (todayTiming['is_open']) {
+        return "Open until ${todayTiming['end_time']}";
+      } else {
+        return "Closed";
+      }
+    }
+
+    return "N/A";
   }
 }
 

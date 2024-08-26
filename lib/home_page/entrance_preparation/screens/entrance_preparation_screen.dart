@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:myapp/home_page/entrance_preparation/screens/visit_profile_page.dart';
 import 'package:myapp/other/api_service.dart';
 import '../../../shared/colors_const.dart';
@@ -62,6 +63,8 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
   }
 }
 
+
+
 class EpCard extends StatelessWidget {
   final dynamic data;
   EpCard({super.key, required this.data});
@@ -73,6 +76,10 @@ class EpCard extends StatelessWidget {
     double baseWidth = 460;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
+    
+    // Get the current day as a string
+    String currentDay = DateFormat('EEEE').format(DateTime.now()).toUpperCase();
+    
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -84,6 +91,18 @@ class EpCard extends StatelessWidget {
             shrinkWrap: true,
             itemCount: data.length,
             itemBuilder: (context, index) {
+              // Find today's schedule
+              var todaySchedule = data[index]['institute_timings'].firstWhere(
+                (timing) => timing['day'] == currentDay,
+                orElse: () => null,
+              );
+
+              // Determine if the institute is open or closed today
+              String statusText = "Closed";
+              if (todaySchedule != null && todaySchedule['is_open'] == true) {
+                statusText = "Open until ${todaySchedule['end_time']}";
+              }
+
               return Column(
                 children: [
                   Padding(
@@ -236,10 +255,11 @@ class EpCard extends StatelessWidget {
                                           icon: Icons.location_on_sharp),
                                       const SizedBox(height: 3),
                                       TextWithIcon(
-                                          text:
-                                              "Open until ${data[index]['institute_timings'][0]['start_time']}",
+                                          text: statusText,
                                           fontWeight: FontWeight.w600,
-                                          textColor: const Color(0xff4BD058),
+                                          textColor: statusText.contains("Closed")
+                                              ? Colors.red
+                                              : const Color(0xff4BD058),
                                           icon: Icons.access_time_outlined),
                                       const SizedBox(height: 3),
                                       TextWithIcon(
@@ -310,6 +330,7 @@ class EpCard extends StatelessWidget {
     );
   }
 }
+
 
 class TopSlider extends StatefulWidget {
   const TopSlider({super.key});
