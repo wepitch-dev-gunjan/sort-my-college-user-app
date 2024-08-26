@@ -198,7 +198,7 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                                 } else {
                                   await EasyLoading.show(dismissOnTap: false);
                                   ApiService()
-                                      .verify_otp_phone_2(
+                                      .registerVerify(
                                           otp: otp.toString().trim(),
                                           number: widget.phoneNumber)
                                       .then((value) async {
@@ -208,7 +208,7 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                                       // EasyLoading.showToast("You are already registered user please go to login page",
                                       //     toastPosition: EasyLoadingToastPosition.bottom );
                                       ShowSnackBarMsg(
-                                        "Already registered? Please log in.",
+                                          "Already registered? Please log in.",
                                           color: Colors.orange);
 
                                       EasyLoading.dismiss();

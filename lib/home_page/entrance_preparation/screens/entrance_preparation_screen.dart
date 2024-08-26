@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/home_page/entrance_preparation/screens/visit_profile_page.dart';
 import 'package:myapp/other/api_service.dart';
 import '../../../shared/colors_const.dart';
@@ -192,36 +193,39 @@ class EpCard extends StatelessWidget {
                                         child: SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
                                           child: Row(
-                                              children: List.generate(
-                                            data[index]['courses'].length,
-                                            (index) => Container(
-                                              margin: const EdgeInsets.only(
-                                                  right: 5.0),
-                                              padding: const EdgeInsets.only(
-                                                  left: 4.0, right: 4.0),
-                                              height: 18 * fem,
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xff1f0a68),
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        3 * fem),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  "CUET",
-                                                  // "${data[index]['courses'][index]['name'].toUpperCase() ?? "N/A"}",
-                                                  style: SafeGoogleFont(
-                                                    'Inter',
-                                                    fontSize: 11 * ffem,
-                                                    fontWeight: FontWeight.w700,
-                                                    height: 1.0,
-                                                    color:
-                                                        const Color(0xffffffff),
+                                            children: List.generate(
+                                              data[index]['courses'].length,
+                                              (courseIndex) => Container(
+                                                margin: const EdgeInsets.only(
+                                                    right: 5.0),
+                                                padding: const EdgeInsets.only(
+                                                    left: 4.0, right: 4.0),
+                                                height: 18 * fem,
+                                                decoration: BoxDecoration(
+                                                  color:
+                                                      const Color(0xff1f0a68),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          3 * fem),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    data[index]['courses']
+                                                        [courseIndex]['name'],
+                                                    style: SafeGoogleFont(
+                                                      'Inter',
+                                                      fontSize: 11 * ffem,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      height: 1.0,
+                                                      color: const Color(
+                                                          0xffffffff),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          )),
+                                          ),
                                         ),
                                       ),
                                       const SizedBox(height: 5),
@@ -266,52 +270,27 @@ class EpCard extends StatelessWidget {
                                     );
                                   },
                                 ),
-                                // Btn(
-                                //   btnName: "Send Enquiry",
-                                //   btnColor: ColorsConst.appBarColor,
-                                //   textColor: Colors.white,
-                                //   onTap: () async {
-                                //     final response = await ApiService.epEnquiry(
-                                //         id: data[index]['_id'].toString());
-                                //     if (response['message'] ==
-                                //         'Enquiry added successfully') {
-                                //       showDialog(
-                                //         context: context,
-                                //         builder: (BuildContext context) {
-                                //           return const EnquirySubmittedDialog();
-                                //         },
-                                //       );
-                                //     }
-
-                                //   },
-                                // ),
                                 Btn(
                                   btnName: "Send Enquiry",
                                   btnColor: ColorsConst.appBarColor,
                                   textColor: Colors.white,
                                   onTap: () async {
-                                    print('Button tapped'); // Debug log
-
-                                    try {
-                                      final response =
-                                          await ApiService.epEnquiry(
-                                              id: data[index]['_id']
-                                                  .toString());
-                                      log('Response received: $response'); // Debug log
-
-                                      if (response['message'] ==
-                                          'Enquiry added successfully') {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return const EnquirySubmittedDialog();
-                                          },
-                                        );
-                                      } else {
-                                        log('Unexpected response: ${response['message']}');
-                                      }
-                                    } catch (e) {
-                                      log('Error sending enquiry: $e');
+                                    final response = await ApiService.epEnquiry(
+                                        id: data[index]['_id'].toString());
+                                    log("ResponseEnquiry$response");
+                                    if (response['message'] ==
+                                        'Enquiry added successfully') {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return const EnquirySubmittedDialog();
+                                        },
+                                      );
+                                    } else if (response['error'] ==
+                                        'Something went wrong') {
+                                      Fluttertoast.showToast(
+                                          msg:
+                                              "You've already inquired. Try again in 24 hours.");
                                     }
                                   },
                                 ),

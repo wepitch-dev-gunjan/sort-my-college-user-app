@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/other/api_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../utils.dart';
 import '../screens/announcement_screen.dart';
 import '../screens/Faculties_all_screen.dart';
@@ -135,22 +136,23 @@ class FacultiesCard extends StatelessWidget {
 }
 
 class UgCourses extends StatelessWidget {
-  final dynamic data;
+  final List<dynamic>? data; // Make data nullable
   final String title;
+  final String id;
+
   const UgCourses({
     super.key,
     required this.data,
     required this.title,
+    required this.id,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (data == null || data['courses'] == null) {
-      return const SizedBox();
-    }
+    List<dynamic> courseList = data ?? [];
 
-    List ugCourses =
-        data['courses'].where((course) => course['type'] == "UG").toList();
+    List<dynamic> ugCourses =
+        courseList.where((course) => course['type'] == "UG").toList();
 
     return ugCourses.isNotEmpty
         ? Column(
@@ -172,13 +174,26 @@ class UgCourses extends StatelessWidget {
                     for (int i = 0; i < ugCourses.length; i++)
                       Padding(
                         padding: const EdgeInsets.only(right: 10),
-                        child: Btn(
+                        child: CourseBtn(
                           onTap: () {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return CourseSendEnquiryCard(
-                                    courseName: ugCourses[i]['name']);
+                                  courseID: ugCourses[i]['_id'],
+                                  id: id,
+                                  courseName: ugCourses[i]['name'],
+                                  courseDuration: ugCourses[i]
+                                      ['course_duration'],
+                                  courseFee:
+                                      ugCourses[i]['course_fee'].toString(),
+                                  startYear: ugCourses[i]['academic_session']
+                                          ['start_year']
+                                      .toString(),
+                                  endYear: ugCourses[i]['academic_session']
+                                          ['end_year']
+                                      .toString(),
+                                );
                               },
                             );
                           },
@@ -186,7 +201,6 @@ class UgCourses extends StatelessWidget {
                           btnColor: const Color(0xff1F0A68),
                           textColor: Colors.white,
                           borderRadius: 5,
-                          width: 75.w,
                         ),
                       ),
                   ],
@@ -199,22 +213,25 @@ class UgCourses extends StatelessWidget {
 }
 
 class PgCourses extends StatelessWidget {
-  final dynamic data;
+  final List<dynamic>? data; // Make data nullable
   final String title;
+  final String id;
+
   const PgCourses({
     super.key,
     required this.data,
     required this.title,
+    required this.id,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (data == null || data['courses'] == null) {
-      return const SizedBox();
-    }
+    // Provide an empty list if data is null
+    List<dynamic> courseList = data ?? [];
 
-    List pgCourses =
-        data['courses'].where((course) => course['type'] == "PG").toList();
+    // Filter the courses to include only those with type "PG"
+    List<dynamic> pgCourses =
+        courseList.where((course) => course['type'] == "PG").toList();
 
     return pgCourses.isNotEmpty
         ? Column(
@@ -236,13 +253,26 @@ class PgCourses extends StatelessWidget {
                     for (int i = 0; i < pgCourses.length; i++)
                       Padding(
                         padding: const EdgeInsets.only(right: 10),
-                        child: Btn(
+                        child: CourseBtn(
                           onTap: () {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return CourseSendEnquiryCard(
-                                    courseName: pgCourses[i]['name']);
+                                  id: id,
+                                  courseID: pgCourses[i]['_id'],
+                                  courseName: pgCourses[i]['name'],
+                                  courseDuration: pgCourses[i]
+                                      ['course_duration'],
+                                  courseFee:
+                                      pgCourses[i]['course_fee'].toString(),
+                                  startYear: pgCourses[i]['academic_session']
+                                          ['start_year']
+                                      .toString(),
+                                  endYear: pgCourses[i]['academic_session']
+                                          ['end_year']
+                                      .toString(),
+                                );
                               },
                             );
                           },
@@ -262,13 +292,23 @@ class PgCourses extends StatelessWidget {
   }
 }
 
-final List<String> ugCourses = ["NEET", "JEE", "CLAT", "CUET", "CLAT"];
-final List<String> pgCourses = ["NEET", "CUET", "CLAT", "CAT", "JEE"];
-
 class CourseSendEnquiryCard extends StatelessWidget {
   final String courseName;
+  final String startYear, endYear;
+  final String courseFee;
+  final String? courseDuration;
+  final String id, courseID;
 
-  const CourseSendEnquiryCard({super.key, required this.courseName});
+  const CourseSendEnquiryCard({
+    super.key,
+    required this.courseName,
+    required this.courseFee,
+    this.courseDuration,
+    required this.startYear,
+    required this.endYear,
+    required this.id,
+    required this.courseID,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -276,122 +316,147 @@ class CourseSendEnquiryCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(21.0),
       ),
-      child: Container(
-        height: 290,
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(21)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Material(
-              elevation: 5,
+      child: Stack(
+        children: [
+          Container(
+            height: courseFee == "null" ? 265 : 290,
+            decoration: BoxDecoration(
+              color: Colors.white,
               borderRadius: BorderRadius.circular(21),
-              child: Container(
-                height: 100,
-                decoration: BoxDecoration(
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Material(
+                  elevation: 5,
                   borderRadius: BorderRadius.circular(21),
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(21),
+                      color: Colors.white,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 10),
+                      child: Column(
                         children: [
-                          const CircleAvatar(radius: 28),
-                          const SizedBox(width: 20),
-                          Btn(
-                            onTap: () {},
-                            btnName: courseName,
-                            btnColor: const Color(0xff1F0A68),
-                            textColor: Colors.white,
-                            height: 45,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Btn(
+                                onTap: () {},
+                                btnName: courseName,
+                                btnColor: const Color(0xff1F0A68),
+                                textColor: Colors.white,
+                                height: 45,
+                                borderRadius: 5.0,
+                              ),
+                            ],
                           ),
-                          const Spacer(),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Icon(
-                              Icons.close,
-                              color: Colors.black,
-                              size: 25,
-                            ),
+                          const SizedBox(
+                            height: 5.0,
+                          ),
+                          Text(
+                            "Academic Session:- ${startYear.toString()}-${endYear.toString()}",
+                            style: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: Material(
+                    elevation: 4,
+                    borderRadius: BorderRadius.circular(11),
+                    child: Container(
+                      // height: 80,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 15),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(11),
+                        color: Colors.white,
+                      ),
+                      child: Column(
+                        children: [
+                          courseFee == "null"
+                              ? const SizedBox()
+                              : Row(
+                                  children: [
+                                    const Text(
+                                      "\u2022  Course Fee - ",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(courseFee ?? 'N/A')
+                                  ],
+                                ),
+                          Row(
+                            children: [
+                              const Text(
+                                "\u2022  Course Duration - ",
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold),
+                              ),
+                              Text(courseDuration ?? 'N/A')
+                            ],
                           )
                         ],
                       ),
-                      const Text(
-                        "Academic Session:- 2024-25",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w600),
-                      )
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Material(
-                elevation: 4,
-                borderRadius: BorderRadius.circular(11),
-                child: Container(
-                  height: 80,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(11),
-                    color: Colors.white,
-                  ),
-                  child: const Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            "\u2022  Course Fee - ",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                          Text("1 Lakh")
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "\u2022  Course Duration - ",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                          Text("6 Months")
-                        ],
-                      )
-                    ],
-                  ),
+                const SizedBox(height: 15),
+                Btn(
+                  onTap: () async {
+                    final response = await ApiService.epEnquiry(
+                        id: id.toString(), coursesId: courseID);
+
+                    if (response['message'] == "Enquiry added successfully") {
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const EnquirySubmittedDialog();
+                        },
+                      );
+                    } else if (response['error'] == 'Something went wrong') {
+                      Fluttertoast.showToast(
+                          msg:
+                              "You've already inquired. Try again in 24 hours.");
+                    }
+                  },
+                  btnName: "Send Enquiry",
+                  btnColor: const Color(0xff1F0A68),
+                  textColor: Colors.white,
+                  height: 40,
+                  borderRadius: 5.0,
                 ),
-              ),
+              ],
             ),
-            const SizedBox(height: 15),
-            Btn(
+          ),
+          Positioned(
+            top: 10,
+            right: 10,
+            child: GestureDetector(
               onTap: () {
                 Navigator.pop(context);
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const EnquirySubmittedDialog();
-                  },
-                );
               },
-              btnName: "Send Enquiry",
-              btnColor: const Color(0xff1F0A68),
-              textColor: Colors.white,
-              height: 40,
+              child: const Icon(
+                Icons.close,
+                color: Colors.black,
+                size: 25,
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -443,7 +508,7 @@ class _EnquirySubmittedDialogState extends State<EnquirySubmittedDialog> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               // GestureDetector(
@@ -479,12 +544,7 @@ class _EnquirySubmittedDialogState extends State<EnquirySubmittedDialog> {
 
 class ProfileCard extends StatefulWidget {
   final String id;
-  // final dynamic data;
-
-  const ProfileCard({
-    Key? key,
-    required this.id,
-  }) : super(key: key);
+  const ProfileCard({super.key, required this.id});
 
   @override
   State<ProfileCard> createState() => _ProfileCardState();
@@ -501,9 +561,6 @@ class _ProfileCardState extends State<ProfileCard> {
   void initState() {
     super.initState();
     getInstituteDetails(widget.id);
-    // followerCount = widget.data != null && widget.data['follower_count'] != null
-    //     ? widget.data['follower_count']
-    //     : 0;
   }
 
   getInstituteDetails(String id) async {
@@ -512,6 +569,7 @@ class _ProfileCardState extends State<ProfileCard> {
       data = res;
 
       followerCount = data['follower_count'];
+      isFollowing = data['following'];
       isLoading = false;
     });
   }
@@ -575,7 +633,10 @@ class _ProfileCardState extends State<ProfileCard> {
                       icon: Icons.location_on_sharp),
                   const SizedBox(height: 3),
                   TextWithIcon(
-                      text: "Open until 9:00 PM",
+                      text: data != null &&
+                              data['institute_timings'][0]['start_time'] != null
+                          ? "Open until ${data['institute_timings'][0]['start_time']}"
+                          : "N/A",
                       fontSize: 11.sp,
                       fontWeight: FontWeight.w600,
                       textColor: const Color(0xff4BD058),
@@ -591,7 +652,15 @@ class _ProfileCardState extends State<ProfileCard> {
                       iconColor: Colors.amber),
                   const SizedBox(height: 3),
                   InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      final Uri redirectLink = Uri.parse(data['direction_url']);
+
+                      if (await canLaunchUrl(redirectLink)) {
+                        await launchUrl(redirectLink);
+                      } else {
+                        throw 'Could not launch $redirectLink';
+                      }
+                    },
                     child: TextWithIcon(
                       text: "DIRECTION",
                       fontWeight: FontWeight.w600,
@@ -610,26 +679,15 @@ class _ProfileCardState extends State<ProfileCard> {
                       if (isFollowing) {
                         var value = await ApiService.unfollowInstitute(
                             widget.id, setIsFollowingLoading);
-
-                        log("$value");
-
-                        // Convert string to bool
                         isFollowing = value["status"].toLowerCase() == 'true';
-
-                        log("Follow/Unfollow: ${isFollowing.runtimeType}");
                         followerCount = followerCount - 1;
 
                         setState(() {});
                       } else {
                         var value = await ApiService.followInstitute(
                             widget.id, setIsFollowingLoading);
-
-                        // Convert string to bool
                         isFollowing = value["status"].toLowerCase() == 'true';
-
-                        followerCount = followerCount = 1;
-                        log("$value");
-
+                        followerCount = followerCount + 1;
                         setState(() {});
                       }
                     },
@@ -702,12 +760,12 @@ class _AboutUsState extends State<AboutUs> {
   Widget build(BuildContext context) {
     // Check if 'about' exists and is not null
     if (widget.about == null || widget.about['about'] == null) {
-      return SizedBox(); // Or return a placeholder widget
+      return const SizedBox(); // Or return a placeholder widget
     }
 
     final aboutText = widget.about['about'];
     if (aboutText.isEmpty) {
-      return SizedBox(); // Or return a placeholder widget
+      return const SizedBox(); // Or return a placeholder widget
     }
 
     bool shouldShowReadMore = aboutText.length > initialItemCount;

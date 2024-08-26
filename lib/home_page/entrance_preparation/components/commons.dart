@@ -94,6 +94,55 @@ class Btn extends StatelessWidget {
   }
 }
 
+class CourseBtn extends StatelessWidget {
+  final Function() onTap;
+  final String btnName;
+  final Color? btnColor;
+  final Color? textColor;
+  final Widget? child;
+  final double? height, width, borderRadius;
+  const CourseBtn(
+      {super.key,
+      required this.onTap,
+      required this.btnName,
+      this.btnColor,
+      this.textColor,
+      this.child,
+      this.height,
+      this.borderRadius,
+      this.width});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        height: height ?? 32.h,
+        decoration: BoxDecoration(
+          color: btnColor ?? Colors.white,
+          border: Border.all(
+              color: Colors.black.withOpacity(0.7400000095367432), width: 0.50),
+          borderRadius: BorderRadius.circular(borderRadius ?? 10),
+        ),
+        child: child ??
+            Center(
+              child: Text(
+                btnName,
+                style: TextStyle(
+                  color: textColor ?? const Color(0xFF262626),
+                  fontSize: 13,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w700,
+                  height: 0.07,
+                ),
+              ),
+            ),
+      ),
+    );
+  }
+}
+
 class FollowerBtn extends StatelessWidget {
   final Function() onTap;
 

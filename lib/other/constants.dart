@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AppConstants {
-  static String  baseUrl = dotenv.env['BASEURL'] ?? "";
+  static String baseUrl = dotenv.env['BASEURL'] ?? "";
   static String counsellorlistEndpoint = '/counsellor/';
   static String sendotpRequest = '/user/auth/sendOTPEmail';
   static String sendotpphoneRequest = '/user/auth/sendOTPPhone';
   static String verifyotpRequest = '/user/auth/verifyOTPEmail';
-  static String verifyotpphoneRequest = '/user/auth/verifyOTPPhone';
+  static String verifyLogin = '/user/auth/login/verifyOTPPhone';
+  static String verifyRegister = '/user/auth/register/verifyOTPPhone';
   static const imagePath = "assets/page-1/images/";
   static const appName = "sortmycollege";
   static const packageId = "com.sortmycollege";

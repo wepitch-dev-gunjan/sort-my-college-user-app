@@ -1,9 +1,11 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/home_page/entrance_preparation/components/commons.dart';
 import 'package:myapp/other/api_service.dart';
 import '../../../utils/share_links.dart';
+import '../components/courses.dart';
 import '../components/ep_comp.dart';
 import '../components/key_fetures.dart';
 import '../components/review_card.dart';
@@ -21,6 +23,7 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
   List keyFeatures = [];
   var faculties;
   var instituteDetails;
+  var courses;
   bool isLoading = true;
   List reviews = []; // Store the reviews here
 
@@ -29,6 +32,7 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
     getKeyFeatures(widget.id);
     getFacultiesData(widget.id);
     getInstituteDetails(widget.id);
+    getCourses(widget.id);
     getFeedback(widget.id); // Load initial reviews
     super.initState();
   }
@@ -62,6 +66,14 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
     final res = await ApiService.getEpFeedback(id: id);
     setState(() {
       reviews = res['feedbacks'];
+      isLoading = false;
+    });
+  }
+
+  getCourses(String id) async {
+    final res = await ApiService.getEpCourses(id: id);
+    setState(() {
+      courses = res;
       isLoading = false;
     });
   }
@@ -102,16 +114,20 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ProfileCard(id: widget.id, ),
+                  ProfileCard(id: widget.id),
                   FullSizeBtns(id: widget.id),
                   AboutUs(about: instituteDetails),
-                  CourseSection(courses: instituteDetails),
+                  CourseSection(
+                    courses: courses,
+                    id: widget.id,
+                  ),
                   FacultiesCard(faculties: faculties),
                   KeyFeatures(keyFeatures: keyFeatures),
                   ReviewCard(id: widget.id, reviews: reviews),
                   GiveReviewSection(
                     id: widget.id,
                     onReviewAdded: addReview,
+                    reviews: reviews,
                   )
                 ],
               ),
@@ -134,6 +150,7 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
                         onTap: () async {
                           final response =
                               await ApiService.epEnquiry(id: widget.id);
+                          log("resp$response");
                           if (response['message'] ==
                               'Enquiry added successfully') {
                             showDialog(
@@ -142,6 +159,11 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
                                 return const EnquirySubmittedDialog();
                               },
                             );
+                          } else if (response['error'] ==
+                              'Something went wrong') {
+                            Fluttertoast.showToast(
+                                msg:
+                                    "You've already inquired. Try again in 24 hours.");
                           }
                         },
                         btnName: "Send Enquiry",
@@ -155,34 +177,5 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
               ),
             ),
           );
-  }
-}
-
-class CourseSection extends StatelessWidget {
-  final dynamic courses;
-  const CourseSection({
-    super.key,
-    required this.courses,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Courses Offered",
-            style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 10.0),
-          const Divider(),
-          UgCourses(data: courses, title: "Undergraduate Courses"),
-          const SizedBox(height: 20.0),
-          PgCourses(data: courses, title: "Postgraduate Courses"),
-        ],
-      ),
-    );
   }
 }

@@ -234,7 +234,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                     children: [
                                       Container(
                                         width: 110,
-                                        height: 35,
+                                        height: 37,
                                         decoration: BoxDecoration(
                                           border: Border.all(
                                               color: const Color(0xff1f0a68)),

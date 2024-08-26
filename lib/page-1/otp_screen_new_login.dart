@@ -205,7 +205,7 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
                                 } else {
                                   await EasyLoading.show(dismissOnTap: false);
                                   ApiService()
-                                      .verify_otp_phone_2(
+                                      .loginVerify(
                                           otp: otp.toString(),
                                           number: widget.phoneNumber)
                                       .then((value) async {
@@ -230,32 +230,10 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   const HomePageContainer()));
-
-                                      /*Navigator.pushReplacement(context,
-                                          MaterialPageRoute(builder: (context) =>  MyHomePage()));*/
-                                    } else if (value["message"] ==
-                                            "OTP verified successfully" &&
-                                        value["already_registered"] == false) {
-                                      log("value1$value");
-                                      EasyLoading.dismiss();
-                                      ShowSnackBarMsg(
-                                          "You are not registred. Plese registre now.",
-                                          color: Colors.red);
-                                      // EasyLoading.showToast(
-                                      //     "You are not registred. Plese registred now.",
-                                      //     toastPosition:
-                                      //         EasyLoadingToastPosition.bottom);
-
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const SplashScreenNew()));
                                     } else {
                                       EasyLoading.dismiss();
-                                      EasyLoading.showToast(value["error"],
-                                          toastPosition:
-                                              EasyLoadingToastPosition.bottom);
+                                      ShowSnackBarMsg(value['error'],
+                                          color: Colors.red);
                                     }
                                     EasyLoading.dismiss();
                                   });

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:myapp/home_page/model/banner_image_model.dart';
@@ -8,14 +7,12 @@ import 'package:myapp/home_page/model/popular_workshop_model.dart';
 import 'package:myapp/home_page/model/tranding_webinar_model.dart';
 import 'package:myapp/model/booking_model.dart';
 import 'package:myapp/model/check_out_details_model.dart';
-import 'package:myapp/model/ep_details_model.dart';
 import 'package:myapp/webinar_page/webinar_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/announcements_model.dart';
 import '../model/counsellor_data.dart';
 import '../model/counsellor_sessions.dart';
 import '../model/course_model.dart';
-import '../model/response_model.dart';
 import 'constants.dart';
 import 'dart:developer' as console show log;
 
@@ -63,32 +60,32 @@ class ApiService {
     }
   }
 
-  static Future<Map<String, dynamic>> updateProfileDetails(
-      String name, String dob, String gender, String eduLevel) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString("token").toString();
+  // static Future<Map<String, dynamic>> updateProfileDetails(
+  //     String name, String dob, String gender, String eduLevel) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final token = prefs.getString("token").toString();
 
-    final body = jsonEncode({
-      "name": name,
-      "date_of_birth": dob,
-      "gender": gender,
-      "education_level": eduLevel
-    });
-    final headers = {
-      'Content-Type': 'application/json',
-      "Authorization": token,
-    };
-    final url = Uri.parse('${AppConstants.baseUrl}/user/register');
-    final response = await http.put(url, headers: headers, body: body);
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body.toString());
-      return data;
-    }
-    if (response.statusCode == 401) {
-      return {"error": "User not authorized"};
-    }
-    return {};
-  }
+  //   final body = jsonEncode({
+  //     "name": name,
+  //     "date_of_birth": dob,
+  //     "gender": gender,
+  //     "education_level": eduLevel
+  //   });
+  //   final headers = {
+  //     'Content-Type': 'application/json',
+  //     "Authorization": token,
+  //   };
+  //   final url = Uri.parse('${AppConstants.baseUrl}/user/register');
+  //   final response = await http.put(url, headers: headers, body: body);
+  //   if (response.statusCode == 200) {
+  //     var data = jsonDecode(response.body.toString());
+  //     return data;
+  //   }
+  //   if (response.statusCode == 401) {
+  //     return {"error": "User not authorized"};
+  //   }
+  //   return {};
+  // }
 
   static Future webinar_register(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -214,30 +211,6 @@ class ApiService {
     return [];
   }
 
-  static Future<Map<String, dynamic>> getWebinarDetails(String id) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString("token").toString();
-
-    final headers = {
-      //'Content-Type': 'application/json',
-      "Authorization": token,
-    };
-
-    final url =
-        Uri.parse('${AppConstants.baseUrl}/admin/webinar/webinar-for-user/$id');
-
-    final response = await http.post(url, headers: headers);
-
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body.toString());
-      return data;
-    } else if (response.statusCode == 400) {
-      return {"error": "Create payment successfully"};
-    } else {
-      return {"error": "Something went wrong"};
-    }
-  }
-
   static Future<Map<String, dynamic>> getWebinarDetailsData(String id) async {
     var url =
         Uri.parse("${AppConstants.baseUrl}/admin/webinar/webinar-for-user/$id");
@@ -256,34 +229,6 @@ class ApiService {
     }
     return {};
   }
-
-  // static Future<CheckOutDetails> fetchCheckOutDetails() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   final token = prefs.getString("token").toString();
-  //
-  //   var url = Uri.parse(
-  //       "${AppConstants.baseUrl}/counsellor/sessions/65fbcbb563ee42338a08b939/payment/user/checkout");
-  //   print(url);
-  //
-  //   var response = await http.get(
-  //     url,
-  //     headers: {"Content-Type": "application/json",
-  //       "Authorization": token},
-  //   );
-  //   var data;
-  //
-  //   console.log(response.body.toString());
-  //   if (response.statusCode == 200) {
-  //     data = jsonDecode(response.body.toString());
-  //     console.log(data.toString());
-  //     return CheckOutDetails.fromJson(data);
-  //   }
-  //   if (response.statusCode == 404) {
-  //     return CheckOutDetails();
-  //   } else {
-  //     return CheckOutDetails();
-  //   }
-  // }
 
   static Future<List<CheckOutDetails>> fetchCheckOutData(String id) async {
     var url = Uri.parse(
@@ -524,13 +469,6 @@ class ApiService {
     }
   }
 
-  static Future<Map<String, dynamic>> readCheckOutAPi() async {
-    final String response =
-        await rootBundle.loadString('assets/page-1/images/sample.json');
-    var data = await json.decode(response);
-    return data;
-  }
-
   static Future<Map<String, dynamic>> get_profile() async {
     var data;
     String phoneNumber = "";
@@ -629,22 +567,6 @@ class ApiService {
     return [];
   }
 
-  static Future<College> fetchCollegeData(String id) async {
-    var url = Uri.parse("${AppConstants.baseUrl}/ep/institute/user/$id");
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString("token").toString();
-    final response = await http.get(url, headers: {
-      //"Content-Type": "application/json",
-      "Authorization": token,
-    });
-
-    if (response.statusCode == 200) {
-      return College.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to load college data');
-    }
-  }
-
   static Future getEPListData() async {
     var url = Uri.parse("${AppConstants.baseUrl}/ep/institute/user");
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -652,46 +574,9 @@ class ApiService {
     final response = await http.get(url, headers: {
       "Authorization": token,
     });
-
     if (response.statusCode == 200) {
-      // log("EpData=>>>> ${response.body}");
-
       return jsonDecode(response.body);
     }
-  }
-
-  static Future<List<CounsellorData>> getCounsellor_() async {
-    var url = Uri.parse("${AppConstants.baseUrl}/counsellor/");
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString("token").toString();
-    final response = await http.get(url, headers: {
-      "Content-Type": "application/json",
-      "Authorization": token,
-    });
-    var data;
-    // console.log("Counsellor List : ${response.body}");
-    if (response.statusCode == 200) {
-      data = jsonDecode(response.body.toString());
-      return List<CounsellorData>.from(
-          data.map((x) => CounsellorData.fromJson(x)));
-    }
-    if (response.statusCode == 404) {
-      return [
-        CounsellorData(
-          nextSession: "",
-          id: "0",
-          name: "none",
-          profilePic: "",
-          averageRating: "0",
-          experienceInYears: 2,
-          totalSessions: 3,
-          rewardPoints: 4,
-          reviews: 5,
-          designation: "",
-        )
-      ];
-    }
-    return [];
   }
 
   static Future getCounsellor_Detail(String id) async {
@@ -703,191 +588,38 @@ class ApiService {
       "Authorization": token,
     });
     return jsonDecode(response.body);
-
-    // if (response.statusCode == 200) {
-    //   var data = json.decode(response.body.toString());
-
-    //   return  data;
-    //   // List<CounsellorDetail>.from(
-    //   //     data.map((x) => CounsellorDetail.fromJson(x)));
-    // }
-    // if (response.body.contains("html")) {
-    //   return [
-    //     CounsellorDetail(
-    //         howIWillHelpYou: [],
-    //         qualifications: [],
-    //         id: id,
-    //         name: "none",
-    //         email: "",
-    //         coverImage: "",
-    //         averageRating: 1,
-    //         followersCount: 1,
-    //         experienceInYears: 1,
-    //         totalSessionsAttended: 1,
-    //         gender: "",
-    //         rewardPoints: 0)
-    //   ];
-    // } else {
-    //   return [];
-    // }
   }
 
-  static Future<ResponseModel> call_otp1() async {
-    var data;
-    var url = Uri.parse(AppConstants.baseUrl + AppConstants.sendotpRequest);
-    final response =
-        await http.get(url, headers: {"Content-Type": "application/json"});
-    data = json.decode(response.body);
-    return ResponseModel.fromJson(data);
-  }
-
-  static Future<ResponseModel> call_phone_otp_1() async {
-    var data;
-    var url =
-        Uri.parse(AppConstants.baseUrl + AppConstants.sendotpphoneRequest);
-    final response =
-        await http.get(url, headers: {"Content-Type": "application/json"});
-    data = json.decode(response.body);
-    return ResponseModel.fromJson(data);
-  }
-
-  Future call_otp_2({email}) async {
-    //print(email);
+  Future loginVerify({otp, number}) async {
     var headers = {
       'Content-Type': 'application/json',
     };
-    final body = {'email': email};
-
-    var data;
-    var url = Uri.parse(AppConstants.baseUrl + AppConstants.sendotpRequest);
-    final response = await http.post(
-      url,
-      headers: headers,
-      body: jsonEncode(body),
-    );
-
-    // console.log(response.body.toString());
-    if (response.statusCode == 200 || response.statusCode == 500) {
-      data = jsonDecode(response.body.toString());
-      return data;
-    } else if (response.body.contains("html")) {
-      return {"error": "something went wrong!"};
-    } else {}
-  }
-
-  Future call_otp_phone_2({phone}) async {
-    //print(phone);
-    var headers = {
-      'Content-Type': 'application/json',
-    };
-    final body = {'phone': phone};
-
-    var data;
-    var url =
-        Uri.parse(AppConstants.baseUrl + AppConstants.sendotpphoneRequest);
-    final response = await http.post(
-      url,
-      headers: headers,
-      body: jsonEncode(body),
-    );
-
-    // console.log(response.body.toString());
-    if (response.statusCode == 200 || response.statusCode == 500) {
-      data = jsonDecode(response.body.toString());
-      return data;
-    } else if (response.body.contains("html")) {
-      return {"error": "something went wrong!"};
-    } else {}
-  }
-
-  Future verify_otp_2({otp, email}) async {
-    //print(email);
-    var headers = {
-      'Content-Type': 'application/json',
-    };
-    final body = {'otp': otp, 'email': email};
-
-    var data;
-    var url = Uri.parse(AppConstants.baseUrl + AppConstants.verifyotpRequest);
-    final response = await http.post(
-      url,
-      headers: headers,
-      body: jsonEncode(body),
-    );
-
-    console.log("Verfiying Otp : ${response.body}");
-    if (response.statusCode == 200 || response.statusCode == 401) {
-      data = jsonDecode(response.body.toString());
-      return data;
-    }
-    if (response.statusCode == 404) {
-      return {"error": "something went wrong!"};
-    }
-  }
-
-  Future verify_otp_phone_2({otp, number}) async {
-    //print(phone);
-    var headers = {
-      'Content-Type': 'application/json',
-    };
-
-    // number = number.replaceAll('91', '');
-    // number = number.replaceAll(' ', '');
     number = "91$number";
-
     final body = {'otp': otp, 'phone_number': number};
-
-    var data;
-    var url =
-        Uri.parse(AppConstants.baseUrl + AppConstants.verifyotpphoneRequest);
+    var url = Uri.parse(AppConstants.baseUrl + AppConstants.verifyLogin);
     final response = await http.post(
       url,
       headers: headers,
       body: jsonEncode(body),
     );
-
-    console.log("Verfiying Otp : ${response.body}");
-    if (response.statusCode == 200 || response.statusCode == 401) {
-      data = jsonDecode(response.body.toString());
-      return data;
-    }
-    if (response.statusCode == 404) {
-      return {"error": "something went wrong!"};
-    }
+    console.log("Verfiying Otp123 : ${response.body}");
+    return jsonDecode(response.body);
   }
 
-  Future call_otp(String email) async {
-    // var data;
-    var headers = {'Content-Type': 'application/json'};
-    var request = http.Request(
-        'POST', Uri.parse('http://13.127.234.0:9000/user/auth/sendOTPEmail'));
-    request.body = json.encode({"email": "piyush@wepitch.uk"});
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
-    } else {
-      print(response.reasonPhrase);
-    }
-  }
-
-  Future phone_otp(String phone) async {
-    // var data;
-    var headers = {'Content-Type': 'application/json'};
-    var request = http.Request(
-        'POST', Uri.parse('http://13.127.234.0:9000/user/auth/sendOTPPhone'));
-    request.body = json.encode({"phone": "piyush@wepitch.uk"});
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
-    } else {
-      print(response.reasonPhrase);
-    }
+  Future registerVerify({otp, number}) async {
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    number = "91$number";
+    final body = {'otp': otp, 'phone_number': number};
+    var url = Uri.parse(AppConstants.baseUrl + AppConstants.verifyRegister);
+    final response = await http.post(
+      url,
+      headers: headers,
+      body: jsonEncode(body),
+    );
+    console.log("Verfiying Otp123 : ${response.body}");
+    return jsonDecode(response.body);
   }
 
   static Future<CounsellorSessionDetails> getCounsellor_sessions(
@@ -904,14 +636,8 @@ class ApiService {
       headers: {"Content-Type": "application/json", "Authorization": token},
     );
     var data;
-
-    log("Counsellor Data=$data");
-
-    // console.log(
-    //     "COunsellor data1=>---------${jsonDecode(response.body.toString())}");
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-      // console.log(data.toString());
       return CounsellorSessionDetails.fromJson(data);
     }
     if (response.statusCode == 404) {
@@ -1353,12 +1079,14 @@ class ApiService {
     return [];
   }
 
-  static Future<Map<String, dynamic>> epEnquiry(
-      {String? id, double? ratingVal, String? feedbackMsg}) async {
+  static Future<Map<String, dynamic>> epEnquiry({
+    String? id,
+    String? coursesId,
+  }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
 
-    final body = jsonEncode({"enquired_to": id});
+    final body = jsonEncode({"enquired_to": id, "courses": coursesId});
     final headers = {
       'Content-Type': 'application/json',
       "Authorization": token,
@@ -1419,5 +1147,16 @@ class ApiService {
       return data;
     }
     return [];
+  }
+
+  static Future getEpCourses({String? id}) async {
+    var url = Uri.parse("${AppConstants.baseUrl}/ep/coursesForUser/$id");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+    final response = await http.get(url, headers: {
+      "Content-Type": "application/json",
+      "Authorization": token,
+    });
+    return jsonDecode(response.body);
   }
 }

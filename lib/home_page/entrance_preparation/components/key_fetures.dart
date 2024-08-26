@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class KeyFeatures extends StatelessWidget {
   final List keyFeatures;
@@ -56,16 +57,23 @@ class KeyFeatures extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        const Icon(
-                          Icons.account_balance_sharp,
-                          size: 40,
+                        Image.network(
+                          "${keyFeatures[index]['key_features_icon']}",
+                          height: 40,
+                          width: 40,
                         ),
-                        const SizedBox(height: 4.0),
+
                         // SvgPicture.network(
                         //   "${keyFeatures[index]['key_features_icon']}",
                         //   placeholderBuilder: (BuildContext context) =>
                         //       const CircularProgressIndicator(),
                         // ),
+                        // const Icon(
+                        //   Icons.account_balance_sharp,
+                        //   size: 40,
+                        // ),
+                        // const SizedBox(height: 4.0),
+
                         Expanded(
                           child: Text(
                             "${keyFeatures[index]['name']}",

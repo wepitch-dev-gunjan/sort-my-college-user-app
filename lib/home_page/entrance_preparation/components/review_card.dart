@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../other/api_service.dart';
 
 class GiveReviewSection extends StatefulWidget {
   final String id;
   final Function(Map<String, dynamic>)
-      onReviewAdded; // Callback to update reviews in ReviewCard
+      onReviewAdded; 
+      final List? reviews; 
 
   const GiveReviewSection({
     super.key,
     required this.id,
-    required this.onReviewAdded, // Pass the callback
+    required this.onReviewAdded, this.reviews, 
   });
 
   @override
@@ -105,7 +107,7 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
                         );
 
                         widget.onReviewAdded({
-                          'user_name': 'User', 
+                          'user_name': 'User',
                           'rating': rating_val,
                           'comment': feedback_msg,
                         });
@@ -129,8 +131,8 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
 }
 
 class ReviewCard extends StatefulWidget {
-  final String? id; // Allow nullable id
-  final List? reviews; // Allow nullable reviews
+  final String? id; 
+  final List? reviews; 
 
   const ReviewCard({
     super.key,
@@ -212,7 +214,24 @@ class _ReviewCardState extends State<ReviewCard> {
                                   horizontal: 15, vertical: 10),
                               child: Column(
                                 children: [
-                                  const CircleAvatar(radius: 25),
+                                  CircleAvatar(
+                                    radius: 25,
+                                    backgroundImage: review['profile_pic'] !=
+                                                null &&
+                                            review['profile_pic'].isNotEmpty
+                                        ? NetworkImage(review['profile_pic'])
+                                            as ImageProvider
+                                        : null,
+                                    child: review['profile_pic'] == null ||
+                                            review['profile_pic'].isEmpty
+                                        ? const CircleAvatar(
+                                            backgroundColor: Colors.white,
+                                            radius: 25,
+                                            backgroundImage: AssetImage(
+                                                'assets/page-1/images/noImage.png'),
+                                          )
+                                        : null,
+                                  ),
                                   const SizedBox(height: 5),
                                   Text(
                                     userName,
