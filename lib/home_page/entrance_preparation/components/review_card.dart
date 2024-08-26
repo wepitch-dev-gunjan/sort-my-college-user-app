@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,14 +8,15 @@ import '../../../other/api_service.dart';
 
 class GiveReviewSection extends StatefulWidget {
   final String id;
-  final Function(Map<String, dynamic>)
-      onReviewAdded; 
-      final List? reviews; 
+
+  final Function(Map<String, dynamic>) onReviewAdded;
+  final List? reviews;
 
   const GiveReviewSection({
     super.key,
     required this.id,
-    required this.onReviewAdded, this.reviews, 
+    required this.onReviewAdded,
+    this.reviews,
   });
 
   @override
@@ -106,8 +109,15 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
                           backgroundColor: Colors.green,
                         );
 
+                        final res =
+                            await ApiService.getEpFeedback(id: widget.id);
+                        log("ResponseFeedback${res['feedbacks'][0]['user_name']}");
+                        final userName = res['feedbacks'][0]['user_name'];
+                        final userProfile = res['feedbacks'][0]['profile_pic'];
+
                         widget.onReviewAdded({
-                          'user_name': 'User',
+                          'profile_pic': userProfile,
+                          'user_name': userName,
                           'rating': rating_val,
                           'comment': feedback_msg,
                         });
@@ -131,8 +141,8 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
 }
 
 class ReviewCard extends StatefulWidget {
-  final String? id; 
-  final List? reviews; 
+  final String? id;
+  final List? reviews;
 
   const ReviewCard({
     super.key,

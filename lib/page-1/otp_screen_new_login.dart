@@ -232,6 +232,7 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
                                                   const HomePageContainer()));
                                     } else {
                                       EasyLoading.dismiss();
+
                                       ShowSnackBarMsg(value['error'],
                                           color: Colors.red);
                                     }

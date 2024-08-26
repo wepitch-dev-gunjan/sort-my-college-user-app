@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -17,13 +16,11 @@ import 'package:myapp/utils/common.dart';
 import 'package:provider/provider.dart';
 import 'page-1/splash_screen_1.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-    await dotenv.load(fileName: ".env");
-    bool? isLoggedIn = await MyApp.loggIn();
-    runApp(MyApp(isLoggedIn: isLoggedIn!));
- 
+  await dotenv.load(fileName: ".env");
+  bool? isLoggedIn = await MyApp.loggIn();
+  runApp(MyApp(isLoggedIn: isLoggedIn!));
 }
 
 class MyApp extends StatelessWidget {
