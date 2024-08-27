@@ -65,7 +65,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   runApp(MyApp());
@@ -75,58 +74,74 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ImeiScreen(),
+      title: 'Unique ID Example',
+      home: UniqueIdScreen(),
     );
   }
 }
 
-class ImeiScreen extends StatefulWidget {
+class UniqueIdScreen extends StatefulWidget {
   @override
-  _ImeiScreenState createState() => _ImeiScreenState();
+  _UniqueIdScreenState createState() => _UniqueIdScreenState();
 }
 
-class _ImeiScreenState extends State<ImeiScreen> {
-  String _imei = 'Unknown';
+class _UniqueIdScreenState extends State<UniqueIdScreen> {
+  String _uniqueId = 'Fetching...';
 
   @override
   void initState() {
     super.initState();
-    _getImei();
+    _fetchUniqueId();
   }
 
-  Future<void> _getImei() async {
-    String imei = 'Unknown';
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    try {
-      if (await Permission.phone.request().isGranted) {
-        if (Theme.of(context).platform == TargetPlatform.android) {
-          AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-          imei = androidInfo.serialNumber;
-        } else {
-          imei = 'IMEI not available on this platform';
-        }
-      } else {
-        imei = 'Permission denied';
-      }
-    } catch (e) {
-      imei = 'Failed to get IMEI: $e';
+  Future<void> _fetchUniqueId() async {
+    String uniqueId;
+
+    if (await _isIOS()) {
+      uniqueId = await _getIOSUniqueId();
+    } else {
+      uniqueId = await _getAndroidUniqueId();
     }
 
-    if (!mounted) return;
-
     setState(() {
-      _imei = imei;
+      _uniqueId = uniqueId;
     });
+  }
+
+  Future<bool> _isIOS() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    try {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      return iosInfo != null;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<String> _getIOSUniqueId() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+
+    // iOS पर IMEI तक पहुंच संभव नहीं है; `identifierForVendor` का उपयोग करें
+    return iosInfo.identifierForVendor ?? 'Unknown ID'; // यूनिक आईडी प्राप्त करें
+  }
+
+  Future<String> _getAndroidUniqueId() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+
+    // Android पर IMEI तक पहुंच सीमित हो सकती है; `androidId` का उपयोग करें
+    return androidInfo.id; // Android ID प्राप्त करें
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Get IMEI'),
+        title: Text('Unique ID Example'),
       ),
       body: Center(
-        child: Text('IMEI: $_imei'),
+        child: Text('Unique ID: $_uniqueId'),
       ),
     );
   }
