@@ -117,10 +117,7 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
                   ProfileCard(id: widget.id),
                   FullSizeBtns(id: widget.id),
                   AboutUs(about: instituteDetails),
-                  CourseSection(
-                    courses: courses,
-                    id: widget.id,
-                  ),
+                  CourseSection(courses: courses, id: widget.id),
                   FacultiesCard(faculties: faculties),
                   KeyFeatures(keyFeatures: keyFeatures),
                   ReviewCard(id: widget.id, reviews: reviews),
@@ -128,7 +125,7 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
                     id: widget.id,
                     onReviewAdded: addReview,
                     reviews: reviews,
-                  )
+                  ),
                 ],
               ),
             ),

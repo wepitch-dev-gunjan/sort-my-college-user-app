@@ -1,14 +1,8 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/constants.dart';
-import 'package:myapp/page-1/sign_up_screen_new.dart';
-import 'package:myapp/page-1/splash_screen_1.dart';
-import 'package:myapp/page-1/splash_screen_n.dart';
-import 'package:myapp/phone/login_screen.dart';
-import 'package:myapp/slide_screen.dart';
 import 'package:myapp/utils.dart';
 import 'package:myapp/utils/common.dart';
 import 'package:otp_text_field/otp_text_field.dart';
