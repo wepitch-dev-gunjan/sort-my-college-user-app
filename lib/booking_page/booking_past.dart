@@ -1,7 +1,5 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/utils.dart';
 import 'booking_confirmatoin_past.dart';
@@ -28,8 +26,7 @@ class _BookingPastState extends State<BookingPast> {
         past: true, today: false, upcoming: false);
 
     setState(() {
-      bookings = pastData;
-
+      bookings = pastData.reversed.toList(); // Reverse the list to show latest booking at the top
       isLoading = false;
     });
   }
@@ -57,14 +54,12 @@ class _BookingPastState extends State<BookingPast> {
                     child: Container(
                       margin: const EdgeInsets.only(bottom: 15),
                       child: Stack(
-                        // fit: StackFit.expand,
                         alignment: Alignment.bottomCenter,
                         children: [
                           Card(
                             color: Colors.white,
                             surfaceTintColor: Colors.white,
                             shadowColor: Colors.white,
-                            // semanticContainer: false,
                             margin: const EdgeInsets.only(top: 5),
                             elevation: 5,
                             shape: RoundedRectangleBorder(
@@ -95,10 +90,6 @@ class _BookingPastState extends State<BookingPast> {
                                               children: [
                                                 Text(
                                                   '${bookings[index]["booked_entity"]['name']}',
-                                                  // bookings[index]
-                                                  //         .booked_entity
-                                                  //         ?.name ??
-                                                  //     "Coming",
                                                   style: SafeGoogleFont(
                                                     "Inter",
                                                     fontSize: mWidth * 0.045,

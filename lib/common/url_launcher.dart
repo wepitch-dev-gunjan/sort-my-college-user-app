@@ -55,13 +55,15 @@ bool isSessionExpired(
   // Combine date and time
   DateTime combinedDateTime = DateTime(year, month, day, hour, minute);
 
+  // log("CombineDate1$combinedDateTime");
+
   // Add session duration to the combined datetime
   combinedDateTime = combinedDateTime.add(Duration(minutes: sessionDuration));
-
+  // log("CombineDate2$combinedDateTime");
   // Get current datetime
   DateTime now = DateTime.now();
 
-  // Check if the session is expired
-  log("123${combinedDateTime.isBefore(now)}");
+  // // Check if the session is expired
+  // log("123${combinedDateTime.isBefore(now)}");
   return combinedDateTime.isBefore(now);
 }

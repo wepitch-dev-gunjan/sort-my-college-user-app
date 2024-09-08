@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
@@ -45,8 +47,9 @@ class _BookingConfirmationUpcomingState
 
   isSessionAboutToStart(String id) async {
     final response = await ApiService.isSessionAboutToStart(id: id);
+    log("respo123$response");
     setState(() {
-      canJoin = response;
+      canJoin = response['isAboutToStart'];
       isLoading = false;
     });
   }

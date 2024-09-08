@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:myapp/home_page/entrance_preparation/components/commons.dart';
+import 'package:myapp/other/constants.dart';
 import '../../../other/api_service.dart';
 
 class GiveReviewSection extends StatefulWidget {
@@ -140,6 +142,172 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
   }
 }
 
+// class ReviewCard extends StatefulWidget {
+//   final String? id;
+//   final List? reviews;
+
+//   const ReviewCard({
+//     super.key,
+//     this.id,
+//     this.reviews,
+//   });
+
+//   @override
+//   _ReviewCardState createState() => _ReviewCardState();
+// }
+
+// class _ReviewCardState extends State<ReviewCard> {
+//   late PageController _pageController;
+//   int _currentPage = 0;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _pageController = PageController(initialPage: 0);
+//   }
+
+//   @override
+//   void dispose() {
+//     _pageController.dispose();
+//     super.dispose();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     // Check for null and empty list
+//     if (widget.reviews == null || widget.reviews!.isEmpty) {
+//       return const SizedBox.shrink();
+//     }
+
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         const Padding(
+//           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+//           child: Text(
+//             'Reviews',
+//             style: TextStyle(
+//               fontSize: 17,
+//               fontWeight: FontWeight.bold,
+//             ),
+//           ),
+//         ),
+//         Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+//           child: Column(
+//             children: [
+//               SizedBox(
+//                 height: MediaQuery.of(context).size.height * 0.26,
+//                 child: PageView.builder(
+//                   controller: _pageController,
+//                   onPageChanged: (index) {
+//                     setState(() {
+//                       _currentPage = index;
+//                     });
+//                   },
+//                   scrollDirection: Axis.horizontal,
+//                   itemCount: widget.reviews!.length,
+//                   itemBuilder: (context, index) {
+//                     // Add null checks for individual items
+//                     var review = widget.reviews![index];
+//                     double rating = (review['rating'] ?? 0).toDouble();
+//                     String userName =
+//                         review['user_name']?.toString() ?? 'Anonymous';
+//                     String comment =
+//                         review['comment']?.toString() ?? 'No comment available';
+
+//                     return Row(
+//                       children: [
+//                         Expanded(
+//                           child: Card(
+//                             color: Colors.white,
+//                             child: Padding(
+//                               padding: const EdgeInsets.symmetric(
+//                                   horizontal: 15, vertical: 10),
+//                               child: Column(
+//                                 children: [
+//                                   CircleAvatar(
+//                                     radius: 25,
+//                                     backgroundImage: review['profile_pic'] !=
+//                                                 null &&
+//                                             review['profile_pic'].isNotEmpty
+//                                         ? NetworkImage(review['profile_pic'])
+//                                             as ImageProvider
+//                                         : null,
+//                                     child: review['profile_pic'] == null ||
+//                                             review['profile_pic'].isEmpty
+//                                         ? const CircleAvatar(
+//                                             backgroundColor: Colors.white,
+//                                             radius: 25,
+//                                             backgroundImage: AssetImage(
+//                                                 'assets/page-1/images/noImage.png'),
+//                                           )
+//                                         : null,
+//                                   ),
+//                                   const SizedBox(height: 5),
+//                                   Text(
+//                                     userName,
+//                                     style: const TextStyle(
+//                                         fontSize: 12,
+//                                         fontWeight: FontWeight.w500),
+//                                   ),
+//                                   RatingBarIndicator(
+//                                     rating: rating,
+//                                     itemSize: 20,
+//                                     itemBuilder: (context, index) => const Icon(
+//                                         Icons.star,
+//                                         color: Colors.amber),
+//                                   ),
+//                                   const SizedBox(height: 8),
+//                                   Expanded(
+//                                     child: Center(
+//                                       child: Text(
+//                                         comment,
+//                                         style: const TextStyle(
+//                                             fontSize: 13,
+//                                             fontStyle: FontStyle.italic),
+//                                         overflow: TextOverflow.ellipsis,
+//                                         maxLines: 3,
+//                                       ),
+//                                     ),
+//                                   )
+//                                 ],
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                       ],
+//                     );
+//                   },
+//                 ),
+//               ),
+//               Row(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: [
+//                   for (int i = 0; i < widget.reviews!.length.clamp(0, 5); i++)
+//                     Padding(
+//                       padding: const EdgeInsets.all(4.0),
+//                       child: Container(
+//                         height: 6,
+//                         width: 6,
+//                         decoration: BoxDecoration(
+//                           borderRadius: BorderRadius.circular(50),
+//                           color: i == _currentPage
+//                               ? Colors.black
+//                               : Colors.grey.shade400,
+//                         ),
+//                       ),
+//                     )
+//                 ],
+//               )
+//             ],
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
+
 class ReviewCard extends StatefulWidget {
   final String? id;
   final List? reviews;
@@ -170,9 +338,44 @@ class _ReviewCardState extends State<ReviewCard> {
     super.dispose();
   }
 
+  void _showFullReviewDialog(String review) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
+        title: const Text('Full Review'),
+        content: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width * 0.8,
+            maxHeight: MediaQuery.of(context).size.height * 0.5,
+          ),
+          child: SingleChildScrollView(
+            child: Text(
+              review,
+              style: const TextStyle(
+                fontSize: 13,
+              ),
+            ),
+          ),
+        ),
+        actions: [
+          Btn(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            btnName: "Close",
+            textColor: Colors.white,
+            borderRadius: 5,
+            width: 80,
+            btnColor: const Color(0xff1F0A68),
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Check for null and empty list
     if (widget.reviews == null || widget.reviews!.isEmpty) {
       return const SizedBox.shrink();
     }
@@ -206,7 +409,6 @@ class _ReviewCardState extends State<ReviewCard> {
                   scrollDirection: Axis.horizontal,
                   itemCount: widget.reviews!.length,
                   itemBuilder: (context, index) {
-                    // Add null checks for individual items
                     var review = widget.reviews![index];
                     double rating = (review['rating'] ?? 0).toDouble();
                     String userName =
@@ -258,7 +460,11 @@ class _ReviewCardState extends State<ReviewCard> {
                                   ),
                                   const SizedBox(height: 8),
                                   Expanded(
-                                    child: Center(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        // Show full review in a dialog
+                                        _showFullReviewDialog(comment);
+                                      },
                                       child: Text(
                                         comment,
                                         style: const TextStyle(
@@ -268,7 +474,7 @@ class _ReviewCardState extends State<ReviewCard> {
                                         maxLines: 3,
                                       ),
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
@@ -297,7 +503,7 @@ class _ReviewCardState extends State<ReviewCard> {
                       ),
                     )
                 ],
-              )
+              ),
             ],
           ),
         ),

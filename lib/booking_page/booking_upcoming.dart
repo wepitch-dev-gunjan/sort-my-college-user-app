@@ -33,7 +33,7 @@ class _BookingUpcomingState extends State<BookingUpcoming> {
         past: false, today: false, upcoming: true);
 
     setState(() {
-      bookings = upcomingData;
+      bookings = upcomingData.reversed.toList();
 
       isLoading = false;
     });

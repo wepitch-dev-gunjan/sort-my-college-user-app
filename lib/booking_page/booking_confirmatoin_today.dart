@@ -43,8 +43,10 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
   }
 
   isSessionAboutToStart(String id) async {
-    final response =
-        await ApiService.isSessionAboutToStart(id: id);
+
+    final response = await ApiService.isSessionAboutToStart(id: id);
+
+    log("canjoinResponse$response");
     setState(() {
       canJoin = response['isAboutToStart'];
       isLoading = false;
@@ -59,7 +61,8 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
   @override
   Widget build(BuildContext context) {
     log('CanJoin=========>---$canJoin');
-    
+    log("iddddddddddddddd123${widget.id}");
+
     if (isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
@@ -202,7 +205,8 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                                     onPressed: () {
                                       log("$sessionTime");
                                       log("$sessionDate");
-                                      log("$sessionTime");
+                                      log("$sessionDuration");
+                                      log("canJoin$canJoin");
                                       if (!canJoin) {
                                         if (isSessionExpired(sessionDate,
                                             sessionTime, sessionDuration)) {
@@ -214,6 +218,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                                                   'The session will start 10 minutes early.');
                                         }
                                       } else {
+                                        log("else ka code chla can join true hai");
                                         launchURL(
                                           booking['booking_data']
                                               ['session_link'],
@@ -227,17 +232,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                                     sessionDuration: sessionDuration,
                                     canJoin: canJoin,
                                   ),
-
                                   const SizedBox(height: 4),
-                                  // widget.isUpcoming
-                                  //     ? const SizedBox()
-                                  //     : Text(
-                                  //         "Host has joined",
-                                  //         style: SafeGoogleFont("Inter",
-                                  //             fontSize: 12,
-                                  //             fontWeight: FontWeight.w600,
-                                  //             color: Colors.grey),
-                                  //       )
                                 ],
                               ),
                             ],

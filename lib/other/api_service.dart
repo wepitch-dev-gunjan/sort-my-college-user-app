@@ -331,15 +331,16 @@ class ApiService {
     }
   }
 
-  static Future<Map<String, dynamic>> counsellor_create_order(
-    String name,
-    String email,
+  static Future<Map<String, dynamic>> counsellor_create_order({
+    String? name,
+    String? email,
     num? price,
-    String description,
-    String number,
-  ) async {
+    String? description,
+    String? number,
+  }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
+
     final body = jsonEncode({
       "amount": price,
       "email": email,
@@ -351,6 +352,7 @@ class ApiService {
       'Content-Type': 'application/json',
       "Authorization": token,
     };
+    log("Body$token");
     final url =
         Uri.parse('${AppConstants.baseUrl}/admin/payments/create-order');
     final response = await http.post(url, headers: headers, body: body);
@@ -800,6 +802,7 @@ class ApiService {
       {required bool past, required bool today, required bool upcoming}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
+    log("ttokensss$token");
 
     final url = Uri.parse(past == true
         ? "${AppConstants.baseUrl}/user/booking?past=true"
@@ -824,6 +827,7 @@ class ApiService {
   static Future isSessionAboutToStart({required String id}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
+    log("id$id ye hai");
 
     final url = Uri.parse(
         "${AppConstants.baseUrl}/counsellor/session/About-to-start/$id");
