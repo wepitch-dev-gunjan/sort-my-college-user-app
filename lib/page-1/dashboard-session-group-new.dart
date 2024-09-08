@@ -47,12 +47,13 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
   String apiEndPoint = "/pg/v1/pay";
   String? packageName = 'com.sortmycollege';
 
-  bool isExpanded = false;
+  // bool isExpanded = false;
   SessionDate sessionDate = SessionDate();
   String selectedDate = Jiffy.now().format(pattern: "d MMM");
   String selectedSessionDate = Jiffy.now().format(pattern: "dd/M/yyyy");
 
   late TabController tabController;
+  int? expandedIndex;
 
   @override
   void initState() {
@@ -140,7 +141,6 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                   .allDetails.sessions ??
                                               []);
 
-                                      log("data$data");
                                       tabController.animateTo(e.index);
                                       String date = Jiffy.parse(e.date,
                                               pattern: "d MMM yyyy")
@@ -161,17 +161,11 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                               id: widget.id);
                                     },
                                     child: SizedBox(
-                                      // group310VQt (2620:3574)
-
                                       child: SingleChildScrollView(
                                         scrollDirection: Axis.horizontal,
                                         child: Row(
-                                          // crossAxisAlignment:
-                                          //     CrossAxisAlignment
-                                          //         .center,
                                           children: [
                                             Center(
-                                              // today21octT6p (2620:3575)
                                               child: Container(
                                                 margin: EdgeInsets.fromLTRB(
                                                     0 * fem,
@@ -197,7 +191,6 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                               ),
                                             ),
                                             Center(
-                                              // noslotskrc (2620:3576)
                                               child: Text(
                                                 isDateIsSame(
                                                         e.formattedDate,
@@ -249,7 +242,6 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                 }).toList())),
                       ),
                       Positioned(
-                        // bookyourslotnzU (1779:1252)
                         left: 30 * fem,
                         top: 80.5 * fem,
                         child: Align(
@@ -312,7 +304,6 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                   physics: const ScrollPhysics(),
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
-                                    log("message=>-${counsellorSessionProvider.details.sessions![index].sessionTopic}");
                                     dynamic bookedslot =
                                         counsellorSessionProvider.details
                                                 .sessions![index].sessionSlots -
@@ -320,6 +311,9 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                 .details
                                                 .sessions![index]
                                                 .sessionAvailableSlots;
+
+                                    bool isCurrentlyExpanded =
+                                        expandedIndex == index;
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 16.0),
@@ -342,24 +336,20 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.end,
                                                 children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                      counsellorSessionProvider
-                                                              .details
-                                                              .sessions![index]
-                                                              .sessionTopic ??
-                                                          'Session',
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: const TextStyle(
-                                                        color:
-                                                            Color(0xFF1F0A68),
-                                                        fontSize: 16,
-                                                        fontFamily: 'Inter',
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        height: 0,
-                                                      ),
+                                                  Text(
+                                                    counsellorSessionProvider
+                                                            .details
+                                                            .sessions![index]
+                                                            .sessionTopic ??
+                                                        'Session',
+                                                    textAlign: TextAlign.start,
+                                                    style: const TextStyle(
+                                                      color: Color(0xFF1F0A68),
+                                                      fontSize: 16,
+                                                      fontFamily: 'Inter',
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      height: 0,
                                                     ),
                                                   ),
                                                   Container(
@@ -463,9 +453,12 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                       ),
                                                       GestureDetector(
                                                         onTap: () {
-                                                          isExpanded =
-                                                              !isExpanded;
-                                                          setState(() {});
+                                                          setState(() {
+                                                            expandedIndex =
+                                                                isCurrentlyExpanded
+                                                                    ? null
+                                                                    : index;
+                                                          });
                                                         },
                                                         child: const Row(
                                                           crossAxisAlignment:
@@ -503,7 +496,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                       const SizedBox(
                                                         height: 5,
                                                       ),
-                                                      isExpanded
+                                                   isCurrentlyExpanded
                                                           ? Column(
                                                               crossAxisAlignment:
                                                                   CrossAxisAlignment
