@@ -373,6 +373,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(height: 20),
+
+                  
                     counsellorSessionProvider.popularWorkShopList.isEmpty
                         ? const SizedBox()
                         : Column(
@@ -395,9 +397,12 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               const SizedBox(height: 4),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.28,
+                              Container(
+                                constraints: BoxConstraints(
+                                  maxHeight:
+                                      MediaQuery.of(context).size.height *
+                                          0.28, 
+                                ),
                                 child: counsellorSessionProvider
                                         .popularWorkShopList.isEmpty
                                     ? const Center(
@@ -419,7 +424,8 @@ class _HomePageState extends State<HomePage> {
                                             counsellorSessionProvider
                                                 .popularWorkShopList.length,
                                           );
-                                        }),
+                                        },
+                                      ),
                               ),
                             ],
                           ),

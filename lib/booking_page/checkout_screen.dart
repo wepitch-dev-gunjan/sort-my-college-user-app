@@ -406,6 +406,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   : Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         const Text(
                                           'Session Topic',
@@ -422,10 +424,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                               color: ColorsConst.black54Color,
                                               fontSize: 13,
                                             ),
-                                            overflow: TextOverflow
-                                                .ellipsis, // Optional: to show '...' for long text
-                                            softWrap:
-                                                true, // Allows text to wrap to the next line
+                                            // overflow: TextOverflow
+                                            //     .ellipsis, // Optional: to show '...' for long text
+                                            // softWrap:
+                                            //     true, // Allows text to wrap to the next line
                                           ),
                                         ),
                                       ],
