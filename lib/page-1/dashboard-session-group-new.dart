@@ -334,22 +334,31 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.end,
+                                                    CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    counsellorSessionProvider
-                                                            .details
-                                                            .sessions![index]
-                                                            .sessionTopic ??
-                                                        'Session',
-                                                    textAlign: TextAlign.start,
-                                                    style: const TextStyle(
-                                                      color: Color(0xFF1F0A68),
-                                                      fontSize: 16,
-                                                      fontFamily: 'Inter',
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      height: 0,
+                                                  SizedBox(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            1.6,
+                                                    child: Text(
+                                                      counsellorSessionProvider
+                                                              .details
+                                                              .sessions![index]
+                                                              .sessionTopic ??
+                                                          'Session',
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style: const TextStyle(
+                                                        color:
+                                                            Color(0xFF1F0A68),
+                                                        fontSize: 15,
+                                                        fontFamily: 'Inter',
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        height: 0,
+                                                      ),
                                                     ),
                                                   ),
                                                   Container(
@@ -496,7 +505,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                       const SizedBox(
                                                         height: 5,
                                                       ),
-                                                   isCurrentlyExpanded
+                                                      isCurrentlyExpanded
                                                           ? Column(
                                                               crossAxisAlignment:
                                                                   CrossAxisAlignment

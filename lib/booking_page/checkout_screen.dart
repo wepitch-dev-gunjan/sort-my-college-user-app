@@ -404,21 +404,30 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       "Personal"
                                   ? const SizedBox()
                                   : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         const Text(
                                           'Session Topic',
                                           style: TextStyle(
-                                              color: ColorsConst.black54Color,
-                                              fontSize: 12),
-                                        ),
-                                        const Spacer(),
-                                        Text(
-                                          widget.sessionTopic! ?? "N/A",
-                                          style: const TextStyle(
                                             color: ColorsConst.black54Color,
-                                            fontSize: 13,
+                                            fontSize: 12,
                                           ),
-                                        )
+                                        ),
+                                        SizedBox(width: 10),
+                                        Flexible(
+                                          child: Text(
+                                            widget.sessionTopic! ?? "N/A",
+                                            style: const TextStyle(
+                                              color: ColorsConst.black54Color,
+                                              fontSize: 13,
+                                            ),
+                                            overflow: TextOverflow
+                                                .ellipsis, // Optional: to show '...' for long text
+                                            softWrap:
+                                                true, // Allows text to wrap to the next line
+                                          ),
+                                        ),
                                       ],
                                     ),
                               const SizedBox(height: 3),

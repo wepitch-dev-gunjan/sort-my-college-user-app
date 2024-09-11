@@ -832,7 +832,7 @@ class _HomePageState extends State<HomePage> {
                               latestSessionsModel.counsellorName ?? "N/A",
                               style: const TextStyle(
                                 color: Color(0xFF1F0A68),
-                                fontSize: 15,
+                                fontSize: 14.5,
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w500,
                                 height: 0,
@@ -843,9 +843,11 @@ class _HomePageState extends State<HomePage> {
                               width: 190.25,
                               child: Text(
                                 latestSessionsModel.sessionTopic!,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
                                   color: Colors.black,
-                                  fontSize: 16,
+                                  fontSize: 15,
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w500,
                                   height: 0,
