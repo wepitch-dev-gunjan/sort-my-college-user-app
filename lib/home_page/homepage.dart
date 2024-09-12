@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:myapp/common/comming_soon.dart';
@@ -373,8 +374,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-
-                  
                     counsellorSessionProvider.popularWorkShopList.isEmpty
                         ? const SizedBox()
                         : Column(
@@ -400,8 +399,7 @@ class _HomePageState extends State<HomePage> {
                               Container(
                                 constraints: BoxConstraints(
                                   maxHeight:
-                                      MediaQuery.of(context).size.height *
-                                          0.28, 
+                                      MediaQuery.of(context).size.height * 0.28,
                                 ),
                                 child: counsellorSessionProvider
                                         .popularWorkShopList.isEmpty
@@ -461,9 +459,8 @@ class _HomePageState extends State<HomePage> {
                                               padding:
                                                   EdgeInsets.only(top: 100),
                                               child: Center(
-                                                child:
-                                                    CircularProgressIndicator(),
-                                              ),
+                                                  child:
+                                                      CircularProgressIndicator()),
                                             )
                                           : ListView.builder(
                                               shrinkWrap: true,
@@ -485,43 +482,32 @@ class _HomePageState extends State<HomePage> {
                                                         .registeredDate!);
                                                 DateTime currentDate =
                                                     DateTime.now();
-
                                                 if (webinarDate
                                                     .isBefore(currentDate)) {
                                                   return const SizedBox
                                                       .shrink();
                                                 }
 
-                                                DateTime registrationDate =
-                                                    DateTime.parse(trending
-                                                        .registeredDate!);
                                                 Duration difference =
                                                     currentDate.difference(
-                                                        registrationDate);
-                                                var pastdays;
-                                                if (difference.inHours >= 24) {
-                                                  has24HoursPassed = true;
-                                                  pastdays = difference.inDays;
-                                                } else {
-                                                  has24HoursPassed = false;
-                                                }
-
+                                                        webinarDate);
+                                                bool has24HoursPassed =
+                                                    difference.inHours >= 24;
                                                 bool isRegistered =
                                                     trending.registered!;
+
                                                 return Column(
                                                   children: [
                                                     GestureDetector(
-                                                      onTap: () {
-                                                        DateTime
-                                                            registrationDate =
-                                                            DateTime.parse(trending
-                                                                .registeredDate!);
-                                                        Navigator.push(
+                                                      onTap: () async {
+                                                        bool?
+                                                            registrationStatus =
+                                                            await Navigator
+                                                                .push(
                                                           context,
                                                           MaterialPageRoute(
-                                                              builder:
-                                                                  (context) {
-                                                            return WebinarDetailsPageWidget(
+                                                            builder: (context) =>
+                                                                WebinarDetailsPageWidget(
                                                               webinarId:
                                                                   trending.id,
                                                               registerdDate:
@@ -542,15 +528,25 @@ class _HomePageState extends State<HomePage> {
                                                                   trending
                                                                       .registered!,
                                                               registrationDate:
-                                                                  registrationDate,
+                                                                  webinarDate,
                                                               webinarJoinUrl:
                                                                   trending
                                                                       .webinarJoinUrl,
                                                               canJoin: trending
                                                                   .canJoin,
-                                                            );
-                                                          }),
+                                                            ),
+                                                          ),
                                                         );
+
+                                                        if (registrationStatus ==
+                                                            true) {
+                                                          // Update the webinar list or status
+                                                          setState(() {
+                                                            // Refresh the webinar list or status
+                                                            counsellorSessionProvider
+                                                                .refresh();
+                                                          });
+                                                        }
                                                       },
                                                       child: Card(
                                                         shadowColor: ColorsConst
@@ -559,12 +555,11 @@ class _HomePageState extends State<HomePage> {
                                                         surfaceTintColor:
                                                             Colors.white,
                                                         elevation: 2,
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
+                                                        shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10)),
                                                         child: Column(
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
@@ -604,8 +599,6 @@ class _HomePageState extends State<HomePage> {
                                                                   Text(
                                                                     trending
                                                                         .webinarTitle!,
-                                                                    // trending
-                                                                    //     .webinarBy!,
                                                                     style: SafeGoogleFont(
                                                                         "Inter",
                                                                         fontSize:
@@ -630,23 +623,17 @@ class _HomePageState extends State<HomePage> {
                                                                         children: [
                                                                           Text(
                                                                             trending.webinarDate!,
-                                                                            style:
-                                                                                SafeGoogleFont(
-                                                                              "Inter",
-                                                                              fontSize: 12,
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
+                                                                            style: SafeGoogleFont("Inter",
+                                                                                fontSize: 12,
+                                                                                fontWeight: FontWeight.w500),
                                                                           ),
                                                                           const SizedBox(
                                                                               height: 3),
                                                                           Text(
                                                                             trending.webinarBy!,
-                                                                            style:
-                                                                                SafeGoogleFont(
-                                                                              "Inter",
-                                                                              fontSize: 11,
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
+                                                                            style: SafeGoogleFont("Inter",
+                                                                                fontSize: 11,
+                                                                                fontWeight: FontWeight.w500),
                                                                           ),
                                                                         ],
                                                                       ),
@@ -700,10 +687,12 @@ class _HomePageState extends State<HomePage> {
                                                                         RegisterNowWidget(
                                                                           onPressed:
                                                                               () async {
-                                                                            var daysDifference = calculateDaysDifference(
-                                                                                registeredDate: trending.registeredDate!,
-                                                                                webinarRegister: trending.registered!,
-                                                                                canJoin: trending.canJoin!);
+                                                                            var daysDifference =
+                                                                                calculateDaysDifference(
+                                                                              registeredDate: trending.registeredDate!,
+                                                                              webinarRegister: trending.registered!,
+                                                                              canJoin: trending.canJoin!,
+                                                                            );
 
                                                                             if (!trending
                                                                                 .registered!) {
@@ -725,10 +714,7 @@ class _HomePageState extends State<HomePage> {
                                                                                         child: const Text("Yes"),
                                                                                         onPressed: () async {
                                                                                           await ApiService.webinar_register(trending.id!);
-
-                                                                                          // Update the state to reflect registration
                                                                                           setState(() {
-                                                                                            // isRegistered=true;
                                                                                             trending.registered = true;
                                                                                           });
                                                                                           Navigator.of(context).pop();
@@ -805,7 +791,10 @@ class _HomePageState extends State<HomePage> {
     str = counsellorSessionProvider.popularWorkShopList[0].sessionDate
         ?.split('T');
     return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10),
+      padding: const EdgeInsets.only(
+        left: 10,
+        right: 10,
+      ),
       child: SizedBox(
         width: width / 1.05,
         child: Card(
@@ -851,9 +840,9 @@ class _HomePageState extends State<HomePage> {
                                 latestSessionsModel.sessionTopic!,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 15,
+                                  fontSize: 15.sp,
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w500,
                                   height: 0,
@@ -1096,7 +1085,7 @@ class _HomePageState extends State<HomePage> {
                       child: Image.asset(
                         "assets/page-1/images/group-38-oFX.png",
                         color: const Color(0xFF1F0A68),
-                        height: 20,
+                        height: 20.h,
                       ),
                     ),
                   ),

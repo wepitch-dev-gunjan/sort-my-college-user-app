@@ -491,7 +491,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                   widget.webinarRegister = true;
                                   // widget.webinarRegister = true;
                                 });
-                                Navigator.of(context).pop();
+                                Navigator.of(context).pop(true);
                               },
                             ),
                           ],
@@ -508,93 +508,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                 regdate: widget.registerdDate,
                 isRegisterNow: widget.webinarRegister,
                 canJoin: widget.canJoin!,
-              )
-
-              // child: webinarDetailWidget(
-              //   onPressed: () async {
-              //     _isRegistrationStarting = widget.webinarRegister;
-
-              //     log("_isRegistred=>$_isRegistrationStarting");
-
-              //     if (has24HoursPassed) {
-              //       Fluttertoast.showToast(
-              //           msg: 'Webinar Happened ${diff.abs()} days ago');
-              //     } else {
-              //       if (widget.webinarRegister && widget.webinarStartDays == 0) {
-              //         launchUrlString(widget.webinarJoinUrl!);
-              //       } else if (_isRegistrationStarting) {
-              //         Fluttertoast.showToast(
-              //             msg: 'Participant is already registered');
-              //       } else {
-              //         showDialog(
-              //           context: context,
-              //           builder: (context) {
-              //             return AlertDialog(
-              //               title: const Text(
-              //                 'Do you want to register for the webinar?',
-              //                 style: TextStyle(
-              //                   fontSize: 16,
-              //                 ),
-              //               ),
-              //               actions: [
-              //                 TextButton(
-              //                   onPressed: () {
-              //                     Navigator.pop(context);
-              //                   },
-              //                   child: const Text('Cancel'),
-              //                 ),
-              //                 TextButton(
-              //                   onPressed: () async {
-              //                     if (_isRegistrationStarting) {
-              //                       Fluttertoast.showToast(
-              //                           msg: 'Participant is already registered');
-              //                       Navigator.pop(context);
-              //                     } else {
-              //                       var value = await ApiService.webinar_register(
-              //                           widget.webinarId!);
-              //                       if (value["error"] ==
-              //                           "Participant is already registered") {
-              //                         Fluttertoast.showToast(
-              //                             msg:
-              //                                 'Participant is already registered');
-              //                       } else if (value["message"] ==
-              //                           "Registration completed") {
-              //                         Fluttertoast.showToast(
-              //                             msg:
-              //                                 'Registration completed. Thanks for registering');
-              //                         setState(() {
-              //                           widget.webinarRegister = true;
-
-              //                           _isRegistrationStarting =
-              //                               widget.webinarRegister;
-              //                         });
-              //                       }
-              //                       if (mounted) {
-              //                         Navigator.pop(context);
-              //                       }
-
-              //                       await _updateRegistrationStatus(true);
-              //                     }
-              //                   },
-              //                   child: const Text('Yes'),
-              //                 ),
-              //               ],
-              //             );
-              //           },
-              //         );
-              //       }
-              //     }
-              //   },
-              //   title: widget.webinarRegister
-              //       ? (widget.webinarStartDays == 0
-              //           ? 'Join Now'
-              //           : has24HoursPassed
-              //               ? 'Happened in ${diff.abs()} days ago'
-              //               : 'Starting in ${widget.webinarStartDays} days')
-              //       : 'Join Now',
-              //   isRegisterNow: has24HoursPassed ? false : widget.webinarRegister,
-              ),
-          // ),
+              )),
         ),
       ),
     );
