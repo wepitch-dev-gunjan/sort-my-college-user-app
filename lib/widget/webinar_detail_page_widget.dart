@@ -491,7 +491,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                   widget.webinarRegister = true;
                                   // widget.webinarRegister = true;
                                 });
-                                Navigator.of(context).pop(true);
+                                Navigator.of(context).pop();
                               },
                             ),
                           ],
@@ -508,7 +508,11 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                 regdate: widget.registerdDate,
                 isRegisterNow: widget.webinarRegister,
                 canJoin: widget.canJoin!,
-              )),
+              )
+
+           
+              ),
+          // ),
         ),
       ),
     );
