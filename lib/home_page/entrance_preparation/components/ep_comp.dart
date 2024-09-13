@@ -721,7 +721,7 @@ class _ProfileCardState extends State<ProfileCard> {
                   const SizedBox(height: 8.0),
                   Row(
                     children: [
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 12),
                       TextWithIcon(
                         text: "$followerCount Following",
                         fontWeight: FontWeight.w500,
