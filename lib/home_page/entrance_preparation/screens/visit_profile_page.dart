@@ -131,12 +131,12 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
               ),
             ),
             bottomNavigationBar: Container(
-              height: Platform.isIOS ? 60 : 50,
+              height: Platform.isIOS ? 70 : 50,
               width: MediaQuery.of(context).size.width,
               color: const Color(0xffF2F2F2),
               child: Padding(
                 padding: EdgeInsets.only(
-                    left: 35, right: 20, bottom: Platform.isIOS ? 10 : 0),
+                    left: 35, right: 20, bottom: Platform.isIOS ? 20 : 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
