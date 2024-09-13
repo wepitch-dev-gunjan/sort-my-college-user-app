@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -35,6 +36,7 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(height: 20),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
           child: Text(
@@ -68,7 +70,7 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
             ],
           ),
         ),
-        const SizedBox(height: 12.0),
+        const SizedBox(height: 10.0),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
           child: Container(
@@ -141,172 +143,6 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
     );
   }
 }
-
-// class ReviewCard extends StatefulWidget {
-//   final String? id;
-//   final List? reviews;
-
-//   const ReviewCard({
-//     super.key,
-//     this.id,
-//     this.reviews,
-//   });
-
-//   @override
-//   _ReviewCardState createState() => _ReviewCardState();
-// }
-
-// class _ReviewCardState extends State<ReviewCard> {
-//   late PageController _pageController;
-//   int _currentPage = 0;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _pageController = PageController(initialPage: 0);
-//   }
-
-//   @override
-//   void dispose() {
-//     _pageController.dispose();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     // Check for null and empty list
-//     if (widget.reviews == null || widget.reviews!.isEmpty) {
-//       return const SizedBox.shrink();
-//     }
-
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         const Padding(
-//           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-//           child: Text(
-//             'Reviews',
-//             style: TextStyle(
-//               fontSize: 17,
-//               fontWeight: FontWeight.bold,
-//             ),
-//           ),
-//         ),
-//         Padding(
-//           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-//           child: Column(
-//             children: [
-//               SizedBox(
-//                 height: MediaQuery.of(context).size.height * 0.26,
-//                 child: PageView.builder(
-//                   controller: _pageController,
-//                   onPageChanged: (index) {
-//                     setState(() {
-//                       _currentPage = index;
-//                     });
-//                   },
-//                   scrollDirection: Axis.horizontal,
-//                   itemCount: widget.reviews!.length,
-//                   itemBuilder: (context, index) {
-//                     // Add null checks for individual items
-//                     var review = widget.reviews![index];
-//                     double rating = (review['rating'] ?? 0).toDouble();
-//                     String userName =
-//                         review['user_name']?.toString() ?? 'Anonymous';
-//                     String comment =
-//                         review['comment']?.toString() ?? 'No comment available';
-
-//                     return Row(
-//                       children: [
-//                         Expanded(
-//                           child: Card(
-//                             color: Colors.white,
-//                             child: Padding(
-//                               padding: const EdgeInsets.symmetric(
-//                                   horizontal: 15, vertical: 10),
-//                               child: Column(
-//                                 children: [
-//                                   CircleAvatar(
-//                                     radius: 25,
-//                                     backgroundImage: review['profile_pic'] !=
-//                                                 null &&
-//                                             review['profile_pic'].isNotEmpty
-//                                         ? NetworkImage(review['profile_pic'])
-//                                             as ImageProvider
-//                                         : null,
-//                                     child: review['profile_pic'] == null ||
-//                                             review['profile_pic'].isEmpty
-//                                         ? const CircleAvatar(
-//                                             backgroundColor: Colors.white,
-//                                             radius: 25,
-//                                             backgroundImage: AssetImage(
-//                                                 'assets/page-1/images/noImage.png'),
-//                                           )
-//                                         : null,
-//                                   ),
-//                                   const SizedBox(height: 5),
-//                                   Text(
-//                                     userName,
-//                                     style: const TextStyle(
-//                                         fontSize: 12,
-//                                         fontWeight: FontWeight.w500),
-//                                   ),
-//                                   RatingBarIndicator(
-//                                     rating: rating,
-//                                     itemSize: 20,
-//                                     itemBuilder: (context, index) => const Icon(
-//                                         Icons.star,
-//                                         color: Colors.amber),
-//                                   ),
-//                                   const SizedBox(height: 8),
-//                                   Expanded(
-//                                     child: Center(
-//                                       child: Text(
-//                                         comment,
-//                                         style: const TextStyle(
-//                                             fontSize: 13,
-//                                             fontStyle: FontStyle.italic),
-//                                         overflow: TextOverflow.ellipsis,
-//                                         maxLines: 3,
-//                                       ),
-//                                     ),
-//                                   )
-//                                 ],
-//                               ),
-//                             ),
-//                           ),
-//                         ),
-//                       ],
-//                     );
-//                   },
-//                 ),
-//               ),
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   for (int i = 0; i < widget.reviews!.length.clamp(0, 5); i++)
-//                     Padding(
-//                       padding: const EdgeInsets.all(4.0),
-//                       child: Container(
-//                         height: 6,
-//                         width: 6,
-//                         decoration: BoxDecoration(
-//                           borderRadius: BorderRadius.circular(50),
-//                           color: i == _currentPage
-//                               ? Colors.black
-//                               : Colors.grey.shade400,
-//                         ),
-//                       ),
-//                     )
-//                 ],
-//               )
-//             ],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
 
 class ReviewCard extends StatefulWidget {
   final String? id;
@@ -383,6 +219,7 @@ class _ReviewCardState extends State<ReviewCard> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(height: 20.0),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
           child: Text(
