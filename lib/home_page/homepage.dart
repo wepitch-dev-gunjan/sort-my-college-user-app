@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:myapp/common/comming_soon.dart';
 import 'package:myapp/home_page/coming_soon.dart';
 import 'package:myapp/home_page/counsellor_page/counsellor_details_screen.dart';
@@ -416,6 +417,8 @@ class _HomePageState extends State<HomePage> {
                                           LatestSessionsModel popular =
                                               counsellorSessionProvider
                                                   .popularWorkShopList[index];
+                                          log("Time${popular.sessionTime}");
+                                          log("Date${popular.sessionDate}");
                                           return profileCard(
                                             popular,
                                             index,
@@ -427,6 +430,85 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
+
+                    // counsellorSessionProvider.popularWorkShopList.isEmpty
+                    //     ? const SizedBox()
+                    //     : Column(
+                    //         children: [
+                    //           Padding(
+                    //             padding: EdgeInsets.only(left: 28.0 * fem),
+                    //             child: const Row(
+                    //               children: [
+                    //                 Text(
+                    //                   'Latest Sessions',
+                    //                   style: TextStyle(
+                    //                     color: Color(0xFF1F0A68),
+                    //                     fontSize: 20,
+                    //                     fontFamily: 'Inter',
+                    //                     fontWeight: FontWeight.w500,
+                    //                     height: 0,
+                    //                   ),
+                    //                 )
+                    //               ],
+                    //             ),
+                    //           ),
+                    //           const SizedBox(height: 4),
+                    //           Container(
+                    //             constraints: BoxConstraints(
+                    //               maxHeight:
+                    //                   MediaQuery.of(context).size.height * 0.28,
+                    //             ),
+                    //             child: counsellorSessionProvider
+                    //                     .popularWorkShopList.isEmpty
+                    //                 ? const Center(
+                    //                     child: Text("No Data Found"),
+                    //                   )
+                    //                 : ListView.builder(
+                    //                     scrollDirection: Axis.horizontal,
+                    //                     shrinkWrap: true,
+                    //                     physics: const PageScrollPhysics(),
+                    //                     itemCount: counsellorSessionProvider
+                    //                         .popularWorkShopList.length,
+                    //                     itemBuilder: (context, index) {
+                    //                       LatestSessionsModel popular =
+                    //                           counsellorSessionProvider
+                    //                               .popularWorkShopList[index];
+
+                    //                       // Parse the session date and time
+                    //                       DateTime sessionDateTime = DateFormat(
+                    //                               'dd-MM-yyyy hh:mm')
+                    //                           .parse(
+                    //                               '${popular.sessionDate} ${popular.sessionTime}');
+
+                    //                       // Get current date and time
+                    //                       DateTime now = DateTime.now();
+
+                    //                       // Check if session is within 15 minutes and same day
+                    //                       if (sessionDateTime
+                    //                                   .difference(now)
+                    //                                   .inMinutes >
+                    //                               15 ||
+                    //                           sessionDateTime.day != now.day ||
+                    //                           sessionDateTime.month !=
+                    //                               now.month ||
+                    //                           sessionDateTime.year !=
+                    //                               now.year) {
+                    //                         // Only show sessions that are not within 15 minutes or not today
+                    //                         return profileCard(
+                    //                           popular,
+                    //                           index,
+                    //                           counsellorSessionProvider
+                    //                               .popularWorkShopList.length,
+                    //                         );
+                    //                       } else {
+                    //                         return const SizedBox(); // Skip the session if it's within 15 minutes of current time on the same day
+                    //                       }
+                    //                     },
+                    //                   ),
+                    //           ),
+                    //         ],
+                    //       ),
+
                     const SizedBox(height: 10),
                     counsellorSessionProvider.trendingWebinarList.isEmpty
                         ? const SizedBox()

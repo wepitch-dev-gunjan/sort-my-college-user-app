@@ -533,6 +533,119 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                           : const SizedBox()
                                                     ],
                                                   ),
+                                                  // GestureDetector(
+                                                  //   onTap: () async {
+                                                  //     SharedPreferences sPref =
+                                                  //         await SharedPreferences
+                                                  //             .getInstance();
+
+                                                  //     var id =
+                                                  //         counsellorSessionProvider
+                                                  //             .details
+                                                  //             .sessions?[index]
+                                                  //             .id;
+                                                  //     sPref.setString(
+                                                  //         'sessionid', id!);
+
+                                                  //     var sessionSlots =
+                                                  //         counsellorSessionProvider
+                                                  //             .details
+                                                  //             .sessions![index]
+                                                  //             .sessionSlots!;
+                                                  //     var sessionAvailableSlots =
+                                                  //         counsellorSessionProvider
+                                                  //             .details
+                                                  //             .sessions![index]
+                                                  //             .sessionAvailableSlots!;
+
+                                                  //     if (sessionAvailableSlots <=
+                                                  //         0) {
+                                                  //       EasyLoading.showToast(
+                                                  //           'There are no booking slots available in this session, please book another session',
+                                                  //           toastPosition:
+                                                  //               EasyLoadingToastPosition
+                                                  //                   .bottom);
+                                                  //     } else {
+                                                  //       Navigator.push(
+                                                  //         context,
+                                                  //         MaterialPageRoute(
+                                                  //           builder: (context) {
+                                                  //             return CheckOutScreen(
+                                                  //               sessionId: id,
+                                                  //               designation: widget
+                                                  //                   .designation,
+                                                  //               name:
+                                                  //                   widget.name,
+                                                  //               profilepicurl:
+                                                  //                   widget
+                                                  //                       .profilepic,
+                                                  //               id: widget.id,
+                                                  //               sessionTopic:
+                                                  //                   counsellorSessionProvider
+                                                  //                       .details
+                                                  //                       .sessions![
+                                                  //                           index]
+                                                  //                       .sessionTopic,
+                                                  //               sessionDuration:
+                                                  //                   counsellorSessionProvider
+                                                  //                       .details
+                                                  //                       .sessions?[
+                                                  //                           index]
+                                                  //                       .sessionDuration,
+                                                  //               sessionTime: counsellorSessionProvider
+                                                  //                   .details
+                                                  //                   .sessions![
+                                                  //                       index]
+                                                  //                   .sessionTime!,
+                                                  //             );
+                                                  //           },
+                                                  //         ),
+                                                  //       );
+
+                                                  //       /* await ApiService.updateBookingSession(id)
+                                                  //           .then((value) => MoveToSessionPage()); */
+                                                  //     }
+                                                  //   },
+                                                  //   child: Container(
+                                                  //     width: 96,
+                                                  //     height: 38,
+                                                  //     decoration:
+                                                  //         ShapeDecoration(
+                                                  //       color: counsellorSessionProvider
+                                                  //                   .details
+                                                  //                   .sessions![
+                                                  //                       index]
+                                                  //                   .sessionAvailableSlots! >
+                                                  //               0
+                                                  //           ? const Color(
+                                                  //               0xFF1F0A68)
+                                                  //           : const Color(
+                                                  //               0xFF1F0A68),
+                                                  //       shape:
+                                                  //           RoundedRectangleBorder(
+                                                  //         borderRadius:
+                                                  //             BorderRadius
+                                                  //                 .circular(10),
+                                                  //       ),
+                                                  //     ),
+                                                  //     child: const Center(
+                                                  //       child: Text(
+                                                  //         'Book',
+                                                  //         textAlign:
+                                                  //             TextAlign.center,
+                                                  //         style: TextStyle(
+                                                  //           color: Colors.white,
+                                                  //           fontSize: 18,
+                                                  //           fontFamily: 'Inter',
+                                                  //           fontWeight:
+                                                  //               FontWeight.w600,
+                                                  //           height: 0,
+                                                  //         ),
+                                                  //       ),
+                                                  //     ),
+                                                  //   ),
+                                                  // ),
+
                                                   GestureDetector(
                                                     onTap: () async {
                                                       SharedPreferences sPref =
@@ -558,13 +671,72 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                               .sessions![index]
                                                               .sessionAvailableSlots!;
 
-                                                      if (sessionAvailableSlots <=
+                                                      // Get the session time in minutes and convert to hours and minutes
+                                                      int sessionTimeMinutes =
+                                                          counsellorSessionProvider
+                                                              .details
+                                                              .sessions![index]
+                                                              .sessionTime!;
+                                                      int sessionHour =
+                                                          sessionTimeMinutes ~/
+                                                              60; // Get hours
+                                                      int sessionMinute =
+                                                          sessionTimeMinutes %
+                                                              60; // Get minutes
+
+                                                      // Get the session date
+                                                      SessionDate sessionDate =
+                                                          SessionDate();
+                                                      String
+                                                          selectedSessionDate =
+                                                          Jiffy.now().format(
+                                                              pattern:
+                                                                  "dd/M/yyyy"); // Format: 13/9/2024
+
+                                                      // Split session date to get year, month, and day as integers
+                                                      List<String> dateParts =
+                                                          selectedSessionDate
+                                                              .split('/');
+                                                      int day = int.parse(
+                                                          dateParts[0]);
+                                                      int month = int.parse(
+                                                          dateParts[1]);
+                                                      int year = int.parse(
+                                                          dateParts[2]);
+
+                                                      // Construct the sessionDateTime from date and time
+                                                      DateTime sessionDateTime =
+                                                          DateTime(
+                                                              year,
+                                                              month,
+                                                              day,
+                                                              sessionHour,
+                                                              sessionMinute);
+
+                                                      // Calculate the current time to compare it later
+                                                      DateTime currentTime =
+                                                          DateTime.now();
+
+                                                      // Check if the session is starting in less than or equal to 10 minutes
+                                                      if (sessionDateTime
+                                                              .difference(
+                                                                  currentTime)
+                                                              .inMinutes <=
+                                                          10) {
+                                                        EasyLoading.showToast(
+                                                          'Booking is closed for this session as it is starting in less than 10 minutes',
+                                                          toastPosition:
+                                                              EasyLoadingToastPosition
+                                                                  .bottom,
+                                                        );
+                                                      } else if (sessionAvailableSlots <=
                                                           0) {
                                                         EasyLoading.showToast(
-                                                            'There are no booking slots available in this session, please book another session',
-                                                            toastPosition:
-                                                                EasyLoadingToastPosition
-                                                                    .bottom);
+                                                          'There are no booking slots available in this session, please book another session',
+                                                          toastPosition:
+                                                              EasyLoadingToastPosition
+                                                                  .bottom,
+                                                        );
                                                       } else {
                                                         Navigator.push(
                                                           context,
@@ -596,53 +768,113 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                                     .details
                                                                     .sessions![
                                                                         index]
-                                                                    .sessionTime!,
+                                                                    .sessionTime, // Pass sessionTime in minutes as int?
                                                               );
                                                             },
                                                           ),
                                                         );
-
-                                                        /* await ApiService.updateBookingSession(id)
-                                                            .then((value) => MoveToSessionPage()); */
                                                       }
                                                     },
-                                                    child: Container(
-                                                      width: 96,
-                                                      height: 38,
-                                                      decoration:
-                                                          ShapeDecoration(
-                                                        color: counsellorSessionProvider
-                                                                    .details
-                                                                    .sessions![
-                                                                        index]
-                                                                    .sessionAvailableSlots! >
-                                                                0
-                                                            ? const Color(
-                                                                0xFF1F0A68)
-                                                            : const Color(
-                                                                0xFF1F0A68),
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                      ),
-                                                      child: const Center(
-                                                        child: Text(
-                                                          'Book',
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 18,
-                                                            fontFamily: 'Inter',
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            height: 0,
+                                                    child: Builder(
+                                                      builder: (context) {
+                                                        // Get the session time in minutes and convert to hours and minutes
+                                                        int sessionTimeMinutes =
+                                                            counsellorSessionProvider
+                                                                .details
+                                                                .sessions![
+                                                                    index]
+                                                                .sessionTime!;
+                                                        int sessionHour =
+                                                            sessionTimeMinutes ~/
+                                                                60; // Get hours
+                                                        int sessionMinute =
+                                                            sessionTimeMinutes %
+                                                                60; // Get minutes
+
+                                                        // Get the session date
+                                                        SessionDate
+                                                            sessionDate =
+                                                            SessionDate();
+                                                        String
+                                                            selectedSessionDate =
+                                                            Jiffy.now().format(
+                                                                pattern:
+                                                                    "dd/M/yyyy"); // Format: 13/9/2024
+
+                                                        // Split session date to get year, month, and day as integers
+                                                        List<String> dateParts =
+                                                            selectedSessionDate
+                                                                .split('/');
+                                                        int day = int.parse(
+                                                            dateParts[0]);
+                                                        int month = int.parse(
+                                                            dateParts[1]);
+                                                        int year = int.parse(
+                                                            dateParts[2]);
+
+                                                        // Construct the sessionDateTime from date and time
+                                                        DateTime
+                                                            sessionDateTime =
+                                                            DateTime(
+                                                                year,
+                                                                month,
+                                                                day,
+                                                                sessionHour,
+                                                                sessionMinute);
+
+                                                        // Calculate the current time to compare it later
+                                                        DateTime currentTime =
+                                                            DateTime.now();
+
+                                                        return Container(
+                                                          width: 96,
+                                                          height: 38,
+                                                          decoration:
+                                                              ShapeDecoration(
+                                                            color: (sessionDateTime
+                                                                            .difference(
+                                                                                currentTime)
+                                                                            .inMinutes <=
+                                                                        10 ||
+                                                                    counsellorSessionProvider
+                                                                            .details
+                                                                            .sessions![
+                                                                                index]
+                                                                            .sessionAvailableSlots! <=
+                                                                        0)
+                                                                ? Colors
+                                                                    .grey // Disable color
+                                                                : const Color(
+                                                                    0xFF1F0A68), // Enable color
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ),
+                                                          child: const Center(
+                                                            child: Text(
+                                                              'Book',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 18,
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                height: 0,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
                                                     ),
                                                   ),
                                                 ],
