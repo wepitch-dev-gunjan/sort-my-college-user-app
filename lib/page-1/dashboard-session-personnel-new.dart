@@ -648,13 +648,11 @@ class _Counseling_Session_PersonnelState
                                                   //     ),
                                                   //   ),
                                                   // ),
-
-                                                       GestureDetector(
+GestureDetector(
                                                     onTap: () async {
                                                       SharedPreferences sPref =
                                                           await SharedPreferences
                                                               .getInstance();
-
                                                       var id =
                                                           counsellorSessionProvider
                                                               .details
@@ -663,18 +661,11 @@ class _Counseling_Session_PersonnelState
                                                       sPref.setString(
                                                           'sessionid', id!);
 
-                                                      var sessionSlots =
-                                                          counsellorSessionProvider
-                                                              .details
-                                                              .sessions![index]
-                                                              .sessionSlots!;
                                                       var sessionAvailableSlots =
                                                           counsellorSessionProvider
                                                               .details
                                                               .sessions![index]
                                                               .sessionAvailableSlots!;
-
-                                                      // Get the session time in minutes and convert to hours and minutes
                                                       int sessionTimeMinutes =
                                                           counsellorSessionProvider
                                                               .details
@@ -682,21 +673,11 @@ class _Counseling_Session_PersonnelState
                                                               .sessionTime!;
                                                       int sessionHour =
                                                           sessionTimeMinutes ~/
-                                                              60; // Get hours
+                                                              60;
                                                       int sessionMinute =
                                                           sessionTimeMinutes %
-                                                              60; // Get minutes
+                                                              60;
 
-                                                      // Get the session date
-                                                      SessionDate sessionDate =
-                                                          SessionDate();
-                                                      String
-                                                          selectedSessionDate =
-                                                          Jiffy.now().format(
-                                                              pattern:
-                                                                  "dd/M/yyyy"); // Format: 13/9/2024
-
-                                                      // Split session date to get year, month, and day as integers
                                                       List<String> dateParts =
                                                           selectedSessionDate
                                                               .split('/');
@@ -715,17 +696,32 @@ class _Counseling_Session_PersonnelState
                                                               day,
                                                               sessionHour,
                                                               sessionMinute);
-
-                                                      // Calculate the current time to compare it later
                                                       DateTime currentTime =
                                                           DateTime.now();
+                                                      DateTime currentDate =
+                                                          DateTime(
+                                                              currentTime.year,
+                                                              currentTime.month,
+                                                              currentTime.day);
 
-                                                      // Check if the session is starting in less than or equal to 30 minutes
-                                                      if (sessionDateTime
-                                                              .difference(
-                                                                  currentTime)
-                                                              .inMinutes <=
-                                                          30) {
+                                                      // Get the session date without time
+                                                      DateTime sessionOnlyDate =
+                                                          DateTime(
+                                                              sessionDateTime
+                                                                  .year,
+                                                              sessionDateTime
+                                                                  .month,
+                                                              sessionDateTime
+                                                                  .day);
+
+                                                      // Check if the session is starting in less than or equal to 30 minutes and the session date is today
+                                                      if (sessionOnlyDate ==
+                                                              currentDate &&
+                                                          sessionDateTime
+                                                                  .difference(
+                                                                      currentTime)
+                                                                  .inMinutes <=
+                                                              30) {
                                                         Fluttertoast.showToast(
                                                             msg:
                                                                 'Booking closed: Session starts in under 30 minutes.');
@@ -768,7 +764,7 @@ class _Counseling_Session_PersonnelState
                                                                     .details
                                                                     .sessions![
                                                                         index]
-                                                                    .sessionTime, // Pass sessionTime in minutes as int?
+                                                                    .sessionTime,
                                                               );
                                                             },
                                                           ),
@@ -786,22 +782,12 @@ class _Counseling_Session_PersonnelState
                                                                 .sessionTime!;
                                                         int sessionHour =
                                                             sessionTimeMinutes ~/
-                                                                60; // Get hours
+                                                                60;
                                                         int sessionMinute =
                                                             sessionTimeMinutes %
-                                                                60; // Get minutes
+                                                                60;
 
-                                                        // Get the session date
-                                                        SessionDate
-                                                            sessionDate =
-                                                            SessionDate();
-                                                        String
-                                                            selectedSessionDate =
-                                                            Jiffy.now().format(
-                                                                pattern:
-                                                                    "dd/M/yyyy"); // Format: 13/9/2024
 
-                                                        // Split session date to get year, month, and day as integers
                                                         List<String> dateParts =
                                                             selectedSessionDate
                                                                 .split('/');
@@ -821,27 +807,43 @@ class _Counseling_Session_PersonnelState
                                                                 day,
                                                                 sessionHour,
                                                                 sessionMinute);
-
-                                                        // Calculate the current time to compare it later
                                                         DateTime currentTime =
                                                             DateTime.now();
+                                                        DateTime currentDate =
+                                                            DateTime(
+                                                                currentTime
+                                                                    .year,
+                                                                currentTime
+                                                                    .month,
+                                                                currentTime
+                                                                    .day);
+
+                                                        // Get the session date without time
+                                                        DateTime
+                                                            sessionOnlyDate =
+                                                            DateTime(
+                                                                sessionDateTime
+                                                                    .year,
+                                                                sessionDateTime
+                                                                    .month,
+                                                                sessionDateTime
+                                                                    .day);
 
                                                         return Container(
                                                           width: 96,
                                                           height: 38,
                                                           decoration:
                                                               ShapeDecoration(
-                                                            color: (sessionDateTime
-                                                                            .difference(
-                                                                                currentTime)
-                                                                            .inMinutes <=
-                                                                        30 ||
+                                                            color: (sessionOnlyDate ==
+                                                                            currentDate &&
+                                                                        sessionDateTime.difference(currentTime).inMinutes <=
+                                                                            30) ||
                                                                     counsellorSessionProvider
                                                                             .details
                                                                             .sessions![
                                                                                 index]
                                                                             .sessionAvailableSlots! <=
-                                                                        0)
+                                                                        0
                                                                 ? Colors
                                                                     .grey // Disable color
                                                                 : const Color(
@@ -876,7 +878,7 @@ class _Counseling_Session_PersonnelState
                                                         );
                                                       },
                                                     ),
-                                                  ),
+                                                  )
                                                 ],
                                               ),
                                             ],

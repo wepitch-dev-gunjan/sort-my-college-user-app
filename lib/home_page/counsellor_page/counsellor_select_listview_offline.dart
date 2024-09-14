@@ -30,7 +30,7 @@ class _CounsellorListPage_offlineState
   bool isMoreDataLoading = false;
   int currentPage = 1;
   bool hasMoreData = true;
-  int limit = 4;
+  int limit = 20;
   late ScrollController _scrollController;
 
   @override
