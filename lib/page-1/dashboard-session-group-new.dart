@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:myapp/booking_page/checkout_screen.dart';
 import 'package:myapp/home_page/homepagecontainer_2.dart';
@@ -717,18 +718,15 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                       DateTime currentTime =
                                                           DateTime.now();
 
-                                                      // Check if the session is starting in less than or equal to 10 minutes
+                                                      // Check if the session is starting in less than or equal to 30 minutes
                                                       if (sessionDateTime
                                                               .difference(
                                                                   currentTime)
                                                               .inMinutes <=
-                                                          10) {
-                                                        EasyLoading.showToast(
-                                                          'Booking is closed for this session as it is starting in less than 10 minutes',
-                                                          toastPosition:
-                                                              EasyLoadingToastPosition
-                                                                  .bottom,
-                                                        );
+                                                          30) {
+                                                        Fluttertoast.showToast(
+                                                            msg:
+                                                                'Booking closed: Session starts in under 30 minutes.');
                                                       } else if (sessionAvailableSlots <=
                                                           0) {
                                                         EasyLoading.showToast(
@@ -835,7 +833,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                                             .difference(
                                                                                 currentTime)
                                                                             .inMinutes <=
-                                                                        10 ||
+                                                                        30 ||
                                                                     counsellorSessionProvider
                                                                             .details
                                                                             .sessions![
