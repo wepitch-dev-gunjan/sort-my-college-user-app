@@ -610,7 +610,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                               30) {
                                                         Fluttertoast.showToast(
                                                             msg:
-                                                                'Booking closed: Session starts in under 30 minutes.');
+                                                                'Booking Closed: Kindly book at least 30 minutes in advance.');
                                                       } else if (sessionAvailableSlots <=
                                                           0) {
                                                         EasyLoading.showToast(

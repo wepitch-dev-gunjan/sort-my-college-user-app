@@ -1107,7 +1107,7 @@ class _HomePageState extends State<HomePage> {
                               ? () {
                                   Fluttertoast.showToast(
                                       msg:
-                                          'Booking ends 30 minutes prior to session.');
+                                          'Booking Closed: Kindly book at least 30 minutes in advance.');
                                 }
                               : () {
                                   Navigator.push(
