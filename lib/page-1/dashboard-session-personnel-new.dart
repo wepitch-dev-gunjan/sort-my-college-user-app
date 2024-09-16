@@ -546,6 +546,7 @@ class _Counseling_Session_PersonnelState
                                                               .details
                                                               .sessions?[index]
                                                               .id;
+
                                                       sPref.setString(
                                                           'sessionid', id!);
 
@@ -554,6 +555,8 @@ class _Counseling_Session_PersonnelState
                                                               .details
                                                               .sessions![index]
                                                               .sessionAvailableSlots!;
+
+                                                      log("SessionAvailbleSlots========>>$sessionAvailableSlots");
                                                       int sessionTimeMinutes =
                                                           counsellorSessionProvider
                                                               .details
@@ -626,6 +629,8 @@ class _Counseling_Session_PersonnelState
                                                           context,
                                                           MaterialPageRoute(
                                                             builder: (context) {
+                                                              log("SessionId===>$id");
+                                                              log("Id===>${widget.id}");
                                                               return CheckOutScreen(
                                                                 sessionId: id,
                                                                 designation: widget

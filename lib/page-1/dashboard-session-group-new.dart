@@ -887,3 +887,5 @@ String slotCount(String date, List<Sessions> sessions) {
 
   return totalSlots > 0 ? totalSlots.toString() : "";
 }
+
+
