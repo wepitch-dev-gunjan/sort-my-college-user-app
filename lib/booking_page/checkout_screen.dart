@@ -727,11 +727,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           toastPosition: EasyLoadingToastPosition.bottom);
 
       await ApiService.updateBookingSession(widget.sessionId!)
-          .then((value) => MoveToSessionPage());
+          .then((value) => moveToSessionPage());
     }
   }
 
-  MoveToSessionPage() {
+  moveToSessionPage() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const BookingPage()),
