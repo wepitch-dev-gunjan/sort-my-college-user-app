@@ -417,8 +417,7 @@ class _HomePageState extends State<HomePage> {
                                           LatestSessionsModel popular =
                                               counsellorSessionProvider
                                                   .popularWorkShopList[index];
-                                          log("Time${popular.sessionTime}");
-                                          log("Date${popular.sessionStartingDate}");
+
                                           return profileCard(
                                             popular,
                                             index,
