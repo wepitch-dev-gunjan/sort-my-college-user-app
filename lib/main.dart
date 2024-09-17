@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         child: GetMaterialApp(
           title: 'SMC App',
-          // debugShowCheckedModeBanner: false,
+          debugShowCheckedModeBanner: false,
           scaffoldMessengerKey: snackbarKey,
           scrollBehavior: MyCustomScrollBehavior(),
           theme: ThemeData(primarySwatch: Colors.grey),
