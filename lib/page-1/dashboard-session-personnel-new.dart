@@ -657,7 +657,7 @@ class _Counseling_Session_PersonnelState
                                                                     .details
                                                                     .sessions![
                                                                         index]
-                                                                    .sessionTime,
+                                                                    .sessionTime!,
                                                               );
                                                             },
                                                           ),

@@ -650,7 +650,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                                     .details
                                                                     .sessions![
                                                                         index]
-                                                                    .sessionTime,
+                                                                    .sessionTime!,
                                                               );
                                                             },
                                                           ),
@@ -887,5 +887,3 @@ String slotCount(String date, List<Sessions> sessions) {
 
   return totalSlots > 0 ? totalSlots.toString() : "";
 }
-
-

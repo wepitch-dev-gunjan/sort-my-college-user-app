@@ -60,6 +60,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     amt_send = amountt;
     amount = amountt * 100;
 
+    log("Keyyyyyyyyyyyyyyyy=???????$key");
+
     var options = {
       "key": key,
       "amount": amount,

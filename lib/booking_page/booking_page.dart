@@ -5,7 +5,6 @@ import 'package:myapp/booking_page/booking_today.dart';
 import 'package:myapp/booking_page/booking_upcoming.dart';
 import 'package:myapp/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../other/api_service.dart';
 
 class BookingPage extends StatefulWidget {
