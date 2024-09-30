@@ -13,6 +13,8 @@ import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../home_page/homepagecontainer.dart';
+
 class CheckOutScreen extends StatefulWidget {
   final String name;
   final String? id;
@@ -732,10 +734,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     }
   }
 
+  // moveToSessionPage() {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => const BookingPage()),
+  //   );
+  // }
+
   moveToSessionPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const BookingPage()),
-    );
-  }
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => const HomePageContainerAfterBooking()),
+  );
+}
+
 }
