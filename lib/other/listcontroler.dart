@@ -15,7 +15,7 @@ class ListController extends GetxController
     super.onInit();
     //fetchCounsellor();
     fetchCounsellor_data();
-    fetchEpList_data();
+    // fetchEpList_data();
 
   }
 
@@ -44,14 +44,14 @@ class ListController extends GetxController
     }
   }
 
-  void fetchEpList_data () async {
-    try{
-      isLoading(true);
-      var ep = await ApiService.getEPListData();
-      epModelList.assignAll(ep);
-    }
-    finally{
-      isLoading(false);
-    }
-  }
+  // void fetchEpList_data () async {
+  //   try{
+  //     isLoading(true);
+  //     var ep = await ApiService.getEPListData();
+  //     epModelList.assignAll(ep);
+  //   }
+  //   finally{
+  //     isLoading(false);
+  //   }
+  // }
 }

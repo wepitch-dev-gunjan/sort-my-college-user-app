@@ -625,7 +625,21 @@ class _ProfileCardState extends State<ProfileCard> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextWithIcon(
+                  // Row(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     Icon(Icons.import_contacts),
+                  //     SizedBox(width: 10,),
+                  //     SizedBox(
+                  //         width: 200,
+                  //         child: Text(
+                  //           "data is very important in mhy use grgeg",
+                  //           maxLines: 2,
+                  //           overflow: TextOverflow.ellipsis,
+                  //         ))
+                  //   ],
+                  // ),
+                  TextWithIconElipsis(
                     text: data != null &&
                             data['address'] != null &&
                             data['address']['area'] != null &&
@@ -635,7 +649,9 @@ class _ProfileCardState extends State<ProfileCard> {
                     fontWeight: FontWeight.w600,
                     fontSize: 11.sp,
                     icon: Icons.location_on_sharp,
+                    width: 200,
                   ),
+
                   const SizedBox(height: 3),
                   TextWithIcon(
                       text:

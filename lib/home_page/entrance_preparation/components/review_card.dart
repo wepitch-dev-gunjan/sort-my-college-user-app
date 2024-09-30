@@ -6,7 +6,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/home_page/entrance_preparation/components/commons.dart';
-import 'package:myapp/other/constants.dart';
 import '../../../other/api_service.dart';
 
 class GiveReviewSection extends StatefulWidget {
@@ -145,12 +144,12 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
 }
 
 class ReviewCard extends StatefulWidget {
-  final String? id;
+  // final String? id;
   final List? reviews;
 
   const ReviewCard({
     super.key,
-    this.id,
+    
     this.reviews,
   });
 

@@ -1151,10 +1151,69 @@ List<String> sampleViewDetails = [
   "\u2022 duration:",
 ];
 
+// bool isDateIsSame(String date, List<Sessions> sessions) {
+//   for (final element in sessions) {
+//     var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
+//     if (date.contains(apiDate)) {
+//       return true;
+//     }
+//   }
+//   return false;
+// }
+
+// String slotCount(String date, List<Sessions> sessions) {
+//   dynamic totalSlots = 0;
+
+//   for (final element in sessions) {
+//     var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
+//     if (date.contains(apiDate) && element.sessionType == "Personal") {
+//       totalSlots += element.sessionAvailableSlots ?? 0;
+//     }
+//   }
+//   return totalSlots > 0 ? totalSlots.toString() : "";
+// }
+
+// bool isDateIsSame(String date, List<Sessions> sessions) {
+//   // If the date is in 'dd MMM' format (like '30 Sep'), use it as is.
+//   var formattedDate = date.contains('/') 
+//       ? Jiffy.parse(date, pattern: "dd/MM").format(pattern: "dd MMM") 
+//       : date; // Assume the date is already in 'dd MMM' format
+
+//   for (final element in sessions) {
+//     var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
+//     if (formattedDate == apiDate) {
+//       return true;
+//     }
+//   }
+//   return false;
+// }
+
+// String slotCount(String date, List<Sessions> sessions) {
+//   dynamic totalSlots = 0;
+  
+//   // If the date is in 'dd MMM' format (like '30 Sep'), use it as is.
+//   var formattedDate = date.contains('/') 
+//       ? Jiffy.parse(date, pattern: "dd/MM").format(pattern: "dd MMM") 
+//       : date; // Assume the date is already in 'dd MMM' format
+
+//   for (final element in sessions) {
+//     var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
+//     if (formattedDate == apiDate && element.sessionType == "Personal") {
+//       totalSlots += element.sessionAvailableSlots ?? 0;
+//     }
+//   }
+//   return totalSlots > 0 ? totalSlots.toString() : "";
+// }
+
+
 bool isDateIsSame(String date, List<Sessions> sessions) {
+  // Normalize the date format, adding leading zeros if necessary
+  var formattedDate = Jiffy.parse(date, pattern: date.contains('/') ? "dd/MM" : "d MMM").format(pattern: "dd MMM");
+
   for (final element in sessions) {
+    // Format the session date consistently
     var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
-    if (date.contains(apiDate)) {
+    if (formattedDate == apiDate) {
       return true;
     }
   }
@@ -1164,14 +1223,20 @@ bool isDateIsSame(String date, List<Sessions> sessions) {
 String slotCount(String date, List<Sessions> sessions) {
   dynamic totalSlots = 0;
 
+  // Normalize the date format
+  var formattedDate = Jiffy.parse(date, pattern: date.contains('/') ? "dd/MM" : "d MMM").format(pattern: "dd MMM");
+
   for (final element in sessions) {
+    // Format the session date consistently
     var apiDate = Jiffy.parse(element.sessionDate!).format(pattern: "dd MMM");
-    if (date.contains(apiDate) && element.sessionType == "Personal") {
+    if (formattedDate == apiDate && element.sessionType == "Personal") {
       totalSlots += element.sessionAvailableSlots ?? 0;
     }
   }
   return totalSlots > 0 ? totalSlots.toString() : "";
 }
+
+
 
 // bool isDateIsSame(String date, List<Sessions> sessions) {
 //   // Remove leading zeros from the input date

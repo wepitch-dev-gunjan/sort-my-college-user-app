@@ -17,6 +17,7 @@ import 'package:readmore/readmore.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../other/api_service.dart';
+import '../entrance_preparation/components/commons.dart';
 
 class CounsellorDetailsScreen extends StatefulWidget {
   const CounsellorDetailsScreen({required this.id, super.key});
@@ -43,7 +44,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
   bool isLoading = true;
 
   // bool hasFollowedBefore = false;
-  double rating_val = 1;
+  double rating_val = 5;
   String feedback_msg = '';
 
   setIsFollowingLoading(bool state) {
@@ -611,139 +612,143 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                               const SizedBox(height: 20),
                               counsellor['client_testimonials'].isEmpty
                                   ? const SizedBox()
-                                  : Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          'Client Testimonials',
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w700,
-                                            height: 1.2125,
-                                            color: Color(0xff000000),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 12),
-                                        SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.26,
-                                          child: PageView.builder(
-                                            //physics: const PageScrollPhysics(),
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount: counsellor[
-                                                        'client_testimonials']!
-                                                    .length ??
-                                                0,
-                                            itemBuilder: (context, index) {
-                                              final testimonial = counsellor[
-                                                  'client_testimonials'][index];
-                                              return Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Card(
-                                                      surfaceTintColor:
-                                                          ColorsConst
-                                                              .whiteColor,
-                                                      color: Colors.white,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                                horizontal: 15),
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            const SizedBox(
-                                                                height: 14),
-                                                            Center(
-                                                              child: Container(
-                                                                height: 46,
-                                                                width: 46,
-                                                                decoration:
-                                                                    const BoxDecoration(
-                                                                  color: Colors
-                                                                      .black26,
-                                                                  shape: BoxShape
-                                                                      .circle,
-                                                                ),
-                                                                child: Center(
-                                                                  child:
-                                                                      ClipOval(
-                                                                    child: Image
-                                                                        .network(
-                                                                      testimonial[
-                                                                              'profile_pic'] ??
-                                                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9b7ve9oIilsA8oz5bbsrKZvAe2oT7ESuFKKUO3eHWRL0LEnOQnzz4lRHYAg&s',
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            const SizedBox(
-                                                                height: 12),
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Image.asset(
-                                                                  'assets/page-1/images/group-MqT.png',
-                                                                  width: 15,
-                                                                  height: 15.35,
-                                                                ),
-                                                                const SizedBox(
-                                                                    width: 6),
-                                                                Text(
-                                                                  testimonial['rating'] !=
-                                                                          null
-                                                                      ? '${testimonial['rating']}'
-                                                                      : '1',
-                                                                  style: const TextStyle(
-                                                                      fontSize:
-                                                                          12),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            const SizedBox(
-                                                                height: 12),
-                                                            Center(
-                                                              child: Text(
-                                                                testimonial[
-                                                                        'message'] ??
-                                                                    'good',
-                                                                style: const TextStyle(
-                                                                    fontStyle:
-                                                                        FontStyle
-                                                                            .italic,
-                                                                    fontSize:
-                                                                        12),
-                                                              ),
-                                                            ),
-                                                            const SizedBox(
-                                                                height: 14),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  // const Icon(
-                                                  //   Icons.arrow_forward_ios,
-                                                  //   size: 20,
-                                                  // ),
-                                                ],
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
+                                  : CounsellorReviewCard(
+                                      reviews:
+                                          counsellor['client_testimonials'],
                                     ),
+                              // Column(
+                              //     crossAxisAlignment:
+                              //         CrossAxisAlignment.start,
+                              //     children: [
+                              //       const Text(
+                              //         'Client Testimonials',
+                              //         style: TextStyle(
+                              //           fontSize: 18,
+                              //           fontWeight: FontWeight.w700,
+                              //           height: 1.2125,
+                              //           color: Color(0xff000000),
+                              //         ),
+                              //       ),
+                              //       const SizedBox(height: 12),
+                              //       SizedBox(
+                              //         height: MediaQuery.of(context)
+                              //                 .size
+                              //                 .height *
+                              //             0.26,
+                              //         child: PageView.builder(
+                              //           //physics: const PageScrollPhysics(),
+                              //           scrollDirection: Axis.horizontal,
+                              //           itemCount: counsellor[
+                              //                       'client_testimonials']!
+                              //                   .length ??
+                              //               0,
+                              //           itemBuilder: (context, index) {
+                              //             final testimonial = counsellor[
+                              //                 'client_testimonials'][index];
+                              //             return Row(
+                              //               children: [
+                              //                 Expanded(
+                              //                   child: Card(
+                              //                     surfaceTintColor:
+                              //                         ColorsConst
+                              //                             .whiteColor,
+                              //                     color: Colors.white,
+                              //                     child: Padding(
+                              //                       padding:
+                              //                           const EdgeInsets
+                              //                               .symmetric(
+                              //                               horizontal: 15),
+                              //                       child: Column(
+                              //                         crossAxisAlignment:
+                              //                             CrossAxisAlignment
+                              //                                 .start,
+                              //                         children: [
+                              //                           const SizedBox(
+                              //                               height: 14),
+                              //                           Center(
+                              //                             child: Container(
+                              //                               height: 46,
+                              //                               width: 46,
+                              //                               decoration:
+                              //                                   const BoxDecoration(
+                              //                                 color: Colors
+                              //                                     .black26,
+                              //                                 shape: BoxShape
+                              //                                     .circle,
+                              //                               ),
+                              //                               child: Center(
+                              //                                 child:
+                              //                                     ClipOval(
+                              //                                   child: Image
+                              //                                       .network(
+                              //                                     testimonial[
+                              //                                             'profile_pic'] ??
+                              //                                         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9b7ve9oIilsA8oz5bbsrKZvAe2oT7ESuFKKUO3eHWRL0LEnOQnzz4lRHYAg&s',
+                              //                                     fit: BoxFit
+                              //                                         .cover,
+                              //                                   ),
+                              //                                 ),
+                              //                               ),
+                              //                             ),
+                              //                           ),
+                              //                           const SizedBox(
+                              //                               height: 12),
+                              //                           Row(
+                              //                             mainAxisAlignment:
+                              //                                 MainAxisAlignment
+                              //                                     .center,
+                              //                             children: [
+                              //                               Image.asset(
+                              //                                 'assets/page-1/images/group-MqT.png',
+                              //                                 width: 15,
+                              //                                 height: 15.35,
+                              //                               ),
+                              //                               const SizedBox(
+                              //                                   width: 6),
+                              //                               Text(
+                              //                                 testimonial['rating'] !=
+                              //                                         null
+                              //                                     ? '${testimonial['rating']}'
+                              //                                     : '1',
+                              //                                 style: const TextStyle(
+                              //                                     fontSize:
+                              //                                         12),
+                              //                               ),
+                              //                             ],
+                              //                           ),
+                              //                           const SizedBox(
+                              //                               height: 12),
+                              //                           Center(
+                              //                             child: Text(
+                              //                               testimonial[
+                              //                                       'message'] ??
+                              //                                   'good',
+                              //                               style: const TextStyle(
+                              //                                   fontStyle:
+                              //                                       FontStyle
+                              //                                           .italic,
+                              //                                   fontSize:
+                              //                                       12),
+                              //                             ),
+                              //                           ),
+                              //                           const SizedBox(
+                              //                               height: 14),
+                              //                         ],
+                              //                       ),
+                              //                     ),
+                              //                   ),
+                              //                 ),
+                              //                 // const Icon(
+                              //                 //   Icons.arrow_forward_ios,
+                              //                 //   size: 20,
+                              //                 // ),
+                              //               ],
+                              //             );
+                              //           },
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
 
                               const SizedBox(height: 16),
                               const Text(
@@ -761,7 +766,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                     direction: Axis.horizontal,
                                     allowHalfRating: true,
                                     itemCount: 5,
-                                    itemSize: 18,
+                                    itemSize: 20,
                                     itemBuilder: (context, _) => const Icon(
                                       Icons.star,
                                       color: Colors.amber,
@@ -819,7 +824,8 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
 
                                             Fluttertoast.showToast(
                                                 msg:
-                                                    "Feedback has been successfully added");
+                                                    "Feedback has been successfully added",
+                                                backgroundColor: Colors.green);
                                           }
                                           controller.clear();
                                         },
@@ -1365,4 +1371,206 @@ class ShimmerEffect extends StatelessWidget {
 void onTapBook(BuildContext context) {
   Navigator.push(context,
       MaterialPageRoute(builder: (context) => const PaymentGateAway()));
+}
+
+class CounsellorReviewCard extends StatefulWidget {
+  // final String? id;
+  final List? reviews;
+
+  const CounsellorReviewCard({
+    super.key,
+    this.reviews,
+  });
+
+  @override
+  _CounsellorReviewCardState createState() => _CounsellorReviewCardState();
+}
+
+class _CounsellorReviewCardState extends State<CounsellorReviewCard> {
+  late PageController _pageController;
+  int _currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: 0);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _showFullReviewDialog(String review) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
+        title: const Text('Full Review'),
+        content: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width * 0.8,
+            maxHeight: MediaQuery.of(context).size.height * 0.5,
+          ),
+          child: SingleChildScrollView(
+            child: Text(
+              review,
+              style: const TextStyle(
+                fontSize: 13,
+              ),
+            ),
+          ),
+        ),
+        actions: [
+          Btn(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            btnName: "Close",
+            textColor: Colors.white,
+            borderRadius: 5,
+            width: 80,
+            btnColor: const Color(0xff1F0A68),
+          )
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // log("cou=nsellorReviews${widget.reviews}");
+    if (widget.reviews == null || widget.reviews!.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 20.0),
+        const Text(
+          'Client Testimonials',
+          style: TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Column(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.26,
+                child: PageView.builder(
+                  controller: _pageController,
+                  onPageChanged: (index) {
+                    setState(() {
+                      _currentPage = index;
+                    });
+                  },
+                  scrollDirection: Axis.horizontal,
+                  itemCount: widget.reviews!.length,
+                  itemBuilder: (context, index) {
+                    var review = widget.reviews![index];
+                    double rating = (review['rating'] ?? 1).toDouble();
+                    String userName =
+                        review['user_name']?.toString() ?? 'Anonymous';
+                    String comment =
+                        review['message']?.toString() ?? 'No comment available';
+
+                    return Row(
+                      children: [
+                        Expanded(
+                          child: Card(
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 10),
+                              child: Column(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 25,
+                                    backgroundImage: review['profile_pic'] !=
+                                                null &&
+                                            review['profile_pic'].isNotEmpty
+                                        ? NetworkImage(review['profile_pic'])
+                                            as ImageProvider
+                                        : null,
+                                    child: review['profile_pic'] == null ||
+                                            review['profile_pic'].isEmpty
+                                        ? const CircleAvatar(
+                                            backgroundColor: Colors.white,
+                                            radius: 25,
+                                            backgroundImage: AssetImage(
+                                                'assets/page-1/images/noImage.png'),
+                                          )
+                                        : null,
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    userName,
+                                    style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  RatingBarIndicator(
+                                    rating: rating,
+                                    itemSize: 20,
+                                    itemBuilder: (context, index) => const Icon(
+                                        Icons.star,
+                                        color: Colors.amber),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        // Show full review in a dialog
+                                        _showFullReviewDialog(comment);
+                                      },
+                                      child: Text(
+                                        comment,
+                                        style: const TextStyle(
+                                            fontSize: 13,
+                                            fontStyle: FontStyle.italic),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 3,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (int i = 0; i < widget.reviews!.length.clamp(0, 5); i++)
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Container(
+                        height: 6,
+                        width: 6,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: i == _currentPage
+                              ? Colors.black
+                              : Colors.grey.shade400,
+                        ),
+                      ),
+                    )
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 }

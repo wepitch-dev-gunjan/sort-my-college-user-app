@@ -121,7 +121,7 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
                   CourseSection(courses: courses, id: widget.id),
                   FacultiesCard(faculties: faculties),
                   KeyFeatures(keyFeatures: keyFeatures),
-                  ReviewCard(id: widget.id, reviews: reviews),
+                  ReviewCard(reviews: reviews),
                   GiveReviewSection(
                     id: widget.id,
                     onReviewAdded: addReview,

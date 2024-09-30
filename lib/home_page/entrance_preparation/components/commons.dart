@@ -210,6 +210,8 @@ class TextWithIcon extends StatelessWidget {
         const SizedBox(width: 4.0),
         Text(
           text,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
           style: SafeGoogleFont(
             'Inter',
             fontSize: fontSize ?? 12 * ffem,
@@ -217,17 +219,59 @@ class TextWithIcon extends StatelessWidget {
             height: 1.2125 * ffem / fem,
             color: textColor ?? const Color(0xff696969),
           ),
-          // style: SafeGoogleFont('Inter',
-          //     fontSize: fontSize ?? 10,
-          //     fontWeight: fontWeight ?? FontWeight.w400,
-          //     height: 1.2125,
-          //     color: textColor ?? Colors.black),
+        ),
+      ],
+    );
+  }
+}
 
-          //  style: GoogleFonts.lato(
-          //         fontSize: fontSize ?? 10.sp,
-          //         color: textColor ?? Color(0xff5c5b5b),
-          //         fontWeight: fontWeight ?? FontWeight.w400,
-          //       ),
+class TextWithIconElipsis extends StatelessWidget {
+  final String text;
+  final IconData? icon;
+  final String? assetImage;
+  final double? fontSize, width;
+  final FontWeight? fontWeight;
+  final Color? textColor;
+  final Color? iconColor;
+
+  const TextWithIconElipsis(
+      {super.key,
+      required this.text,
+      this.icon,
+      this.assetImage,
+      this.fontSize,
+      this.fontWeight,
+      this.textColor,
+      this.iconColor,
+      this.width});
+
+  @override
+  Widget build(BuildContext context) {
+    double baseWidth = 460;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double ffem = fem * 0.97;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (icon != null)
+          Icon(icon, size: 18.sp, color: iconColor)
+        else if (assetImage != null)
+          Image.asset(assetImage!, width: 16, height: 16),
+        const SizedBox(width: 4.0),
+        SizedBox(
+          width: width ?? 0,
+          child: Text(
+            text,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            style: SafeGoogleFont(
+              'Inter',
+              fontSize: fontSize ?? 12 * ffem,
+              fontWeight: fontWeight ?? FontWeight.w400,
+              height: 1.2125 * ffem / fem,
+              color: textColor ?? const Color(0xff696969),
+            ),
+          ),
         ),
       ],
     );
