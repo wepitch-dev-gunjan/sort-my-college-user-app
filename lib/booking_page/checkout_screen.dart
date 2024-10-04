@@ -269,29 +269,33 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ),
                                     ],
                                   ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        counsellorDetailController
-                                                .checkOutDetailsList.isNotEmpty
-                                            ? counsellorDetailController
-                                                    .checkOutDetailsList[0]
-                                                    .counsellorName ??
-                                                "N/A"
-                                            : "N/A",
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
+                                  SizedBox(
+                                    width: 200,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          counsellorDetailController
+                                                  .checkOutDetailsList
+                                                  .isNotEmpty
+                                              ? counsellorDetailController
+                                                      .checkOutDetailsList[0]
+                                                      .counsellorName ??
+                                                  "N/A"
+                                              : "N/A",
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                          ),
                                         ),
-                                      ),
-                                      Text(
-                                        widget.designation,
-                                        style: const TextStyle(
-                                            color: ColorsConst.black54Color),
-                                      ),
-                                    ],
+                                        Text(
+                                          widget.designation,
+                                          style: const TextStyle(
+                                              color: ColorsConst.black54Color),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -742,10 +746,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   // }
 
   moveToSessionPage() {
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(builder: (context) => const HomePageContainerAfterBooking()),
-  );
-}
-
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+          builder: (context) => const HomePageContainerAfterBooking()),
+    );
+  }
 }

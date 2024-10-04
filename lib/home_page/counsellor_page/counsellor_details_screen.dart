@@ -184,6 +184,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                             child: Text(
                                               counsellor['designation'],
                                               overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
                                               style: const TextStyle(
                                                   fontSize: 14,
                                                   color: Color(0xff1f0a68),
