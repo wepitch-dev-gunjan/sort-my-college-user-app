@@ -522,14 +522,19 @@ class _CounsellorListPage_offlineState
                                                                                                           ),
                                                                                                         ),
                                                                                                       ),
-                                                                                                      Text(
-                                                                                                        listController.cousnellorlist_data[index].designation,
-                                                                                                        style: SafeGoogleFont(
-                                                                                                          'Inter',
-                                                                                                          fontSize: 12 * ffem,
-                                                                                                          fontWeight: FontWeight.w400,
-                                                                                                          height: 1.2125 * ffem / fem,
-                                                                                                          color: const Color(0xff696969),
+                                                                                                      SizedBox(
+                                                                                                        width: 180,
+                                                                                                        child: Text(
+                                                                                                          listController.cousnellorlist_data[index].designation,
+                                                                                                          overflow: TextOverflow.ellipsis,
+                                                                                                          // maxLines: 2,
+                                                                                                          style: SafeGoogleFont(
+                                                                                                            'Inter',
+                                                                                                            fontSize: 12 * ffem,
+                                                                                                            fontWeight: FontWeight.w400,
+                                                                                                            height: 1.2125 * ffem / fem,
+                                                                                                            color: const Color(0xff696969),
+                                                                                                          ),
                                                                                                         ),
                                                                                                       ),
                                                                                                     ],
