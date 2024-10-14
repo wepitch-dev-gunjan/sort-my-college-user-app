@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/home_page/entrance_preparation/components/commons.dart';
@@ -42,9 +40,6 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log("announcements: $data");
-
-    // Sort and group announcements
     data.sort((a, b) => b.date.compareTo(a.date)); // Sort by date descending
 
     Map<DateTime, List<Announcement>> groupedAnnouncements = {};
@@ -62,7 +57,7 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> {
     }
 
     return Scaffold(
-      appBar: const EpAppBar(title: "Announcements"),
+      appBar: const CusAppBar(title: "Announcements"),
       backgroundColor: Colors.white,
       body: isLoading
           ? const Center(child: CircularProgressIndicator())

@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/common/comming_soon.dart';
+import 'package:myapp/home_page/Accomodation/screens/accomodation_screen.dart';
 import 'package:myapp/home_page/coming_soon.dart';
 import 'package:myapp/home_page/counsellor_page/counsellor_details_screen.dart';
 import 'package:myapp/home_page/drawer/drawer_1.dart';
@@ -257,7 +258,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Visibility(
-                      visible: false,
+                      // visible: false,
                       child: Padding(
                         padding: const EdgeInsets.all(18.0),
                         child: SizedBox(
@@ -311,7 +312,7 @@ class _HomePageState extends State<HomePage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      const ComingSoon()));
+                                                      const AccomodationScreen()));
                                         },
                                         child: Container(
                                           width: 140 * fem,

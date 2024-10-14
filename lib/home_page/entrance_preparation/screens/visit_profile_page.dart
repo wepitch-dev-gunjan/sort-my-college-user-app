@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -93,7 +92,7 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
             body: Center(child: CircularProgressIndicator()))
         : Scaffold(
             backgroundColor: Colors.white,
-            appBar: EpAppBar(
+            appBar: CusAppBar(
               title: widget.title,
               icon: Icons.more_vert,
               action: [

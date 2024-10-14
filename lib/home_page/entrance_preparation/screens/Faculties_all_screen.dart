@@ -15,7 +15,7 @@ class _AllFacultiesScreen extends State<AllFacultiesScreen> {
     // log("facultieData=$faculties");
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const EpAppBar(title: "Faculties"),
+      appBar: const CusAppBar(title: "Faculties"),
       body: SingleChildScrollView(
         child: Column(
           children: [

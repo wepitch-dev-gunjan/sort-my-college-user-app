@@ -54,7 +54,7 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsConst.whiteColor,
-      appBar: const EpAppBar(
+      appBar: const CusAppBar(
         title: 'Entrance Preparation',
         icon: Icons.search,
       ),
