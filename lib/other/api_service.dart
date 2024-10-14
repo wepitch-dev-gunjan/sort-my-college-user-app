@@ -1163,4 +1163,16 @@ class ApiService {
     });
     return jsonDecode(response.body);
   }
+
+
+  // static Future getAllAccommodation() async {
+  //   var url = Uri.parse("${AppConstants.baseUrl}/admin/accommodation");
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final token = prefs.getString("token").toString();
+  //   final response = await http.get(url, headers: {
+  //     "Content-Type": "application/json",
+  //     "Authorization": token,
+  //   });
+  //   return jsonDecode(response.body);
+  // }
 }

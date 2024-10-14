@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:myapp/home_page/entrance_preparation/components/shimmer_effect.dart';
 import '../../../shared/colors_const.dart';
 import '../../entrance_preparation/components/commons.dart';
-import '../../entrance_preparation/screens/entrance_preparation_screen.dart';
 
 class AccomodationScreen extends StatelessWidget {
   const AccomodationScreen({super.key});
