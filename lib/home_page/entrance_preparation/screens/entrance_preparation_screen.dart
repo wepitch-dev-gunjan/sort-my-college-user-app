@@ -40,16 +40,6 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
     });
   }
 
-  // sendEnquiry()async{
-
-  //   final res=await ApiService.epEnquiry();
-  //   setState(() {
-
-  //     data
-
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
