@@ -513,9 +513,6 @@ class ApiService {
       } else {
         prefs.setString('profile_pic', value[0]['profile_pic']);
       }
-
-      //prefs.setString('date_of_birth', value['date_of_birth']);
-
       prefs.setString('_id', value[0]['_id'].toString());
       prefs.setString(
           'education_level', value[0]['education_level'].toString());
@@ -540,11 +537,9 @@ class ApiService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
     final response = await http.get(url, headers: {
-      //"Content-Type": "application/json",
       "Authorization": token,
     });
     var data;
-    //console.log("Counsellor List : ${response.body}");
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
       return List<CounsellorData>.from(
@@ -656,22 +651,16 @@ class ApiService {
     var params = "?session_date=$date&session_type=$sessionType";
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
-
     var url = Uri.parse(
         "${AppConstants.baseUrl}/counsellor/$id/sessions${date != null ? params : params}");
-
-    print(url);
-
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json", "Authorization": token},
     );
     var data;
 
-    // console.log(response.body.toString());
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-      // console.log(data.toString());
       return CounsellorSessionDetails.fromJson(data);
     }
     if (response.statusCode == 404) {
@@ -688,8 +677,6 @@ class ApiService {
     var params = "?session_date=$date&session_type=$sessionType";
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
-
-    // var url = Uri.parse("${AppConstants.baseUrl}/counsellor/$id/sessions${date != null ? params : ''}");
     var url = Uri.parse(
         "https://www.sortmycollegeapp.com/counsellor/65f97eaec5894941bf7c96eb/sessions");
     print(url);
@@ -700,10 +687,8 @@ class ApiService {
     );
     var data;
 
-    // console.log(response.body.toString());
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-      // console.log(data.toString());
       return CounsellorSessionDetails.fromJson(data);
     }
     if (response.statusCode == 404) {
@@ -725,8 +710,6 @@ class ApiService {
       headers: headers,
       body: body,
     );
-
-    // console.log("Generating Otp  : ${response.body}");
     if (response.statusCode == 200 || response.statusCode == 500) {
       var data = jsonDecode(response.body.toString());
 
@@ -741,8 +724,6 @@ class ApiService {
   static Future<Map<String, dynamic>> callVerifyOtpByPhone(
       String number) async {
     number = number.replaceAll(RegExp(r'[^\w\s]+'), '');
-    // number = number.replaceAll('91', '');
-    // number = number.replaceAll(' ', '');
     number = "91$number";
 
     final body = jsonEncode({"phone_number": number});
@@ -757,7 +738,6 @@ class ApiService {
       body: body,
     );
 
-    // console.log("Generating Otp  : ${response.body}");
     if (response.statusCode == 200 || response.statusCode == 500) {
       var data = jsonDecode(response.body.toString());
 
@@ -802,8 +782,6 @@ class ApiService {
       {required bool past, required bool today, required bool upcoming}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
-    log("ttokensss$token");
-
     final url = Uri.parse(past == true
         ? "${AppConstants.baseUrl}/user/booking?past=true"
         : today == true
@@ -815,20 +793,12 @@ class ApiService {
       "Authorization": token,
     };
     final response = await http.get(url, headers: headers);
-    // log('Response=> ${response.body}');
-    // const encoder = JsonEncoder.withIndent('  ');
-    // final prettyString = encoder.convert(jsonDecode(response.body));
-
-    // log("pretty data${prettyString}");
-
     return jsonDecode(response.body);
   }
 
   static Future isSessionAboutToStart({required String id}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
-    log("id$id ye hai");
-
     final url = Uri.parse(
         "${AppConstants.baseUrl}/counsellor/session/About-to-start/$id");
 
@@ -848,9 +818,7 @@ class ApiService {
       required String id}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
-
     final baseUrl = "${AppConstants.baseUrl}/user/booking/$id";
-
     final url = Uri.parse(past == true
         ? "$baseUrl?past=true"
         : today == true
@@ -876,15 +844,11 @@ class ApiService {
         : Uri.parse(
             "${AppConstants.baseUrl}/user/booking?past=$past&today=$today&upcoming=$upcoming");
 
-    //final url = Uri.parse("${AppConstants.baseUrl}/user/booking");
-
     final headers = {
       "Content-Type": "application/json",
       "Authorization": token,
     };
     final response = await http.get(url, headers: headers);
-
-    //console.log("gettingAllBookings : ${response.body}");
 
     if (response.statusCode == 200) {
       List data = jsonDecode(response.body.toString());
@@ -910,12 +874,6 @@ class ApiService {
       //"Content-Type": "application/json",
       "Authorization": token,
     });
-
-    // if (response.statusCode == 200) {
-    //   var data = jsonDecode(response.body.toString());
-    //   return data;
-    // }
-    // log("dataHEre=>${response.body}");
     return jsonDecode(response.body);
   }
 
@@ -927,7 +885,6 @@ class ApiService {
       //"Content-Type": "application/json",
       "Authorization": token,
     });
-    print(token);
     var data;
     //console.log("Counsellor List : ${response.body}");
     if (response.statusCode == 200) {
@@ -993,7 +950,6 @@ class ApiService {
       "Authorization": token,
     });
     var data;
-    //console.log("Counsellor List : ${response.body}");
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
       return List<CourseModel>.from(data.map((x) => CourseModel.fromJson(x)));
@@ -1119,12 +1075,10 @@ class ApiService {
       "Authorization": token,
     };
     final url = Uri.parse('${AppConstants.baseUrl}/ep/feedback');
-    log("messege${feedbackMsg}");
-    log("rating${ratingVal}");
     final response = await http.post(url, headers: headers, body: body);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body.toString());
-      log("responsefeedback$data");
+   
       return data;
     } else if (response.statusCode == 400) {
       return {"error": "Feedback is already given by the user"};
@@ -1135,7 +1089,7 @@ class ApiService {
 
   static Future getEpFeedback({required String id}) async {
     var url = Uri.parse("${AppConstants.baseUrl}/ep/feedbacks/getall/$id");
-    log("url==$url");
+    
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
     final response = await http.get(url, headers: {
@@ -1147,7 +1101,7 @@ class ApiService {
 
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-      log("feedback$data");
+     
       return data;
     }
     return [];
