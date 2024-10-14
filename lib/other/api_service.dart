@@ -31,7 +31,6 @@ class ApiService {
     final response = await http.put(url, headers: headers);
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      //print('Counsellor updated successfully');
       var data = jsonDecode(response.body.toString());
       return data;
     } else {
@@ -52,40 +51,12 @@ class ApiService {
     final response = await http.put(url, headers: headers);
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      //print('Counsellor updated successfully');
       var data = jsonDecode(response.body.toString());
       return data;
     } else {
       return {"error": "Something went wrong"};
     }
   }
-
-  // static Future<Map<String, dynamic>> updateProfileDetails(
-  //     String name, String dob, String gender, String eduLevel) async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   final token = prefs.getString("token").toString();
-
-  //   final body = jsonEncode({
-  //     "name": name,
-  //     "date_of_birth": dob,
-  //     "gender": gender,
-  //     "education_level": eduLevel
-  //   });
-  //   final headers = {
-  //     'Content-Type': 'application/json',
-  //     "Authorization": token,
-  //   };
-  //   final url = Uri.parse('${AppConstants.baseUrl}/user/register');
-  //   final response = await http.put(url, headers: headers, body: body);
-  //   if (response.statusCode == 200) {
-  //     var data = jsonDecode(response.body.toString());
-  //     return data;
-  //   }
-  //   if (response.statusCode == 401) {
-  //     return {"error": "User not authorized"};
-  //   }
-  //   return {};
-  // }
 
   static Future webinar_register(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -223,8 +194,7 @@ class ApiService {
     var data;
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-      // return List<WebinarDetailsModel>.from(
-      //     data.map((x) => WebinarDetailsModel.fromJson(x)));
+  
       return data;
     }
     return {};
@@ -236,15 +206,12 @@ class ApiService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("auth").toString();
     final response = await http.get(url, headers: {
-      //"Content-Type": "application/json",
       "Authorization": token,
     });
     var data;
 
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-
-      // log("Checkout Data=> $data");
       return List<CheckOutDetails>.from(
           data.map((x) => CheckOutDetails.fromJson(x)));
     }

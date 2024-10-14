@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -149,7 +150,6 @@ class ReviewCard extends StatefulWidget {
 
   const ReviewCard({
     super.key,
-    
     this.reviews,
   });
 
@@ -262,6 +262,20 @@ class _ReviewCardState extends State<ReviewCard> {
                                   horizontal: 15, vertical: 10),
                               child: Column(
                                 children: [
+                                  // ClipOval(
+                                  //   child: CachedNetworkImage(
+                                  //     imageUrl: review['profile_pic'],
+                                  //     fit: BoxFit.cover,
+                                  //     width: 50.0,
+                                  //     height: 50.0,
+                                  //     placeholder: (context, url) =>
+                                  //         const CircularProgressIndicator(),
+                                  //     errorWidget: (context, url, error) =>
+                                  //         const Icon(Icons.people),
+                                  //   ),
+                                  // ),
+
+                              
                                   CircleAvatar(
                                     radius: 25,
                                     backgroundImage: review['profile_pic'] !=
