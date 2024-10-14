@@ -1,10 +1,6 @@
-import 'dart:developer';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/home_page/entrance_preparation/components/commons.dart';
 import '../../../other/api_service.dart';
@@ -27,8 +23,8 @@ class GiveReviewSection extends StatefulWidget {
 }
 
 class _GiveReviewSectionState extends State<GiveReviewSection> {
-  double rating_val = 5;
-  String feedback_msg = '';
+  double ratingVal = 5;
+  String feedbackMsg = '';
   TextEditingController controller = TextEditingController();
 
   @override
@@ -63,7 +59,7 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
                 ),
                 onRatingUpdate: (rating) {
                   setState(() {
-                    rating_val = rating;
+                    ratingVal = rating;
                   });
                 },
               ),
@@ -83,7 +79,7 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
             ),
             child: TextFormField(
               onChanged: (value) {
-                feedback_msg = value;
+                feedbackMsg = value;
               },
               controller: controller,
               cursorHeight: 22,
@@ -96,8 +92,8 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
                   onPressed: () async {
                     var value = await ApiService.epFeedback(
                       id: widget.id,
-                      ratingVal: rating_val,
-                      feedbackMsg: feedback_msg,
+                      ratingVal: ratingVal,
+                      feedbackMsg: feedbackMsg,
                     );
 
                     if (value["error"] ==
@@ -115,15 +111,15 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
 
                         final res =
                             await ApiService.getEpFeedback(id: widget.id);
-                        log("ResponseFeedback${res['feedbacks'][0]['user_name']}");
+                    
                         final userName = res['feedbacks'][0]['user_name'];
                         final userProfile = res['feedbacks'][0]['profile_pic'];
 
                         widget.onReviewAdded({
                           'profile_pic': userProfile,
                           'user_name': userName,
-                          'rating': rating_val,
-                          'comment': feedback_msg,
+                          'rating': ratingVal,
+                          'comment': feedbackMsg,
                         });
                       }
                     }
@@ -154,10 +150,10 @@ class ReviewCard extends StatefulWidget {
   });
 
   @override
-  _ReviewCardState createState() => _ReviewCardState();
+  ReviewCardState createState() => ReviewCardState();
 }
 
-class _ReviewCardState extends State<ReviewCard> {
+class ReviewCardState extends State<ReviewCard> {
   late PageController _pageController;
   int _currentPage = 0;
 

@@ -321,7 +321,7 @@ class _WebinarUpcomingPageDataWidgetState
                                           TextButton(
                                             child: const Text("Yes"),
                                             onPressed: () async {
-                                              await ApiService.webinar_register(
+                                              await ApiService.webinarRegister(
                                                   widget.webinarModel.id!);
                                               setState(() {
                                                 isRegistered = true;
@@ -339,7 +339,7 @@ class _WebinarUpcomingPageDataWidgetState
                                 } else if (daysDifference == 0 &&
                                     isRegistered &&
                                     widget.webinarModel.canJoin == true) {
-                                  await ApiService.webinar_join(
+                                  await ApiService.webinarJoin(
                                       widget.webinarModel.id!);
                                   launchUrlString(widget.webinarModel.joinUrl!);
                                 }

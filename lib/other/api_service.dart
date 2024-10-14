@@ -58,7 +58,7 @@ class ApiService {
     }
   }
 
-  static Future webinar_register(String id) async {
+  static Future webinarRegister(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
     final headers = {
@@ -73,7 +73,7 @@ class ApiService {
     return jsonDecode(response.body);
   }
 
-  static Future webinar_join(String id) async {
+  static Future webinarJoin(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
     final headers = {
@@ -97,9 +97,9 @@ class ApiService {
       //"Content-Type": "application/json",
       "Authorization": token,
     });
-    var data;
+
     if (response.statusCode == 200) {
-      data = jsonDecode(response.body.toString());
+      var data = jsonDecode(response.body.toString());
       return List<BannerImageModel>.from(
           data.map((x) => BannerImageModel.fromJson(x)));
     }
@@ -115,9 +115,9 @@ class ApiService {
       //"Content-Type": "application/json",
       "Authorization": token,
     });
-    var data;
+
     if (response.statusCode == 200) {
-      data = jsonDecode(response.body.toString());
+      var data = jsonDecode(response.body.toString());
       return List<WebinarModel>.from(data.map((x) => WebinarModel.fromJson(x)));
     }
     return [];
@@ -132,9 +132,9 @@ class ApiService {
       //"Content-Type": "application/json",
       "Authorization": token,
     });
-    var data;
+
     if (response.statusCode == 200) {
-      data = jsonDecode(response.body.toString());
+      var data = jsonDecode(response.body.toString());
       return List<WebinarModel>.from(data.map((x) => WebinarModel.fromJson(x)));
     }
     return [];
@@ -149,9 +149,9 @@ class ApiService {
       //"Content-Type": "application/json",
       "Authorization": token,
     });
-    var data;
+
     if (response.statusCode == 200) {
-      data = jsonDecode(response.body.toString());
+      var data = jsonDecode(response.body.toString());
 
       return List<TrandingWebinarModel>.from(
           data.map((x) => TrandingWebinarModel.fromJson(x)));
@@ -172,9 +172,8 @@ class ApiService {
       "Authorization": token,
     });
 
-    var data;
     if (response.statusCode == 200) {
-      data = jsonDecode(response.body.toString());
+      var data = jsonDecode(response.body.toString());
       // log("Latest Sessions data=> $data");
       return List<LatestSessionsModel>.from(
           data.map((x) => LatestSessionsModel.fromJson(x)));
@@ -191,10 +190,10 @@ class ApiService {
       //"Content-Type": "application/json",
       "Authorization": token,
     });
-    var data;
+
     if (response.statusCode == 200) {
-      data = jsonDecode(response.body.toString());
-  
+      var data = jsonDecode(response.body.toString());
+
       return data;
     }
     return {};
@@ -208,17 +207,16 @@ class ApiService {
     final response = await http.get(url, headers: {
       "Authorization": token,
     });
-    var data;
 
     if (response.statusCode == 200) {
-      data = jsonDecode(response.body.toString());
+      var data = jsonDecode(response.body.toString());
       return List<CheckOutDetails>.from(
           data.map((x) => CheckOutDetails.fromJson(x)));
     }
     return [];
   }
 
-  static Future<Map<String, dynamic>> Follow_councellor(
+  static Future<Map<String, dynamic>> followCouncellor(
       String id, Function setIsLoading) async {
     setIsLoading(true);
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -246,7 +244,7 @@ class ApiService {
     return {};
   }
 
-  static Future<Map<String, dynamic>> Unfollow_councellor(
+  static Future<Map<String, dynamic>> unfollowCouncellor(
       String id, Function setIsLoading) async {
     setIsLoading(true);
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -263,19 +261,16 @@ class ApiService {
     setIsLoading(false);
 
     if (response.statusCode == 200) {
-      //print('Counsellor updated successfully');
       var data = jsonDecode(response.body.toString());
       return data;
     }
-
     if (response.statusCode == 404) {
       return {"error": "Follower not found"};
     }
-
     return {};
   }
 
-  static Future<Map<String, dynamic>> Feedback_councellor(
+  static Future<Map<String, dynamic>> feedbackCouncellor(
       String id, double ratingVal, String feedbackMsg) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
@@ -441,7 +436,6 @@ class ApiService {
   static Future<Map<String, dynamic>> get_profile() async {
     var data;
     String phoneNumber = "";
-    String dob = '';
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
 
@@ -1045,7 +1039,7 @@ class ApiService {
     final response = await http.post(url, headers: headers, body: body);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body.toString());
-   
+
       return data;
     } else if (response.statusCode == 400) {
       return {"error": "Feedback is already given by the user"};
@@ -1056,7 +1050,7 @@ class ApiService {
 
   static Future getEpFeedback({required String id}) async {
     var url = Uri.parse("${AppConstants.baseUrl}/ep/feedbacks/getall/$id");
-    
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
     final response = await http.get(url, headers: {
@@ -1068,7 +1062,7 @@ class ApiService {
 
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
-     
+
       return data;
     }
     return [];
@@ -1084,7 +1078,6 @@ class ApiService {
     });
     return jsonDecode(response.body);
   }
-
 
   // static Future getAllAccommodation() async {
   //   var url = Uri.parse("${AppConstants.baseUrl}/admin/accommodation");

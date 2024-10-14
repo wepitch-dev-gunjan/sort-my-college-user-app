@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/home_page/homepage.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/provider/counsellor_details_provider.dart';
@@ -98,7 +96,6 @@ class WebinarPastDataWidget extends StatefulWidget {
 
 class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
   late SharedPreferences _prefs;
-  bool _isRegistrationStarting = false;
   String register_status = '';
   String webinarData = '';
 
@@ -122,7 +119,6 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
         await _updateRegistrationStatus(false);
       } else {
         setState(() {
-          _isRegistrationStarting = true;
         });
       }
     }
@@ -130,7 +126,6 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
 
   Future<void> _updateRegistrationStatus(bool isStarting) async {
     setState(() {
-      _isRegistrationStarting = isStarting;
     });
 
     if (isStarting) {
@@ -163,16 +158,11 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
   }
 
   Widget cardView(BuildContext context) {
-    bool has24HoursPassed = false;
     DateTime registrationDate =
         DateTime.parse(widget.webinarModel.resisterDate!);
     Duration difference = DateTime.now().difference(registrationDate);
-    var pastdays;
     if (difference.inHours >= 24) {
-      has24HoursPassed = true;
-      pastdays = difference.inDays;
     } else {
-      has24HoursPassed = false;
     }
 
     bool isRegistered = widget.webinarModel.registered;
@@ -321,7 +311,7 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                                           TextButton(
                                             child: const Text("Yes"),
                                             onPressed: () async {
-                                              await ApiService.webinar_register(
+                                              await ApiService.webinarRegister(
                                                   widget.webinarModel.id!);
                                               setState(() {
                                                 isRegistered = true;
@@ -339,7 +329,7 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                                 } else if (daysDifference == 0 &&
                                     isRegistered &&
                                     widget.webinarModel.canJoin == true) {
-                                  await ApiService.webinar_join(
+                                  await ApiService.webinarJoin(
                                       widget.webinarModel.id!);
                                   launchUrlString(widget.webinarModel.joinUrl!);
                                 }

@@ -1,13 +1,10 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:myapp/common/comming_soon.dart';
 import 'package:myapp/home_page/Accomodation/screens/accomodation_screen.dart';
 import 'package:myapp/home_page/coming_soon.dart';
 import 'package:myapp/home_page/counsellor_page/counsellor_details_screen.dart';
@@ -29,7 +26,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../booking_page/checkout_screen.dart';
 import '../other/api_service.dart';
-import 'entrance_preparation/screens/entrance_preparation_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -51,7 +47,6 @@ class _HomePageState extends State<HomePage> {
   CounsellorDetailsProvider counsellorDetailsProvider =
       CounsellorDetailsProvider();
 
-  bool _isRegistrationStarting = false;
   late SharedPreferences _prefs;
 
   @override
@@ -75,9 +70,6 @@ class _HomePageState extends State<HomePage> {
     prefs.setString("profile_image_path", path);
   }
 
-  final int _currentIndex = 0;
-  final PageController _pageController = PageController(initialPage: 0);
-  late Timer _timer;
 
   var str;
   List<String> imgUrlList = [];
@@ -99,7 +91,6 @@ class _HomePageState extends State<HomePage> {
 
     double baseWidth = 430;
     double fem = MediaQuery.of(context).size.width / baseWidth;
-    double ffem = fem * 0.97;
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
@@ -430,85 +421,6 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
-
-                    // counsellorSessionProvider.popularWorkShopList.isEmpty
-                    //     ? const SizedBox()
-                    //     : Column(
-                    //         children: [
-                    //           Padding(
-                    //             padding: EdgeInsets.only(left: 28.0 * fem),
-                    //             child: const Row(
-                    //               children: [
-                    //                 Text(
-                    //                   'Latest Sessions',
-                    //                   style: TextStyle(
-                    //                     color: Color(0xFF1F0A68),
-                    //                     fontSize: 20,
-                    //                     fontFamily: 'Inter',
-                    //                     fontWeight: FontWeight.w500,
-                    //                     height: 0,
-                    //                   ),
-                    //                 )
-                    //               ],
-                    //             ),
-                    //           ),
-                    //           const SizedBox(height: 4),
-                    //           Container(
-                    //             constraints: BoxConstraints(
-                    //               maxHeight:
-                    //                   MediaQuery.of(context).size.height * 0.28,
-                    //             ),
-                    //             child: counsellorSessionProvider
-                    //                     .popularWorkShopList.isEmpty
-                    //                 ? const Center(
-                    //                     child: Text("No Data Found"),
-                    //                   )
-                    //                 : ListView.builder(
-                    //                     scrollDirection: Axis.horizontal,
-                    //                     shrinkWrap: true,
-                    //                     physics: const PageScrollPhysics(),
-                    //                     itemCount: counsellorSessionProvider
-                    //                         .popularWorkShopList.length,
-                    //                     itemBuilder: (context, index) {
-                    //                       LatestSessionsModel popular =
-                    //                           counsellorSessionProvider
-                    //                               .popularWorkShopList[index];
-
-                    //                       // Parse the session date and time
-                    //                       DateTime sessionDateTime = DateFormat(
-                    //                               'dd-MM-yyyy hh:mm')
-                    //                           .parse(
-                    //                               '${popular.sessionDate} ${popular.sessionTime}');
-
-                    //                       // Get current date and time
-                    //                       DateTime now = DateTime.now();
-
-                    //                       // Check if session is within 15 minutes and same day
-                    //                       if (sessionDateTime
-                    //                                   .difference(now)
-                    //                                   .inMinutes >
-                    //                               15 ||
-                    //                           sessionDateTime.day != now.day ||
-                    //                           sessionDateTime.month !=
-                    //                               now.month ||
-                    //                           sessionDateTime.year !=
-                    //                               now.year) {
-                    //                         // Only show sessions that are not within 15 minutes or not today
-                    //                         return profileCard(
-                    //                           popular,
-                    //                           index,
-                    //                           counsellorSessionProvider
-                    //                               .popularWorkShopList.length,
-                    //                         );
-                    //                       } else {
-                    //                         return const SizedBox(); // Skip the session if it's within 15 minutes of current time on the same day
-                    //                       }
-                    //                     },
-                    //                   ),
-                    //           ),
-                    //         ],
-                    //       ),
-
                     const SizedBox(height: 10),
                     counsellorSessionProvider.trendingWebinarList.isEmpty
                         ? const SizedBox()
@@ -570,11 +482,8 @@ class _HomePageState extends State<HomePage> {
                                                       .shrink();
                                                 }
 
-                                                Duration difference =
-                                                    currentDate.difference(
+                                                currentDate.difference(
                                                         webinarDate);
-                                                bool has24HoursPassed =
-                                                    difference.inHours >= 24;
                                                 bool isRegistered =
                                                     trending.registered!;
 
@@ -795,7 +704,7 @@ class _HomePageState extends State<HomePage> {
                                                                                       TextButton(
                                                                                         child: const Text("Yes"),
                                                                                         onPressed: () async {
-                                                                                          await ApiService.webinar_register(trending.id!);
+                                                                                          await ApiService.webinarRegister(trending.id!);
                                                                                           setState(() {
                                                                                             trending.registered = true;
                                                                                           });
@@ -809,7 +718,7 @@ class _HomePageState extends State<HomePage> {
                                                                             } else if (daysDifference == 0 &&
                                                                                 isRegistered &&
                                                                                 trending.canJoin == true) {
-                                                                              await ApiService.webinar_join(trending.id!);
+                                                                              await ApiService.webinarJoin(trending.id!);
                                                                               launchUrlString(trending.webinarJoinUrl!);
                                                                             }
                                                                           },
@@ -845,7 +754,6 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _updateRegistrationStatus(bool isStarting) async {
     setState(() {
-      _isRegistrationStarting = isStarting;
     });
 
     if (isStarting) {

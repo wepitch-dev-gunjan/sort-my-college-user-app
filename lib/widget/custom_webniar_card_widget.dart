@@ -205,7 +205,7 @@ class _CustomWebinarCardState extends State<CustomWebinarCard> {
                                                       'Participant is already registered');
                                             } else {
                                               var value = await ApiService
-                                                  .webinar_register(widget
+                                                  .webinarRegister(widget
                                                       .trandingWebinarModel
                                                       .id!);
 

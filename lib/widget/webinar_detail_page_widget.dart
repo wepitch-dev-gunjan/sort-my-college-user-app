@@ -1,11 +1,8 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/home_page/homepage.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../utils/share_links.dart';
@@ -483,7 +480,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                             TextButton(
                               child: const Text("Yes"),
                               onPressed: () async {
-                                await ApiService.webinar_register(
+                                await ApiService.webinarRegister(
                                     widget.webinarId!);
 
                                 setState(() {
@@ -501,7 +498,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                   } else if (daysDifference == 0 &&
                       isRegistere &&
                       widget.canJoin == true) {
-                    await ApiService.webinar_join(widget.webinarId!);
+                    await ApiService.webinarJoin(widget.webinarId!);
                     launchUrlString(widget.webinarJoinUrl!);
                   }
                 },

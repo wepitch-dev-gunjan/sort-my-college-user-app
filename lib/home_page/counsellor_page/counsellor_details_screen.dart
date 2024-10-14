@@ -41,8 +41,8 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
   bool isLoading = true;
 
   // bool hasFollowedBefore = false;
-  double rating_val = 5;
-  String feedback_msg = '';
+  double ratingVal = 5;
+  String feedbackMsg = '';
 
   setIsFollowingLoading(bool state) {
     setState(() {
@@ -56,7 +56,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
   void initState() {
     super.initState();
     fetchCounsellorDetail();
-
   }
 
   Future<void> fetchCounsellorDetail() async {
@@ -244,7 +243,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                             log("Following => ${counsellor['following']}");
                                             if (isFollowing) {
                                               var value = await ApiService
-                                                  .Unfollow_councellor(
+                                                  .unfollowCouncellor(
                                                       counsellor['_id'],
                                                       setIsFollowingLoading);
 
@@ -259,7 +258,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                               setState(() {});
                                             } else {
                                               var value = await ApiService
-                                                  .Follow_councellor(
+                                                  .followCouncellor(
                                                       counsellor['_id'],
                                                       setIsFollowingLoading);
                                               log("value1$value");
@@ -613,139 +612,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                       reviews:
                                           counsellor['client_testimonials'],
                                     ),
-                              // Column(
-                              //     crossAxisAlignment:
-                              //         CrossAxisAlignment.start,
-                              //     children: [
-                              //       const Text(
-                              //         'Client Testimonials',
-                              //         style: TextStyle(
-                              //           fontSize: 18,
-                              //           fontWeight: FontWeight.w700,
-                              //           height: 1.2125,
-                              //           color: Color(0xff000000),
-                              //         ),
-                              //       ),
-                              //       const SizedBox(height: 12),
-                              //       SizedBox(
-                              //         height: MediaQuery.of(context)
-                              //                 .size
-                              //                 .height *
-                              //             0.26,
-                              //         child: PageView.builder(
-                              //           //physics: const PageScrollPhysics(),
-                              //           scrollDirection: Axis.horizontal,
-                              //           itemCount: counsellor[
-                              //                       'client_testimonials']!
-                              //                   .length ??
-                              //               0,
-                              //           itemBuilder: (context, index) {
-                              //             final testimonial = counsellor[
-                              //                 'client_testimonials'][index];
-                              //             return Row(
-                              //               children: [
-                              //                 Expanded(
-                              //                   child: Card(
-                              //                     surfaceTintColor:
-                              //                         ColorsConst
-                              //                             .whiteColor,
-                              //                     color: Colors.white,
-                              //                     child: Padding(
-                              //                       padding:
-                              //                           const EdgeInsets
-                              //                               .symmetric(
-                              //                               horizontal: 15),
-                              //                       child: Column(
-                              //                         crossAxisAlignment:
-                              //                             CrossAxisAlignment
-                              //                                 .start,
-                              //                         children: [
-                              //                           const SizedBox(
-                              //                               height: 14),
-                              //                           Center(
-                              //                             child: Container(
-                              //                               height: 46,
-                              //                               width: 46,
-                              //                               decoration:
-                              //                                   const BoxDecoration(
-                              //                                 color: Colors
-                              //                                     .black26,
-                              //                                 shape: BoxShape
-                              //                                     .circle,
-                              //                               ),
-                              //                               child: Center(
-                              //                                 child:
-                              //                                     ClipOval(
-                              //                                   child: Image
-                              //                                       .network(
-                              //                                     testimonial[
-                              //                                             'profile_pic'] ??
-                              //                                         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9b7ve9oIilsA8oz5bbsrKZvAe2oT7ESuFKKUO3eHWRL0LEnOQnzz4lRHYAg&s',
-                              //                                     fit: BoxFit
-                              //                                         .cover,
-                              //                                   ),
-                              //                                 ),
-                              //                               ),
-                              //                             ),
-                              //                           ),
-                              //                           const SizedBox(
-                              //                               height: 12),
-                              //                           Row(
-                              //                             mainAxisAlignment:
-                              //                                 MainAxisAlignment
-                              //                                     .center,
-                              //                             children: [
-                              //                               Image.asset(
-                              //                                 'assets/page-1/images/group-MqT.png',
-                              //                                 width: 15,
-                              //                                 height: 15.35,
-                              //                               ),
-                              //                               const SizedBox(
-                              //                                   width: 6),
-                              //                               Text(
-                              //                                 testimonial['rating'] !=
-                              //                                         null
-                              //                                     ? '${testimonial['rating']}'
-                              //                                     : '1',
-                              //                                 style: const TextStyle(
-                              //                                     fontSize:
-                              //                                         12),
-                              //                               ),
-                              //                             ],
-                              //                           ),
-                              //                           const SizedBox(
-                              //                               height: 12),
-                              //                           Center(
-                              //                             child: Text(
-                              //                               testimonial[
-                              //                                       'message'] ??
-                              //                                   'good',
-                              //                               style: const TextStyle(
-                              //                                   fontStyle:
-                              //                                       FontStyle
-                              //                                           .italic,
-                              //                                   fontSize:
-                              //                                       12),
-                              //                             ),
-                              //                           ),
-                              //                           const SizedBox(
-                              //                               height: 14),
-                              //                         ],
-                              //                       ),
-                              //                     ),
-                              //                   ),
-                              //                 ),
-                              //                 // const Icon(
-                              //                 //   Icons.arrow_forward_ios,
-                              //                 //   size: 20,
-                              //                 // ),
-                              //               ],
-                              //             );
-                              //           },
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   ),
 
                               const SizedBox(height: 16),
                               const Text(
@@ -770,7 +636,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                     ),
                                     onRatingUpdate: (rating) {
                                       setState(() {
-                                        rating_val = rating;
+                                        ratingVal = rating;
                                       });
                                     },
                                   ),
@@ -787,7 +653,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                 ),
                                 child: TextFormField(
                                   onChanged: (value) {
-                                    feedback_msg = value;
+                                    feedbackMsg = value;
                                   },
                                   controller: controller,
                                   cursorHeight: 22,
@@ -801,24 +667,16 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                       suffixIcon: IconButton(
                                         onPressed: () async {
                                           var value = await ApiService
-                                              .Feedback_councellor(widget.id,
-                                                  rating_val, feedback_msg);
+                                              .feedbackCouncellor(widget.id,
+                                                  ratingVal, feedbackMsg);
                                           if (value["error"] ==
                                               "Feedback is already given by the user") {
                                             Fluttertoast.showToast(
                                                 msg:
                                                     "Feedback is already given by the user");
-
-                                            // EasyLoading.showToast(
-                                            //     value["error"],
-                                            //     toastPosition:
-                                            //         EasyLoadingToastPosition
-                                            //             .bottom);
                                           } else {
-                                            log("Valuee=>${value['messege']}");
                                             (value["message"] ==
                                                 "Feedback has been successfully added");
-
                                             Fluttertoast.showToast(
                                                 msg:
                                                     "Feedback has been successfully added",
@@ -834,8 +692,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                       )),
                                 ),
                               ),
-                              // HiddenText(
-                              //     id: '${userBookings[0].bookedEntity?.clientTestimonials?[0].id}'),
+                             
                             ],
                           ),
                         ),
@@ -844,19 +701,15 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                   ),
                 ),
                 SizedBox(
-                  // group371aXa (2936:506)
-                  //width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        // autogroupuuww8oz (obZ7jq9Hv3ndwJa9LuuwW)
                         width: double.infinity,
                         height: 113 * fem,
                         child: Stack(
                           children: [
                             Positioned(
-                              // frame324GvC (2936:447)
                               left: 0 * fem,
                               top: 55 * fem,
                               child: Container(
@@ -869,7 +722,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                       color: const Color(0x35000000)),
                                 ),
                                 child: SizedBox(
-                                  // group370NiL (2936:483)
                                   width: double.infinity,
                                   height: double.infinity,
                                   child: Row(
@@ -877,7 +729,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                         CrossAxisAlignment.center,
                                     children: [
                                       Container(
-                                        // group347Kda (2936:448)
                                         margin: EdgeInsets.fromLTRB(0 * fem,
                                             0 * fem, 115 * fem, 0 * fem),
                                         height: double.infinity,
@@ -886,7 +737,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                               CrossAxisAlignment.center,
                                           children: [
                                             Container(
-                                              // group345fBe (2936:458)
                                               margin: EdgeInsets.fromLTRB(
                                                   0 * fem,
                                                   0 * fem,
@@ -897,7 +747,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                               child: Stack(
                                                 children: [
                                                   Positioned(
-                                                    // group298bLC (2936:459)
                                                     left: 0 * fem,
                                                     top: 0 * fem,
                                                     child: Align(
@@ -913,7 +762,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                                     ),
                                                   ),
                                                   Positioned(
-                                                    // conversationi9v (2936:461)
                                                     left: 10.7692871094 * fem,
                                                     top: 9.4614257812 * fem,
                                                     child: Align(
@@ -931,7 +779,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                               ),
                                             ),
                                             Container(
-                                              // group346qEY (2936:449)
                                               margin: EdgeInsets.fromLTRB(
                                                   0 * fem,
                                                   0.5 * fem,
