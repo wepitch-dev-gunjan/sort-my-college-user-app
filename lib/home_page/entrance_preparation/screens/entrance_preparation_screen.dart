@@ -63,8 +63,6 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
   }
 }
 
-
-
 class EpCard extends StatelessWidget {
   final dynamic data;
   EpCard({super.key, required this.data});
@@ -76,15 +74,17 @@ class EpCard extends StatelessWidget {
     double baseWidth = 460;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    
+
     // Get the current day as a string
     String currentDay = DateFormat('EEEE').format(DateTime.now()).toUpperCase();
-    
+
     return SingleChildScrollView(
       child: Column(
         children: [
           const SizedBox(height: 15.0),
-          const TopSlider(),
+          TopSlider(
+            sliderText: enterencePriperationSliderText,
+          ),
           const SizedBox(height: 10.0),
           ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
@@ -257,9 +257,10 @@ class EpCard extends StatelessWidget {
                                       TextWithIcon(
                                           text: statusText,
                                           fontWeight: FontWeight.w600,
-                                          textColor: statusText.contains("Closed")
-                                              ? Colors.red
-                                              : const Color(0xff4BD058),
+                                          textColor:
+                                              statusText.contains("Closed")
+                                                  ? Colors.red
+                                                  : const Color(0xff4BD058),
                                           icon: Icons.access_time_outlined),
                                       const SizedBox(height: 3),
                                       TextWithIcon(
@@ -331,20 +332,26 @@ class EpCard extends StatelessWidget {
   }
 }
 
+List enterencePriperationSliderText = [
+  'What entrance examinations should I prepare for?',
+  'How to ace my entrance exams with top strategies?',
+  'Which entrance exams are crucial for my dream career?'
+];
+List accommodationSliderText = [
+  'Best student accommodations near campus?',
+  'How to find affordable student accommodation?',
+  'Which accommodations offer the best experience?'
+];
 
 class TopSlider extends StatefulWidget {
-  const TopSlider({super.key});
+  final List sliderText;
+  const TopSlider({super.key, required this.sliderText});
 
   @override
   State<TopSlider> createState() => _TopSliderState();
 }
 
 class _TopSliderState extends State<TopSlider> {
-  List sliderTextList = [
-    'What entrance examinations should I prepare for?',
-    'How to ace my entrance exams with top strategies?',
-    'Which entrance exams are crucial for my dream career?'
-  ];
   int selectedIndex = 0;
 
   @override
@@ -408,9 +415,9 @@ class _TopSliderState extends State<TopSlider> {
                       height: 40 * fem,
                       child: CarouselSlider(
                         items: [
-                          for (int i = 0; i < sliderTextList.length; i++)
+                          for (int i = 0; i < widget.sliderText.length; i++)
                             Text(
-                              sliderTextList[i],
+                              widget.sliderText[i],
                               style: SafeGoogleFont(
                                 'Inter',
                                 fontSize: 14 * ffem,
