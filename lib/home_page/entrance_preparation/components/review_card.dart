@@ -218,7 +218,7 @@ class _ReviewCardState extends State<ReviewCard> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 20.0),
+       const SizedBox(height: 20.0),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
           child: Text(

@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -14,7 +13,6 @@ import 'package:myapp/utils.dart';
 import 'package:myapp/utils/share_links.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../other/api_service.dart';
 import '../entrance_preparation/components/commons.dart';
@@ -36,7 +34,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
   TextEditingController controller = TextEditingController();
 
   bool visible = false;
-  late TabController _controller;
   List<CounsellorModel> counsellorModel = [];
   bool isFollowLoading = false;
   bool isFollowing = false;
@@ -60,7 +57,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
     super.initState();
     fetchCounsellorDetail();
 
-    _controller = TabController(length: 2, vsync: this, initialIndex: 0);
   }
 
   Future<void> fetchCounsellorDetail() async {

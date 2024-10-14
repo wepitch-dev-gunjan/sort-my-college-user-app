@@ -1,10 +1,8 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
-import 'package:myapp/booking_page/booking_page.dart';
 import 'package:myapp/home_page/counsellor_page/counsellor_details_screen.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/provider/counsellor_details_provider.dart';
@@ -181,13 +179,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     //     ? counsellorDetailController.checkOutDetailsList[0].sessionId.toString()
     //     : '';
 
-    var amount = '';
     if (counsellorDetailController.checkOutDetailsList.isNotEmpty) {
       dynamic totalAmount =
           counsellorDetailController.checkOutDetailsList[0].totalAmount;
-      if (totalAmount != null) {
-        amount = totalAmount.toString();
-      }
+      if (totalAmount != null) {}
     }
 
     if (counsellorDetailController.checkOutDetailsList.isNotEmpty) {
@@ -423,10 +418,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                             fontSize: 12,
                                           ),
                                         ),
-                                        SizedBox(width: 10),
+                                        const SizedBox(width: 10),
                                         Flexible(
                                           child: Text(
-                                            widget.sessionTopic! ?? "N/A",
+                                            widget.sessionTopic!,
                                             style: const TextStyle(
                                               color: ColorsConst.black54Color,
                                               fontSize: 13,

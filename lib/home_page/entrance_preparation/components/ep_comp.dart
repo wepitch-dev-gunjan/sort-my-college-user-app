@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -396,7 +395,7 @@ class CourseSendEnquiryCard extends StatelessWidget {
                                           fontSize: 15,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    Text(courseFee ?? 'N/A')
+                                    Text(courseFee)
                                   ],
                                 ),
                           Row(

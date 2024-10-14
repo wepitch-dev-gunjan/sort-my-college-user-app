@@ -55,9 +55,10 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
 
 class EpCard extends StatelessWidget {
   final dynamic data;
+   List coursesList = ["CUET", "JEE", "CLET"];
   EpCard({super.key, required this.data});
 
-  List coursesList = ["CUET", "JEE", "CLET"];
+ 
 
   @override
   Widget build(BuildContext context) {

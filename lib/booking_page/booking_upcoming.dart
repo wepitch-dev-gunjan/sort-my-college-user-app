@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:myapp/booking_page/booking_confirmatoin_upcoming.dart';
 import 'package:myapp/utils/common.dart';
@@ -69,8 +67,8 @@ class _BookingUpcomingState extends State<BookingUpcoming> {
             : ListView.builder(
                 itemCount: bookings.length,
                 itemBuilder: (context, index) {
-                  var time =
-                      "${bookings[index]['booking_data']["session_time"]}";
+                  // var time =
+                      // "${bookings[index]['booking_data']["session_time"]}";
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Container(

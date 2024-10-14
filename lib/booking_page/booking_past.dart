@@ -47,8 +47,8 @@ class _BookingPastState extends State<BookingPast> {
             : ListView.builder(
                 itemCount: bookings.length,
                 itemBuilder: (context, index) {
-                  var time =
-                      "${bookings[index]['booking_data']["session_time"]}";
+                  // var time =
+                  //     "${bookings[index]['booking_data']["session_time"]}";
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Container(
