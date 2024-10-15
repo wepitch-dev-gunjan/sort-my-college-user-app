@@ -332,6 +332,7 @@ List accommodationSliderText = [
   'Which accommodations offer the best experience?'
 ];
 
+
 class TopSlider extends StatefulWidget {
   final List sliderText;
   const TopSlider({super.key, required this.sliderText});

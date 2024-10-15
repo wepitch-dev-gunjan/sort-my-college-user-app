@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/main.dart';
 import '../../../shared/colors_const.dart';
 import '../../entrance_preparation/components/commons.dart';
 import '../../entrance_preparation/screens/entrance_preparation_screen.dart';
@@ -131,7 +132,12 @@ class AccomodationScreen extends StatelessWidget {
                             ),
                           ),
                           Btn(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FilterScreen()));
+                            },
                             btnName: "View Details",
                             textColor: Colors.white,
                             btnColor: const Color(0xff1F0A68),
