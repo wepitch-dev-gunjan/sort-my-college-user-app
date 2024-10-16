@@ -14,6 +14,7 @@ class DetailAccommodation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("Acc Data$data");
     return Scaffold(
       backgroundColor: ColorsConst.whiteColor,
       appBar: CusAppBar(
@@ -39,6 +40,7 @@ class DetailAccommodation extends StatelessWidget {
         children: [
           AccommondationTopCard(data: data),
           RoomsOfferedSection(data: data),
+          NearByLocation(data: data)
         ],
       )),
     );
@@ -162,17 +164,54 @@ class RoomsOfferedSection extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20.0),
-          const SharingStatusCard(
-              roomType: "Single Shareing",
-              availability: "Available",
-              price: "5000",
-              isAvailable: true),
-          const SizedBox(height: 20.0),
-          const SharingStatusCard(
-              roomType: "Double Shareing",
-              availability: "Not Available",
-              price: "5000",
-              isAvailable: false)
+          ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: data['rooms'].length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Column(
+                    children: [
+                      SharingStatusCard(
+                          roomType:
+                              "${data['rooms'][index]['sharing_type']} Sharing",
+                          availability:
+                              data['rooms'][index]['available'] == true
+                                  ? "Available"
+                                  : "Not Available",
+                          price:
+                              "₹ ${data['rooms'][index]['monthly_charge'].toString()}",
+                          isAvailable: data['rooms'][index]['available']),
+                    ],
+                  ),
+                );
+              })
+        ],
+      ),
+    );
+  }
+}
+
+class NearByLocation extends StatelessWidget {
+  final dynamic data;
+  const NearByLocation({super.key, required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    double baseWidth = 460;
+    double width = MediaQuery.of(context).size.width;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double ffem = fem * 0.97;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      child: Column(
+        children: [
+          Text(
+            'Nearby Locations',
+            style: GoogleFonts.inter(
+                fontSize: 20 * ffem, fontWeight: FontWeight.w700),
+          )
         ],
       ),
     );
