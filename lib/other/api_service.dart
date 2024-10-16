@@ -1080,13 +1080,10 @@ class ApiService {
   }
 
   static Future getAllAccommodation() async {
-    var url = Uri.parse("${AppConstants.baseUrl}/admin/accommodation");
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString("token").toString();
-    final response = await http.get(url, headers: {
-      "Content-Type": "application/json",
-      "Authorization": token,
-    });
+    var url = Uri.parse(
+        "${AppConstants.baseUrl}/admin/accommodation/user/getallaccommodation");
+
+    final response = await http.get(url);
     return jsonDecode(response.body);
   }
 }

@@ -29,11 +29,8 @@ class DetailAccommodation extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-          child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [Image.asset("assets/accommodation/testimage.png")],
-        ),
+          child: Column(
+        children: [Image.asset("assets/accommodation/testimage.png")],
       )),
     );
   }

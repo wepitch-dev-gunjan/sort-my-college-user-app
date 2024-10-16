@@ -27,11 +27,17 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
 
   getAllAccommodation() async {
     final res = await ApiService.getAllAccommodation();
-    log("Accommodation Response$res");
     setState(() {
       data = res;
       isLoading = false;
     });
+  }
+
+  Future<void> _refreshAccommodations() async {
+    setState(() {
+      isLoading = true;
+    });
+    await getAllAccommodation();
   }
 
   @override
@@ -40,17 +46,22 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
       backgroundColor: ColorsConst.whiteColor,
       appBar: const CusAppBar(
         title: 'Accommodation',
-        // action: [Icon(Icons.search)],
       ),
       body: isLoading
           ? const AccommodationShimmerEffect()
-          : const AccommodationCard(),
+          : RefreshIndicator(
+              backgroundColor: Colors.white,
+              color: Colors.black,
+              onRefresh: _refreshAccommodations,
+              child: AccommodationCard(data: data),
+            ),
     );
   }
 }
 
 class AccommodationCard extends StatelessWidget {
-  const AccommodationCard({super.key});
+  final dynamic data;
+  const AccommodationCard({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -69,8 +80,27 @@ class AccommodationCard extends StatelessWidget {
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: 5,
+          itemCount: data.length,
           itemBuilder: (context, index) {
+            var accommodation = data[index];
+            String imageUrl = (accommodation['images'] != null &&
+                    accommodation['images'].isNotEmpty)
+                ? accommodation['images'][0]
+                : 'https://via.placeholder.com/150';
+            String name = accommodation['name'] ?? 'No Name Provided';
+            String area = accommodation['address']['area'] ?? 'No Area Info';
+            String city = accommodation['address']['city'] ?? 'No City Info';
+            double rating = (accommodation['rating'] != null)
+                ? (accommodation['rating'] is int
+                    ? accommodation['rating'].toDouble()
+                    : accommodation['rating'])
+                : 0.0;
+            int reviewsCount = accommodation['rooms']?.length ?? 0;
+            String price = (accommodation['rooms'] != null &&
+                    accommodation['rooms'].isNotEmpty)
+                ? "${accommodation['rooms'][0]['montly_charge'] ?? 'N/A'} INR/"
+                : 'Price not available';
+
             return Padding(
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
               child: Column(
@@ -81,12 +111,15 @@ class AccommodationCard extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          Image.asset(
-                            "assets/accommodation/testimage.png",
-                            height: 180,
-                            fit: BoxFit.fill,
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              imageUrl,
+                              height: 180,
+                              width: width,
+                              fit: BoxFit.fill,
+                            ),
                           ),
-                          // const SizedBox(height: 10.0),
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Row(
@@ -99,18 +132,20 @@ class AccommodationCard extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Ram Niwas PG ",
+                                        name,
                                         overflow: TextOverflow.ellipsis,
                                         style: GoogleFonts.inter(
-                                            fontSize: 24 * ffem,
-                                            fontWeight: FontWeight.w600),
+                                          fontSize: 24 * ffem,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
                                       Text(
-                                        "Ram Bagh Circle, Jaipur",
+                                        "$area, $city",
                                         overflow: TextOverflow.ellipsis,
                                         style: GoogleFonts.inter(
-                                            fontSize: 14 * ffem,
-                                            fontWeight: FontWeight.w500),
+                                          fontSize: 14 * ffem,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -126,11 +161,12 @@ class AccommodationCard extends StatelessWidget {
                                       const SizedBox(width: 2.0),
                                       Flexible(
                                         child: Text(
-                                          "4.2 Rating | (99) Reviews",
+                                          "$rating Rating | ($reviewsCount) Reviews",
                                           overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.inter(
-                                              fontSize: 12 * ffem,
-                                              fontWeight: FontWeight.w500),
+                                            fontSize: 12 * ffem,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       )
                                     ],
@@ -155,24 +191,27 @@ class AccommodationCard extends StatelessWidget {
                                         "Starting from",
                                         overflow: TextOverflow.ellipsis,
                                         style: GoogleFonts.inter(
-                                            fontSize: 16 * ffem,
-                                            fontWeight: FontWeight.w400),
+                                          fontSize: 16 * ffem,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
                                       Row(
                                         children: [
                                           Text(
-                                            "10,000 INR/",
+                                            price,
                                             overflow: TextOverflow.ellipsis,
                                             style: GoogleFonts.inter(
-                                                fontSize: 18 * ffem,
-                                                fontWeight: FontWeight.w700),
+                                              fontSize: 18 * ffem,
+                                              fontWeight: FontWeight.w700,
+                                            ),
                                           ),
                                           Text(
                                             "Month",
                                             overflow: TextOverflow.ellipsis,
                                             style: GoogleFonts.inter(
-                                                fontSize: 16 * ffem,
-                                                fontWeight: FontWeight.w400),
+                                              fontSize: 16 * ffem,
+                                              fontWeight: FontWeight.w400,
+                                            ),
                                           ),
                                         ],
                                       ),
