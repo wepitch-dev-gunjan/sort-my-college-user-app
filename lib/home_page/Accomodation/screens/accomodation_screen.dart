@@ -224,7 +224,7 @@ class AccommodationCard extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            const DetailAccommodation(),
+                                            DetailAccommodation(data: accommodation),
                                       ),
                                     );
                                   },
