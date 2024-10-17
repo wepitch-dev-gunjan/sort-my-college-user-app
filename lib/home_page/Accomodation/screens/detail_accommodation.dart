@@ -51,10 +51,10 @@ class AccommondationTopCard extends StatefulWidget {
   const AccommondationTopCard({super.key, required this.data});
 
   @override
-  _AccommondationTopCardState createState() => _AccommondationTopCardState();
+  AccommondationTopCardState createState() => AccommondationTopCardState();
 }
 
-class _AccommondationTopCardState extends State<AccommondationTopCard> {
+class AccommondationTopCardState extends State<AccommondationTopCard> {
   late PageController _pageController;
   int _currentPage = 0;
 
