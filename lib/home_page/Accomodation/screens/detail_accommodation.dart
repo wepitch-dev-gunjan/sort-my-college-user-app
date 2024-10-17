@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -47,9 +46,122 @@ class DetailAccommodation extends StatelessWidget {
   }
 }
 
-class AccommondationTopCard extends StatelessWidget {
+// class AccommondationTopCard extends StatelessWidget {
+//   final dynamic data;
+//   const AccommondationTopCard({super.key, required this.data});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     double baseWidth = 460;
+//     double width = MediaQuery.of(context).size.width;
+//     double fem = MediaQuery.of(context).size.width / baseWidth;
+//     double ffem = fem * 0.97;
+//     String imageUrl = (data['images'] != null && data['images'].isNotEmpty)
+//         ? data['images'][0]
+//         : 'https://via.placeholder.com/150';
+
+//     final area = data['address']['area'] ?? 'N/A';
+//     final city = data['address']['city'] ?? 'N/A';
+//     final startingPrice = data['rooms'][0]['montly_charge'] ?? 'N/A';
+//     return Column(
+//       children: [
+//         Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 8.0),
+//           child: ClipRRect(
+//             borderRadius: BorderRadius.circular(10),
+//             child: Image.network(
+//               imageUrl,
+//               height: 180,
+//               width: width,
+//               fit: BoxFit.fill,
+//             ),
+//           ),
+//         ),
+//         const SizedBox(height: 15.0),
+//         Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 20.0),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text(
+//                     data['name'] ?? 'N/A',
+//                     style: GoogleFonts.inter(
+//                         fontSize: 22 * ffem, fontWeight: FontWeight.w600),
+//                   ),
+//                   Text(
+//                     "$area, $city",
+//                     style: GoogleFonts.inter(
+//                         fontSize: 16 * ffem, fontWeight: FontWeight.w500),
+//                   ),
+//                   const SizedBox(height: 5.0),
+//                   InkWell(
+//                     onTap: () async {
+//                       final Uri redirectLink = Uri.parse(data['direction']);
+//                       if (await canLaunchUrl(redirectLink)) {
+//                         await launchUrl(redirectLink);
+//                       } else {
+//                         throw 'Could not launch $redirectLink';
+//                       }
+//                     },
+//                     child: TextWithIcon(
+//                       text: "DIRECTION",
+//                       fontWeight: FontWeight.w500,
+//                       iconColor: const Color(0xff1F0A68),
+//                       icon: Icons.directions,
+//                       textColor: const Color(0xff1F0A68),
+//                       fontSize: 16 * ffem,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//               Container(
+//                 padding:
+//                     const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+//                 decoration: BoxDecoration(
+//                     border: Border.all(width: 0.5),
+//                     borderRadius: BorderRadius.circular(11)),
+//                 child: Center(
+//                   child: Text(
+//                     "Starting at\n₹ $startingPrice/month",
+//                     style: GoogleFonts.inter(
+//                         fontSize: 16 * ffem, fontWeight: FontWeight.w600),
+//                   ),
+//                 ),
+//               )
+//             ],
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
+
+class AccommondationTopCard extends StatefulWidget {
   final dynamic data;
   const AccommondationTopCard({super.key, required this.data});
+
+  @override
+  _AccommondationTopCardState createState() => _AccommondationTopCardState();
+}
+
+class _AccommondationTopCardState extends State<AccommondationTopCard> {
+  late PageController _pageController;
+  int _currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,24 +169,60 @@ class AccommondationTopCard extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    String imageUrl = (data['images'] != null && data['images'].isNotEmpty)
-        ? data['images'][0]
-        : 'https://via.placeholder.com/150';
 
-    final area = data['address']['area'] ?? 'N/A';
-    final city = data['address']['city'] ?? 'N/A';
-    final startingPrice = data['rooms'][0]['montly_charge'] ?? 'N/A';
+    List<String> images = widget.data['images'] != null && widget.data['images'].isNotEmpty
+        ? List<String>.from(widget.data['images'])
+        : ['https://via.placeholder.com/150'];
+
+    final area = widget.data['address']['area'] ?? 'N/A';
+    final city = widget.data['address']['city'] ?? 'N/A';
+    final startingPrice = widget.data['rooms'][0]['montly_charge'] ?? 'N/A';
+
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              imageUrl,
-              height: 180,
-              width: width,
-              fit: BoxFit.fill,
+          child: SizedBox(
+            height: 180,
+            width: width,
+            child: PageView.builder(
+              controller: _pageController,
+              itemCount: images.length,
+              onPageChanged: (index) {
+                setState(() {
+                  _currentPage = index;
+                });
+              },
+              itemBuilder: (context, index) {
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    images[index],
+                    height: 180,
+                    width: width,
+                    fit: BoxFit.fill,
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        // Dots below the image
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+            images.length,
+            (index) => Container(
+              margin: const EdgeInsets.symmetric(horizontal: 3),
+              width: _currentPage == index ? 10 : 6,
+              height: _currentPage == index ? 10 : 6,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _currentPage == index
+                    ? const Color(0xff1F0A68)
+                    : Colors.grey,
+              ),
             ),
           ),
         ),
@@ -88,7 +236,7 @@ class AccommondationTopCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    data['name'] ?? 'N/A',
+                    widget.data['name'] ?? 'N/A',
                     style: GoogleFonts.inter(
                         fontSize: 22 * ffem, fontWeight: FontWeight.w600),
                   ),
@@ -100,7 +248,7 @@ class AccommondationTopCard extends StatelessWidget {
                   const SizedBox(height: 5.0),
                   InkWell(
                     onTap: () async {
-                      final Uri redirectLink = Uri.parse(data['direction']);
+                      final Uri redirectLink = Uri.parse(widget.data['direction']);
                       if (await canLaunchUrl(redirectLink)) {
                         await launchUrl(redirectLink);
                       } else {
@@ -119,8 +267,7 @@ class AccommondationTopCard extends StatelessWidget {
                 ],
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 decoration: BoxDecoration(
                     border: Border.all(width: 0.5),
                     borderRadius: BorderRadius.circular(11)),
@@ -139,6 +286,7 @@ class AccommondationTopCard extends StatelessWidget {
     );
   }
 }
+
 
 class RoomsOfferedSection extends StatelessWidget {
   final dynamic data;
@@ -207,11 +355,14 @@ class NearByLocation extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Column(
         children: [
-          Text(
-            'Nearby Locations',
-            style: GoogleFonts.inter(
-                fontSize: 20 * ffem, fontWeight: FontWeight.w700),
-          )
+          Padding(
+            padding: const EdgeInsets.only(left: 5.0),
+            child: Text(
+              'Nearby Locations',
+              style: GoogleFonts.inter(
+                  fontSize: 20 * ffem, fontWeight: FontWeight.w700),
+            ),
+          ),
         ],
       ),
     );
