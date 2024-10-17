@@ -170,9 +170,10 @@ class _AccommondationTopCardState extends State<AccommondationTopCard> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
 
-    List<String> images = widget.data['images'] != null && widget.data['images'].isNotEmpty
-        ? List<String>.from(widget.data['images'])
-        : ['https://via.placeholder.com/150'];
+    List<String> images =
+        widget.data['images'] != null && widget.data['images'].isNotEmpty
+            ? List<String>.from(widget.data['images'])
+            : ['https://via.placeholder.com/150'];
 
     final area = widget.data['address']['area'] ?? 'N/A';
     final city = widget.data['address']['city'] ?? 'N/A';
@@ -201,6 +202,19 @@ class _AccommondationTopCardState extends State<AccommondationTopCard> {
                     height: 180,
                     width: width,
                     fit: BoxFit.fill,
+                    loadingBuilder: (context, child, loadingProgress) =>
+                        loadingProgress == null
+                            ? child
+                            : Center(
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2.0,
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              ),
                   ),
                 );
               },
@@ -248,7 +262,8 @@ class _AccommondationTopCardState extends State<AccommondationTopCard> {
                   const SizedBox(height: 5.0),
                   InkWell(
                     onTap: () async {
-                      final Uri redirectLink = Uri.parse(widget.data['direction']);
+                      final Uri redirectLink =
+                          Uri.parse(widget.data['direction']);
                       if (await canLaunchUrl(redirectLink)) {
                         await launchUrl(redirectLink);
                       } else {
@@ -267,7 +282,8 @@ class _AccommondationTopCardState extends State<AccommondationTopCard> {
                 ],
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 decoration: BoxDecoration(
                     border: Border.all(width: 0.5),
                     borderRadius: BorderRadius.circular(11)),
@@ -286,7 +302,6 @@ class _AccommondationTopCardState extends State<AccommondationTopCard> {
     );
   }
 }
-
 
 class RoomsOfferedSection extends StatelessWidget {
   final dynamic data;
