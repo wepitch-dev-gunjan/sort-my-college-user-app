@@ -1,15 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SharingStatusCard extends StatelessWidget {
   final String roomType, availability, price;
+  final dynamic facilities;
   final bool isAvailable;
   const SharingStatusCard(
       {super.key,
       required this.roomType,
       required this.availability,
       required this.price,
-      required this.isAvailable});
+      required this.isAvailable,
+      required this.facilities});
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +75,9 @@ class SharingStatusCard extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (context) {
-                              return PgDialog();
+                              return PgDialog(
+                                facilities: facilities,
+                              );
                             },
                           );
                         },
@@ -122,99 +128,86 @@ class SharingStatusCard extends StatelessWidget {
 }
 
 class PgDialog extends StatelessWidget {
-  final List<String> facilities = [
-    "AC",
-    "WiFi",
-    "TV",
-    "Fridge",
-    "Laundry",
-    "Parking"
-  ];
-  PgDialog({super.key});
+  final dynamic facilities;
+
+  PgDialog({super.key, required this.facilities});
 
   @override
   Widget build(BuildContext context) {
+    log("faculties$facilities");
     double baseWidth = 460;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
     return Dialog(
+      backgroundColor: Colors.white,
+      insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(21.0),
       ),
       child: Stack(
         children: [
-          Container(
-            height: 290,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(21),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Material(
-                  elevation: 5,
-                  borderRadius: BorderRadius.circular(21),
-                  child: Container(
-                    // height: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(21),
-                      color: Colors.white,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 10),
-                      child: Column(
-                        children: [
-                          const Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [],
-                          ),
-                          const SizedBox(height: 5.0),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
-                            decoration: BoxDecoration(
-                                color: const Color(0xff1F0A68),
-                                borderRadius: BorderRadius.circular(11)),
-                            child: Text(
-                              "Academic Session",
-                              style: GoogleFonts.inter(
-                                  fontSize: 20 * ffem,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                          const SizedBox(height: 5.0),
-                          Text(
-                            "Pg Rent:- ₹7,500p/m ",
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Material(
+                elevation: 5,
+                borderRadius: BorderRadius.circular(21),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(21),
+                    color: Colors.white,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child: Column(
+                      children: [
+                        const Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [],
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          decoration: BoxDecoration(
+                              color: const Color(0xff1F0A68),
+                              borderRadius: BorderRadius.circular(11)),
+                          child: Text(
+                            "Academic Session",
                             style: GoogleFonts.inter(
-                                fontSize: 18 * ffem,
-                                fontWeight: FontWeight.w500),
+                                fontSize: 20 * ffem,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600),
                           ),
-                          Text(
-                            "One Time Security Deposit:- ₹7,500",
-                            style: GoogleFonts.inter(
-                                fontSize: 18 * ffem,
-                                fontWeight: FontWeight.w500),
-                          )
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: 5.0),
+                        Text(
+                          "Pg Rent:- ₹7,500p/m ",
+                          style: GoogleFonts.inter(
+                              fontSize: 18 * ffem, fontWeight: FontWeight.w500),
+                        ),
+                        // const SizedBox(height: 2.0),
+                        Text(
+                          "One Time Security Deposit:- ₹7,500",
+                          style: GoogleFonts.inter(
+                              fontSize: 18 * ffem, fontWeight: FontWeight.w500),
+                        )
+                      ],
                     ),
                   ),
                 ),
-                const SizedBox(height: 5.0),
-                Text(
-                  'Facilties',
-                  style: GoogleFonts.inter(
-                      color: const Color(0xff1F0A68),
-                      fontSize: 20 * ffem,
-                      fontWeight: FontWeight.w600),
-                ),
-                facilityItemGrid(facilities, context)
-              ],
-            ),
+              ),
+              const SizedBox(height: 5.0),
+              Text(
+                'Facilties',
+                style: GoogleFonts.inter(
+                    fontSize: 20 * ffem,
+                    color: const Color(0xff1F0A68),
+                    fontWeight: FontWeight.w600),
+              ),
+              facilityItemGrid(facilities, context)
+            ],
           ),
           Positioned(
             top: 10,
@@ -226,7 +219,7 @@ class PgDialog extends StatelessWidget {
               child: const Icon(
                 Icons.close,
                 color: Colors.black,
-                size: 25,
+                size: 28,
               ),
             ),
           ),
@@ -236,29 +229,69 @@ class PgDialog extends StatelessWidget {
   }
 }
 
-Widget facilityItemGrid(List<String> facilityNames, BuildContext context) {
-  return Wrap(
-    spacing: 10,
-    runSpacing: 10,
-    children: facilityNames.map((facilityName) {
-      return SizedBox(
-        width: MediaQuery.of(context).size.width / 3 - 20,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(
-              Icons.check,
-              color: Colors.green,
-              size: 28,
-            ),
-            const SizedBox(width: 5),
-            Text(
-              facilityName,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-          ],
-        ),
-      );
-    }).toList(),
+// Widget facilityItemGrid(List<dynamic> facilityNames, BuildContext context) {
+//   log("facultises=>$facilityNames");
+//   return Padding(
+//     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+//     child: Wrap(
+//       spacing: 20,
+//       runSpacing: 15,
+//       children: facilityNames.map((facilityName) {
+//         return SizedBox(
+//           // width: MediaQuery.of(context).size.width / 3 - 20,
+//           child: Row(
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               Image.asset(
+//                 "assets/accommodation/check 10.png",
+//                 width: 22,
+//                 height: 18,
+//               ),
+//               const SizedBox(width: 5),
+//               Text(
+//                 facilityName,
+//                 style: GoogleFonts.inter(
+//                     fontSize: 14, fontWeight: FontWeight.w500),
+//               ),
+//             ],
+//           ),
+//         );
+//       }).toList(),
+//     ),
+//   );
+// }
+
+Widget facilityItemGrid(List<dynamic> facilityNames, BuildContext context) {
+  log("facilities => $facilityNames");
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    child: Wrap(
+      spacing: 20, // Horizontal spacing between items
+      runSpacing: 15, // Vertical spacing between rows
+      children: List.generate(facilityNames.length, (index) {
+        var facilityName = facilityNames[index];
+        return SizedBox(
+          // Each facility in a row with image and text
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                "assets/accommodation/check 10.png", // The image before each facility
+                width: 22,
+                height: 18,
+              ),
+              const SizedBox(width: 5), // Space between image and text
+              Text(
+                facilityName, // The facility name
+                style: GoogleFonts.inter(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        );
+      }),
+    ),
   );
 }

@@ -8,7 +8,7 @@ import 'package:myapp/other/api_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../utils.dart';
 import '../screens/announcement_screen.dart';
-import '../screens/Faculties_all_screen.dart';
+import '../screens/faculties_all_screen.dart';
 import 'commons.dart';
 
 class Faculties extends StatelessWidget {

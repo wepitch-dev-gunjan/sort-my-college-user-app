@@ -76,12 +76,10 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
     double width = MediaQuery.of(context).size.width;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-
     List<String> images =
         widget.data['images'] != null && widget.data['images'].isNotEmpty
             ? List<String>.from(widget.data['images'])
             : ['https://via.placeholder.com/150'];
-
     final area = widget.data['address']['area'] ?? 'N/A';
     final city = widget.data['address']['city'] ?? 'N/A';
     final startingPrice = widget.data['rooms'][0]['montly_charge'] ?? 'N/A';
@@ -91,7 +89,7 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: SizedBox(
-            height: 180,
+            height: 190,
             width: width,
             child: PageView.builder(
               controller: _pageController,
@@ -244,15 +242,16 @@ class RoomsOfferedSection extends StatelessWidget {
                   child: Column(
                     children: [
                       SharingStatusCard(
-                          roomType:
-                              "${data['rooms'][index]['sharing_type']} Sharing",
-                          availability:
-                              data['rooms'][index]['available'] == true
-                                  ? "Available"
-                                  : "Not Available",
-                          price:
-                              "₹ ${data['rooms'][index]['monthly_charge'].toString()}",
-                          isAvailable: data['rooms'][index]['available']),
+                        roomType:
+                            "${data['rooms'][index]['sharing_type']} Sharing",
+                        availability: data['rooms'][index]['available'] == true
+                            ? "Available"
+                            : "Not Available",
+                        price:
+                            "₹ ${data['rooms'][index]['monthly_charge'].toString()}",
+                        isAvailable: data['rooms'][index]['available'],
+                        facilities: data['rooms'][index]['details'],
+                      ),
                     ],
                   ),
                 );

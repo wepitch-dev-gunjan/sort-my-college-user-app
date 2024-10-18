@@ -8,7 +8,7 @@ import 'package:myapp/utils.dart';
 class NewsAllInfoScreen extends StatefulWidget {
   NewsAllInfoScreen({required this.articles, super.key});
 
-  Articles articles;
+ Articles articles;
 
   @override
   State<NewsAllInfoScreen> createState() => _NewsAllInfoScreenState();

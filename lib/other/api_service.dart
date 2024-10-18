@@ -231,16 +231,13 @@ class ApiService {
 
     final response = await http.post(url, headers: headers, body: body);
     setIsLoading(false);
-
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body.toString());
       return data;
     }
-
     if (response.statusCode == 400) {
       return {"error": "Counsellor is already followed by the user"};
     }
-
     return {};
   }
 
@@ -249,7 +246,6 @@ class ApiService {
     setIsLoading(true);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
-
     final body = jsonEncode({"user_id": id});
     final headers = {
       'Content-Type': 'application/json',
@@ -259,7 +255,6 @@ class ApiService {
 
     final response = await http.put(url, headers: headers, body: body);
     setIsLoading(false);
-
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body.toString());
       return data;
@@ -314,7 +309,6 @@ class ApiService {
       'Content-Type': 'application/json',
       "Authorization": token,
     };
-    log("Body$token");
     final url =
         Uri.parse('${AppConstants.baseUrl}/admin/payments/create-order');
     final response = await http.post(url, headers: headers, body: body);
@@ -353,7 +347,6 @@ class ApiService {
       String sessionType) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
-    print(token);
 
     final body = jsonEncode({
       "payment_to": paymentTo,
