@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -13,7 +12,6 @@ class DetailAccommodation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("Acc Data$data");
     return Scaffold(
       backgroundColor: ColorsConst.whiteColor,
       appBar: CusAppBar(
@@ -102,20 +100,6 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
               itemBuilder: (context, index) {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  // child: CachedNetworkImage(
-                  //   repeat: ImageRepeat.noRepeat,
-                  //   imageUrl: images[index],
-                  //   height: 180,
-                  //   width: width,
-                  //   fit: BoxFit.fill,
-                  //   placeholder: (context, url) => const Center(
-                  //     child: CircularProgressIndicator(strokeWidth: 2.0),
-                  //   ),
-                  //   errorWidget: (context, url, error) => Icon(Icons.error),
-                  //   cacheKey: images[
-                  //       index], // Unique cache key to avoid unnecessary reloads
-                  // ),
-
                   child: Image.network(
                     images[index],
                     height: 180,
