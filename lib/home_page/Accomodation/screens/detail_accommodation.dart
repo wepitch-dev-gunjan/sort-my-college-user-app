@@ -102,6 +102,20 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
               itemBuilder: (context, index) {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(10),
+                  // child: CachedNetworkImage(
+                  //   repeat: ImageRepeat.noRepeat,
+                  //   imageUrl: images[index],
+                  //   height: 180,
+                  //   width: width,
+                  //   fit: BoxFit.fill,
+                  //   placeholder: (context, url) => const Center(
+                  //     child: CircularProgressIndicator(strokeWidth: 2.0),
+                  //   ),
+                  //   errorWidget: (context, url, error) => Icon(Icons.error),
+                  //   cacheKey: images[
+                  //       index], // Unique cache key to avoid unnecessary reloads
+                  // ),
+
                   child: Image.network(
                     images[index],
                     height: 180,

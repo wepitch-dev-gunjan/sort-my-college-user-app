@@ -6,6 +6,8 @@ import 'package:myapp/other/api_service.dart';
 import '../../../shared/colors_const.dart';
 import '../../entrance_preparation/components/commons.dart';
 import '../../entrance_preparation/screens/entrance_preparation_screen.dart';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AccomodationScreen extends StatefulWidget {
   const AccomodationScreen({super.key});
@@ -20,16 +22,36 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
 
   @override
   void initState() {
-    getAllAccommodation();
     super.initState();
+    loadCachedData();
   }
 
-  getAllAccommodation() async {
+  Future<void> loadCachedData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final cachedData = prefs.getString('accommodationData');
+
+    if (cachedData != null) {
+      setState(() {
+        data = jsonDecode(cachedData);
+        isLoading = false;
+      });
+    }
+
+    getAllAccommodation();
+  }
+
+  Future<void> getAllAccommodation() async {
     final res = await ApiService.getAllAccommodation();
-    setState(() {
-      data = res;
-      isLoading = false;
-    });
+    if (res != null) {
+      // Save fetched data in shared preferences
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('accommodationData', jsonEncode(res));
+
+      setState(() {
+        data = res;
+        isLoading = false;
+      });
+    }
   }
 
   Future<void> _refreshAccommodations() async {
@@ -57,6 +79,57 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
     );
   }
 }
+
+// class AccomodationScreen extends StatefulWidget {
+//   const AccomodationScreen({super.key});
+
+//   @override
+//   State<AccomodationScreen> createState() => _AccomodationScreenState();
+// }
+
+// class _AccomodationScreenState extends State<AccomodationScreen> {
+//   bool isLoading = true;
+//   dynamic data;
+
+//   @override
+//   void initState() {
+//     getAllAccommodation();
+//     super.initState();
+//   }
+
+//   getAllAccommodation() async {
+//     final res = await ApiService.getAllAccommodation();
+//     setState(() {
+//       data = res;
+//       isLoading = false;
+//     });
+//   }
+
+//   Future<void> _refreshAccommodations() async {
+//     setState(() {
+//       isLoading = true;
+//     });
+//     await getAllAccommodation();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: ColorsConst.whiteColor,
+//       appBar: const CusAppBar(
+//         title: 'Accommodation',
+//       ),
+//       body: isLoading
+//           ? const AccommodationShimmerEffect()
+//           : RefreshIndicator(
+//               backgroundColor: Colors.white,
+//               color: Colors.black,
+//               onRefresh: _refreshAccommodations,
+//               child: AccommodationCard(data: data),
+//             ),
+//     );
+//   }
+// }
 
 class AccommodationCard extends StatelessWidget {
   final dynamic data;
@@ -223,7 +296,8 @@ class AccommodationCard extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            DetailAccommodation(data: accommodation),
+                                            DetailAccommodation(
+                                                data: accommodation),
                                       ),
                                     );
                                   },

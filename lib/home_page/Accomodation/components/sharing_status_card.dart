@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,20 +5,20 @@ class SharingStatusCard extends StatelessWidget {
   final String roomType, availability, price;
   final dynamic facilities;
   final bool isAvailable;
-  const SharingStatusCard(
-      {super.key,
-      required this.roomType,
-      required this.availability,
-      required this.price,
-      required this.isAvailable,
-      required this.facilities});
+  const SharingStatusCard({
+    super.key,
+    required this.roomType,
+    required this.availability,
+    required this.price,
+    required this.isAvailable,
+    required this.facilities,
+  });
 
   @override
   Widget build(BuildContext context) {
     double baseWidth = 460;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -130,11 +128,10 @@ class SharingStatusCard extends StatelessWidget {
 class PgDialog extends StatelessWidget {
   final dynamic facilities;
 
-  PgDialog({super.key, required this.facilities});
+  const PgDialog({super.key, required this.facilities});
 
   @override
   Widget build(BuildContext context) {
-    log("faculties$facilities");
     double baseWidth = 460;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
@@ -187,7 +184,6 @@ class PgDialog extends StatelessWidget {
                           style: GoogleFonts.inter(
                               fontSize: 18 * ffem, fontWeight: FontWeight.w500),
                         ),
-                        // const SizedBox(height: 2.0),
                         Text(
                           "One Time Security Deposit:- ₹7,500",
                           style: GoogleFonts.inter(
@@ -198,7 +194,7 @@ class PgDialog extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 5.0),
+              const SizedBox(height: 10.0),
               Text(
                 'Facilties',
                 style: GoogleFonts.inter(
@@ -229,60 +225,26 @@ class PgDialog extends StatelessWidget {
   }
 }
 
-// Widget facilityItemGrid(List<dynamic> facilityNames, BuildContext context) {
-//   log("facultises=>$facilityNames");
-//   return Padding(
-//     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-//     child: Wrap(
-//       spacing: 20,
-//       runSpacing: 15,
-//       children: facilityNames.map((facilityName) {
-//         return SizedBox(
-//           // width: MediaQuery.of(context).size.width / 3 - 20,
-//           child: Row(
-//             mainAxisSize: MainAxisSize.min,
-//             children: [
-//               Image.asset(
-//                 "assets/accommodation/check 10.png",
-//                 width: 22,
-//                 height: 18,
-//               ),
-//               const SizedBox(width: 5),
-//               Text(
-//                 facilityName,
-//                 style: GoogleFonts.inter(
-//                     fontSize: 14, fontWeight: FontWeight.w500),
-//               ),
-//             ],
-//           ),
-//         );
-//       }).toList(),
-//     ),
-//   );
-// }
-
 Widget facilityItemGrid(List<dynamic> facilityNames, BuildContext context) {
-  log("facilities => $facilityNames");
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 25),
     child: Wrap(
-      spacing: 20, // Horizontal spacing between items
-      runSpacing: 15, // Vertical spacing between rows
+      spacing: 20,
+      runSpacing: 15,
       children: List.generate(facilityNames.length, (index) {
         var facilityName = facilityNames[index];
         return SizedBox(
-          // Each facility in a row with image and text
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                "assets/accommodation/check 10.png", // The image before each facility
+                "assets/accommodation/check 10.png",
                 width: 22,
                 height: 18,
               ),
-              const SizedBox(width: 5), // Space between image and text
+              const SizedBox(width: 5),
               Text(
-                facilityName, // The facility name
+                facilityName,
                 style: GoogleFonts.inter(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
