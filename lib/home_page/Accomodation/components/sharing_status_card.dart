@@ -1,6 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+class RoomsOfferedSection extends StatelessWidget {
+  final dynamic data;
+  const RoomsOfferedSection({super.key, required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    double baseWidth = 460;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double ffem = fem * 0.97;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 20.0),
+          Padding(
+            padding: const EdgeInsets.only(left: 5.0),
+            child: Text(
+              "Rooms Offered",
+              style: GoogleFonts.inter(
+                  fontSize: 20 * ffem, fontWeight: FontWeight.w700),
+            ),
+          ),
+          const SizedBox(height: 20.0),
+          ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: data['rooms'].length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Column(
+                  children: [
+                    SharingStatusCard(
+                      roomType:
+                          "${data['rooms'][index]['sharing_type']} Sharing",
+                      availability: data['rooms'][index]['available'] == true
+                          ? "Available"
+                          : "Not Available",
+                      price:
+                          "₹ ${data['rooms'][index]['monthly_charge'].toString()}",
+                      securtyAmount:
+                          "₹ ${data['rooms'][index]['deposit_amount'].toString()}",
+                      isAvailable: data['rooms'][index]['available'],
+                      facilities: data['rooms'][index]['details'],
+                    ),
+                  ],
+                ),
+              );
+            },
+          )
+        ],
+      ),
+    );
+  }
+}
+
 class SharingStatusCard extends StatelessWidget {
   final String roomType, availability, price, securtyAmount;
   final dynamic facilities;

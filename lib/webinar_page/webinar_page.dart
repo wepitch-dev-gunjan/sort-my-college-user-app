@@ -153,27 +153,3 @@ Widget customButton({
     ),
   );
 }
-
-// Widget customButton(
-//     {required VoidCallback onPressed,
-//     required String title,
-//     required bool isPressed}) {
-//   return SizedBox(
-//     height: 35,
-//     width: 110,
-//     child: OutlinedButton(
-//         onPressed: onPressed,
-//         style: OutlinedButton.styleFrom(
-//             shape: RoundedRectangleBorder(
-//               borderRadius: BorderRadius.circular(3),
-//             ),
-//             backgroundColor: const Color(0xffE7E7EB),
-//             foregroundColor:
-//                 isPressed ? Colors.black : const Color(0xff747474)),
-//         child: Text(
-//           title,
-//           style: SafeGoogleFont("Inter",
-//               fontSize: 12, fontWeight: FontWeight.w500),
-//         )),
-//   );
-// }
