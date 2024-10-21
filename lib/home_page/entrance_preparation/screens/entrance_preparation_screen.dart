@@ -73,6 +73,7 @@ class EpCard extends StatelessWidget {
           const SizedBox(height: 15.0),
           TopSlider(
             sliderText: enterencePriperationSliderText,
+            src: 'assets/page-1/images/graduation-hat.png',
           ),
           const SizedBox(height: 10.0),
           ListView.builder(
@@ -332,10 +333,16 @@ List accommodationSliderText = [
   'Which accommodations offer the best experience?'
 ];
 
-
 class TopSlider extends StatefulWidget {
   final List sliderText;
-  const TopSlider({super.key, required this.sliderText});
+  final String src;
+  final double? width, height;
+  const TopSlider(
+      {super.key,
+      required this.sliderText,
+      required this.src,
+      this.width,
+      this.height});
 
   @override
   State<TopSlider> createState() => _TopSliderState();
@@ -434,15 +441,11 @@ class _TopSliderState extends State<TopSlider> {
                   left: 290.75 * fem,
                   top: 10 * fem,
                   bottom: 10,
-                  child: Align(
-                    child: SizedBox(
-                      width: 100.5 * fem,
-                      height: 128.5 * fem,
-                      child: Image.asset(
-                        'assets/page-1/images/graduation-hat.png',
-                        fit: BoxFit.contain,
-                      ),
-                    ),
+                  child: Image.asset(
+                    widget.src,
+                    fit: BoxFit.contain,
+                    width: widget.width ?? 100.5 * fem,
+                    height: widget.height ?? 128.5 * fem,
                   ),
                 ),
               ],

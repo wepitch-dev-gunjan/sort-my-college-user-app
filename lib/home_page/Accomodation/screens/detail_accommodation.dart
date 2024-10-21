@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -37,7 +39,7 @@ class DetailAccommodation extends StatelessWidget {
         children: [
           AccommondationTopCard(data: data),
           RoomsOfferedSection(data: data),
-          NearByLocation(data: data)
+          NearByLocation(data: data),
         ],
       )),
     );
@@ -70,6 +72,7 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
 
   @override
   Widget build(BuildContext context) {
+    log("rebuild page when scroll image");
     double baseWidth = 460;
     double width = MediaQuery.of(context).size.width;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -273,6 +276,7 @@ class NearByLocation extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 5.0),
@@ -282,8 +286,62 @@ class NearByLocation extends StatelessWidget {
                   fontSize: 20 * ffem, fontWeight: FontWeight.w700),
             ),
           ),
+          const SizedBox(height: 15.0),
+          NearByColleges(ffem: ffem),
         ],
       ),
     );
+  }
+}
+
+class NearByColleges extends StatelessWidget {
+  const NearByColleges({
+    super.key,
+    required this.ffem,
+  });
+
+  final double ffem;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.only(left: 10.0),
+        child: Column(children: [
+          Row(
+            children: [
+              Image.asset("assets/accommodation/college.png",
+                  width: 24, height: 24),
+              const SizedBox(width: 8.0),
+              Text(
+                "Colleges",
+                style: GoogleFonts.inter(
+                    fontSize: 18 * ffem, fontWeight: FontWeight.w600),
+              )
+            ],
+          ),
+          const SizedBox(height: 15.0),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                for (int i = 0; i < 5; i++)
+                  Container(
+                    margin: const EdgeInsets.only(right: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 18, vertical: 12),
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 0.5),
+                      borderRadius: BorderRadius.circular(11),
+                    ),
+                    child: Text(
+                      "NMIMS",
+                      style: GoogleFonts.inter(
+                          fontSize: 14 * ffem, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+              ],
+            ),
+          )
+        ]));
   }
 }

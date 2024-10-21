@@ -80,57 +80,6 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
   }
 }
 
-// class AccomodationScreen extends StatefulWidget {
-//   const AccomodationScreen({super.key});
-
-//   @override
-//   State<AccomodationScreen> createState() => _AccomodationScreenState();
-// }
-
-// class _AccomodationScreenState extends State<AccomodationScreen> {
-//   bool isLoading = true;
-//   dynamic data;
-
-//   @override
-//   void initState() {
-//     getAllAccommodation();
-//     super.initState();
-//   }
-
-//   getAllAccommodation() async {
-//     final res = await ApiService.getAllAccommodation();
-//     setState(() {
-//       data = res;
-//       isLoading = false;
-//     });
-//   }
-
-//   Future<void> _refreshAccommodations() async {
-//     setState(() {
-//       isLoading = true;
-//     });
-//     await getAllAccommodation();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: ColorsConst.whiteColor,
-//       appBar: const CusAppBar(
-//         title: 'Accommodation',
-//       ),
-//       body: isLoading
-//           ? const AccommodationShimmerEffect()
-//           : RefreshIndicator(
-//               backgroundColor: Colors.white,
-//               color: Colors.black,
-//               onRefresh: _refreshAccommodations,
-//               child: AccommodationCard(data: data),
-//             ),
-//     );
-//   }
-// }
-
 class AccommodationCard extends StatelessWidget {
   final dynamic data;
   const AccommodationCard({super.key, required this.data});
@@ -147,6 +96,9 @@ class AccommodationCard extends StatelessWidget {
         const SizedBox(height: 15.0),
         TopSlider(
           sliderText: accommodationSliderText,
+          src: 'assets/accommodation/home.png',
+          width: 60,
+          height: 50,
         ),
         const SizedBox(height: 10.0),
         ListView.builder(
@@ -159,9 +111,9 @@ class AccommodationCard extends StatelessWidget {
                     accommodation['images'].isNotEmpty)
                 ? accommodation['images'][0]
                 : 'https://via.placeholder.com/150';
-            String name = accommodation['name'] ?? 'No Name Provided';
-            String area = accommodation['address']['area'] ?? 'No Area Info';
-            String city = accommodation['address']['city'] ?? 'No City Info';
+            String name = accommodation['name'] ?? 'N/A';
+            String area = accommodation['address']['area'] ?? 'N/A';
+            String city = accommodation['address']['city'] ?? 'N/A';
             double rating = (accommodation['rating'] != null)
                 ? (accommodation['rating'] is int
                     ? accommodation['rating'].toDouble()
@@ -171,8 +123,7 @@ class AccommodationCard extends StatelessWidget {
             String price = (accommodation['rooms'] != null &&
                     accommodation['rooms'].isNotEmpty)
                 ? "${accommodation['rooms'][0]['montly_charge'] ?? 'N/A'} INR/"
-                : 'Price not available';
-
+                : 'N/A';
             return Padding(
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
               child: Column(
