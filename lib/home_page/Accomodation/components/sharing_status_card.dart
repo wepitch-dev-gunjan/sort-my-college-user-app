@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SharingStatusCard extends StatelessWidget {
-  final String roomType, availability, price;
+  final String roomType, availability, price, securtyAmount;
   final dynamic facilities;
   final bool isAvailable;
   const SharingStatusCard({
@@ -12,6 +12,7 @@ class SharingStatusCard extends StatelessWidget {
     required this.price,
     required this.isAvailable,
     required this.facilities,
+    required this.securtyAmount,
   });
 
   @override
@@ -75,6 +76,8 @@ class SharingStatusCard extends StatelessWidget {
                             builder: (context) {
                               return PgDialog(
                                 facilities: facilities,
+                                pgRent: price,
+                                oneTimeDepositAmount: securtyAmount,
                               );
                             },
                           );
@@ -127,8 +130,14 @@ class SharingStatusCard extends StatelessWidget {
 
 class PgDialog extends StatelessWidget {
   final dynamic facilities;
+  final String pgRent;
+  final String oneTimeDepositAmount;
 
-  const PgDialog({super.key, required this.facilities});
+  const PgDialog(
+      {super.key,
+      required this.facilities,
+      required this.pgRent,
+      required this.oneTimeDepositAmount});
 
   @override
   Widget build(BuildContext context) {
@@ -180,12 +189,12 @@ class PgDialog extends StatelessWidget {
                         ),
                         const SizedBox(height: 5.0),
                         Text(
-                          "Pg Rent:- ₹7,500p/m ",
+                          "Pg Rent:- $pgRent/m ",
                           style: GoogleFonts.inter(
                               fontSize: 18 * ffem, fontWeight: FontWeight.w500),
                         ),
                         Text(
-                          "One Time Security Deposit:- ₹7,500",
+                          "One Time Security Deposit:- $oneTimeDepositAmount",
                           style: GoogleFonts.inter(
                               fontSize: 18 * ffem, fontWeight: FontWeight.w500),
                         )

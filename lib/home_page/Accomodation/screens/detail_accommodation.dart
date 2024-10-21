@@ -34,13 +34,16 @@ class DetailAccommodation extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AccommondationTopCard(data: data),
-          RoomsOfferedSection(data: data),
-          NearByLocation(data: data),
-        ],
+          child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AccommondationTopCard(data: data),
+            RoomsOfferedSection(data: data),
+            NearByLocation(data: data),
+          ],
+        ),
       )),
     );
   }
@@ -83,7 +86,7 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
             : ['https://via.placeholder.com/150'];
     final area = widget.data['address']['area'] ?? 'N/A';
     final city = widget.data['address']['city'] ?? 'N/A';
-    final startingPrice = widget.data['rooms'][0]['montly_charge'] ?? 'N/A';
+    final startingPrice = widget.data['rooms'][0]['monthly_charge'] ?? 'N/A';
 
     return Column(
       children: [
@@ -234,29 +237,32 @@ class RoomsOfferedSection extends StatelessWidget {
           ),
           const SizedBox(height: 20.0),
           ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: data['rooms'].length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: Column(
-                    children: [
-                      SharingStatusCard(
-                        roomType:
-                            "${data['rooms'][index]['sharing_type']} Sharing",
-                        availability: data['rooms'][index]['available'] == true
-                            ? "Available"
-                            : "Not Available",
-                        price:
-                            "₹ ${data['rooms'][index]['monthly_charge'].toString()}",
-                        isAvailable: data['rooms'][index]['available'],
-                        facilities: data['rooms'][index]['details'],
-                      ),
-                    ],
-                  ),
-                );
-              })
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: data['rooms'].length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Column(
+                  children: [
+                    SharingStatusCard(
+                      roomType:
+                          "${data['rooms'][index]['sharing_type']} Sharing",
+                      availability: data['rooms'][index]['available'] == true
+                          ? "Available"
+                          : "Not Available",
+                      price:
+                          "₹ ${data['rooms'][index]['monthly_charge'].toString()}",
+                           securtyAmount:
+                          "₹ ${data['rooms'][index]['deposit_amount'].toString()}",
+                      isAvailable: data['rooms'][index]['available'],
+                      facilities: data['rooms'][index]['details'],
+                    ),
+                  ],
+                ),
+              );
+            },
+          )
         ],
       ),
     );
@@ -269,8 +275,8 @@ class NearByLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("NearByLocation$data");
     double baseWidth = 460;
-    // double width = MediaQuery.of(context).size.width;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
     return Padding(
@@ -287,7 +293,28 @@ class NearByLocation extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 15.0),
-          NearByColleges(ffem: ffem),
+          NearByColleges(
+            ffem: ffem,
+            title: "Colleges",
+            src: "assets/accommodation/college.png",
+            colleges: data['nearby_locations']['colleges'],
+          ),
+          const SizedBox(height: 15),
+          NearByColleges(
+            ffem: ffem,
+            title: "Hospitals",
+            src: "assets/accommodation/hospital.png",
+            colleges: data['nearby_locations']['hospitals'],
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+          ),
+          const SizedBox(height: 15),
+          NearByColleges(
+            ffem: ffem,
+            title: "Metro Station",
+            src: "assets/accommodation/metro.png",
+            colleges: data['nearby_locations']['metro_stations'],
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+          ),
         ],
       ),
     );
@@ -295,53 +322,62 @@ class NearByLocation extends StatelessWidget {
 }
 
 class NearByColleges extends StatelessWidget {
+  final String title;
+  final String src;
+  final List colleges;
+  final EdgeInsetsGeometry? padding;
   const NearByColleges({
     super.key,
     required this.ffem,
+    required this.title,
+    required this.src,
+    required this.colleges,
+    this.padding,
   });
 
   final double ffem;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.only(left: 10.0),
-        child: Column(children: [
-          Row(
-            children: [
-              Image.asset("assets/accommodation/college.png",
-                  width: 24, height: 24),
-              const SizedBox(width: 8.0),
-              Text(
-                "Colleges",
-                style: GoogleFonts.inter(
-                    fontSize: 18 * ffem, fontWeight: FontWeight.w600),
-              )
-            ],
-          ),
-          const SizedBox(height: 15.0),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                for (int i = 0; i < 5; i++)
-                  Container(
-                    margin: const EdgeInsets.only(right: 15),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 18, vertical: 12),
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 0.5),
-                      borderRadius: BorderRadius.circular(11),
-                    ),
-                    child: Text(
-                      "NMIMS",
-                      style: GoogleFonts.inter(
-                          fontSize: 14 * ffem, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-              ],
-            ),
-          )
-        ]));
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Padding(
+        padding: const EdgeInsets.only(left: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Image.asset(src, width: 24, height: 24),
+            const SizedBox(width: 8.0),
+            Text(
+              title,
+              style: GoogleFonts.inter(
+                  fontSize: 18 * ffem, fontWeight: FontWeight.w600),
+            )
+          ],
+        ),
+      ),
+      const SizedBox(height: 15.0),
+      SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            for (int i = 0; i < colleges.length; i++)
+              Container(
+                margin: const EdgeInsets.only(right: 15),
+                padding: padding ??
+                    const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 0.5),
+                  borderRadius: BorderRadius.circular(11),
+                ),
+                child: Text(
+                  colleges[i],
+                  style: GoogleFonts.inter(
+                      fontSize: 14 * ffem, fontWeight: FontWeight.w600),
+                ),
+              ),
+          ],
+        ),
+      )
+    ]);
   }
 }

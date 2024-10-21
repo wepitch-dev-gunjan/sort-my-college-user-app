@@ -43,10 +43,8 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
   Future<void> getAllAccommodation() async {
     final res = await ApiService.getAllAccommodation();
     if (res != null) {
-      // Save fetched data in shared preferences
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('accommodationData', jsonEncode(res));
-
       setState(() {
         data = res;
         isLoading = false;
@@ -70,12 +68,22 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
       ),
       body: isLoading
           ? const AccommodationShimmerEffect()
-          : RefreshIndicator(
-              backgroundColor: Colors.white,
-              color: Colors.black,
-              onRefresh: _refreshAccommodations,
-              child: AccommodationCard(data: data),
-            ),
+          : data == null || data.isEmpty
+              ? const Center(
+                  child: Text(
+                    'No Data Available',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.grey,
+                    ),
+                  ),
+                )
+              : RefreshIndicator(
+                  backgroundColor: Colors.white,
+                  color: Colors.black,
+                  onRefresh: _refreshAccommodations,
+                  child: AccommodationCard(data: data),
+                ),
     );
   }
 }
@@ -122,7 +130,7 @@ class AccommodationCard extends StatelessWidget {
             int reviewsCount = accommodation['rooms']?.length ?? 0;
             String price = (accommodation['rooms'] != null &&
                     accommodation['rooms'].isNotEmpty)
-                ? "${accommodation['rooms'][0]['montly_charge'] ?? 'N/A'} INR/"
+                ? "${accommodation['rooms'][0]['monthly_charge'] ?? 'N/A'} INR/"
                 : 'N/A';
             return Padding(
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -221,7 +229,7 @@ class AccommodationCard extends StatelessWidget {
                                       Row(
                                         children: [
                                           Text(
-                                            price,
+                                            price.toString(),
                                             overflow: TextOverflow.ellipsis,
                                             style: GoogleFonts.inter(
                                               fontSize: 18 * ffem,

@@ -145,14 +145,14 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
     await _prefs.setBool('isRegistrationStarting', isStarting);
   }
 
-  static dateTimeDif() {
-    DateTime dt1 = DateTime.parse("2024-03-28 06:30:00");
-    DateTime dt2 = DateTime.parse("2024-03-28 05:30:00");
+  // static dateTimeDif() {
+  //   DateTime dt1 = DateTime.parse("2024-03-28 06:30:00");
+  //   DateTime dt2 = DateTime.parse("2024-03-28 05:30:00");
 
-    Duration diff = dt1.difference(dt2);
+  //   Duration diff = dt1.difference(dt2);
 
-    print(diff.inMinutes);
-  }
+  //   print(diff.inMinutes);
+  // }
 
   @override
   Widget build(BuildContext context) {
