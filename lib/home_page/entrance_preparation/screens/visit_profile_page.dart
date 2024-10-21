@@ -15,7 +15,7 @@ class VisitProfilePage extends StatefulWidget {
   final String title;
   const VisitProfilePage({super.key, required this.id, required this.title});
 
-  @override
+  @override                                                         
   State<VisitProfilePage> createState() => _VisitProfilePageState();
 }
 
