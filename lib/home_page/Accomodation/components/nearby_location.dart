@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -29,23 +28,25 @@ class NearByLocation extends StatelessWidget {
             ffem: ffem,
             title: "Colleges",
             src: "assets/accommodation/college.png",
-            colleges: data['nearby_locations']['colleges'],
+            item: data['nearby_locations']['colleges'],
           ),
           const SizedBox(height: 15),
           NearBySection(
+            width: 160,
             ffem: ffem,
             title: "Hospitals",
             src: "assets/accommodation/hospital.png",
-            colleges: data['nearby_locations']['hospitals'],
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+            item: data['nearby_locations']['hospitals'],
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
           ),
           const SizedBox(height: 15),
           NearBySection(
             ffem: ffem,
+            width: 160,
             title: "Metro Station",
             src: "assets/accommodation/metro.png",
-            colleges: data['nearby_locations']['metro_stations'],
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+            item: data['nearby_locations']['metro_stations'],
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
           ),
         ],
       ),
@@ -56,15 +57,17 @@ class NearByLocation extends StatelessWidget {
 class NearBySection extends StatelessWidget {
   final String title;
   final String src;
-  final List colleges;
+  final List item;
   final EdgeInsetsGeometry? padding;
+  final double? width;
   const NearBySection({
     super.key,
     required this.ffem,
     required this.title,
     required this.src,
-    required this.colleges,
+    required this.item,
     this.padding,
+    this.width,
   });
 
   final double ffem;
@@ -92,8 +95,9 @@ class NearBySection extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
-            for (int i = 0; i < colleges.length; i++)
+            for (int i = 0; i < item.length; i++)
               Container(
+                width: width,
                 margin: const EdgeInsets.only(right: 15),
                 padding: padding ??
                     const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
@@ -102,7 +106,9 @@ class NearBySection extends StatelessWidget {
                   borderRadius: BorderRadius.circular(11),
                 ),
                 child: Text(
-                  colleges[i],
+                  item[i],
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                       fontSize: 14 * ffem, fontWeight: FontWeight.w600),
                 ),

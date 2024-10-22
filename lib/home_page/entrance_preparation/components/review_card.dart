@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -111,7 +110,7 @@ class _GiveReviewSectionState extends State<GiveReviewSection> {
 
                         final res =
                             await ApiService.getEpFeedback(id: widget.id);
-                    
+
                         final userName = res['feedbacks'][0]['user_name'];
                         final userProfile = res['feedbacks'][0]['profile_pic'];
 
@@ -207,14 +206,14 @@ class ReviewCardState extends State<ReviewCard> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.reviews == null || widget.reviews!.isEmpty) {
-      return const SizedBox.shrink();
-    }
+    // if (widget.reviews == null || widget.reviews!.isEmpty) {
+    //   return const SizedBox.shrink();
+    // }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-       const SizedBox(height: 20.0),
+        const SizedBox(height: 20.0),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
           child: Text(
@@ -271,7 +270,6 @@ class ReviewCardState extends State<ReviewCard> {
                                   //   ),
                                   // ),
 
-                              
                                   CircleAvatar(
                                     radius: 25,
                                     backgroundImage: review['profile_pic'] !=

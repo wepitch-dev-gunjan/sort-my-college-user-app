@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/home_page/entrance_preparation/components/review_card.dart';
 import '../../../shared/colors_const.dart';
 import '../../../utils/share_links.dart';
 import '../../entrance_preparation/components/commons.dart';
@@ -40,10 +41,10 @@ class DetailAccommodation extends StatelessWidget {
             AccommondationTopCard(data: data),
             RoomsOfferedSection(data: data),
             NearByLocation(data: data),
+            const ReviewCard(reviews: [],)
           ],
         ),
       )),
     );
   }
 }
-

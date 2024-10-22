@@ -23,22 +23,22 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
   @override
   void initState() {
     super.initState();
-    loadCachedData();
-  }
-
-  Future<void> loadCachedData() async {
-    final prefs = await SharedPreferences.getInstance();
-    final cachedData = prefs.getString('accommodationData');
-
-    if (cachedData != null) {
-      setState(() {
-        data = jsonDecode(cachedData);
-        isLoading = false;
-      });
-    }
-
     getAllAccommodation();
   }
+
+  // Future<void> loadCachedData() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final cachedData = prefs.getString('accommodationData');
+
+  //   if (cachedData != null) {
+  //     setState(() {
+  //       data = jsonDecode(cachedData);
+  //       isLoading = false;
+  //     });
+  //   }
+
+  //   getAllAccommodation();
+  // }
 
   Future<void> getAllAccommodation() async {
     final res = await ApiService.getAllAccommodation();
@@ -82,7 +82,13 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
                   backgroundColor: Colors.white,
                   color: Colors.black,
                   onRefresh: _refreshAccommodations,
-                  child: AccommodationCard(data: data),
+                  child: ListView(
+                    children: [
+                      AccommodationCard(
+                          data:
+                              data), // Ensure AccommodationCard can fit inside a ListView
+                    ],
+                  ),
                 ),
     );
   }
@@ -98,14 +104,13 @@ class AccommodationCard extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    return SingleChildScrollView(
-        child: Column(
+    return Column(
       children: [
         const SizedBox(height: 15.0),
         TopSlider(
           sliderText: accommodationSliderText,
           src: 'assets/accommodation/home.png',
-          width: 60,
+          width: 50,
           height: 50,
         ),
         const SizedBox(height: 10.0),
@@ -277,6 +282,6 @@ class AccommodationCard extends StatelessWidget {
           },
         )
       ],
-    ));
+    );
   }
 }
