@@ -84,11 +84,11 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
                   onRefresh: _refreshAccommodations,
                   child: ListView(
                     children: [
-                      AccommodationCard(
-                          data:
-                              data), // Ensure AccommodationCard can fit inside a ListView
+                      AccommodationCard(data: data
+                      ),
                     ],
                   ),
+
                 ),
     );
   }

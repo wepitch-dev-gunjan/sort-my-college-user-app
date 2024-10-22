@@ -33,20 +33,22 @@ class NearByLocation extends StatelessWidget {
           const SizedBox(height: 15),
           NearBySection(
             width: 160,
+            height: 70,
             ffem: ffem,
             title: "Hospitals",
             src: "assets/accommodation/hospital.png",
             item: data['nearby_locations']['hospitals'],
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           ),
           const SizedBox(height: 15),
           NearBySection(
             ffem: ffem,
             width: 160,
+            height: 70,
             title: "Metro Station",
             src: "assets/accommodation/metro.png",
             item: data['nearby_locations']['metro_stations'],
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           ),
         ],
       ),
@@ -59,7 +61,7 @@ class NearBySection extends StatelessWidget {
   final String src;
   final List item;
   final EdgeInsetsGeometry? padding;
-  final double? width;
+  final double? width, height;
   const NearBySection({
     super.key,
     required this.ffem,
@@ -68,6 +70,7 @@ class NearBySection extends StatelessWidget {
     required this.item,
     this.padding,
     this.width,
+    this.height
   });
 
   final double ffem;
@@ -98,6 +101,7 @@ class NearBySection extends StatelessWidget {
             for (int i = 0; i < item.length; i++)
               Container(
                 width: width,
+                height: height,
                 margin: const EdgeInsets.only(right: 15),
                 padding: padding ??
                     const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
@@ -105,12 +109,14 @@ class NearBySection extends StatelessWidget {
                   border: Border.all(width: 0.5),
                   borderRadius: BorderRadius.circular(11),
                 ),
-                child: Text(
-                  item[i],
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.inter(
-                      fontSize: 14 * ffem, fontWeight: FontWeight.w600),
+                child: Center(
+                  child: Text(
+                    item[i],
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.inter(
+                        fontSize: 14 * ffem, fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
           ],
