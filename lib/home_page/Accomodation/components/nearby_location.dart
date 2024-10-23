@@ -32,7 +32,7 @@ class NearByLocation extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           NearBySection(
-            width: 160,
+            width: MediaQuery.of(context).size.width/2.3,
             height: 70,
             ffem: ffem,
             title: "Hospitals",
@@ -43,7 +43,7 @@ class NearByLocation extends StatelessWidget {
           const SizedBox(height: 15),
           NearBySection(
             ffem: ffem,
-            width: 160,
+            width: MediaQuery.of(context).size.width/2.3,
             height: 70,
             title: "Metro Station",
             src: "assets/accommodation/metro.png",

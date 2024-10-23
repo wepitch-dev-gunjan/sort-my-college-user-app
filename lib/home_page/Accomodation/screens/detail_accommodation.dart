@@ -3,20 +3,33 @@ import 'package:myapp/home_page/entrance_preparation/components/review_card.dart
 import '../../../shared/colors_const.dart';
 import '../../../utils/share_links.dart';
 import '../../entrance_preparation/components/commons.dart';
+import '../components/accommodation_review.dart';
 import '../components/detail_accommodation_topcard.dart';
 import '../components/nearby_location.dart';
 import '../components/sharing_status_card.dart';
 
-class DetailAccommodation extends StatelessWidget {
+class DetailAccommodation extends StatefulWidget {
   final dynamic data;
+
   const DetailAccommodation({super.key, required this.data});
+
+  @override
+  State<DetailAccommodation> createState() => _DetailAccommodationState();
+}
+
+class _DetailAccommodationState extends State<DetailAccommodation> {
+  void addReview(Map<String, dynamic> review) {
+    setState(() {
+      // reviews.insert(0, review);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsConst.whiteColor,
       appBar: CusAppBar(
-        title: data['name'] ?? 'N/A',
+        title: widget.data['name'] ?? 'N/A',
         action: [
           Padding(
               padding: const EdgeInsets.only(right: 15),
@@ -38,10 +51,16 @@ class DetailAccommodation extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AccommondationTopCard(data: data),
-            RoomsOfferedSection(data: data),
-            NearByLocation(data: data),
-            const ReviewCard(reviews: [],)
+            AccommondationTopCard(data: widget.data),
+            RoomsOfferedSection(data: widget.data),
+            NearByLocation(data: widget.data),
+            // const ReviewCard(reviews: [],),
+
+            AccommodationGiveReviewSection(
+              id: "123456789",
+              onReviewAdded: addReview,
+              reviews: [],
+            ),
           ],
         ),
       )),
