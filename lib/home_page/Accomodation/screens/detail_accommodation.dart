@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/home_page/entrance_preparation/components/review_card.dart';
 import '../../../shared/colors_const.dart';
 import '../../../utils/share_links.dart';
 import '../../entrance_preparation/components/commons.dart';
-import '../components/accommodation_review.dart';
 import '../components/detail_accommodation_topcard.dart';
 import '../components/nearby_location.dart';
 import '../components/sharing_status_card.dart';
