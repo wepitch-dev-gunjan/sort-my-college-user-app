@@ -105,10 +105,7 @@ class _AccommodationGiveReviewSectionState extends State<AccommodationGiveReview
                           msg: "Feedback has been successfully added",
                           backgroundColor: Colors.green,
                         );
-
-                        final res =
-                        await ApiService.getEpFeedback(id: widget.id);
-
+                        final res = await ApiService.getEpFeedback(id: widget.id);
                         final userName = res['feedbacks'][0]['user_name'];
                         final userProfile = res['feedbacks'][0]['profile_pic'];
 
