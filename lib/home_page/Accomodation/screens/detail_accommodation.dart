@@ -56,11 +56,11 @@ class _DetailAccommodationState extends State<DetailAccommodation> {
             NearByLocation(data: widget.data),
             // const ReviewCard(reviews: [],),
 
-            AccommodationGiveReviewSection(
-              id: "123456789",
-              onReviewAdded: addReview,
-              reviews: [],
-            ),
+            // AccommodationGiveReviewSection(
+            //   id: "123456789",
+            //   onReviewAdded: addReview,
+            //   reviews: [],
+            // ),
           ],
         ),
       )),
