@@ -53,7 +53,6 @@ class _DetailAccommodationState extends State<DetailAccommodation> {
             RoomsOfferedSection(data: widget.data),
             NearByLocation(data: widget.data),
             // const ReviewCard(reviews: [],),
-
             // AccommodationGiveReviewSection(
             //   id: "123456789",
             //   onReviewAdded: addReview,

@@ -46,7 +46,7 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: SizedBox(
-            height: 190,
+            height: 200,
             width: width,
             child: PageView.builder(
               controller: _pageController,
@@ -57,27 +57,102 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
                 });
               },
               itemBuilder: (context, index) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    images[index],
-                    height: 180,
-                    width: width,
-                    fit: BoxFit.fill,
-                    loadingBuilder: (context, child, loadingProgress) =>
-                        loadingProgress == null
-                            ? child
-                            : Center(
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2.0,
-                                  value: loadingProgress.expectedTotalBytes !=
-                                          null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
-                                      : null,
-                                ),
+                return Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        images[index],
+                        height: 180,
+                        width: width,
+                        fit: BoxFit.fill,
+                        loadingBuilder: (context, child, loadingProgress) =>
+                            loadingProgress == null
+                                ? child
+                                : Center(
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2.0,
+                                      value:
+                                          loadingProgress.expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                              : null,
+                                    ),
+                                  ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 25,
+                      left: 10,
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                          left: 7.0,
+                          right: 10.0,
+                          top: 3,
+                          bottom: 3,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: const Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: Colors.orange,
+                              size: 12,
+                            ),
+                            SizedBox(width: 2),
+                            Text(
+                              '4.2',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
                               ),
-                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 25,
+                      right: 10,
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                          left: 7.0,
+                          right: 10.0,
+                          top: 3,
+                          bottom: 3,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: const Row(
+                          children: [
+                            Icon(
+                              Icons.person,
+                              color: Colors.black,
+                              size: 15,
+                            ),
+                            SizedBox(width: 2),
+                            Text(
+                              'Boys',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
