@@ -1,8 +1,10 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:intl/intl.dart';
 import 'package:myapp/home_page/notification_page/news/provider/news_provider1.dart';
 import 'package:myapp/home_page/notification_page/news/service/news_service.dart';
 import 'package:myapp/news/provider/news_provider.dart';
@@ -14,7 +16,6 @@ import 'package:myapp/page-1/shared.dart';
 import 'package:myapp/utils.dart';
 import 'package:myapp/utils/common.dart';
 import 'package:provider/provider.dart';
-import 'page-1/splash_screen_1.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +28,6 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key, required this.isLoggedIn});
 
   final bool isLoggedIn;
-
   static Future<bool?> loggIn() async {
     return await SharedPre.getAuthLogin();
   }
@@ -55,11 +55,171 @@ class MyApp extends StatelessWidget {
           scaffoldMessengerKey: snackbarKey,
           scrollBehavior: MyCustomScrollBehavior(),
           theme: ThemeData(primarySwatch: Colors.grey),
-          home: SplashScreen1(isLoggedIn: isLoggedIn),
-          // home: FilterScreen(),
+          // home: SplashScreen1(isLoggedIn: isLoggedIn),
+          home: VisitScheduleBottomSheet(),
           builder: EasyLoading.init(),
         ),
       ),
+    );
+  }
+}
+
+class VisitScheduleBottomSheet extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.pop(context),
+      child: Container(
+        color: Colors.black.withOpacity(0.5),
+        child: GestureDetector(
+          onTap: () {},
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(24.0)),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Visit schedule',
+                  style: TextStyle(
+                    color: Colors.purple,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'When are you planning to visit?',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                ScrollableDates(),
+                const SizedBox(height: 16),
+                const TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Additional details',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    disabledForegroundColor: Colors.purple,
+                    minimumSize: const Size(double.infinity, 48),
+                  ),
+                  onPressed: () {
+                    // Handle confirm action
+                  },
+                  child: const Text('CONFIRM'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ScrollableDates extends StatefulWidget {
+  @override
+  _ScrollableDatesState createState() => _ScrollableDatesState();
+}
+
+class _ScrollableDatesState extends State<ScrollableDates> {
+  DateTime currentDate = DateTime.now();
+  DateTime selectedDate = DateTime.now();
+
+  @override
+  Widget build(BuildContext context) {
+    log("Selectd Data=>>$selectedDate");
+    return Row(
+      children: [
+        Expanded(
+          child: SizedBox(
+            height: 60,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 7,
+              itemBuilder: (context, index) {
+                DateTime date = currentDate.add(Duration(days: index));
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedDate = date;
+                    });
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      color: selectedDate == date
+                          ? Colors.purple
+                          : Colors.grey[200],
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          DateFormat('dd MMM').format(date),
+                          style: TextStyle(
+                            color: selectedDate == date
+                                ? Colors.white
+                                : Colors.black,
+                          ),
+                        ),
+                        Text(
+                          DateFormat('EEE').format(date),
+                          style: TextStyle(
+                            color: selectedDate == date
+                                ? Colors.white
+                                : Colors.black,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () async {
+            DateTime? picked = await showDatePicker(
+              context: context,
+              initialDate: currentDate,
+              firstDate: currentDate,
+              lastDate: currentDate.add(const Duration(days: 365)),
+            );
+            if (picked != null) {
+              setState(() {
+                selectedDate = picked;
+              });
+            }
+          },
+          child: Container(
+            height: 60,
+            width: 60,
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: const Icon(
+              Icons.calendar_today,
+              color: Colors.purple,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

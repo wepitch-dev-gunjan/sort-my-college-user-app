@@ -70,21 +70,6 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
     });
   }
 
-  // Future<void> _updateRegistrationStatus(bool isStarting) async {
-  //   setState(() {
-  //     widget.webinarRegister = isStarting;
-  //   });
-
-  //   if (isStarting) {
-  //     await _prefs.setInt(
-  //       'startingTimestamp',
-  //       DateTime.now().millisecondsSinceEpoch,
-  //     );
-  //   } else {
-  //     await _prefs.remove('startingTimestamp');
-  //   }
-  //   await _prefs.setBool('isRegistrationStarting', isStarting);
-  // }
 
   bool has24HoursPassed = false;
 

@@ -303,7 +303,7 @@ class _HomePageState extends State<HomePage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      const AccomodationScreen()));
+                                                      const AccommodationWithHomePage()));
                                         },
                                         child: Container(
                                           width: 140 * fem,

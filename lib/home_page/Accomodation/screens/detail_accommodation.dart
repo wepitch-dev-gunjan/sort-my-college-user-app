@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../shared/colors_const.dart';
 import '../../../utils/share_links.dart';
 import '../../entrance_preparation/components/commons.dart';
@@ -61,6 +64,32 @@ class _DetailAccommodationState extends State<DetailAccommodation> {
           ],
         ),
       )),
+      bottomNavigationBar: Container(
+        height: Platform.isIOS ? 70 : 50,
+        width: MediaQuery.of(context).size.width,
+        color: const Color(0xffF2F2F2),
+        child: Padding(
+          padding: EdgeInsets.only(
+              left: 35, right: 20, bottom: Platform.isIOS ? 20 : 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Interested?",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              ),
+              Btn(
+                  onTap: () async {},
+                  btnName: "Schedule Visit",
+                  textColor: Colors.white,
+                  height: 40,
+                  borderRadius: 5.0,
+                  width: 160.w,
+                  btnColor: const Color(0xff1F0A68))
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
