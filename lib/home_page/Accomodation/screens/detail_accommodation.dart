@@ -1,7 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myapp/booking_page/booking_confirmatoin_past.dart';
+import 'package:myapp/main.dart';
 import '../../../shared/colors_const.dart';
 import '../../../utils/share_links.dart';
 import '../../entrance_preparation/components/commons.dart';
@@ -79,13 +80,66 @@ class _DetailAccommodationState extends State<DetailAccommodation> {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
               Btn(
-                  onTap: () async {},
-                  btnName: "Schedule Visit",
-                  textColor: Colors.white,
-                  height: 40,
-                  borderRadius: 5.0,
-                  width: 160.w,
-                  btnColor: const Color(0xff1F0A68))
+                onTap: () async {
+                  showModalBottomSheet(
+                    backgroundColor: Colors.white,
+                    context: context,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(20.0),
+                      ),
+                    ),
+                    isScrollControlled: true, // Allow full width and height
+                    builder: (context) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width, // Full width
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          mainAxisSize:
+                              MainAxisSize.min, // Adjusts to content height
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Center(
+                              child: Text(
+                                'Visit schedule',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Card(
+                              color: const Color(0xffF8F8F8),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 15),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                        "When are you planning to visit?"),
+                                    const SizedBox(height: 10.0),
+                                    ScrollableDates(),
+                                    const SizedBox(height: 10.0),
+                                    const Text("Additional details"),
+                                  ],
+                                ),
+                              ),
+                            )
+                            
+                            
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+                btnName: "Schedule Visit",
+                textColor: Colors.white,
+                height: 40,
+                borderRadius: 5.0,
+                width: 160.w,
+                btnColor: const Color(0xff1F0A68),
+              )
             ],
           ),
         ),

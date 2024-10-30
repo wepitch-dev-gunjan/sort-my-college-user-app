@@ -16,6 +16,7 @@ import 'package:myapp/page-1/shared.dart';
 import 'package:myapp/utils.dart';
 import 'package:myapp/utils/common.dart';
 import 'package:provider/provider.dart';
+import 'page-1/splash_screen_1.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,8 +56,8 @@ class MyApp extends StatelessWidget {
           scaffoldMessengerKey: snackbarKey,
           scrollBehavior: MyCustomScrollBehavior(),
           theme: ThemeData(primarySwatch: Colors.grey),
-          // home: SplashScreen1(isLoggedIn: isLoggedIn),
-          home: VisitScheduleBottomSheet(),
+          home: SplashScreen1(isLoggedIn: isLoggedIn),
+          // home: VisitScheduleBottomSheet(),
           builder: EasyLoading.init(),
         ),
       ),
@@ -138,7 +139,6 @@ class _ScrollableDatesState extends State<ScrollableDates> {
 
   @override
   Widget build(BuildContext context) {
-    log("Selectd Data=>>$selectedDate");
     return Row(
       children: [
         Expanded(
@@ -160,8 +160,8 @@ class _ScrollableDatesState extends State<ScrollableDates> {
                     padding: const EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
                       color: selectedDate == date
-                          ? Colors.purple
-                          : Colors.grey[200],
+                          ? const Color(0xff1F0A68)
+                          : Colors.white,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Column(
@@ -176,11 +176,11 @@ class _ScrollableDatesState extends State<ScrollableDates> {
                           ),
                         ),
                         Text(
-                          DateFormat('EEE').format(date),
+                          DateFormat('EEE').format(date).toUpperCase(),
                           style: TextStyle(
                             color: selectedDate == date
                                 ? Colors.white
-                                : Colors.black,
+                                : const Color(0xff828080),
                             fontSize: 12,
                           ),
                         ),
@@ -199,7 +199,21 @@ class _ScrollableDatesState extends State<ScrollableDates> {
               initialDate: currentDate,
               firstDate: currentDate,
               lastDate: currentDate.add(const Duration(days: 365)),
+              builder: (BuildContext context, Widget? child) {
+                return Theme(
+                  data: ThemeData.light().copyWith(
+                    primaryColor: Colors.red,
+
+                    colorScheme:
+                        const ColorScheme.light(primary: Color(0xff1F0A68)),
+                    buttonTheme: const ButtonThemeData(
+                        textTheme: ButtonTextTheme.primary), // Button color
+                  ),
+                  child: child ?? const SizedBox.shrink(), // Provide a fallback
+                );
+              },
             );
+
             if (picked != null) {
               setState(() {
                 selectedDate = picked;
