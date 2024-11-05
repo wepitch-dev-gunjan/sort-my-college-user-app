@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/home_page/notification_page/news/provider/news_provider1.dart';
 import 'package:myapp/home_page/notification_page/news/service/news_service.dart';
@@ -65,70 +66,71 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class VisitScheduleBottomSheet extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.pop(context),
-      child: Container(
-        color: Colors.black.withOpacity(0.5),
-        child: GestureDetector(
-          onTap: () {},
-          child: Container(
-            padding: const EdgeInsets.all(16.0),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(24.0)),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                  'Visit schedule',
-                  style: TextStyle(
-                    color: Colors.purple,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                const Text(
-                  'When are you planning to visit?',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                ScrollableDates(),
-                const SizedBox(height: 16),
-                const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Additional details',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    disabledForegroundColor: Colors.purple,
-                    minimumSize: const Size(double.infinity, 48),
-                  ),
-                  onPressed: () {
-                    // Handle confirm action
-                  },
-                  child: const Text('CONFIRM'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+// class VisitScheduleBottomSheet extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () => Navigator.pop(context),
+//       child: Container(
+//         color: Colors.black.withOpacity(0.5),
+//         child: GestureDetector(
+//           onTap: () {},
+//           child: Container(
+//             padding: const EdgeInsets.all(16.0),
+//             decoration: const BoxDecoration(
+//               color: Colors.white,
+//               borderRadius: BorderRadius.vertical(top: Radius.circular(24.0)),
+//             ),
+//             child: Column(
+//               mainAxisSize: MainAxisSize.min,
+//               children: [
+//                 const Text(
+//                   'Visit schedule',
+//                   style: TextStyle(
+//                     color: Colors.purple,
+//                     fontWeight: FontWeight.bold,
+//                     fontSize: 18,
+//                   ),
+//                 ),
+//                 const SizedBox(height: 16),
+//                 const Text(
+//                   'When are you planning to visit?',
+//                   style: TextStyle(
+//                     fontWeight: FontWeight.bold,
+//                     fontSize: 16,
+//                   ),
+//                 ),
+//                 const SizedBox(height: 8),
+//                 ScrollableDates(),
+//                 const SizedBox(height: 16),
+//                 const TextField(
+//                   decoration: InputDecoration(
+//                     labelText: 'Additional details',
+//                     border: OutlineInputBorder(),
+//                   ),
+//                 ),
+//                 const SizedBox(height: 16),
+//                 ElevatedButton(
+//                   style: ElevatedButton.styleFrom(
+//                     disabledForegroundColor: Colors.purple,
+//                     minimumSize: const Size(double.infinity, 48),
+//                   ),
+//                   onPressed: () {
+//                     // Handle confirm action
+//                   },
+//                   child: const Text('CONFIRM'),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class ScrollableDates extends StatefulWidget {
+  const ScrollableDates({super.key});
   @override
   _ScrollableDatesState createState() => _ScrollableDatesState();
 }
@@ -139,6 +141,10 @@ class _ScrollableDatesState extends State<ScrollableDates> {
 
   @override
   Widget build(BuildContext context) {
+    double baseWidth = 460;
+    double width = MediaQuery.of(context).size.width;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double ffem = fem * 0.97;
     return Row(
       children: [
         Expanded(
@@ -156,8 +162,10 @@ class _ScrollableDatesState extends State<ScrollableDates> {
                     });
                   },
                   child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                    padding: const EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
                     decoration: BoxDecoration(
                       color: selectedDate == date
                           ? const Color(0xff1F0A68)
@@ -169,20 +177,21 @@ class _ScrollableDatesState extends State<ScrollableDates> {
                       children: [
                         Text(
                           DateFormat('dd MMM').format(date),
-                          style: TextStyle(
-                            color: selectedDate == date
-                                ? Colors.white
-                                : Colors.black,
-                          ),
+                          style: GoogleFonts.inter(
+                              color: selectedDate == date
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 16 * ffem,
+                              fontWeight: FontWeight.w600),
                         ),
                         Text(
                           DateFormat('EEE').format(date).toUpperCase(),
-                          style: TextStyle(
-                            color: selectedDate == date
-                                ? Colors.white
-                                : const Color(0xff828080),
-                            fontSize: 12,
-                          ),
+                          style: GoogleFonts.inter(
+                              color: selectedDate == date
+                                  ? Colors.white
+                                  : const Color(0xff828080),
+                              fontSize: 14 * ffem,
+                              fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
@@ -202,7 +211,7 @@ class _ScrollableDatesState extends State<ScrollableDates> {
               builder: (BuildContext context, Widget? child) {
                 return Theme(
                   data: ThemeData.light().copyWith(
-                    primaryColor: Colors.red,
+                    // primaryColor: Colors.red,
 
                     colorScheme:
                         const ColorScheme.light(primary: Color(0xff1F0A68)),
@@ -222,14 +231,23 @@ class _ScrollableDatesState extends State<ScrollableDates> {
           },
           child: Container(
             height: 60,
-            width: 60,
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
             decoration: BoxDecoration(
               color: Colors.grey[200],
               borderRadius: BorderRadius.circular(8.0),
             ),
-            child: const Icon(
-              Icons.calendar_today,
-              color: Colors.purple,
+            child: Column(
+              children: [
+                const Icon(
+                  Icons.calendar_today,
+                  color: Color(0xff1F0A68),
+                ),
+                Text(
+                  "Select Date",
+                  style: GoogleFonts.inter(
+                      fontSize: 13 * ffem, fontWeight: FontWeight.w600),
+                )
+              ],
             ),
           ),
         ),
