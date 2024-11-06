@@ -17,6 +17,7 @@ import 'package:myapp/page-1/shared.dart';
 import 'package:myapp/utils.dart';
 import 'package:myapp/utils/common.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'page-1/splash_screen_1.dart';
 
 Future<void> main() async {
@@ -129,13 +130,140 @@ class MyApp extends StatelessWidget {
 //   }
 // }
 
+// class ScrollableDates extends StatefulWidget {
+//   const ScrollableDates({super.key});
+//   @override
+//   _ScrollableDatesState createState() => _ScrollableDatesState();
+// }
+
+// class _ScrollableDatesState extends State<ScrollableDates> {
+//   DateTime currentDate = DateTime.now();
+//   DateTime selectedDate = DateTime.now();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     double baseWidth = 460;
+//     double width = MediaQuery.of(context).size.width;
+//     double fem = MediaQuery.of(context).size.width / baseWidth;
+//     double ffem = fem * 0.97;
+//     return Row(
+//       children: [
+//         Expanded(
+//           child: SizedBox(
+//             height: 60,
+//             child: ListView.builder(
+//               scrollDirection: Axis.horizontal,
+//               itemCount: 7,
+//               itemBuilder: (context, index) {
+//                 DateTime date = currentDate.add(Duration(days: index));
+//                 return GestureDetector(
+//                   onTap: () {
+//                     setState(() {
+//                       selectedDate = date;
+//                     });
+//                   },
+//                   child: Container(
+//                     margin: const EdgeInsets.symmetric(
+//                         horizontal: 8.0, vertical: 2),
+//                     padding: const EdgeInsets.symmetric(
+//                         horizontal: 10, vertical: 10),
+//                     decoration: BoxDecoration(
+//                       color: selectedDate == date
+//                           ? const Color(0xff1F0A68)
+//                           : Colors.white,
+//                       borderRadius: BorderRadius.circular(8.0),
+//                     ),
+//                     child: Column(
+//                       mainAxisSize: MainAxisSize.min,
+//                       children: [
+//                         Text(
+//                           DateFormat('dd MMM').format(date),
+//                           style: GoogleFonts.inter(
+//                               color: selectedDate == date
+//                                   ? Colors.white
+//                                   : Colors.black,
+//                               fontSize: 16 * ffem,
+//                               fontWeight: FontWeight.w600),
+//                         ),
+//                         Text(
+//                           DateFormat('EEE').format(date).toUpperCase(),
+//                           style: GoogleFonts.inter(
+//                               color: selectedDate == date
+//                                   ? Colors.white
+//                                   : const Color(0xff828080),
+//                               fontSize: 14 * ffem,
+//                               fontWeight: FontWeight.w600),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 );
+//               },
+//             ),
+//           ),
+//         ),
+//         GestureDetector(
+//           onTap: () async {
+//             DateTime? picked = await showDatePicker(
+//               context: context,
+//               initialDate: currentDate,
+//               firstDate: currentDate,
+//               lastDate: currentDate.add(const Duration(days: 365)),
+//               builder: (BuildContext context, Widget? child) {
+//                 return Theme(
+//                   data: ThemeData.light().copyWith(
+//                     // primaryColor: Colors.red,
+
+//                     colorScheme:
+//                         const ColorScheme.light(primary: Color(0xff1F0A68)),
+//                     buttonTheme: const ButtonThemeData(
+//                         textTheme: ButtonTextTheme.primary), // Button color
+//                   ),
+//                   child: child ?? const SizedBox.shrink(), // Provide a fallback
+//                 );
+//               },
+//             );
+
+//             if (picked != null) {
+//               setState(() {
+//                 selectedDate = picked;
+//               });
+//             }
+//           },
+//           child: Container(
+//             height: 60,
+//             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+//             decoration: BoxDecoration(
+//               color: Colors.grey[200],
+//               borderRadius: BorderRadius.circular(8.0),
+//             ),
+//             child: Column(
+//               children: [
+//                 const Icon(
+//                   Icons.calendar_today,
+//                   color: Color(0xff1F0A68),
+//                 ),
+//                 Text(
+//                   "Select Date",
+//                   style: GoogleFonts.inter(
+//                       fontSize: 13 * ffem, fontWeight: FontWeight.w600),
+//                 )
+//               ],
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
+
 class ScrollableDates extends StatefulWidget {
   const ScrollableDates({super.key});
   @override
-  _ScrollableDatesState createState() => _ScrollableDatesState();
+  ScrollableDatesState createState() => ScrollableDatesState();
 }
 
-class _ScrollableDatesState extends State<ScrollableDates> {
+class ScrollableDatesState extends State<ScrollableDates> {
   DateTime currentDate = DateTime.now();
   DateTime selectedDate = DateTime.now();
 
@@ -203,22 +331,27 @@ class _ScrollableDatesState extends State<ScrollableDates> {
         ),
         GestureDetector(
           onTap: () async {
-            DateTime? picked = await showDatePicker(
+            DateTime? picked = await showModalBottomSheet(
+              backgroundColor: Colors.white,
               context: context,
-              initialDate: currentDate,
-              firstDate: currentDate,
-              lastDate: currentDate.add(const Duration(days: 365)),
-              builder: (BuildContext context, Widget? child) {
-                return Theme(
-                  data: ThemeData.light().copyWith(
-                    // primaryColor: Colors.red,
-
-                    colorScheme:
-                        const ColorScheme.light(primary: Color(0xff1F0A68)),
-                    buttonTheme: const ButtonThemeData(
-                        textTheme: ButtonTextTheme.primary), // Button color
+              isScrollControlled: true,
+              builder: (BuildContext context) {
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: CalendarDatePicker(
+                          initialDate: currentDate,
+                          firstDate: currentDate,
+                          lastDate: currentDate.add(const Duration(days: 365)),
+                          onDateChanged: (date) {
+                            Navigator.pop(context, date);
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                  child: child ?? const SizedBox.shrink(), // Provide a fallback
                 );
               },
             );
@@ -243,10 +376,10 @@ class _ScrollableDatesState extends State<ScrollableDates> {
                   color: Color(0xff1F0A68),
                 ),
                 Text(
-                  "Select Date",
+                  DateFormat('dd MMM yyyy').format(selectedDate),
                   style: GoogleFonts.inter(
                       fontSize: 13 * ffem, fontWeight: FontWeight.w600),
-                )
+                ),
               ],
             ),
           ),
@@ -255,165 +388,3 @@ class _ScrollableDatesState extends State<ScrollableDates> {
     );
   }
 }
-
-
-// import 'package:flutter/material.dart';
-// import 'package:table_calendar/table_calendar.dart';
-// import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-
-// void main() {
-//   runApp(const MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         backgroundColor: Colors.white,
-//         appBar: AppBar(
-//           title: const Text('Scrollable Year Calendar'),
-//         ),
-//         body: const ScrollableYearCalendar(),
-//       ),
-//     );
-//   }
-// }
-
-// class ScrollableYearCalendar extends StatefulWidget {
-//   const ScrollableYearCalendar({Key? key}) : super(key: key);
-
-//   @override
-//   _ScrollableYearCalendarState createState() => _ScrollableYearCalendarState();
-// }
-
-// class _ScrollableYearCalendarState extends State<ScrollableYearCalendar> {
-//   DateTime _selectedDate = DateTime.now();
-//   final ItemScrollController _scrollController = ItemScrollController();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         const SizedBox(height: 10),
-//         // Display the currently selected date
-//         Padding(
-//           padding: const EdgeInsets.all(8.0),
-//           child: Text(
-//             "Selected Date: ${_selectedDate.toLocal().toString().split(' ')[0]}",
-//             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-//           ),
-//         ),
-//         Expanded(
-//           child: ScrollablePositionedList.builder(
-//             itemScrollController: _scrollController,
-//             itemCount: 12,
-//             itemBuilder: (context, index) {
-//               final month = index + 1;
-//               final year = 2024; // You can change the year dynamically as needed
-//               return CalendarCard(
-//                 year: year,
-//                 month: month,
-//                 onDaySelected: (selectedDay) {
-//                   setState(() {
-//                     _selectedDate = selectedDay;
-//                   });
-//                 },
-//               );
-//             },
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
-
-// class CalendarCard extends StatefulWidget {
-//   final int year;
-//   final int month;
-//   final Function(DateTime) onDaySelected;
-
-//   const CalendarCard({
-//     required this.year,
-//     required this.month,
-//     required this.onDaySelected,
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   _CalendarCardState createState() => _CalendarCardState();
-// }
-
-// class _CalendarCardState extends State<CalendarCard> {
-//   DateTime _focusedDay = DateTime.now();
-//   DateTime? _selectedDay;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final firstDay = DateTime(widget.year, widget.month, 1);
-//     final lastDay = DateTime(widget.year, widget.month + 1, 0);
-
-//     // Ensure the focusedDay is within bounds
-//     if (_focusedDay.isAfter(lastDay)) {
-//       _focusedDay = lastDay;
-//     } else if (_focusedDay.isBefore(firstDay)) {
-//       _focusedDay = firstDay;
-//     }
-
-//     return Padding(
-//       padding: const EdgeInsets.all(16.0),
-//       child: Card(
-//         shape: RoundedRectangleBorder(
-//           borderRadius: BorderRadius.circular(16),
-//         ),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           children: [
-//             Padding(
-//               padding: const EdgeInsets.symmetric(vertical: 8.0),
-//               child: Text(
-//                 "${firstDay.month.toString().padLeft(2, '0')} - ${widget.year}",
-//                 style: const TextStyle(
-//                   fontSize: 18,
-//                   fontWeight: FontWeight.bold,
-//                 ),
-//               ),
-//             ),
-//             TableCalendar(
-//               firstDay: firstDay,
-//               lastDay: lastDay,
-//               focusedDay: _focusedDay,
-//               selectedDayPredicate: (day) {
-//                 return isSameDay(_selectedDay, day);
-//               },
-//               onDaySelected: (selectedDay, focusedDay) {
-//                 setState(() {
-//                   _selectedDay = selectedDay;
-//                   _focusedDay = focusedDay;
-//                 });
-//                 widget.onDaySelected(selectedDay);
-//               },
-//               headerVisible: false,
-//               calendarStyle: CalendarStyle(
-//                 isTodayHighlighted: true,
-//                 selectedDecoration: BoxDecoration(
-//                   color: Colors.blueAccent,
-//                   shape: BoxShape.circle,
-//                 ),
-//                 selectedTextStyle: const TextStyle(color: Colors.white),
-//                 defaultTextStyle: const TextStyle(color: Colors.black),
-//                 weekendTextStyle: const TextStyle(color: Colors.black),
-//                 outsideTextStyle: TextStyle(color: Colors.grey.shade400),
-//               ),
-//               daysOfWeekStyle: const DaysOfWeekStyle(
-//                 weekendStyle: TextStyle(color: Colors.black),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

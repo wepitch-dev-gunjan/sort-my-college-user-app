@@ -62,7 +62,7 @@ class _DetailAccommodationState extends State<DetailAccommodation> {
           ],
         ),
       )),
-      bottomNavigationBar:const AccommodationBottomBar(),
+      bottomNavigationBar: const AccommodationBottomBar(),
     );
   }
 }
