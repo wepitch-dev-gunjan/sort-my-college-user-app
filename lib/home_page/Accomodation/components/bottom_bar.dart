@@ -193,8 +193,12 @@ class AccommodationBottomBar extends StatelessWidget {
                                           'Schedule Visit',
                                           style: GoogleFonts.inter(
                                             fontSize: 22 * ffem,
+                                            decoration:
+                                                TextDecoration.underline,
                                             fontWeight: FontWeight.w700,
-                                            color: const Color(0xff1f0a68),
+                                            color: const Color(
+                                              0xff1f0a68,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -272,7 +276,26 @@ class AccommodationBottomBar extends StatelessWidget {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 4),
                                         child: Btn(
-                                          onTap: () {},
+                                          onTap: () async {
+                                            Navigator.pop(context);
+                                            showModalBottomSheet(
+                                                context: context,
+                                                backgroundColor: Colors.white,
+                                                shape:
+                                                    const RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.vertical(
+                                                    top: Radius.circular(
+                                                      20.0,
+                                                    ),
+                                                  ),
+                                                ),
+                                                isScrollControlled: true,
+                                                builder: (context) {
+                                                  return EnquiryBottomSheet(
+                                                      width: width, ffem: ffem);
+                                                });
+                                          },
                                           btnName: "CONFIRM",
                                           width: width,
                                           height: 50,
@@ -312,6 +335,163 @@ class AccommodationBottomBar extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class EnquiryBottomSheet extends StatelessWidget {
+  final double width;
+  final double ffem;
+
+  const EnquiryBottomSheet({
+    super.key,
+    required this.width,
+    required this.ffem,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Enquiry Sent',
+            style: GoogleFonts.inter(
+              fontSize: 22 * ffem,
+              decoration: TextDecoration.underline,
+              fontWeight: FontWeight.w700,
+              color: const Color(0xff1f0a68),
+            ),
+          ),
+          const SizedBox(height: 15.0),
+          SizedBox(
+            width: width,
+            child: Card(
+              color: Colors.white,
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Column(
+                  children: [
+                    Text(
+                      'Ram Niwas PG',
+                      style: GoogleFonts.inter(
+                        fontSize: 20 * ffem,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 15.0),
+                    CusTile(
+                      ffem: ffem,
+                      icon: Icons.date_range,
+                      leading: "Date",
+                      traling: "10 June, 2024",
+                    ),
+                    const SizedBox(height: 10.0),
+                    CusTile(
+                      ffem: ffem,
+                      icon: Icons.watch_later,
+                      leading: "Time",
+                      traling: "9AM-12PM",
+                    ),
+                    const SizedBox(height: 10.0),
+                    CusTile(
+                      ffem: ffem,
+                      icon: Icons.location_on,
+                      leading: "Location",
+                      traling:
+                          "Bhawani Singh Rd, Rambagh, Jaipur, Rajasthan 302005",
+                    ),
+                    const SizedBox(height: 10.0),
+                    CusTile(
+                      ffem: ffem,
+                      icon: Icons.email,
+                      leading: "Gmail",
+                      traling: "smc@gmail.com",
+                    ),
+                    const SizedBox(height: 15.0),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 15.0),
+          GestureDetector(
+            onTap: () {},
+            child: Text(
+              "Need help?",
+              style: GoogleFonts.inter(
+                fontSize: 18 * ffem,
+                decoration: TextDecoration.underline,
+                color: const Color(0xff1F0A68),
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class CusTile extends StatelessWidget {
+  const CusTile({
+    super.key,
+    required this.ffem,
+    required this.icon,
+    required this.leading,
+    required this.traling,
+  });
+
+  final double ffem;
+  final IconData icon;
+  final String leading;
+  final String traling;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(
+              icon,
+              size: 20,
+            ),
+            const SizedBox(width: 10.0),
+            Text(
+              leading,
+              style: GoogleFonts.inter(
+                fontSize: 18 * ffem,
+                fontWeight: FontWeight.w500,
+              ),
+            )
+          ],
+        ),
+        const Text(
+          "-",
+          style: TextStyle(fontSize: 18),
+        ),
+        SizedBox(
+          width: 120,
+          child: Text(
+            traling,
+            style: GoogleFonts.inter(
+              fontSize: 18 * ffem,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        )
+      ],
     );
   }
 }

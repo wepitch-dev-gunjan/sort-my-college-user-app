@@ -17,7 +17,6 @@ import 'package:myapp/page-1/shared.dart';
 import 'package:myapp/utils.dart';
 import 'package:myapp/utils/common.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'page-1/splash_screen_1.dart';
 
 Future<void> main() async {
