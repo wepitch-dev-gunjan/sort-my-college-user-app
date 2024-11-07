@@ -1,7 +1,264 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../utils/share_links.dart';
 import '../../entrance_preparation/components/commons.dart';
+
+// class AccommondationTopCard extends StatefulWidget {
+//   final dynamic data;
+//   const AccommondationTopCard({super.key, required this.data});
+
+//   @override
+//   AccommondationTopCardState createState() => AccommondationTopCardState();
+// }
+
+// class AccommondationTopCardState extends State<AccommondationTopCard> {
+//   late PageController _pageController;
+//   int _currentPage = 0;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _pageController = PageController();
+//   }
+
+//   @override
+//   void dispose() {
+//     _pageController.dispose();
+//     super.dispose();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     double baseWidth = 460;
+//     double width = MediaQuery.of(context).size.width;
+//     double fem = MediaQuery.of(context).size.width / baseWidth;
+//     double ffem = fem * 0.97;
+//     List<String> images =
+//         widget.data['images'] != null && widget.data['images'].isNotEmpty
+//             ? List<String>.from(widget.data['images'])
+//             : ['https://via.placeholder.com/150'];
+//     final area = widget.data['address']['area'] ?? 'N/A';
+//     final city = widget.data['address']['city'] ?? 'N/A';
+//     final startingPrice = widget.data['rooms'][0]['monthly_charge'] ?? 'N/A';
+
+//     return Column(
+//       children: [
+//         SizedBox(
+//           height: 250,
+//           width: width,
+//           child: PageView.builder(
+//             controller: _pageController,
+//             itemCount: images.length,
+//             onPageChanged: (index) {
+//               setState(() {
+//                 _currentPage = index;
+//               });
+//             },
+//             itemBuilder: (context, index) {
+//               return Stack(
+//                 children: [
+//                   ClipRRect(
+//                     borderRadius: BorderRadius.circular(10),
+//                     child: Image.network(
+//                       images[index],
+//                       height: 250,
+//                       width: width,
+//                       fit: BoxFit.fill,
+//                       loadingBuilder: (context, child, loadingProgress) =>
+//                           loadingProgress == null
+//                               ? child
+//                               : Center(
+//                                   child: CircularProgressIndicator(
+//                                     strokeWidth: 2.0,
+//                                     value: loadingProgress.expectedTotalBytes !=
+//                                             null
+//                                         ? loadingProgress
+//                                                 .cumulativeBytesLoaded /
+//                                             loadingProgress.expectedTotalBytes!
+//                                         : null,
+//                                   ),
+//                                 ),
+//                     ),
+//                   ),
+//                   Positioned(
+//                     bottom: 10,
+//                     left: 10,
+//                     child: Container(
+//                       padding: const EdgeInsets.only(
+//                         left: 7.0,
+//                         right: 10.0,
+//                         top: 3,
+//                         bottom: 3,
+//                       ),
+//                       decoration: BoxDecoration(
+//                         color: Colors.white,
+//                         borderRadius: BorderRadius.circular(15),
+//                       ),
+//                       child: const Row(
+//                         children: [
+//                           Icon(
+//                             Icons.star,
+//                             color: Colors.orange,
+//                             size: 12,
+//                           ),
+//                           SizedBox(width: 2),
+//                           Text(
+//                             '4.2',
+//                             style: TextStyle(
+//                               color: Colors.black,
+//                               fontSize: 10,
+//                               fontWeight: FontWeight.bold,
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                   Positioned(
+//                     bottom: 10,
+//                     right: 10,
+//                     child: Container(
+//                       padding: const EdgeInsets.only(
+//                         left: 7.0,
+//                         right: 10.0,
+//                         top: 3,
+//                         bottom: 3,
+//                       ),
+//                       decoration: BoxDecoration(
+//                         color: Colors.white,
+//                         borderRadius: BorderRadius.circular(15),
+//                       ),
+//                       child: const Row(
+//                         children: [
+//                           Icon(
+//                             Icons.person,
+//                             color: Colors.black,
+//                             size: 15,
+//                           ),
+//                           SizedBox(width: 2),
+//                           Text(
+//                             'Boys',
+//                             style: TextStyle(
+//                               color: Colors.black,
+//                               fontSize: 10,
+//                               fontWeight: FontWeight.bold,
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                   Positioned(
+//                     top: 40,
+//                     left: 0,
+//                     child: IconButton(
+//                       onPressed: () {},
+//                       icon: const Icon(Icons.arrow_back_ios_new),
+//                     ),
+//                   ),
+//                   Positioned(
+//                       top: 40,
+//                       right: 10,
+//                       child: GestureDetector(
+//                         onTap: () {
+//                           shareLinks();
+//                         },
+//                         child: Image.asset(
+//                           "assets/page-1/images/share.png",
+//                           color: const Color(0xff1F0A68),
+//                           height: 23,
+//                         ),
+//                       )),
+//                 ],
+//               );
+//             },
+//           ),
+//         ),
+//         const SizedBox(height: 10),
+//         Row(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: List.generate(
+//             images.length,
+//             (index) => Container(
+//               margin: const EdgeInsets.symmetric(horizontal: 3),
+//               width: 8,
+//               height: 8,
+//               decoration: BoxDecoration(
+//                 shape: BoxShape.circle,
+//                 color: _currentPage == index
+//                     ? const Color(0xff1F0A68)
+//                     : Colors.grey,
+//               ),
+//             ),
+//           ),
+//         ),
+//         const SizedBox(height: 15.0),
+//         Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 20.0),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text(
+//                     widget.data['name'] ?? 'N/A',
+//                     style: GoogleFonts.inter(
+//                         fontSize: 22 * ffem, fontWeight: FontWeight.w600),
+//                   ),
+//                   Text(
+//                     "$area, $city",
+//                     style: GoogleFonts.inter(
+//                         fontSize: 16 * ffem, fontWeight: FontWeight.w500),
+//                   ),
+//                   const SizedBox(height: 5.0),
+//                   InkWell(
+//                     onTap: () async {
+//                       final Uri redirectLink =
+//                           Uri.parse(widget.data['direction']);
+//                       if (await canLaunchUrl(redirectLink)) {
+//                         await launchUrl(redirectLink);
+//                       } else {
+//                         throw 'Could not launch $redirectLink';
+//                       }
+//                     },
+//                     child: TextWithIcon(
+//                       text: "DIRECTION",
+//                       fontWeight: FontWeight.w500,
+//                       iconColor: const Color(0xff1F0A68),
+//                       icon: Icons.directions,
+//                       textColor: const Color(0xff1F0A68),
+//                       fontSize: 16 * ffem,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//               Container(
+//                 padding:
+//                     const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+//                 decoration: BoxDecoration(
+//                     border: Border.all(width: 0.5),
+//                     borderRadius: BorderRadius.circular(11)),
+//                 child: Center(
+//                   child: Text(
+//                     "Starting at\n₹ $startingPrice/month",
+//                     style: GoogleFonts.inter(
+//                         fontSize: 16 * ffem, fontWeight: FontWeight.w600),
+//                   ),
+//                 ),
+//               )
+//             ],
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
+
+
 
 class AccommondationTopCard extends StatefulWidget {
   final dynamic data;
@@ -14,16 +271,39 @@ class AccommondationTopCard extends StatefulWidget {
 class AccommondationTopCardState extends State<AccommondationTopCard> {
   late PageController _pageController;
   int _currentPage = 0;
+  List<String> images = [];
+
+  late Timer _timer;
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController();
+
+    // Initialize images from widget.data
+    images = widget.data['images'] != null && widget.data['images'].isNotEmpty
+        ? List<String>.from(widget.data['images'])
+        : ['https://via.placeholder.com/150'];
+
+    // Set up the timer to auto-slide the images
+    _timer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
+      if (_currentPage < images.length - 1) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+      _pageController.animateToPage(
+        _currentPage,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+    });
   }
 
   @override
   void dispose() {
     _pageController.dispose();
+    _timer.cancel(); // Cancel the timer when disposing
     super.dispose();
   }
 
@@ -33,129 +313,139 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
     double width = MediaQuery.of(context).size.width;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    List<String> images =
-        widget.data['images'] != null && widget.data['images'].isNotEmpty
-            ? List<String>.from(widget.data['images'])
-            : ['https://via.placeholder.com/150'];
+
     final area = widget.data['address']['area'] ?? 'N/A';
     final city = widget.data['address']['city'] ?? 'N/A';
     final startingPrice = widget.data['rooms'][0]['monthly_charge'] ?? 'N/A';
 
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: SizedBox(
-            height: 200,
-            width: width,
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: images.length,
-              onPageChanged: (index) {
-                setState(() {
-                  _currentPage = index;
-                });
-              },
-              itemBuilder: (context, index) {
-                return Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        images[index],
-                        height: 180,
-                        width: width,
-                        fit: BoxFit.fill,
-                        loadingBuilder: (context, child, loadingProgress) =>
-                            loadingProgress == null
-                                ? child
-                                : Center(
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2.0,
-                                      value:
-                                          loadingProgress.expectedTotalBytes !=
-                                                  null
-                                              ? loadingProgress
-                                                      .cumulativeBytesLoaded /
-                                                  loadingProgress
-                                                      .expectedTotalBytes!
-                                              : null,
-                                    ),
-                                  ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 25,
-                      left: 10,
-                      child: Container(
-                        padding: const EdgeInsets.only(
-                          left: 7.0,
-                          right: 10.0,
-                          top: 3,
-                          bottom: 3,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: const Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: Colors.orange,
-                              size: 12,
-                            ),
-                            SizedBox(width: 2),
-                            Text(
-                              '4.2',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
+        SizedBox(
+          height: 250,
+          width: width,
+          child: PageView.builder(
+            controller: _pageController,
+            itemCount: images.length,
+            onPageChanged: (index) {
+              setState(() {
+                _currentPage = index;
+              });
+            },
+            itemBuilder: (context, index) {
+              return Stack(
+                children: [
+                  Image.network(
+                    images[index],
+                    height: 250,
+                    width: width,
+                    fit: BoxFit.fill,
+                    loadingBuilder: (context, child, loadingProgress) =>
+                        loadingProgress == null
+                            ? child
+                            : Center(
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2.0,
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    left: 10,
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                        left: 7.0,
+                        right: 10.0,
+                        top: 3,
+                        bottom: 3,
                       ),
-                    ),
-                    Positioned(
-                      bottom: 25,
-                      right: 10,
-                      child: Container(
-                        padding: const EdgeInsets.only(
-                          left: 7.0,
-                          right: 10.0,
-                          top: 3,
-                          bottom: 3,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: const Row(
-                          children: [
-                            Icon(
-                              Icons.person,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: const Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.orange,
+                            size: 12,
+                          ),
+                          SizedBox(width: 2),
+                          Text(
+                            '4.2',
+                            style: TextStyle(
                               color: Colors.black,
-                              size: 15,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
                             ),
-                            SizedBox(width: 2),
-                            Text(
-                              'Boys',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                );
-              },
-            ),
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    right: 10,
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                        left: 7.0,
+                        right: 10.0,
+                        top: 3,
+                        bottom: 3,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: const Row(
+                        children: [
+                          Icon(
+                            Icons.person,
+                            color: Colors.black,
+                            size: 15,
+                          ),
+                          SizedBox(width: 2),
+                          Text(
+                            'Boys',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 40,
+                    left: 0,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.arrow_back_ios_new),
+                    ),
+                  ),
+                  Positioned(
+                    top: 40,
+                    right: 10,
+                    child: GestureDetector(
+                      onTap: () {
+                        shareLinks();
+                      },
+                      child: Image.asset(
+                        "assets/page-1/images/share.png",
+                        color: const Color(0xff1F0A68),
+                        height: 23,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ),
         const SizedBox(height: 10),
@@ -165,8 +455,8 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
             images.length,
             (index) => Container(
               margin: const EdgeInsets.symmetric(horizontal: 3),
-              width: _currentPage == index ? 10 : 6,
-              height: _currentPage == index ? 10 : 6,
+              width: 8,
+              height: 8,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: _currentPage == index
@@ -188,12 +478,16 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
                   Text(
                     widget.data['name'] ?? 'N/A',
                     style: GoogleFonts.inter(
-                        fontSize: 22 * ffem, fontWeight: FontWeight.w600),
+                      fontSize: 22 * ffem,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   Text(
                     "$area, $city",
                     style: GoogleFonts.inter(
-                        fontSize: 16 * ffem, fontWeight: FontWeight.w500),
+                      fontSize: 16 * ffem,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   const SizedBox(height: 5.0),
                   InkWell(
@@ -221,16 +515,19 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 decoration: BoxDecoration(
-                    border: Border.all(width: 0.5),
-                    borderRadius: BorderRadius.circular(11)),
+                  border: Border.all(width: 0.5),
+                  borderRadius: BorderRadius.circular(11),
+                ),
                 child: Center(
                   child: Text(
                     "Starting at\n₹ $startingPrice/month",
                     style: GoogleFonts.inter(
-                        fontSize: 16 * ffem, fontWeight: FontWeight.w600),
+                      fontSize: 16 * ffem,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -238,6 +535,9 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
     );
   }
 }
+
+
+
 
 // import 'package:get/get.dart';
 

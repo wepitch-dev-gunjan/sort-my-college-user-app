@@ -3,7 +3,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../other/api_service.dart';
 
-
 class AccommodationGiveReviewSection extends StatefulWidget {
   final String id;
   final Function(Map<String, dynamic>) onReviewAdded;
