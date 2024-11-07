@@ -24,11 +24,12 @@ class RoomsOfferedSection extends StatelessWidget {
                   fontSize: 20 * ffem, fontWeight: FontWeight.w700),
             ),
           ),
-          const SizedBox(height: 20.0),
+        const   SizedBox(height: 20),
           ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             itemCount: data['rooms'].length,
             shrinkWrap: true,
+            padding: EdgeInsets.zero,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 20),
