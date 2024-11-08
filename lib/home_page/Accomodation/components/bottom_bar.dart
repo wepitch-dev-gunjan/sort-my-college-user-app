@@ -1,8 +1,11 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:myapp/widget/custom_webniar_card_widget.dart';
 import '../../../main.dart';
 import '../../entrance_preparation/components/commons.dart';
 
@@ -164,29 +167,33 @@ class _AccommodationBottomBarState extends State<AccommodationBottomBar> {
                                             horizontal: 4),
                                         child: Btn(
                                           onTap: () async {
-                                            Navigator.pop(context);
-                                            showModalBottomSheet(
-                                                context: context,
-                                                backgroundColor: Colors.white,
-                                                shape:
-                                                    const RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.vertical(
-                                                    top: Radius.circular(
-                                                      20.0,
+                                            if (selectedDate != null) {
+                                              Navigator.pop(context);
+                                              showModalBottomSheet(
+                                                  context: context,
+                                                  backgroundColor: Colors.white,
+                                                  shape:
+                                                      const RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.vertical(
+                                                      top: Radius.circular(
+                                                        20.0,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                isScrollControlled: true,
-                                                builder: (context) {
-                                                  return EnquiryBottomSheet(
-                                                    data: widget.data,
-                                                    width: width,
-                                                    ffem: ffem,
-                                                    date:
-                                                        selectedDate.toString(),
-                                                  );
-                                                });
+                                                  isScrollControlled: true,
+                                                  builder: (context) {
+                                                    return EnquiryBottomSheet(
+                                                      data: widget.data,
+                                                      width: width,
+                                                      ffem: ffem,
+                                                      date: selectedDate
+                                                          .toString(),
+                                                    );
+                                                  });
+                                            } else {
+                                              dateRequired();
+                                            }
                                           },
                                           btnName: "CONFIRM",
                                           width: width,
@@ -229,6 +236,11 @@ class _AccommodationBottomBarState extends State<AccommodationBottomBar> {
       ),
     );
   }
+}
+
+dateRequired() {
+  EasyLoading.showToast("Plese select a date",
+      toastPosition: EasyLoadingToastPosition.bottom);
 }
 
 class EnquiryBottomSheet extends StatelessWidget {

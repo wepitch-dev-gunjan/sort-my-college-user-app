@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -49,13 +48,12 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
   @override
   void dispose() {
     _pageController.dispose();
-    _timer.cancel(); // Cancel the timer when disposing
+    _timer.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    log("${widget.data['recommended_for']}");
     double baseWidth = 460;
     double width = MediaQuery.of(context).size.width;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -68,7 +66,7 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
     return Column(
       children: [
         SizedBox(
-          height: 250,
+          height: 260,
           width: width,
           child: PageView.builder(
             controller: _pageController,
@@ -83,7 +81,7 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
                 children: [
                   Image.network(
                     images[index],
-                    height: 250,
+                    height: 260,
                     width: width,
                     fit: BoxFit.fill,
                     loadingBuilder: (context, child, loadingProgress) =>
@@ -101,7 +99,7 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
                               ),
                   ),
                   Positioned(
-                    bottom: 10,
+                    bottom: 5,
                     left: 10,
                     child: Container(
                       padding: const EdgeInsets.only(
@@ -112,15 +110,15 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
                       ),
                       child: Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.star,
                             color: Colors.orange,
                             size: 12,
                           ),
-                          SizedBox(width: 2),
+                          const SizedBox(width: 2),
                           Text(
                             widget.data['rating'].toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 10,
                               fontWeight: FontWeight.bold,
@@ -131,7 +129,7 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
                     ),
                   ),
                   Positioned(
-                    bottom: 10,
+                    bottom: 5,
                     right: 10,
                     child: Container(
                       padding: const EdgeInsets.only(
@@ -146,15 +144,15 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
                       ),
                       child: Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.person,
                             color: Colors.black,
                             size: 15,
                           ),
-                          SizedBox(width: 2),
+                          const SizedBox(width: 2),
                           Text(
                             widget.data['recommended_for'],
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 10,
                               fontWeight: FontWeight.bold,
@@ -168,13 +166,15 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
                     top: 40,
                     left: 0,
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       icon: const Icon(Icons.arrow_back_ios_new),
                     ),
                   ),
                   Positioned(
-                    top: 40,
-                    right: 10,
+                    top: 50,
+                    right: 12,
                     child: GestureDetector(
                       onTap: () {
                         shareLinks();
@@ -183,6 +183,7 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
                         "assets/page-1/images/share.png",
                         color: const Color(0xff1F0A68),
                         height: 23,
+                        width: 23,
                       ),
                     ),
                   ),

@@ -65,7 +65,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 // class ScrollableDates extends StatefulWidget {
 //   const ScrollableDates({super.key});
 //   @override
@@ -198,8 +197,6 @@ class MyApp extends StatelessWidget {
 //   }
 // }
 
-
-
 class ScrollableDates extends StatefulWidget {
   final ValueChanged<DateTime> onDateSelected;
 
@@ -218,7 +215,7 @@ class ScrollableDatesState extends State<ScrollableDates> {
     double baseWidth = 460;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    
+
     return Row(
       children: [
         Expanded(
@@ -237,10 +234,14 @@ class ScrollableDatesState extends State<ScrollableDates> {
                     widget.onDateSelected(selectedDate); // Pass the date
                   },
                   child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
                     decoration: BoxDecoration(
-                      color: selectedDate == date ? const Color(0xff1F0A68) : Colors.white,
+                      color: selectedDate == date
+                          ? const Color(0xff1F0A68)
+                          : Colors.white,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Column(
@@ -249,7 +250,9 @@ class ScrollableDatesState extends State<ScrollableDates> {
                         Text(
                           DateFormat('dd MMM').format(date),
                           style: GoogleFonts.inter(
-                            color: selectedDate == date ? Colors.white : Colors.black,
+                            color: selectedDate == date
+                                ? Colors.white
+                                : Colors.black,
                             fontSize: 16 * ffem,
                             fontWeight: FontWeight.w600,
                           ),
@@ -257,7 +260,9 @@ class ScrollableDatesState extends State<ScrollableDates> {
                         Text(
                           DateFormat('EEE').format(date).toUpperCase(),
                           style: GoogleFonts.inter(
-                            color: selectedDate == date ? Colors.white : const Color(0xff828080),
+                            color: selectedDate == date
+                                ? Colors.white
+                                : const Color(0xff828080),
                             fontSize: 14 * ffem,
                             fontWeight: FontWeight.w600,
                           ),
@@ -332,3 +337,4 @@ class ScrollableDatesState extends State<ScrollableDates> {
     );
   }
 }
+

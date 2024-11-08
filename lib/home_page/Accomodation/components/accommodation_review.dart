@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../other/api_service.dart';
@@ -8,17 +9,16 @@ class AccommodationGiveReviewSection extends StatefulWidget {
   final Function(Map<String, dynamic>) onReviewAdded;
   final List? reviews;
 
-  const AccommodationGiveReviewSection({
-    super.key,
-    required this.id,
-    required this.onReviewAdded,
-    this.reviews
-  });
+  const AccommodationGiveReviewSection(
+      {super.key, required this.id, required this.onReviewAdded, this.reviews});
 
   @override
-  State<AccommodationGiveReviewSection> createState() => _AccommodationGiveReviewSectionState();
+  State<AccommodationGiveReviewSection> createState() =>
+      _AccommodationGiveReviewSectionState();
 }
-class _AccommodationGiveReviewSectionState extends State<AccommodationGiveReviewSection> {
+
+class _AccommodationGiveReviewSectionState
+    extends State<AccommodationGiveReviewSection> {
   double ratingVal = 5;
   String feedbackMsg = '';
   TextEditingController controller = TextEditingController();
@@ -49,10 +49,8 @@ class _AccommodationGiveReviewSectionState extends State<AccommodationGiveReview
                 allowHalfRating: true,
                 itemCount: 5,
                 itemSize: 20,
-                itemBuilder: (context, _) => const Icon(
-                  Icons.star,
-                  color: Colors.amber
-                ),
+                itemBuilder: (context, _) =>
+                    const Icon(Icons.star, color: Colors.amber),
                 onRatingUpdate: (rating) {
                   setState(() {
                     ratingVal = rating;
@@ -91,7 +89,6 @@ class _AccommodationGiveReviewSectionState extends State<AccommodationGiveReview
                       ratingVal: ratingVal,
                       feedbackMsg: feedbackMsg,
                     );
-
                     if (value["error"] ==
                         "Feedback is already given by the user") {
                       Fluttertoast.showToast(
@@ -104,7 +101,8 @@ class _AccommodationGiveReviewSectionState extends State<AccommodationGiveReview
                           msg: "Feedback has been successfully added",
                           backgroundColor: Colors.green,
                         );
-                        final res = await ApiService.getEpFeedback(id: widget.id);
+                        final res =
+                            await ApiService.getEpFeedback(id: widget.id);
                         final userName = res['feedbacks'][0]['user_name'];
                         final userProfile = res['feedbacks'][0]['profile_pic'];
 

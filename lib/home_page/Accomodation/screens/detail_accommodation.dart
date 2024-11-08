@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../shared/colors_const.dart';
-import '../../../utils/share_links.dart';
-import '../../entrance_preparation/components/commons.dart';
 import '../components/accommodation_review.dart';
 import '../components/bottom_bar.dart';
 import '../components/detail_accommodation_topcard.dart';
