@@ -3,8 +3,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:myapp/home_page/notification_page/news/provider/news_provider1.dart';
 import 'package:myapp/home_page/notification_page/news/service/news_service.dart';
 import 'package:myapp/news/provider/news_provider.dart';
