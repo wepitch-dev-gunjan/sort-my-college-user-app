@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:myapp/widget/custom_webniar_card_widget.dart';
 import '../../../main.dart';
 import '../../entrance_preparation/components/commons.dart';
+import 'scrollable_date_picker.dart';
 
 class AccommodationBottomBar extends StatefulWidget {
   final dynamic data;
