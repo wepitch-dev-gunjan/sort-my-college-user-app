@@ -24,7 +24,7 @@ class RoomsOfferedSection extends StatelessWidget {
                   fontSize: 20 * ffem, fontWeight: FontWeight.w700),
             ),
           ),
-        const   SizedBox(height: 20),
+          const SizedBox(height: 20),
           ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             itemCount: data['rooms'].length,
@@ -136,6 +136,7 @@ class SharingStatusCard extends StatelessWidget {
                                 facilities: facilities,
                                 pgRent: price,
                                 oneTimeDepositAmount: securtyAmount,
+                                sharingStatus: roomType,
                               );
                             },
                           );
@@ -190,12 +191,14 @@ class PgDialog extends StatelessWidget {
   final dynamic facilities;
   final String pgRent;
   final String oneTimeDepositAmount;
+  final String sharingStatus;
 
   const PgDialog(
       {super.key,
       required this.facilities,
       required this.pgRent,
-      required this.oneTimeDepositAmount});
+      required this.oneTimeDepositAmount,
+      required this.sharingStatus});
 
   @override
   Widget build(BuildContext context) {
@@ -238,7 +241,7 @@ class PgDialog extends StatelessWidget {
                               color: const Color(0xff1F0A68),
                               borderRadius: BorderRadius.circular(11)),
                           child: Text(
-                            "Academic Session",
+                            sharingStatus,
                             style: GoogleFonts.inter(
                                 fontSize: 20 * ffem,
                                 color: Colors.white,
@@ -247,7 +250,7 @@ class PgDialog extends StatelessWidget {
                         ),
                         const SizedBox(height: 5.0),
                         Text(
-                          "Pg Rent:- $pgRent/m ",
+                          "PG Rent:- $pgRent/m ",
                           style: GoogleFonts.inter(
                               fontSize: 18 * ffem, fontWeight: FontWeight.w500),
                         ),

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/home_page/Accomodation/screens/detail_accommodation.dart';
@@ -6,8 +7,8 @@ import 'package:myapp/other/api_service.dart';
 import '../../../shared/colors_const.dart';
 import '../../entrance_preparation/components/commons.dart';
 import '../../entrance_preparation/screens/entrance_preparation_screen.dart';
-import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 class AccomodationScreen extends StatefulWidget {
   const AccomodationScreen({super.key});
@@ -84,11 +85,9 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
                   onRefresh: _refreshAccommodations,
                   child: ListView(
                     children: [
-                      AccommodationCard(data: data
-                      ),
+                      AccommodationCard(data: data),
                     ],
                   ),
-
                 ),
     );
   }
@@ -146,6 +145,7 @@ class AccommodationCard extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
@@ -157,7 +157,20 @@ class AccommodationCard extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(5.0),
+                            padding: const EdgeInsets.only(
+                                left: 5.0, right: 5.0, top: 10),
+                            child: Text(
+                              name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.inter(
+                                fontSize: 24 * ffem,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -167,14 +180,7 @@ class AccommodationCard extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        name,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: GoogleFonts.inter(
-                                          fontSize: 24 * ffem,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
+                                      const SizedBox(height: 3.0),
                                       Text(
                                         "$area, $city",
                                         overflow: TextOverflow.ellipsis,
@@ -211,6 +217,7 @@ class AccommodationCard extends StatelessWidget {
                               ],
                             ),
                           ),
+                          const SizedBox(height: 12),
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 5.0),
