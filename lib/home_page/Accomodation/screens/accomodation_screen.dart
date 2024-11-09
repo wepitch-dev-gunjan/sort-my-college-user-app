@@ -9,7 +9,6 @@ import '../../entrance_preparation/components/commons.dart';
 import '../../entrance_preparation/screens/entrance_preparation_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class AccomodationScreen extends StatefulWidget {
   const AccomodationScreen({super.key});
 
@@ -106,11 +105,11 @@ class AccommodationCard extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 15.0),
-        TopSlider(
+        TopSliderAccommodation(
           sliderText: accommodationSliderText,
           src: 'assets/accommodation/home.png',
-          width: 50,
-          height: 50,
+          width: 45,
+          height: 45,
         ),
         const SizedBox(height: 10.0),
         ListView.builder(
@@ -131,7 +130,7 @@ class AccommodationCard extends StatelessWidget {
                     ? accommodation['rating'].toDouble()
                     : accommodation['rating'])
                 : 0.0;
-            int reviewsCount = accommodation['rooms']?.length ?? 0;
+            int reviewsCount = accommodation['reviews']?.length ?? 0;
             String price = (accommodation['rooms'] != null &&
                     accommodation['rooms'].isNotEmpty)
                 ? "${accommodation['rooms'][0]['monthly_charge'] ?? 'N/A'} INR/"

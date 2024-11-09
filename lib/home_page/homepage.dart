@@ -70,7 +70,6 @@ class _HomePageState extends State<HomePage> {
     prefs.setString("profile_image_path", path);
   }
 
-
   var str;
   List<String> imgUrlList = [];
 
@@ -482,8 +481,8 @@ class _HomePageState extends State<HomePage> {
                                                       .shrink();
                                                 }
 
-                                                currentDate.difference(
-                                                        webinarDate);
+                                                currentDate
+                                                    .difference(webinarDate);
                                                 bool isRegistered =
                                                     trending.registered!;
 
@@ -753,8 +752,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _updateRegistrationStatus(bool isStarting) async {
-    setState(() {
-    });
+    setState(() {});
 
     if (isStarting) {
       await _prefs.setInt(

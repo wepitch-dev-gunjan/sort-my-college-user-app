@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../other/api_service.dart';
@@ -21,7 +20,7 @@ class _AccommodationGiveReviewSectionState
     extends State<AccommodationGiveReviewSection> {
   double ratingVal = 5;
   String feedbackMsg = '';
-  TextEditingController controller = TextEditingController();
+  TextEditingController messege = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +74,7 @@ class _AccommodationGiveReviewSectionState
               onChanged: (value) {
                 feedbackMsg = value;
               },
-              controller: controller,
+              controller: messege,
               cursorHeight: 22,
               decoration: InputDecoration(
                 border: InputBorder.none,
@@ -114,7 +113,7 @@ class _AccommodationGiveReviewSectionState
                         });
                       }
                     }
-                    controller.clear();
+                    messege.clear();
                   },
                   icon: const Icon(
                     Icons.send_sharp,

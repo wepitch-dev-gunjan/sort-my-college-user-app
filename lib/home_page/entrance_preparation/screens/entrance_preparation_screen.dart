@@ -337,12 +337,17 @@ class TopSlider extends StatefulWidget {
   final List sliderText;
   final String src;
   final double? width, height;
+  final double? left, right, top, bottom;
   const TopSlider(
       {super.key,
       required this.sliderText,
       required this.src,
       this.width,
-      this.height});
+      this.height,
+      this.left,
+      this.right,
+      this.top,
+      this.bottom});
 
   @override
   State<TopSlider> createState() => _TopSliderState();
@@ -441,6 +446,137 @@ class _TopSliderState extends State<TopSlider> {
                   left: 290.75 * fem,
                   top: 10 * fem,
                   bottom: 10,
+                  // right: widget.right ?? 0,
+                  child: Image.asset(
+                    widget.src,
+                    fit: BoxFit.contain,
+                    width: widget.width ?? 100.5 * fem,
+                    height: widget.height ?? 128.5 * fem,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class TopSliderAccommodation extends StatefulWidget {
+  final List sliderText;
+  final String src;
+  final double? width, height;
+  final double? left, right, top, bottom;
+  const TopSliderAccommodation(
+      {super.key,
+      required this.sliderText,
+      required this.src,
+      this.width,
+      this.height,
+      this.left,
+      this.right,
+      this.top,
+      this.bottom});
+
+  @override
+  State<TopSliderAccommodation> createState() => _TopSliderAccommodationState();
+}
+
+class _TopSliderAccommodationState extends State<TopSliderAccommodation> {
+  int selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    double baseWidth = 460;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double ffem = fem * 0.97;
+    return Column(
+      children: [
+        SizedBox(
+          width: double.infinity,
+          height: 100.35 * fem,
+          child: Padding(
+            padding: EdgeInsets.only(
+              right: MediaQuery.of(context).size.width / 20,
+              left: MediaQuery.of(context).size.width / 20,
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  child: Align(
+                      child: Container(
+                    height: 60.5,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: const Offset(0, 1),
+                          blurRadius: 2,
+                          color: Colors.black.withOpacity(0.1),
+                        ),
+                      ],
+                    ),
+                  )),
+                ),
+                Positioned(
+                  left: 150 * fem,
+                  bottom: 20 * fem,
+                  child: Row(
+                    children: [
+                      for (int i = 0; i < 3; i++)
+                        TabPageSelectorIndicator(
+                          backgroundColor: selectedIndex == i
+                              ? const Color(0xff1F0A68)
+                              : Colors.grey,
+                          borderColor: Colors.transparent,
+                          size: 7,
+                        ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  left: 13.28515625 * fem,
+                  top: 27.3145446777 * fem,
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: SizedBox(
+                      width: 245 * fem,
+                      height: 40 * fem,
+                      child: CarouselSlider(
+                        items: [
+                          for (int i = 0; i < widget.sliderText.length; i++)
+                            Text(
+                              widget.sliderText[i],
+                              style: SafeGoogleFont(
+                                'Inter',
+                                fontSize: 14 * ffem,
+                                fontWeight: FontWeight.w500,
+                                height: 1.3252271925 * ffem / fem,
+                                color: const Color(0xFF2A2F33),
+                              ),
+                            ),
+                        ],
+                        options: CarouselOptions(
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              selectedIndex = index;
+                            });
+                          },
+                          viewportFraction: 1,
+                          autoPlay: true,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  right: 25 * fem,
+                  top: 10 * fem,
+                  bottom: 10,
+                  // right: widget.right ?? 0,
                   child: Image.asset(
                     widget.src,
                     fit: BoxFit.contain,
