@@ -168,33 +168,33 @@ class _AccommodationBottomBarState extends State<AccommodationBottomBar> {
                                             horizontal: 4),
                                         child: Btn(
                                           onTap: () async {
-                                            if (selectedDate != null) {
-                                              Navigator.pop(context);
-                                              showModalBottomSheet(
-                                                  context: context,
-                                                  backgroundColor: Colors.white,
-                                                  shape:
-                                                      const RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.vertical(
-                                                      top: Radius.circular(
-                                                        20.0,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  isScrollControlled: true,
-                                                  builder: (context) {
-                                                    return EnquiryBottomSheet(
-                                                      data: widget.data,
-                                                      width: width,
-                                                      ffem: ffem,
-                                                      date: selectedDate
-                                                          .toString(),
-                                                    );
-                                                  });
-                                            } else {
-                                              dateRequired();
-                                            }
+                                            //   if (selectedDate != null) {
+                                            //     Navigator.pop(context);
+                                            //     showModalBottomSheet(
+                                            //         context: context,
+                                            //         backgroundColor: Colors.white,
+                                            //         shape:
+                                            //             const RoundedRectangleBorder(
+                                            //           borderRadius:
+                                            //               BorderRadius.vertical(
+                                            //             top: Radius.circular(
+                                            //               20.0,
+                                            //             ),
+                                            //           ),
+                                            //         ),
+                                            //         isScrollControlled: true,
+                                            //         builder: (context) {
+                                            //           return EnquiryBottomSheet(
+                                            //             data: widget.data,
+                                            //             width: width,
+                                            //             ffem: ffem,
+                                            //             date: selectedDate
+                                            //                 .toString(),
+                                            //           );
+                                            //         });
+                                            //   } else {
+                                            //     dateRequired();
+                                            //   }
                                           },
                                           btnName: "CONFIRM",
                                           width: width,
