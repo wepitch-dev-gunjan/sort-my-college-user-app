@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:myapp/booking_page/booking_page.dart';
 import 'package:myapp/home_page/Accomodation/screens/accomodation_screen.dart';
 import 'package:myapp/home_page/homepagecontainer.dart';

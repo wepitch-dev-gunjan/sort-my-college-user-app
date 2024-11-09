@@ -66,7 +66,7 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> {
                   child: Text(
                     "No Data",
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 14,
                       color: Colors.black,
                     ),
                   ),
@@ -99,10 +99,9 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> {
                                 ),
                               ),
                               const SizedBox(height: 5.0),
-                              ...groupedAnnouncements[date]!
-                                  .map((announcement) => AnnouncementCard(
-                                      message: announcement.message))
-                                  .toList(),
+                              ...groupedAnnouncements[date]!.map(
+                                  (announcement) => AnnouncementCard(
+                                      message: announcement.message)),
                             ],
                           ),
                       ],
