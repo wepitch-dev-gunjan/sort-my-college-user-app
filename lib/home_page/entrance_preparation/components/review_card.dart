@@ -208,10 +208,7 @@ class ReviewCardState extends State<ReviewCard> {
 
   @override
   Widget build(BuildContext context) {
-    // if (widget.reviews == null || widget.reviews!.isEmpty) {
-    //   return const SizedBox.shrink();
-    // }
-
+  
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
