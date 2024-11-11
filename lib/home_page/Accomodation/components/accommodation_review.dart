@@ -83,7 +83,7 @@ class _AccommodationGiveReviewSectionState
                 hintStyle: const TextStyle(color: Colors.black45),
                 suffixIcon: IconButton(
                   onPressed: () async {
-                    var value = await ApiService.epFeedback(
+                    var value = await ApiService.accommodationFeedback(
                       id: widget.id,
                       ratingVal: ratingVal,
                       feedbackMsg: feedbackMsg,
@@ -101,7 +101,7 @@ class _AccommodationGiveReviewSectionState
                           backgroundColor: Colors.green,
                         );
                         final res =
-                            await ApiService.getEpFeedback(id: widget.id);
+                            await ApiService.getAccommodationFeedback(id: widget.id);
                         final userName = res['feedbacks'][0]['user_name'];
                         final userProfile = res['feedbacks'][0]['profile_pic'];
 

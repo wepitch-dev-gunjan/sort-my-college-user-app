@@ -1072,11 +1072,61 @@ class ApiService {
     return jsonDecode(response.body);
   }
 
+//==========================! Accommodation APIS !=========================================
+
+
   static Future getAllAccommodation() async {
     var url = Uri.parse(
         "${AppConstants.baseUrl}/admin/accommodation/user/getallaccommodation");
-
     final response = await http.get(url);
     return jsonDecode(response.body);
+  }
+
+
+
+  static Future<Map<String, dynamic>> accommodationFeedback(
+      {String? id, double? ratingVal, String? feedbackMsg}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+
+    final body = jsonEncode(
+        {"accommodation_id": id, 'rating': ratingVal, 'comment': feedbackMsg});
+    final headers = {
+      'Content-Type': 'application/json',
+      "Authorization": token,
+    };
+    final url = Uri.parse(
+        '${AppConstants.baseUrl}/admin/create-accommodation-feedback');
+    final response = await http.post(url, headers: headers, body: body);
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body.toString());
+      return data;
+    } else if (response.statusCode == 400) {
+      return {"error": "Feedback is already given by the user"};
+    } else {
+      return {"error": "Something went wrong"};
+    }
+  }
+
+
+
+    static Future getAccommodationFeedback({required String id}) async {
+    var url = Uri.parse("${AppConstants.baseUrl}/admin/get-accommodation-feedbacks/$id");
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+    final response = await http.get(url, headers: {
+      //"Content-Type": "application/json",
+      "Authorization": token,
+    });
+
+    var data;
+
+    if (response.statusCode == 200) {
+      data = jsonDecode(response.body.toString());
+
+      return data;
+    }
+    return [];
   }
 }

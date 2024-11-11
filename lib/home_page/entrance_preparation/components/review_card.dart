@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/home_page/entrance_preparation/components/commons.dart';
 import '../../../other/api_service.dart';
@@ -270,23 +272,52 @@ class ReviewCardState extends State<ReviewCard> {
                                   //   ),
                                   // ),
 
-                                  CircleAvatar(
-                                    radius: 25,
-                                    backgroundImage: review['profile_pic'] !=
-                                                null &&
-                                            review['profile_pic'].isNotEmpty
-                                        ? NetworkImage(review['profile_pic'])
-                                            as ImageProvider
-                                        : null,
-                                    child: review['profile_pic'] == null ||
-                                            review['profile_pic'].isEmpty
-                                        ? const CircleAvatar(
-                                            backgroundColor: Colors.white,
-                                            radius: 25,
-                                            backgroundImage: AssetImage(
-                                                'assets/page-1/images/noImage.png'),
-                                          )
-                                        : null,
+                                  Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      ClipOval(
+                                        child: review['profile_pic'] != null &&
+                                                review['profile_pic'].isNotEmpty
+                                            ? Image.network(
+                                                review['profile_pic'],
+                                                width: 50,
+                                                height: 50,
+                                                fit: BoxFit.cover,
+                                                loadingBuilder:
+                                                    (BuildContext context,
+                                                        Widget child,
+                                                        ImageChunkEvent?
+                                                            loadingProgress) {
+                                                  if (loadingProgress == null)
+                                                    return child;
+                                                  return const SizedBox(
+                                                    width: 50,
+                                                    height: 50,
+                                                    child: SpinKitPulse(
+                                                      color: Colors.grey,
+                                                    ),
+                                                  );
+                                                },
+                                                errorBuilder: (BuildContext
+                                                        context,
+                                                    Object exception,
+                                                    StackTrace? stackTrace) {
+                                                  return Image.asset(
+                                                    'assets/page-1/images/noImage.png',
+                                                    width: 50,
+                                                    height: 50,
+                                                    fit: BoxFit.cover,
+                                                  );
+                                                },
+                                              )
+                                            : Image.asset(
+                                                'assets/page-1/images/noImage.png',
+                                                width: 50,
+                                                height: 50,
+                                                fit: BoxFit.cover,
+                                              ),
+                                      ),
+                                    ],
                                   ),
                                   const SizedBox(height: 5),
                                   Text(

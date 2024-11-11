@@ -3,25 +3,10 @@ import 'package:myapp/booking_page/booking_page.dart';
 import 'package:myapp/home_page/Accomodation/screens/accomodation_screen.dart';
 import 'package:myapp/home_page/homepagecontainer.dart';
 import 'package:myapp/news/ui/news_screen.dart';
-
-// import 'package:myapp/page-1/profile.dart';
 import 'package:myapp/profile_page/profile_page.dart';
-
-// import 'package:myapp/page-1/webinar-detail-second-full-view.dart';
-// import 'package:myapp/page-1/webinar.dart';
-// import 'package:myapp/page-1/homepage.dart';
-// import 'package:myapp/page-1/news.dart';
 import 'package:myapp/webinar_page/webinar_page.dart';
-
-// import 'counsellor-select-new.dart';
 import 'counsellor_page/counsellor_select_listview_offline.dart';
 import 'entrance_preparation/screens/entrance_preparation_screen.dart';
-
-// import 'counselor-dashboard-new-full-view.dart';
-// import 'counselor-detailed-full-view.dart';
-// import 'counselor-detailed-select-full-view.dart';
-// import 'counselor-full-view.dart';
-// import 'explore-first-feed.dart';
 
 class HomePageContainer_2 extends StatefulWidget {
   const HomePageContainer_2({super.key});
@@ -34,20 +19,13 @@ class _HomePageContainer_2State extends State<HomePageContainer_2> {
   int selectedIndex = 0;
 
   final Widget _home = const CounsellorListPage_offline();
-
   final Widget _webnar = const WebinarPage();
-
   final Widget _booking = const BookingPage();
-
   final Widget _news = const NewsScreen();
-
   final Widget _profile = const ProfilePage();
 
   @override
   Widget build(BuildContext context) {
-    // double baseWidth = 430;
-    // double fem = MediaQuery.of(context).size.width / baseWidth;
-    // // double ffem = fem * 0.97;
     return Scaffold(
       body: getBody(),
       bottomNavigationBar: BottomNavigationBar(
@@ -249,13 +227,12 @@ class _EpWithHomePageState extends State<EpWithHomePage> {
   }
 }
 
-
-
 class AccommodationWithHomePage extends StatefulWidget {
   const AccommodationWithHomePage({super.key});
 
   @override
-  State<AccommodationWithHomePage> createState() => _AccommodationWithHomePageState();
+  State<AccommodationWithHomePage> createState() =>
+      _AccommodationWithHomePageState();
 }
 
 class _AccommodationWithHomePageState extends State<AccommodationWithHomePage> {

@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import '../../../other/api_service.dart';
 import '../../../shared/colors_const.dart';
+import '../../entrance_preparation/components/review_card.dart';
 import '../components/accommodation_review.dart';
 import '../components/bottom_bar.dart';
 import '../components/detail_accommodation_topcard.dart';
@@ -16,52 +20,49 @@ class DetailAccommodation extends StatefulWidget {
 }
 
 class _DetailAccommodationState extends State<DetailAccommodation> {
+  bool isLoading = true;
+  List reviews = []; // Store the reviews here
+
+  @override
+  void initState() {
+    getFeedback(widget.data['_id']);
+    super.initState();
+  }
+
+  getFeedback(String id) async {
+    final res =
+        await ApiService.getAccommodationFeedback(id: widget.data['_id']);
+    setState(() {
+      reviews = res['feedbacks'];
+      isLoading = false;
+    });
+  }
+
   void addReview(Map<String, dynamic> review) {
     setState(() {
-      // reviews.insert(0, review);
+      reviews.insert(0, review);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    log("data1${widget.data['_id']}");
     return Scaffold(
       backgroundColor: ColorsConst.whiteColor,
-      // appBar: CusAppBar(
-      //   title: widget.data['name'] ?? 'N/A',
-      //   action: [
-      //     Padding(
-      //         padding: const EdgeInsets.only(right: 15),
-      //         child: GestureDetector(
-      //           onTap: () {
-      //             shareLinks();
-      //           },
-      //           child: Image.asset(
-      //             "assets/page-1/images/share.png",
-      //             color: const Color(0xff1F0A68),
-      //             height: 23,
-      //           ),
-      //         )),
-      //   ],
-      // ),
       body: SingleChildScrollView(
-          child: Padding(
-        padding: const EdgeInsets.only(bottom: 15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AccommondationTopCard(data: widget.data),
-            RoomsOfferedSection(data: widget.data),
-            NearByLocation(data: widget.data),
-            // const ReviewCard(
-            //   reviews: [],
-            // ),
-            AccommodationGiveReviewSection(
-              id: "123456789",
-              onReviewAdded: addReview,
-              reviews: [],
-            ),
-          ],
-        ),
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AccommondationTopCard(data: widget.data),
+          RoomsOfferedSection(data: widget.data),
+          NearByLocation(data: widget.data),
+          reviews.isEmpty ? const SizedBox() : ReviewCard(reviews: reviews),
+          AccommodationGiveReviewSection(
+            id: widget.data['_id'],
+            onReviewAdded: addReview,
+            reviews: reviews,
+          ),
+        ],
       )),
       bottomNavigationBar: AccommodationBottomBar(
         data: widget.data,
