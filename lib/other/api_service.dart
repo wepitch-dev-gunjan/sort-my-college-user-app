@@ -1108,15 +1108,12 @@ class ApiService {
     }
   }
 
-
-
     static Future getAccommodationFeedback({required String id}) async {
     var url = Uri.parse("${AppConstants.baseUrl}/admin/get-accommodation-feedbacks/$id");
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
     final response = await http.get(url, headers: {
-      //"Content-Type": "application/json",
       "Authorization": token,
     });
 

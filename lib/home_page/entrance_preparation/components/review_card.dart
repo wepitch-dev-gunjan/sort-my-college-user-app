@@ -259,19 +259,6 @@ class ReviewCardState extends State<ReviewCard> {
                                   horizontal: 15, vertical: 10),
                               child: Column(
                                 children: [
-                                  // ClipOval(
-                                  //   child: CachedNetworkImage(
-                                  //     imageUrl: review['profile_pic'],
-                                  //     fit: BoxFit.cover,
-                                  //     width: 50.0,
-                                  //     height: 50.0,
-                                  //     placeholder: (context, url) =>
-                                  //         const CircularProgressIndicator(),
-                                  //     errorWidget: (context, url, error) =>
-                                  //         const Icon(Icons.people),
-                                  //   ),
-                                  // ),
-
                                   Stack(
                                     alignment: Alignment.center,
                                     children: [
@@ -288,8 +275,9 @@ class ReviewCardState extends State<ReviewCard> {
                                                         Widget child,
                                                         ImageChunkEvent?
                                                             loadingProgress) {
-                                                  if (loadingProgress == null)
+                                                  if (loadingProgress == null) {
                                                     return child;
+                                                  }
                                                   return const SizedBox(
                                                     width: 50,
                                                     height: 50,
