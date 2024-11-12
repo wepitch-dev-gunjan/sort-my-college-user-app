@@ -1074,15 +1074,12 @@ class ApiService {
 
 //==========================! Accommodation APIS !=========================================
 
-
   static Future getAllAccommodation() async {
     var url = Uri.parse(
         "${AppConstants.baseUrl}/admin/accommodation/user/getallaccommodation");
     final response = await http.get(url);
     return jsonDecode(response.body);
   }
-
-
 
   static Future<Map<String, dynamic>> accommodationFeedback(
       {String? id, double? ratingVal, String? feedbackMsg}) async {
@@ -1108,8 +1105,9 @@ class ApiService {
     }
   }
 
-    static Future getAccommodationFeedback({required String id}) async {
-    var url = Uri.parse("${AppConstants.baseUrl}/admin/get-accommodation-feedbacks/$id");
+  static Future getAccommodationFeedback({required String id}) async {
+    var url = Uri.parse(
+        "${AppConstants.baseUrl}/admin/get-accommodation-feedbacks/$id");
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
@@ -1125,5 +1123,30 @@ class ApiService {
       return data;
     }
     return [];
+  }
+
+  static Future<Map<String, dynamic>> accommodationSheduleVisit(
+      {String? id, String? time, String? message}) async {
+   
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+    final body = jsonEncode(
+        {"enquired_to": id, 'preferred_time': time, 'message': message});
+    final headers = {
+      'Content-Type': 'application/json',
+      "Authorization": token,
+    };
+    final url = Uri.parse(
+        '${AppConstants.baseUrl}/admin/accommodation/6700d53bd543912141199c29/enquiry');
+    final response = await http.post(url, headers: headers, body: body);
+
+    if (response.statusCode == 201) {
+      var data = jsonDecode(response.body.toString());
+      return data;
+    } else if (response.statusCode == 400) {
+      return {"error": "Something went wrong400"};
+    } else {
+      return {"error": "Something went wrong"};
+    }
   }
 }

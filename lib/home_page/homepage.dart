@@ -12,6 +12,7 @@ import 'package:myapp/home_page/homepagecontainer_2.dart';
 import 'package:myapp/home_page/model/popular_workshop_model.dart';
 import 'package:myapp/home_page/model/tranding_webinar_model.dart';
 import 'package:myapp/home_page/notification_page/noti.dart';
+import 'package:myapp/main.dart';
 import 'package:myapp/other/provider/counsellor_details_provider.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
@@ -116,9 +117,7 @@ class _HomePageState extends State<HomePage> {
                   maxLines: 1,
                 ),
               ),
-              const SizedBox(
-                width: 30,
-              )
+              const SizedBox(width: 30)
             ],
           ),
           backgroundColor: Colors.white,
@@ -156,9 +155,7 @@ class _HomePageState extends State<HomePage> {
                 color: const Color(0xff1F0A68),
               ),
             ),
-            const SizedBox(
-              width: 28,
-            ),
+            const SizedBox(width: 28),
           ],
         ),
         body: counsellorSessionProvider.isNull
@@ -167,173 +164,220 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(18.0),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 110 * fem,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: GestureDetector(
+                        padding: const EdgeInsets.all(18.0),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
                                 onTap: () {
                                   onTapgotocounsellor(context);
                                 },
-                                child: Container(
-                                  width: 110 * fem,
-                                  height: 120 * fem,
-                                  clipBehavior: Clip.antiAlias,
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xffffffff),
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        offset: const Offset(0, 4),
-                                        blurRadius: 4,
-                                        color: Colors.black.withOpacity(0.1),
-                                      ),
-                                    ],
-                                  ),
+                                child: SizedBox(
+                                  height: 110 * fem,
+                                  width: 175 * fem,
                                   child: Image.asset(
                                     "assets/page-1/images/find_counsellor.png",
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(width: 34),
-                            Expanded(
-                              child: GestureDetector(
+                              const SizedBox(width: 30),
+                              GestureDetector(
                                 onTap: () {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) =>
-                                  //         const CommingSoonPage(),
-                                  //   ),
-                                  // );
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const EpWithHomePage(),
-                                    ),
-                                  );
+                                  onTapgotoEP(context);
                                 },
-                                child: Visibility(
-                                  //visible: true,
-                                  child: Container(
-                                    width: 110 * fem,
-                                    height: 120 * fem,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xffffffff),
-                                      borderRadius: BorderRadius.circular(20),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          offset: const Offset(0, 4),
-                                          blurRadius: 4,
-                                          color: Colors.black.withOpacity(0.1),
-                                        ),
-                                      ],
-                                    ),
-                                    child: Image.asset(
-                                      "assets/page-1/images/Group 793.png",
-                                    ),
-                                  ),
+                                child: SizedBox(
+                                  height: 110 * fem,
+                                  width: 175 * fem,
+                                  child: Image.asset(
+                                      "assets/page-1/images/Group 793.png"),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      // visible: false,
-                      child: Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: SizedBox(
-                          width: double.infinity,
-                          height: 112 * fem,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const ComingSoon()));
-                                  },
-                                  child: Container(
-                                    width: 110 * fem,
-                                    height: 120 * fem,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xff6450A8),
-                                      borderRadius: BorderRadius.circular(20),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          offset: const Offset(0, 4),
-                                          blurRadius: 4,
-                                          color: Colors.black.withOpacity(0.1),
-                                        ),
-                                      ],
-                                    ),
-                                    child: Image.asset(
-                                      "assets/page-1/images/Group 794.png",
-                                    ),
-                                  ),
+                              const SizedBox(width: 30),
+                              GestureDetector(
+                                onTap: () {
+                                  onTapgotoAccommodation(context);
+                                },
+                                child: SizedBox(
+                                  height: 110 * fem,
+                                  width: 175 * fem,
+                                  child: Image.asset(
+                                      "assets/page-1/images/Group 795.png"),
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 34,
-                              ),
-                              Expanded(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const AccommodationWithHomePage()));
-                                        },
-                                        child: Container(
-                                          width: 140 * fem,
-                                          height: 140 * fem,
-                                          clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
-                                            color: const Color(0xff5273B4),
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                offset: const Offset(0, 4),
-                                                blurRadius: 4,
-                                                color: Colors.black
-                                                    .withOpacity(0.1),
-                                              ),
-                                            ],
-                                          ),
-                                          child: Image.asset(
-                                            "assets/page-1/images/Group 795.png",
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              )
                             ],
                           ),
-                        ),
-                      ),
-                    ),
+                        )),
+
+                    // Padding(
+                    //   padding: const EdgeInsets.all(18.0),
+                    //   child: SizedBox(
+                    //     width: double.infinity,
+                    //     height: 110 * fem,
+                    //     child: Row(
+                    //       children: [
+                    //         Expanded(
+                    //           child: GestureDetector(
+                    //             onTap: () {
+                    //               onTapgotocounsellor(context);
+                    //             },
+                    //             child: Container(
+                    //               width: 110 * fem,
+                    //               height: 120 * fem,
+                    //               clipBehavior: Clip.antiAlias,
+                    //               decoration: BoxDecoration(
+                    //                 color: const Color(0xffffffff),
+                    //                 borderRadius: BorderRadius.circular(20),
+                    //                 boxShadow: [
+                    //                   BoxShadow(
+                    //                     offset: const Offset(0, 4),
+                    //                     blurRadius: 4,
+                    //                     color: Colors.black.withOpacity(0.1),
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //               child: Image.asset(
+                    //                 "assets/page-1/images/find_counsellor.png",
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         const SizedBox(width: 34),
+                    //         Expanded(
+                    //           child: GestureDetector(
+                    //             onTap: () {
+                    //               // Navigator.push(
+                    //               //   context,
+                    //               //   MaterialPageRoute(
+                    //               //     builder: (context) =>
+                    //               //         const CommingSoonPage(),
+                    //               //   ),
+                    //               // );
+                    //               Navigator.push(
+                    //                 context,
+                    //                 MaterialPageRoute(
+                    //                   builder: (context) =>
+                    //                       const EpWithHomePage(),
+                    //                 ),
+                    //               );
+                    //             },
+                    //             child: Visibility(
+                    //               //visible: true,
+                    //               child: Container(
+                    //                 width: 110 * fem,
+                    //                 height: 120 * fem,
+                    //                 clipBehavior: Clip.antiAlias,
+                    //                 decoration: BoxDecoration(
+                    //                   color: const Color(0xffffffff),
+                    //                   borderRadius: BorderRadius.circular(20),
+                    //                   boxShadow: [
+                    //                     BoxShadow(
+                    //                       offset: const Offset(0, 4),
+                    //                       blurRadius: 4,
+                    //                       color: Colors.black.withOpacity(0.1),
+                    //                     ),
+                    //                   ],
+                    //                 ),
+                    //                 child: Image.asset(
+                    //                   "assets/page-1/images/Group 793.png",
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                    // Visibility(
+                    //   // visible: false,
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.all(18.0),
+                    //     child: SizedBox(
+                    //       width: double.infinity,
+                    //       height: 112 * fem,
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //         children: [
+                    //           Expanded(
+                    //             child: GestureDetector(
+                    //               onTap: () {
+                    //                 Navigator.push(
+                    //                     context,
+                    //                     MaterialPageRoute(
+                    //                         builder: (context) =>
+                    //                             const ComingSoon()));
+                    //               },
+                    //               child: Container(
+                    //                 width: 110 * fem,
+                    //                 height: 120 * fem,
+                    //                 clipBehavior: Clip.antiAlias,
+                    //                 decoration: BoxDecoration(
+                    //                   color: const Color(0xff6450A8),
+                    //                   borderRadius: BorderRadius.circular(20),
+                    //                   boxShadow: [
+                    //                     BoxShadow(
+                    //                       offset: const Offset(0, 4),
+                    //                       blurRadius: 4,
+                    //                       color: Colors.black.withOpacity(0.1),
+                    //                     ),
+                    //                   ],
+                    //                 ),
+                    //                 child: Image.asset(
+                    //                   "assets/page-1/images/Group 794.png",
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           ),
+                    //           const SizedBox(
+                    //             width: 34,
+                    //           ),
+                    //           Expanded(
+                    //             child: Row(
+                    //               crossAxisAlignment: CrossAxisAlignment.center,
+                    //               mainAxisAlignment: MainAxisAlignment.center,
+                    //               children: [
+                    //                 Expanded(
+                    //                   child: GestureDetector(
+                    //                     onTap: () {
+                    //                       Navigator.push(
+                    //                           context,
+                    //                           MaterialPageRoute(
+                    //                               builder: (context) =>
+                    //                                   const AccommodationWithHomePage()));
+                    //                     },
+                    //                     child: Container(
+                    //                       width: 140 * fem,
+                    //                       height: 140 * fem,
+                    //                       clipBehavior: Clip.antiAlias,
+                    //                       decoration: BoxDecoration(
+                    //                         color: const Color(0xff5273B4),
+                    //                         borderRadius:
+                    //                             BorderRadius.circular(20),
+                    //                         boxShadow: [
+                    //                           BoxShadow(
+                    //                             offset: const Offset(0, 4),
+                    //                             blurRadius: 4,
+                    //                             color: Colors.black
+                    //                                 .withOpacity(0.1),
+                    //                           ),
+                    //                         ],
+                    //                       ),
+                    //                       child: Image.asset(
+                    //                         "assets/page-1/images/Group 795.png",
+                    //                       ),
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //               ],
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),),
+
                     const SizedBox(height: 20),
                     Align(
                       child: Container(
@@ -1115,329 +1159,21 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Widget profileCard(
-  //     LatestSessionsModel latestSessionsModel, int cardIndex, int totalCards) {
-  //   var width = MediaQuery.of(context).size.width;
-  //   var counsellorSessionProvider = context.watch<CounsellorDetailsProvider>();
-  //   str = counsellorSessionProvider.popularWorkShopList[0].sessionDate
-  //       ?.split('T');
-  //   return Padding(
-  //     padding: const EdgeInsets.only(
-  //       left: 10,
-  //       right: 10,
-  //     ),
-  //     child: SizedBox(
-  //       width: width / 1.05,
-  //       child: Card(
-  //         color: Colors.white,
-  //         surfaceTintColor: Colors.white,
-  //         elevation: 2,
-  //         shape:
-  //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-  //         child: Padding(
-  //           padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-  //           child: Stack(
-  //             children: [
-  //               Column(
-  //                 children: [
-  //                   Row(
-  //                     crossAxisAlignment: CrossAxisAlignment.start,
-  //                     children: [
-  //                       CircleAvatar(
-  //                         radius: 38,
-  //                         backgroundImage: NetworkImage(
-  //                             latestSessionsModel.counsellorProfilePic!),
-  //                       ),
-  //                       const SizedBox(width: 8),
-  //                       Column(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         // mainAxisAlignment: MainAxisAlignment.start,
-  //                         children: [
-  //                           const SizedBox(height: 10),
-  //                           Text(
-  //                             latestSessionsModel.counsellorName ?? "N/A",
-  //                             style: const TextStyle(
-  //                               color: Color(0xFF1F0A68),
-  //                               fontSize: 14.5,
-  //                               fontFamily: 'Inter',
-  //                               fontWeight: FontWeight.w500,
-  //                               height: 0,
-  //                             ),
-  //                           ),
-  //                           const SizedBox(height: 3),
-  //                           SizedBox(
-  //                             width: 190.25,
-  //                             child: Text(
-  //                               latestSessionsModel.sessionTopic!,
-  //                               maxLines: 2,
-  //                               overflow: TextOverflow.ellipsis,
-  //                               style: TextStyle(
-  //                                 color: Colors.black,
-  //                                 fontSize: 15.sp,
-  //                                 fontFamily: 'Inter',
-  //                                 fontWeight: FontWeight.w500,
-  //                                 height: 0,
-  //                               ),
-  //                             ),
-  //                           ),
-  //                           const SizedBox(height: 4),
-  //                           Row(
-  //                             children: [
-  //                               Image.asset(
-  //                                 "assets/page-1/images/clock-circular-outline-Ra1.png",
-  //                                 height: 12,
-  //                                 width: 12,
-  //                               ),
-  //                               const SizedBox(width: 4),
-  //                               SizedBox(
-  //                                 width: 121.13,
-  //                                 child: Text(
-  //                                   latestSessionsModel.sessionTime != null
-  //                                       ? '${(latestSessionsModel.sessionTime! ~/ 60) % 12 == 0 ? 12 : (latestSessionsModel.sessionTime! ~/ 60) % 12}:${(latestSessionsModel.sessionTime! % 60).toString().padLeft(2, '0')} ${(latestSessionsModel.sessionTime! ~/ 60) < 12 ? 'AM' : 'PM'}'
-  //                                       : 'N/A',
-  //                                   style: const TextStyle(
-  //                                     color: Color(0xFF414040),
-  //                                     fontSize: 12,
-  //                                     fontFamily: 'Inter',
-  //                                     fontWeight: FontWeight.w400,
-  //                                     height: 0.08,
-  //                                   ),
-  //                                 ),
-  //                               ),
-  //                             ],
-  //                           ),
-  //                           const SizedBox(height: 4),
-  //                           Row(
-  //                             children: [
-  //                               Container(
-  //                                 width: 13,
-  //                                 height: 13,
-  //                                 decoration: const BoxDecoration(
-  //                                   image: DecorationImage(
-  //                                     image: AssetImage(
-  //                                         "assets/page-1/images/calender.png"),
-  //                                     fit: BoxFit.fill,
-  //                                   ),
-  //                                 ),
-  //                               ),
-  //                               const SizedBox(width: 6),
-  //                               SizedBox(
-  //                                 width: 121.13,
-  //                                 child: Text(
-  //                                   "${latestSessionsModel.sessionDate}",
-  //                                   style: const TextStyle(
-  //                                     color: Color(0xFF414040),
-  //                                     fontSize: 12,
-  //                                     fontFamily: 'Inter',
-  //                                     fontWeight: FontWeight.w400,
-  //                                     height: 0.08,
-  //                                   ),
-  //                                 ),
-  //                               ),
-  //                             ],
-  //                           ),
-  //                           const SizedBox(height: 4),
-  //                           Row(
-  //                             children: [
-  //                               Container(
-  //                                 width: 12,
-  //                                 height: 12,
-  //                                 decoration: const BoxDecoration(
-  //                                   image: DecorationImage(
-  //                                     image: AssetImage(
-  //                                         "assets/page-1/images/rate.png"),
-  //                                     fit: BoxFit.fill,
-  //                                   ),
-  //                                 ),
-  //                               ),
-  //                               const SizedBox(
-  //                                 width: 4,
-  //                               ),
-  //                               SizedBox(
-  //                                 width: 121.13,
-  //                                 child: Text(
-  //                                   ' ${latestSessionsModel.sessionFee}/-',
-  //                                   style: const TextStyle(
-  //                                     color: Color(0xFF414040),
-  //                                     fontSize: 12,
-  //                                     fontFamily: 'Inter',
-  //                                     fontWeight: FontWeight.w400,
-  //                                     height: 0.08,
-  //                                   ),
-  //                                 ),
-  //                               ),
-  //                             ],
-  //                           )
-  //                         ],
-  //                       ),
-  //                     ],
-  //                   ),
-  //                   const SizedBox(height: 12),
-  //                   Container(
-  //                     height: 0.47,
-  //                     width: width * 0.85,
-  //                     color: const Color(0xffAFAFAF).withOpacity(.78),
-  //                   ),
-  //                   SizedBox(
-  //                     height: MediaQuery.of(context).size.height * 0.014,
-  //                   ),
-  //                   Row(
-  //                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //                     children: [
-  //                       GestureDetector(
-  //                         onTap: () {
-  //                           Navigator.push(
-  //                             context,
-  //                             MaterialPageRoute(
-  //                               builder: (context) {
-  //                                 return CounsellorDetailsScreen(
-  //                                   id: latestSessionsModel.counsellorId!,
-  //                                 );
-  //                               },
-  //                             ),
-  //                           );
-  //                         },
-  //                         child: Container(
-  //                           width: 120.14,
-  //                           height: 33,
-  //                           decoration: ShapeDecoration(
-  //                             color: Colors.white,
-  //                             shape: RoundedRectangleBorder(
-  //                               side: BorderSide(
-  //                                 width: 0.50,
-  //                                 color: Colors.black
-  //                                     .withOpacity(0.7400000095367432),
-  //                               ),
-  //                               borderRadius: BorderRadius.circular(10),
-  //                             ),
-  //                           ),
-  //                           child: const SizedBox(
-  //                             width: 119.09,
-  //                             height: 16.05,
-  //                             child: Center(
-  //                               child: Text(
-  //                                 'Visit Profile',
-  //                                 textAlign: TextAlign.center,
-  //                                 style: TextStyle(
-  //                                   color: Color(0xFF262626),
-  //                                   fontSize: 14,
-  //                                   fontFamily: 'Inter',
-  //                                   fontWeight: FontWeight.w700,
-  //                                   height: 0.07,
-  //                                 ),
-  //                               ),
-  //                             ),
-  //                           ),
-  //                         ),
-  //                       ),
-  //                       const SizedBox(width: 30),
-  //                       GestureDetector(
-  //                         onTap: () {
-  //                           Navigator.push(
-  //                             context,
-  //                             MaterialPageRoute(
-  //                               builder: (context) {
-  //                                 log("Session Time=> ${latestSessionsModel.sessionTime}");
-  //                                 log("Session Date=> ${latestSessionsModel.sessionStartingDate}");
-  //                                 return CheckOutScreen(
-  //                                   designation: latestSessionsModel
-  //                                       .counsellorDesignation!,
-  //                                   name: latestSessionsModel.counsellorName!,
-  //                                   profilepicurl: latestSessionsModel
-  //                                       .counsellorProfilePic!,
-  //                                   id: latestSessionsModel.counsellorId!,
-  //                                   sessionId: latestSessionsModel.sessionId!,
-  //                                   sessionTime:
-  //                                       latestSessionsModel.sessionTime,
-  //                                   sessionTopic:
-  //                                       latestSessionsModel.sessionTopic,
-  //                                   sessionDuration:
-  //                                       latestSessionsModel.sessionDuration,
-  //                                 );
-  //                               },
-  //                             ),
-  //                           );
-  //                         },
-  //                         child: Container(
-  //                           width: 120,
-  //                           height: 33,
-  //                           decoration: ShapeDecoration(
-  //                             color: const Color(0xff1F0A68),
-  //                             shape: RoundedRectangleBorder(
-  //                               borderRadius: BorderRadius.circular(10),
-  //                             ),
-  //                           ),
-  //                           child: const SizedBox(
-  //                             width: 119.09,
-  //                             height: 14.05,
-  //                             child: Center(
-  //                               child: Text(
-  //                                 'Book Now',
-  //                                 textAlign: TextAlign.center,
-  //                                 style: TextStyle(
-  //                                   color: Colors.white,
-  //                                   fontSize: 14,
-  //                                   fontFamily: 'Inter',
-  //                                   fontWeight: FontWeight.w700,
-  //                                   height: 0.07,
-  //                                 ),
-  //                               ),
-  //                             ),
-  //                           ),
-  //                         ),
-  //                       ),
-  //                     ],
-  //                   ),
-  //                   const SizedBox(height: 6),
-  //                   Row(
-  //                     mainAxisAlignment: MainAxisAlignment.center,
-  //                     children: List.generate(
-  //                       totalCards,
-  //                       (index) {
-  //                         return Icon(
-  //                           index == cardIndex
-  //                               ? Icons.circle
-  //                               : Icons.circle_outlined,
-  //                           color: const Color(0xff1F0A68),
-  //                           size: 8,
-  //                         );
-  //                       },
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //               Positioned(
-  //                 top: 5,
-  //                 right: 10,
-  //                 child: GestureDetector(
-  //                   onTap: () {
-  //                     shareLinks();
-  //                   },
-  //                   child: Center(
-  //                     child: Image.asset(
-  //                       "assets/page-1/images/group-38-oFX.png",
-  //                       color: const Color(0xFF1F0A68),
-  //                       height: 20.h,
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
   void onTapgotocounsellor(BuildContext context) {
-    Navigator.pushReplacement(context,
+    Navigator.push(context,
         MaterialPageRoute(builder: (context) => const HomePageContainer_2()));
   }
 
   void onTapgotoEP(BuildContext context) {
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) => const HomePageContainer_2()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const EpWithHomePage()));
+  }
+
+  void onTapgotoAccommodation(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const AccommodationWithHomePage()));
   }
 
   initPrefrence(Map<String, dynamic> value) async {
@@ -1458,12 +1194,12 @@ class RegisterNowWidget extends StatelessWidget {
   final bool canJoin;
 
   const RegisterNowWidget({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.regdate,
     required this.isRegisterNow,
     required this.canJoin,
-  }) : super(key: key);
+  });
 
   DateTime parseDate(String dateString) {
     // Parse the date string assuming it's in the format "yyyy-MM-dd".

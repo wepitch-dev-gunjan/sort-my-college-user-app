@@ -1,9 +1,11 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:myapp/other/api_service.dart';
 import '../../entrance_preparation/components/commons.dart';
 import 'scrollable_date_picker.dart';
 
@@ -21,8 +23,10 @@ class AccommodationBottomBar extends StatefulWidget {
 
 class _AccommodationBottomBarState extends State<AccommodationBottomBar> {
   DateTime? selectedDate;
+  TextEditingController message = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final id = widget.data['_id'];
     double baseWidth = 460;
     double width = MediaQuery.of(context).size.width;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -135,6 +139,7 @@ class _AccommodationBottomBarState extends State<AccommodationBottomBar> {
                                             ),
                                             TextFormField(
                                               maxLines: 2,
+                                              controller: message,
                                               decoration: InputDecoration(
                                                 fillColor: Colors.white,
                                                 hintText: "Type here....",
@@ -166,29 +171,41 @@ class _AccommodationBottomBarState extends State<AccommodationBottomBar> {
                                         child: Btn(
                                           onTap: () async {
                                             if (selectedDate != null) {
-                                              Navigator.pop(context);
-                                              showModalBottomSheet(
-                                                  context: context,
-                                                  backgroundColor: Colors.white,
-                                                  shape:
-                                                      const RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.vertical(
-                                                      top: Radius.circular(
-                                                        20.0,
+                                              final value = await ApiService
+                                                  .accommodationSheduleVisit(
+                                                      id: id,
+                                                      time: selectedDate
+                                                          .toString(),
+                                                      message: message.text);
+                                              if (context.mounted &&
+                                                  value['message'] ==
+                                                      "Enquiry added successfully") {
+                                                message.clear();
+                                                Navigator.pop(context);
+                                                return showModalBottomSheet(
+                                                    context: context,
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                    shape:
+                                                        const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.vertical(
+                                                        top: Radius.circular(
+                                                          20.0,
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  isScrollControlled: true,
-                                                  builder: (context) {
-                                                    return EnquiryBottomSheet(
-                                                      data: widget.data,
-                                                      width: width,
-                                                      ffem: ffem,
-                                                      date: selectedDate
-                                                          .toString(),
-                                                    );
-                                                  });
+                                                    isScrollControlled: true,
+                                                    builder: (context) {
+                                                      return EnquiryBottomSheet(
+                                                        data: widget.data,
+                                                        width: width,
+                                                        ffem: ffem,
+                                                        date: selectedDate
+                                                            .toString(),
+                                                      );
+                                                    });
+                                              }
                                             } else {
                                               dateRequired();
                                             }
@@ -247,15 +264,27 @@ class EnquiryBottomSheet extends StatelessWidget {
   final double ffem;
   final String date;
 
-  const EnquiryBottomSheet(
-      {super.key,
-      required this.width,
-      required this.ffem,
-      required this.data,
-      required this.date});
+  const EnquiryBottomSheet({
+    super.key,
+    required this.width,
+    required this.ffem,
+    required this.data,
+    required this.date,
+  });
+
+  String formatTime(String dateTime) {
+    // Removing extra double quotes and converting to local time
+    final cleanedDateTime = dateTime.replaceAll('"', '');
+    final date = DateTime.parse(cleanedDateTime).toLocal();
+    return DateFormat('h:mm a').format(date); // Format in 'h:mm a'
+  }
 
   @override
   Widget build(BuildContext context) {
+    // Converting opening and closing times to formatted strings
+    final openingTime = formatTime(data['gate_opening_time']);
+    final closingTime = formatTime(data['gate_closing_time']);
+
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.all(16.0),
@@ -305,7 +334,7 @@ class EnquiryBottomSheet extends StatelessWidget {
                       ffem: ffem,
                       icon: Icons.watch_later,
                       leading: "Time",
-                      traling: "9AM-12PM",
+                      traling: "$openingTime - $closingTime", // Formatted time
                     ),
                     const SizedBox(height: 10.0),
                     CusTile(
@@ -388,7 +417,7 @@ class CusTile extends StatelessWidget {
           style: TextStyle(fontSize: 18),
         ),
         SizedBox(
-          width: 120,
+          width: 140,
           child: Text(
             traling,
             style: GoogleFonts.inter(
