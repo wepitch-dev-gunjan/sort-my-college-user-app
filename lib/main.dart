@@ -62,3 +62,15 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+
+// class Console {
+//   static data(List responseBody, {String? value}) {
+//     var encoder = const JsonEncoder.withIndent('  ');
+//     final prettyString = encoder.convert(responseBody);
+//     const String red = '\x1B[37m';
+//     const String reset = '\x1B[0m';
+//     log("${red}value$prettyString$reset");
+//   }
+// }

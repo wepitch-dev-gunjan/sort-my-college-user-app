@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:myapp/booking_page/booking_confirmatoin_today.dart';
 import 'package:myapp/utils.dart';
@@ -39,29 +39,9 @@ class _BookingTodayState extends State<BookingToday> {
     });
   }
 
-  // Future<void> _refresh() async {
-  //   return Future.delayed(const Duration(seconds: 1), () {
-  //     context
-  //         .read<UserBookingProvider>()
-  //         .fetchUserBookings(past: false, today: true, upcoming: false);
-  //   });
-  // }
-
-  // DateTime parseTiming(String time) {
-  //   List<String> parts = time.split(":");
-
-  //   return DateTime(
-  //     DateTime.now().year,
-  //     DateTime.now().month,
-  //     DateTime.now().day,
-  //     int.parse(parts[0]),
-  //     int.parse(parts[1]),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
-    log("Today Data=>>>>>>$bookings");
+    
     var mWidth = MediaQuery.sizeOf(context).width;
 
     return isLoading
@@ -76,20 +56,17 @@ class _BookingTodayState extends State<BookingToday> {
             : ListView.builder(
                 itemCount: bookings.length,
                 itemBuilder: (context, index) {
-                  // var time = "${bookings[index]['booking_data']["session_time"]}";
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Container(
                       margin: const EdgeInsets.only(bottom: 15),
                       child: Stack(
-                        // fit: StackFit.expand,
                         alignment: Alignment.bottomCenter,
                         children: [
                           Card(
                             color: Colors.white,
                             surfaceTintColor: Colors.white,
                             shadowColor: Colors.white,
-                            // semanticContainer: false,
                             margin: const EdgeInsets.only(top: 5),
                             elevation: 5,
                             shape: RoundedRectangleBorder(
@@ -120,10 +97,6 @@ class _BookingTodayState extends State<BookingToday> {
                                               children: [
                                                 Text(
                                                   '${bookings[index]["booked_entity"]['name']}',
-                                                  // bookings[index]
-                                                  //         .booked_entity
-                                                  //         ?.name ??
-                                                  //     "Coming",
                                                   style: SafeGoogleFont(
                                                     "Inter",
                                                     fontSize: mWidth * 0.045,
@@ -132,11 +105,6 @@ class _BookingTodayState extends State<BookingToday> {
                                                 ),
                                                 Text(
                                                   '${bookings[index]["booked_entity"]['designation']}',
-                                                  // bookings[index]
-                                                  //         .booked_entity
-                                                  //         ?.email ??
-                                                  //     'N/A',
-                                                  // textAlign: TextAlign.left,
                                                   style: SafeGoogleFont(
                                                     "Inter",
                                                     color:
@@ -185,12 +153,6 @@ class _BookingTodayState extends State<BookingToday> {
                                                               FontWeight.w600,
                                                           fontSize: 20,
                                                           color: Colors.black)),
-                                                  // TextSpan(
-                                                  //     text: "m",
-                                                  //     style: SafeGoogleFont("Inter",
-                                                  //         fontWeight: FontWeight.w600,
-                                                  //         fontSize: 14,
-                                                  //         color: Colors.black))
                                                 ],
                                               ),
                                             )

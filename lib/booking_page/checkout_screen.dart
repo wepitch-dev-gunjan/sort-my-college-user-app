@@ -175,9 +175,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             ?.split('T')
         : '';
 
-    // sessionId = counsellorDetailController.checkOutDetailsList.isNotEmpty
-    //     ? counsellorDetailController.checkOutDetailsList[0].sessionId.toString()
-    //     : '';
 
     if (counsellorDetailController.checkOutDetailsList.isNotEmpty) {
       dynamic totalAmount =
@@ -356,10 +353,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                       ),
                       SizedBox(height: height * 0.06),
-                      // counsellorDetailController
-                      //             .checkOutDetailsList[0].sessionType ==
-                      //         "Personal"
-                      //     ? const SizedBox()
                       Card(
                         elevation: 4,
                         shadowColor: ColorsConst.whiteColor,
@@ -374,7 +367,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ? 120
                               : 130,
                           child: ListView(
-                            // mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Row(
                                 children: [
@@ -426,10 +418,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                               color: ColorsConst.black54Color,
                                               fontSize: 13,
                                             ),
-                                            // overflow: TextOverflow
-                                            //     .ellipsis, // Optional: to show '...' for long text
-                                            // softWrap:
-                                            //     true, // Allows text to wrap to the next line
+                                          
                                           ),
                                         ),
                                       ],
@@ -666,8 +655,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                         }
                                         key = value["data"]["key"];
                                         oderId = value["data"]["id"];
-                                        print(key);
-
                                         num price = counsellorDetailController
                                             .checkOutDetailsList[0].totalAmount;
                                         price = price.toInt();
