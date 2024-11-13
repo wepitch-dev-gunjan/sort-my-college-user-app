@@ -41,7 +41,6 @@ class _NewsInformationScreenState extends State<NewsInformationScreen> {
           },
           icon: const Icon(Icons.arrow_back_ios_new,color: Colors.white,),
         ),
-        //titleSpacing: 120,
         title: Padding(
           padding: const EdgeInsets.only(left: 54),
           child: Text(

@@ -11,10 +11,7 @@ import 'scrollable_date_picker.dart';
 class AccommodationBottomBar extends StatefulWidget {
   final dynamic data;
 
-  const AccommodationBottomBar({
-    super.key,
-    required this.data,
-  });
+  const AccommodationBottomBar({super.key, required this.data});
 
   @override
   State<AccommodationBottomBar> createState() => _AccommodationBottomBarState();
@@ -25,7 +22,6 @@ class _AccommodationBottomBarState extends State<AccommodationBottomBar> {
   TextEditingController message = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    // Console.data(widget.data, value: "Data");
     final id = widget.data['_id'];
     double baseWidth = 460;
     double width = MediaQuery.of(context).size.width;

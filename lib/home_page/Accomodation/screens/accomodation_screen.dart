@@ -26,20 +26,6 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
     getAllAccommodation();
   }
 
-  // Future<void> loadCachedData() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final cachedData = prefs.getString('accommodationData');
-
-  //   if (cachedData != null) {
-  //     setState(() {
-  //       data = jsonDecode(cachedData);
-  //       isLoading = false;
-  //     });
-  //   }
-
-  //   getAllAccommodation();
-  // }
-
   Future<void> getAllAccommodation() async {
     final res = await ApiService.getAllAccommodation();
     if (res != null) {

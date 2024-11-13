@@ -11,8 +11,9 @@ import '../components/sharing_status_card.dart';
 
 class DetailAccommodation extends StatefulWidget {
   final dynamic data;
+  final List? review;
 
-  const DetailAccommodation({super.key, required this.data});
+  const DetailAccommodation({super.key, required this.data, this.review});
 
   @override
   State<DetailAccommodation> createState() => _DetailAccommodationState();
