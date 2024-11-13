@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/other/api_service.dart';
+import '../../../main.dart';
 import '../../entrance_preparation/components/commons.dart';
 import 'scrollable_date_picker.dart';
 
@@ -25,6 +26,7 @@ class _AccommodationBottomBarState extends State<AccommodationBottomBar> {
   TextEditingController message = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    // Console.data(widget.data, value: "Data");
     final id = widget.data['_id'];
     double baseWidth = 460;
     double width = MediaQuery.of(context).size.width;
@@ -182,28 +184,28 @@ class _AccommodationBottomBarState extends State<AccommodationBottomBar> {
                                                 message.clear();
                                                 Navigator.pop(context);
                                                 return showModalBottomSheet(
-                                                    context: context,
-                                                    backgroundColor:
-                                                        Colors.white,
-                                                    shape:
-                                                        const RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.vertical(
-                                                        top: Radius.circular(
-                                                          20.0,
-                                                        ),
+                                                  context: context,
+                                                  backgroundColor: Colors.white,
+                                                  shape:
+                                                      const RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.vertical(
+                                                      top: Radius.circular(
+                                                        20.0,
                                                       ),
                                                     ),
-                                                    isScrollControlled: true,
-                                                    builder: (context) {
-                                                      return EnquiryBottomSheet(
-                                                        data: widget.data,
-                                                        width: width,
-                                                        ffem: ffem,
-                                                        date: selectedDate
-                                                            .toString(),
-                                                      );
-                                                    });
+                                                  ),
+                                                  isScrollControlled: true,
+                                                  builder: (context) {
+                                                    return EnquiryBottomSheet(
+                                                      data: widget.data,
+                                                      width: width,
+                                                      ffem: ffem,
+                                                      date: selectedDate
+                                                          .toString(),
+                                                    );
+                                                  },
+                                                );
                                               }
                                             } else {
                                               dateRequired();

@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -63,14 +65,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
-// class Console {
-//   static data(List responseBody, {String? value}) {
-//     var encoder = const JsonEncoder.withIndent('  ');
-//     final prettyString = encoder.convert(responseBody);
-//     const String red = '\x1B[37m';
-//     const String reset = '\x1B[0m';
-//     log("${red}value$prettyString$reset");
-//   }
-// }
+class Console {
+  static data(dynamic responseBody, {String? value}) {
+    var encoder = const JsonEncoder.withIndent('  ');
+    final prettyString = encoder.convert(responseBody);
+    const String red = '\x1B[37m';
+    const String reset = '\x1B[0m';
+    log("${red}value$prettyString$reset");
+  }
+}

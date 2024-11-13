@@ -36,8 +36,6 @@ class _BookingUpcomingState extends State<BookingUpcoming> {
     });
   }
 
- 
-
   @override
   Widget build(BuildContext context) {
     var mWidth = MediaQuery.sizeOf(context).width;
