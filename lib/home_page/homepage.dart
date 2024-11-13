@@ -33,6 +33,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final ScrollController _scrollController = ScrollController();
+  bool _showBackArrow = false;
   String name = "";
   String username = "";
   String path = '';
@@ -50,6 +52,12 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    _scrollController.addListener(() {
+      setState(() {
+        // Toggle between showing the back arrow if scrolled past a threshold
+        _showBackArrow = _scrollController.position.pixels > 50;
+      });
+    });
     getAllInfo();
     counsellorDetailsProvider =
         Provider.of<CounsellorDetailsProvider>(context, listen: false);
@@ -59,8 +67,26 @@ class _HomePageState extends State<HomePage> {
     imgUrlList.clear();
   }
 
+  void _scrollToAccommodation() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  void _scrollToStart() {
+    _scrollController.animateTo(
+      0,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
   void getAllInfo() async {
-    await ApiService.get_profile().then((value) => initPrefrence(value));
+    await ApiService.get_profile().then(
+      (value) => initPrefrence(value),
+    );
   }
 
   void saveImagePathToPrefs(String path) async {
@@ -162,51 +188,73 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  onTapgotocounsellor(context);
-                                },
-                                child: SizedBox(
-                                  height: 110 * fem,
-                                  width: 175 * fem,
-                                  child: Image.asset(
-                                    "assets/page-1/images/find_counsellor.png",
-                                  ),
+                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                      child: SingleChildScrollView(
+                        controller: _scrollController,
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                onTapgotocounsellor(context);
+                              },
+                              child: SizedBox(
+                                height: 110 * fem,
+                                width: 175 * fem,
+                                child: Image.asset(
+                                  "assets/page-1/images/find_counsellor.png",
                                 ),
                               ),
-                              const SizedBox(width: 30),
-                              GestureDetector(
-                                onTap: () {
-                                  onTapgotoEP(context);
-                                },
-                                child: SizedBox(
-                                  height: 110 * fem,
-                                  width: 175 * fem,
-                                  child: Image.asset(
-                                      "assets/page-1/images/Group 793.png"),
-                                ),
+                            ),
+                            const SizedBox(width: 30),
+                            GestureDetector(
+                              onTap: () {
+                                onTapgotoEP(context);
+                              },
+                              child: SizedBox(
+                                height: 110 * fem,
+                                width: 175 * fem,
+                                child: Image.asset(
+                                    "assets/page-1/images/Group 793.png"),
                               ),
-                              const SizedBox(width: 30),
-                              GestureDetector(
-                                onTap: () {
-                                  onTapgotoAccommodation(context);
-                                },
-                                child: SizedBox(
-                                  height: 110 * fem,
-                                  width: 175 * fem,
-                                  child: Image.asset(
-                                      "assets/page-1/images/Group 795.png"),
-                                ),
-                              )
-                            ],
+                            ),
+                            const SizedBox(width: 30),
+                            GestureDetector(
+                              onTap: () {
+                                onTapgotoAccommodation(context);
+                              },
+                              child: SizedBox(
+                                height: 110 * fem,
+                                width: 175 * fem,
+                                child: Image.asset(
+                                    "assets/page-1/images/Group 795.png"),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            _showBackArrow
+                                ? Icons.arrow_back
+                                : Icons.arrow_forward,
+                            color: const Color(0xff1F0A68),
                           ),
-                        )),
+                          onPressed: () {
+                            if (_showBackArrow) {
+                              _scrollToStart();
+                            } else {
+                              _scrollToAccommodation();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
 
                     // Padding(
                     //   padding: const EdgeInsets.all(18.0),
@@ -376,7 +424,7 @@ class _HomePageState extends State<HomePage> {
                     //     ),
                     //   ),),
 
-                    const SizedBox(height: 20),
+                    // const SizedBox(height: 10),
                     Align(
                       child: Container(
                         constraints: const BoxConstraints(

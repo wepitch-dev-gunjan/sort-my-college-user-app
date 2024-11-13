@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/other/api_service.dart';
-import '../../../main.dart';
 import '../../entrance_preparation/components/commons.dart';
 import 'scrollable_date_picker.dart';
 

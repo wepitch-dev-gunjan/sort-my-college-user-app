@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import '../../../other/api_service.dart';
 import '../../../shared/colors_const.dart';
@@ -46,7 +45,6 @@ class _DetailAccommodationState extends State<DetailAccommodation> {
 
   @override
   Widget build(BuildContext context) {
-    log("data1${widget.data['_id']}");
     return Scaffold(
       backgroundColor: ColorsConst.whiteColor,
       body: SingleChildScrollView(
