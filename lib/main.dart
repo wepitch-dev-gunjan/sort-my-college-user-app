@@ -25,10 +25,50 @@ Future<void> main() async {
   runApp(MyApp(isLoggedIn: isLoggedIn!));
 }
 
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key, required this.isLoggedIn});
+
+//   final bool isLoggedIn;
+//   static Future<bool?> loggIn() async {
+//     return await SharedPre.getAuthLogin();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MultiProvider(
+//       providers: [
+//         ChangeNotifierProvider(create: (context) => FollowerProvider()),
+//         ChangeNotifierProvider(
+//             create: (context) => CounsellorDetailsProvider()),
+//         ChangeNotifierProvider(create: (context) => UserBookingProvider()),
+//         ChangeNotifierProvider(
+//             create: (context) =>
+//                 NewsProvider(newsApiService: NewsApiService())),
+//         ChangeNotifierProvider(
+//             create: (context) => NewsProvider1(newsService: NewsService())),
+//       ],
+//       child: ScreenUtilInit(
+//         designSize: ScreenUtil.defaultSize,
+//         minTextAdapt: true,
+//         child: GetMaterialApp(
+//           title: 'SMC App',
+//           debugShowCheckedModeBanner: false,
+//           scaffoldMessengerKey: snackbarKey,
+//           scrollBehavior: MyCustomScrollBehavior(),
+//           theme: ThemeData(primarySwatch: Colors.grey),
+//           home: SplashScreen1(isLoggedIn: isLoggedIn),
+//           builder: EasyLoading.init(),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key, required this.isLoggedIn});
 
   final bool isLoggedIn;
+
   static Future<bool?> loggIn() async {
     return await SharedPre.getAuthLogin();
   }
@@ -38,14 +78,10 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => FollowerProvider()),
-        ChangeNotifierProvider(
-            create: (context) => CounsellorDetailsProvider()),
+        ChangeNotifierProvider(create: (context) => CounsellorDetailsProvider()),
         ChangeNotifierProvider(create: (context) => UserBookingProvider()),
-        ChangeNotifierProvider(
-            create: (context) =>
-                NewsProvider(newsApiService: NewsApiService())),
-        ChangeNotifierProvider(
-            create: (context) => NewsProvider1(newsService: NewsService())),
+        ChangeNotifierProvider(create: (context) => NewsProvider(newsApiService: NewsApiService())),
+        ChangeNotifierProvider(create: (context) => NewsProvider1(newsService: NewsService())),
       ],
       child: ScreenUtilInit(
         designSize: ScreenUtil.defaultSize,
@@ -55,15 +91,33 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           scaffoldMessengerKey: snackbarKey,
           scrollBehavior: MyCustomScrollBehavior(),
-          theme: ThemeData(primarySwatch: Colors.grey),
+
+          // Define light theme
+          theme: ThemeData(
+            primarySwatch: Colors.grey,
+            brightness: Brightness.light,
+            scaffoldBackgroundColor: Colors.white,
+          ),
+
+          // Define dark theme
+          darkTheme: ThemeData(
+            primarySwatch: Colors.grey,
+            brightness: Brightness.dark,
+            scaffoldBackgroundColor: Colors.black,
+          ),
+
+          // Set theme mode to follow system settings
+          themeMode: ThemeMode.system,
+
           home: SplashScreen1(isLoggedIn: isLoggedIn),
-          // home: VisitScheduleBottomSheet(),
           builder: EasyLoading.init(),
         ),
       ),
     );
   }
 }
+
+// ============================== ! Pretty Log in console !==========================
 
 class Console {
   static data(dynamic responseBody, {String? value}) {
