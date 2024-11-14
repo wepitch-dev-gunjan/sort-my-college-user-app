@@ -58,9 +58,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   void openCheckOut(var amountt) async {
     amt_send = amountt;
     amount = amountt * 100;
-
-    log("Keyyyyyyyyyyyyyyyy=???????$key");
-
     var options = {
       "key": key,
       "amount": amount,
@@ -162,8 +159,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // log("Session Type=>$sessiontype");
-
     var counsellorDetailController = context.watch<CounsellorDetailsProvider>();
 
     sessionType = counsellorDetailController.checkOutDetailsList.isNotEmpty
@@ -174,7 +169,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         ? counsellorDetailController.checkOutDetailsList[0].sessionDate
             ?.split('T')
         : '';
-
 
     if (counsellorDetailController.checkOutDetailsList.isNotEmpty) {
       dynamic totalAmount =
@@ -315,9 +309,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                           color: ColorsConst.appBarColor,
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
+                                      const SizedBox(height: 4),
                                       GestureDetector(
                                         onTap: () {
                                           Navigator.push(context,
@@ -362,8 +354,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           padding: const EdgeInsets.only(
                               top: 12, left: 10, right: 10, bottom: 12),
                           height: counsellorDetailController
-                                      .checkOutDetailsList[0].sessionType ==
-                                  "Personal"
+                                      .checkOutDetailsList.isNotEmpty &&
+                                  counsellorDetailController
+                                          .checkOutDetailsList[0].sessionType ==
+                                      "Personal"
                               ? 120
                               : 130,
                           child: ListView(
@@ -394,8 +388,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ),
                               const SizedBox(height: 3),
                               counsellorDetailController
-                                          .checkOutDetailsList[0].sessionType ==
-                                      "Personal"
+                                          .checkOutDetailsList.isNotEmpty &&
+                                      counsellorDetailController
+                                              .checkOutDetailsList[0]
+                                              .sessionType ==
+                                          "Personal"
                                   ? const SizedBox()
                                   : Row(
                                       mainAxisAlignment:
@@ -418,7 +415,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                               color: ColorsConst.black54Color,
                                               fontSize: 13,
                                             ),
-                                          
                                           ),
                                         ),
                                       ],
@@ -626,8 +622,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                   .totalAmount,
                                               description: 'session booking',
                                               number: phoneNumber);
-                                      log("CreateOrder$value");
-
                                       if (value["error"] ==
                                           "Order not successfully created") {
                                         EasyLoading.showToast(value["error"],

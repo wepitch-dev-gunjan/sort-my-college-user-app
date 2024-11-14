@@ -25,8 +25,10 @@ class _WebinarPageState extends State<WebinarPage> {
 
   @override
   void initState() {
+    
     super.initState();
     pageController = PageController(initialPage: selectedIndex);
+
     SessionDate.dateTimeDif();
   }
 
@@ -36,6 +38,7 @@ class _WebinarPageState extends State<WebinarPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
@@ -69,10 +72,13 @@ class _WebinarPageState extends State<WebinarPage> {
               children: [
                 CustomTab(
                     onPressed: () {
+                     
                       setState(() {
                         selectedIndex = 0;
+                       
                       });
                       pageController.jumpToPage(selectedIndex);
+                   
                     },
                     title: "My Webinar",
                     isSelected: selectedIndex == 0),
