@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FilterScreen extends StatefulWidget {
+  const FilterScreen({super.key});
+
   @override
-  _FilterScreenState createState() => _FilterScreenState();
+  FilterScreenState createState() => FilterScreenState();
 }
 
-class _FilterScreenState extends State<FilterScreen> {
+class FilterScreenState extends State<FilterScreen> {
   String selectedCategory = 'City'; // Default category
   String searchQuery = ''; // To filter search results
 
@@ -29,6 +32,10 @@ class _FilterScreenState extends State<FilterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double baseWidth = 460;
+    double width = MediaQuery.of(context).size.width;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double ffem = fem * 0.97;
     // Get the filtered options based on the search query
     List<String> filteredOptions = filterOptions[selectedCategory]!
         .where((option) =>
@@ -38,12 +45,16 @@ class _FilterScreenState extends State<FilterScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        toolbarHeight: 40,
+        backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
-        title: const Text('Filters'),
+        title: Text(
+          'Filters',
+          style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400),
+        ),
         actions: [
           TextButton(
             onPressed: () {
-              // Clear all checkboxes
               setState(() {
                 selectedOptions.forEach((key, value) {
                   for (int i = 0; i < value.length; i++) {
@@ -52,9 +63,12 @@ class _FilterScreenState extends State<FilterScreen> {
                 });
               });
             },
-            child: const Text(
+            child: Text(
               'CLEAR ALL',
-              style: TextStyle(color: Colors.black),
+              style: GoogleFonts.inter(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700),
             ),
           ),
         ],
@@ -83,8 +97,9 @@ class _FilterScreenState extends State<FilterScreen> {
                                 color: isSelected ? Colors.white : Colors.black,
                               ),
                             ),
-                            tileColor:
-                                isSelected ? Color(0xff1F0A68) : Colors.white,
+                            tileColor: isSelected
+                                ? const Color(0xff1F0A68)
+                                : Colors.white,
                             onTap: () {
                               setState(() {
                                 selectedCategory = category;
@@ -92,7 +107,6 @@ class _FilterScreenState extends State<FilterScreen> {
                               });
                             },
                           ),
-                          // Line separator under each category
                           Container(
                             width: double.infinity,
                             height: 1,
@@ -112,7 +126,6 @@ class _FilterScreenState extends State<FilterScreen> {
                   flex: 3,
                   child: Column(
                     children: [
-                      // Show search bar only for City or Near By Colleges
                       if (selectedCategory == 'City' ||
                           selectedCategory == 'Near By Colleges')
                         Padding(
@@ -157,22 +170,52 @@ class _FilterScreenState extends State<FilterScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      bottomNavigationBar: BottomAppBar(
+        padding: EdgeInsets.zero,
+        height: 50,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context); // Close filter screen
-              },
-              child:const  Text('CLOSE'),
+            Expanded(
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 60,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        width: 0.5,
+                        color: Colors.black12,
+                      )),
+                  child: Text(
+                    "CLOSE",
+                    style: GoogleFonts.inter(
+                      fontSize: 15 * ffem,
+                      color: const Color(0xff7F7E85),
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                // Apply filter logic here
-              },
-              child:const  Text('APPLY'),
+            Expanded(
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                  color: const Color(0xff1F0A68),
+                  alignment: Alignment.center,
+                  height: 60.2,
+                  child: Text(
+                    "APPLY",
+                    style: GoogleFonts.inter(
+                      fontSize: 15 * ffem,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

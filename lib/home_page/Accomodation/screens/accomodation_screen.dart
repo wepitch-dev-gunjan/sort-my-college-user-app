@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/home_page/Accomodation/components/filter_screen.dart';
 import 'package:myapp/home_page/Accomodation/screens/detail_accommodation.dart';
 import 'package:myapp/home_page/entrance_preparation/components/shimmer_effect.dart';
 import 'package:myapp/other/api_service.dart';
@@ -89,6 +90,7 @@ class AccommodationCard extends StatelessWidget {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 15.0),
         TopSliderAccommodation(
@@ -98,6 +100,38 @@ class AccommodationCard extends StatelessWidget {
           height: 45,
         ),
         const SizedBox(height: 10.0),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => FilterScreen()));
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Container(
+              width: 100,
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              decoration: BoxDecoration(
+                  border:
+                      Border.all(color: const Color(0xffE3E3E3), width: 0.5),
+                  borderRadius: BorderRadius.circular(21)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    "Filters",
+                    style: GoogleFonts.inter(
+                        fontSize: 16 * ffem, fontWeight: FontWeight.w600),
+                  ),
+                  Image.asset(
+                    'assets/accommodation/filters.png',
+                    height: 18 * fem,
+                    width: 25 * fem,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -111,12 +145,13 @@ class AccommodationCard extends StatelessWidget {
             String name = accommodation['name'] ?? 'N/A';
             String area = accommodation['address']['area'] ?? 'N/A';
             String city = accommodation['address']['city'] ?? 'N/A';
+
             double rating = (accommodation['rating'] != null)
                 ? (accommodation['rating'] is int
                     ? accommodation['rating'].toDouble()
                     : accommodation['rating'])
                 : 0.0;
-            int reviewsCount = accommodation['reviews']?.length ?? 0;
+            int reviewsCount = accommodation['reviews_count'] ?? 0;
             String price = (accommodation['rooms'] != null &&
                     accommodation['rooms'].isNotEmpty)
                 ? "${accommodation['rooms'][0]['monthly_charge'] ?? 'N/A'} INR/"
@@ -189,9 +224,10 @@ class AccommodationCard extends StatelessWidget {
                                       Flexible(
                                         child: Text(
                                           "$rating Rating | ($reviewsCount) Reviews",
+                                          maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.inter(
-                                            fontSize: 12 * ffem,
+                                            fontSize: 11 * ffem,
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),

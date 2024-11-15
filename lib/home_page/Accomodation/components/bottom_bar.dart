@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:myapp/home_page/help_screen.dart';
 import 'package:myapp/other/api_service.dart';
 import '../../entrance_preparation/components/commons.dart';
 import 'scrollable_date_picker.dart';
@@ -268,106 +269,131 @@ class EnquiryBottomSheet extends StatelessWidget {
     required this.date,
   });
 
-  String formatTime(String dateTime) {
-    // Removing extra double quotes and converting to local time
-    final cleanedDateTime = dateTime.replaceAll('"', '');
-    final date = DateTime.parse(cleanedDateTime).toLocal();
-    return DateFormat('h:mm a').format(date); // Format in 'h:mm a'
-  }
+  // String formatTime(String dateTime) {
+  //   // Removing extra double quotes and converting to local time
+  //   final cleanedDateTime = dateTime.replaceAll('"', '');
+  //   final date = DateTime.parse(cleanedDateTime).toLocal();
+  //   return DateFormat('h:mm a').format(date); // Format in 'h:mm a'
+  // }
 
   @override
   Widget build(BuildContext context) {
-    // Converting opening and closing times to formatted strings
-    final openingTime = formatTime(data['gate_opening_time']);
-    final closingTime = formatTime(data['gate_closing_time']);
+    // // Converting opening and closing times to formatted strings
+    // final openingTime = formatTime(data['gate_opening_time']);
+    // final closingTime = formatTime(data['gate_closing_time']);
 
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'Enquiry Sent',
-            style: GoogleFonts.inter(
-              fontSize: 22 * ffem,
-              decoration: TextDecoration.underline,
-              fontWeight: FontWeight.w700,
-              color: const Color(0xff1f0a68),
-            ),
-          ),
-          const SizedBox(height: 15.0),
-          SizedBox(
-            width: width,
-            child: Card(
-              color: Colors.white,
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Column(
-                  children: [
-                    Text(
-                      'Ram Niwas PG',
-                      style: GoogleFonts.inter(
-                        fontSize: 22 * ffem,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 15.0),
-                    CusTile(
-                      ffem: ffem,
-                      icon: Icons.date_range,
-                      leading: "Date",
-                      traling:
-                          DateFormat('yyyy-MM-dd').format(DateTime.parse(date)),
-                    ),
-                    const SizedBox(height: 10.0),
-                    CusTile(
-                      ffem: ffem,
-                      icon: Icons.watch_later,
-                      leading: "Time",
-                      traling: "$openingTime - $closingTime", // Formatted time
-                    ),
-                    const SizedBox(height: 10.0),
-                    CusTile(
-                      ffem: ffem,
-                      icon: Icons.location_on,
-                      leading: "Location",
-                      traling:
-                          "${data['address']['area']} ${data['address']['city']} ${data['address']['state']} ${data['address']['pin_code']}",
-                    ),
-                    const SizedBox(height: 10.0),
-                    CusTile(
-                      ffem: ffem,
-                      icon: Icons.email,
-                      leading: "Gmail",
-                      traling: "smc@gmail.com",
-                    ),
-                    const SizedBox(height: 15.0),
-                  ],
+    return Stack(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Enquiry Sent',
+                style: GoogleFonts.inter(
+                  fontSize: 22 * ffem,
+                  decoration: TextDecoration.underline,
+                  fontWeight: FontWeight.w700,
+                  color: const Color(0xff1f0a68),
                 ),
               ),
+              const SizedBox(height: 15.0),
+              SizedBox(
+                width: width,
+                child: Card(
+                  color: Colors.white,
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: Column(
+                      children: [
+                        Text(
+                          data['name'] ?? "N/A",
+                          style: GoogleFonts.inter(
+                            fontSize: 22 * ffem,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 15.0),
+                        CusTile(
+                          ffem: ffem,
+                          icon: Icons.date_range,
+                          leading: "Date",
+                          traling: DateFormat('yyyy-MM-dd')
+                              .format(DateTime.parse(date)),
+                        ),
+                        const SizedBox(height: 10.0),
+                        // CusTile(
+                        //   ffem: ffem,
+                        //   icon: Icons.watch_later,
+                        //   leading: "Time",
+                        //   traling:
+                        //       "$openingTime - $closingTime", // Formatted time
+                        // ),
+                        const SizedBox(height: 10.0),
+                        CusTile(
+                          ffem: ffem,
+                          icon: Icons.location_on,
+                          leading: "Location",
+                          traling:
+                              "${data['address']['area']} ${data['address']['city']} ${data['address']['state']} ${data['address']['pin_code']}",
+                        ),
+                        const SizedBox(height: 10.0),
+                        // CusTile(
+                        //   ffem: ffem,
+                        //   icon: Icons.email,
+                        //   leading: "Gmail",
+                        //   traling: "smc@gmail.com",
+                        // ),
+                        const SizedBox(height: 15.0),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15.0),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HelpScreen(),
+                    ),
+                  );
+                },
+                child: Text(
+                  "Need help?",
+                  style: GoogleFonts.inter(
+                    fontSize: 18 * ffem,
+                    decoration: TextDecoration.underline,
+                    color: const Color(0xff1F0A68),
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        Positioned(
+          top: -2,
+          right: -2,
+          child: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.cancel_outlined,
+              color: Colors.grey,
             ),
           ),
-          const SizedBox(height: 15.0),
-          GestureDetector(
-            onTap: () {},
-            child: Text(
-              "Need help?",
-              style: GoogleFonts.inter(
-                fontSize: 18 * ffem,
-                decoration: TextDecoration.underline,
-                color: const Color(0xff1F0A68),
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 }

@@ -30,7 +30,7 @@ class _CounsellorListPage_offlineState
   bool isMoreDataLoading = false;
   int currentPage = 1;
   bool hasMoreData = true;
-  int limit = 20;
+  int limit = 25;
   late ScrollController _scrollController;
 
   @override
@@ -873,7 +873,6 @@ class _CounsellorListPage_offlineState
                                                                                           ),
                                                                                           GestureDetector(
                                                                                             onTap: () {
-                                                                                              String id = listController.cousnellorlist_data[index].id;
                                                                                               String name = listController.cousnellorlist_data[index].name;
                                                                                               String designation = listController.cousnellorlist_data[index].designation;
                                                                                               Navigator.push(context, MaterialPageRoute(builder: (context) => CounsellingSessionPage(id: listController.cousnellorlist_data[index].id, name: name, designation: designation, selectedIndex_get: 0, profileurl: listController.cousnellorlist_data[index].profilePic)));
@@ -930,15 +929,27 @@ class _CounsellorListPage_offlineState
                                                             CircularProgressIndicator(),
                                                       );
                                                     }
+                                                    return null;
                                                   }),
                                             ),
+
                                   if (isMoreDataLoading)
-                                    const Padding(
-                                      padding: EdgeInsets.all(10),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
                                       child: Center(
-                                        child: CircularProgressIndicator(),
+                                        child: hasMoreData
+                                            ? CircularProgressIndicator()
+                                            : SizedBox.shrink(),
                                       ),
                                     ),
+
+                                  // if (isMoreDataLoading)
+                                  //   const Padding(
+                                  //     padding: EdgeInsets.all(10),
+                                  //     child: Center(
+                                  //       child: CircularProgressIndicator(),
+                                  //     ),
+                                  //   ),
                                   // if (!isMoreDataLoading && !hasMoreData)
                                   //   const Padding(
                                   //     padding: EdgeInsets.all(10),

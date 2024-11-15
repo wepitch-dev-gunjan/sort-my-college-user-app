@@ -56,6 +56,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   String? sessionType;
 
   void openCheckOut(var amountt) async {
+ 
     amt_send = amountt;
     amount = amountt * 100;
     var options = {
