@@ -33,7 +33,6 @@ class FilterScreenState extends State<FilterScreen> {
   @override
   Widget build(BuildContext context) {
     double baseWidth = 460;
-    double width = MediaQuery.of(context).size.width;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
     // Get the filtered options based on the search query
@@ -178,7 +177,9 @@ class FilterScreenState extends State<FilterScreen> {
           children: [
             Expanded(
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pop(context);
+                },
                 child: Container(
                   alignment: Alignment.center,
                   height: 60,
