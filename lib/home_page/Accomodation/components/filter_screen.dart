@@ -4,15 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});
-
   @override
   FilterScreenState createState() => FilterScreenState();
 }
 
 class FilterScreenState extends State<FilterScreen> {
-  String selectedCategory = 'City'; // Default category
-  String searchQuery = ''; // To filter search results
-
+  String selectedCategory = 'City';
+  String searchQuery = '';
   Map<String, List<String>> filterOptions = {
     'City': ['Jaipur', 'Mumbai', 'Pune', 'Chennai', 'Delhi'],
     'Gender': ['Male', 'Female'],
@@ -35,6 +33,7 @@ class FilterScreenState extends State<FilterScreen> {
     double baseWidth = 460;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
+    
     // Get the filtered options based on the search query
     List<String> filteredOptions = filterOptions[selectedCategory]!
         .where((option) =>
