@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -31,6 +33,7 @@ class RoomsOfferedSection extends StatelessWidget {
             shrinkWrap: true,
             padding: EdgeInsets.zero,
             itemBuilder: (context, index) {
+              log("Is Available ${data['rooms']}");
               return Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: Column(
