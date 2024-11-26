@@ -1127,7 +1127,6 @@ class ApiService {
 
   static Future<Map<String, dynamic>> accommodationSheduleVisit(
       {String? id, String? time, String? message}) async {
-   
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
     final body = jsonEncode(
@@ -1148,5 +1147,21 @@ class ApiService {
     } else {
       return {"error": "Something went wrong"};
     }
+  }
+
+  static Future getCities() async {
+    var url = Uri.parse(
+        "${AppConstants.baseUrl}/admin/accommodation/user/get-cities");
+
+    final response = await http.get(url);
+
+    var data;
+
+    if (response.statusCode == 200) {
+      data = jsonDecode(response.body.toString());
+
+      return data;
+    }
+    return [];
   }
 }
