@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -251,12 +253,14 @@ class FilterScreen extends StatefulWidget {
 
 class FilterScreenState extends State<FilterScreen> {
   List<String> cities = [];
+  List<String> colleges = [];
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    getcities();
+    getCities();
+    getColleges();
     // Initialize selectedOptions dynamically
     selectedOptions = {};
     for (var category in filterOptions.keys) {
@@ -265,13 +269,25 @@ class FilterScreenState extends State<FilterScreen> {
     }
   }
 
-  getcities() async {
+  getCities() async {
     final res = await ApiService.getCities();
     setState(() {
-      cities = res.cast<String>(); // Ensure it's a List<String>
+      cities = res['cities'].cast<String>(); // Ensure it's a List<String>
       filterOptions['City'] = cities; // Dynamically update 'City' options
       selectedOptions['City'] =
           List<bool>.filled(cities.length, false); // Update selectedOptions
+      isLoading = false;
+    });
+  }
+
+  getColleges() async {
+    final res = await ApiService.getColleges();
+    setState(() {
+      colleges = res['colleges'].cast<String>(); // Ensure it's a List<String>
+      filterOptions['Near By Colleges'] =
+          colleges; // Dynamically update 'City' options
+      selectedOptions['Near By Colleges'] =
+          List<bool>.filled(colleges.length, false); // Update selectedOptions
       isLoading = false;
     });
   }
@@ -283,7 +299,7 @@ class FilterScreenState extends State<FilterScreen> {
     'Gender': ['Male', 'Female'],
     'Occupancy Type': ['Single', 'Double', 'Triple'],
     'Budget': ['Low', 'Medium', 'High'],
-    'Near By Colleges': ['College A', 'College B', 'College C'],
+    'Near By Colleges': [],
   };
 
   late Map<String, List<bool>> selectedOptions;
@@ -332,7 +348,7 @@ class FilterScreenState extends State<FilterScreen> {
         ],
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Column(
               children: [
                 Container(
@@ -468,7 +484,22 @@ class FilterScreenState extends State<FilterScreen> {
             Expanded(
               child: GestureDetector(
                 onTap: () {
-                  // Apply action
+                  // Collect selected items into a map
+                  Map<String, List<String>> selectedItems = {};
+                  selectedOptions.forEach((category, values) {
+                    List<String> selected = [];
+                    for (int i = 0; i < values.length; i++) {
+                      if (values[i]) {
+                        selected.add(filterOptions[category]![i]);
+                      }
+                    }
+                    if (selected.isNotEmpty) {
+                      selectedItems[category] = selected;
+                    }
+                  });
+
+                  log("Selected Items =>> $selectedItems");
+                  Navigator.pop(context, selectedItems);
                 },
                 child: Container(
                   color: const Color(0xff1F0A68),

@@ -239,7 +239,7 @@ class _AccommodationWithHomePageState extends State<AccommodationWithHomePage> {
   int selectedIndex = 0;
   DateTime? lastTapped;
 
-  final Widget _home = const AccomodationScreen();
+  final Widget _home =  AccomodationScreen();
   final Widget _webnar = const WebinarPage();
   final Widget _booking = const BookingPage();
   final Widget _news = const NewsScreen();

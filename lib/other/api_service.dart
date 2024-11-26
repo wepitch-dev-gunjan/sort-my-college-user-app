@@ -1164,4 +1164,19 @@ class ApiService {
     }
     return [];
   }
+   static Future getColleges() async {
+    var url = Uri.parse(
+        "${AppConstants.baseUrl}/admin/accommodation/user/get-nearby-colleges");
+
+    final response = await http.get(url);
+
+    var data;
+
+    if (response.statusCode == 200) {
+      data = jsonDecode(response.body.toString());
+
+      return data;
+    }
+    return [];
+  }
 }
