@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/home_page/Accomodation/components/filter_screen.dart';
@@ -57,9 +56,6 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
     final res = await ApiService.getColleges();
     setState(() {
       colleges = res['colleges'].cast<String>();
-      // filterOptions['Near By Colleges'] = colleges;
-      // selectedOptions['Near By Colleges'] =
-      //     List<bool>.filled(colleges.length, false);
       isLoading = false;
     });
   }
@@ -123,8 +119,7 @@ class AccommodationCard extends StatelessWidget {
   final dynamic data;
   final Function onRefresh;
   final Map<String, List<String>> appliedFilters;
-  final Function(Map<String, List<String>>)
-      onFiltersUpdated; // Callback to update filters
+  final Function(Map<String, List<String>>) onFiltersUpdated;
 
   const AccommodationCard({
     super.key,
@@ -154,8 +149,6 @@ class AccommodationCard extends StatelessWidget {
           height: 45,
         ),
         const SizedBox(height: 10.0),
-
-        // Filters Section
         GestureDetector(
           onTap: () {
             Navigator.push(
@@ -167,8 +160,8 @@ class AccommodationCard extends StatelessWidget {
                       )),
             ).then((result) {
               if (result != null) {
-                onFiltersUpdated(result); // Pass filters back to parent
-                onRefresh(); // Refresh data with updated filters
+                onFiltersUpdated(result);
+                onRefresh();
               }
             });
           },
@@ -236,7 +229,6 @@ class AccommodationCard extends StatelessWidget {
             ),
           ),
         ),
-
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
