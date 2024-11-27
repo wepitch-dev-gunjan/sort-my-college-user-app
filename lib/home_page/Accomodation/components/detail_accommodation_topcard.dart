@@ -216,44 +216,51 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.data['name'] ?? 'N/A',
-                    style: GoogleFonts.inter(
-                      fontSize: 22 * ffem,
-                      fontWeight: FontWeight.w600,
+              SizedBox(
+                width: width / 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.data['name'] ?? 'N/A',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.inter(
+                        fontSize: 22 * ffem,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "$area, $city",
-                    style: GoogleFonts.inter(
-                      fontSize: 16 * ffem,
-                      fontWeight: FontWeight.w500,
+                    Text(
+                      "$area, $city",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.inter(
+                        fontSize: 16 * ffem,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 5.0),
-                  InkWell(
-                    onTap: () async {
-                      final Uri redirectLink =
-                          Uri.parse(widget.data['direction']);
-                      if (await canLaunchUrl(redirectLink)) {
-                        await launchUrl(redirectLink);
-                      } else {
-                        throw 'Could not launch $redirectLink';
-                      }
-                    },
-                    child: TextWithIcon(
-                      text: "DIRECTION",
-                      fontWeight: FontWeight.w500,
-                      iconColor: const Color(0xff1F0A68),
-                      icon: Icons.directions,
-                      textColor: const Color(0xff1F0A68),
-                      fontSize: 16 * ffem,
+                    const SizedBox(height: 5.0),
+                    InkWell(
+                      onTap: () async {
+                        final Uri redirectLink =
+                            Uri.parse(widget.data['direction']);
+                        if (await canLaunchUrl(redirectLink)) {
+                          await launchUrl(redirectLink);
+                        } else {
+                          throw 'Could not launch $redirectLink';
+                        }
+                      },
+                      child: TextWithIcon(
+                        text: "DIRECTION",
+                        fontWeight: FontWeight.w500,
+                        iconColor: const Color(0xff1F0A68),
+                        icon: Icons.directions,
+                        textColor: const Color(0xff1F0A68),
+                        fontSize: 16 * ffem,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Container(
                 padding:

@@ -249,10 +249,19 @@ class AccommodationCard extends StatelessWidget {
                     : accommodation['rating'])
                 : 0.0;
             int reviewsCount = accommodation['reviews_count'] ?? 0;
-            String price = (accommodation['rooms'] != null &&
-                    accommodation['rooms'].isNotEmpty)
-                ? "${accommodation['rooms'][0]['monthly_charge'] ?? 'N/A'} INR/"
-                : 'N/A';
+
+            String price = 'N/A';
+            if (accommodation['rooms']?.isNotEmpty ?? false) {
+              double? lowestPrice = accommodation['rooms']
+                  ?.map((room) =>
+                      (room['monthly_charge'] as num?)?.toDouble() ??
+                      double.infinity)
+                  .reduce((a, b) => a < b ? a : b);
+
+              if (lowestPrice != double.infinity) {
+                price = "${lowestPrice!.toInt()} INR";
+              }
+            }
 
             return Padding(
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
