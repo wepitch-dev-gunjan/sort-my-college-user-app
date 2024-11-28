@@ -61,7 +61,19 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
 
     final area = widget.data['address']['area'] ?? 'N/A';
     final city = widget.data['address']['city'] ?? 'N/A';
-    final startingPrice = widget.data['rooms'][0]['monthly_charge'] ?? 'N/A';
+    // final startingPrice = widget.data['rooms'][0]['monthly_charge'] ?? 'N/A';
+
+    String price = 'N/A';
+    if (widget.data['rooms']?.isNotEmpty ?? false) {
+      double? lowestPrice = widget.data['rooms']
+          ?.map((room) =>
+              (room['monthly_charge'] as num?)?.toDouble() ?? double.infinity)
+          .reduce((a, b) => a < b ? a : b);
+
+      if (lowestPrice != double.infinity) {
+        price = "${lowestPrice!.toInt()}";
+      }
+    }
 
     return Column(
       children: [
@@ -271,7 +283,7 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
                 ),
                 child: Center(
                   child: Text(
-                    "Starting at\n₹ $startingPrice/month",
+                    "Starting at\n₹ $price/month",
                     style: GoogleFonts.inter(
                       fontSize: 16 * ffem,
                       fontWeight: FontWeight.w600,
