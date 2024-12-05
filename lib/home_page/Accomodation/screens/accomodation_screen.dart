@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/home_page/Accomodation/components/filter_screen.dart';
@@ -133,6 +134,7 @@ class AccommodationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("filters===>>$appliedFilters");
     double baseWidth = 460;
     double width = MediaQuery.of(context).size.width;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -383,7 +385,7 @@ class AccommodationCard extends StatelessWidget {
                                                   ),
                                                 ),
                                                 Text(
-                                                  "Month",
+                                                  "/Month",
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   style: GoogleFonts.inter(

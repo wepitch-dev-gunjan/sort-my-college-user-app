@@ -1149,6 +1149,8 @@ class ApiService {
     }
   }
 
+//=========================! Get Cities !===========================
+
   static Future getCities() async {
     var url = Uri.parse(
         "${AppConstants.baseUrl}/admin/accommodation/user/get-cities");
@@ -1164,7 +1166,9 @@ class ApiService {
     }
     return [];
   }
-   static Future getColleges() async {
+
+  //=========================! Get Colleges !===========================
+  static Future getColleges() async {
     var url = Uri.parse(
         "${AppConstants.baseUrl}/admin/accommodation/user/get-nearby-colleges");
 
