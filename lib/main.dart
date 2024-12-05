@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -16,6 +17,7 @@ import 'package:myapp/utils.dart';
 import 'package:myapp/utils/common.dart';
 import 'package:provider/provider.dart';
 import 'page-1/splash_screen_1.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,90 +74,5 @@ class MyApp extends StatelessWidget {
 //     const String red = '\x1B[37m';
 //     const String reset = '\x1B[0m';
 //     log("${red}value$prettyString$reset");
-//   }
-// }
-
-// import 'package:flutter/material.dart';
-
-// void main() {
-//   runApp(const MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: RangeSliderDemo(),
-//     );
-//   }
-// }
-
-// class RangeSliderDemo extends StatefulWidget {
-//   @override
-//   _RangeSliderDemoState createState() => _RangeSliderDemoState();
-// }
-
-// class _RangeSliderDemoState extends State<RangeSliderDemo> {
-//   RangeValues _currentRangeValues = const RangeValues(1000, 3000);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Range Slider Example'),
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             const Text(
-//               'Selected Price range',
-//               style: TextStyle(
-//                 fontSize: 16,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ),
-//             const SizedBox(height: 8),
-//             Text(
-//               '₹${_currentRangeValues.start.toInt()} - ₹${_currentRangeValues.end.toInt()}+',
-//               style: const TextStyle(
-//                 fontSize: 18,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ),
-//             const SizedBox(height: 16),
-//             RangeSlider(
-//               values: _currentRangeValues,
-//               min: 500,
-//               max: 5000,
-//               divisions: 50,
-//               activeColor: Colors.pink,
-//               inactiveColor: Colors.pink.shade100,
-//               labels: RangeLabels(
-//                 '₹${_currentRangeValues.start.toInt()}',
-//                 '₹${_currentRangeValues.end.toInt()}',
-//               ),
-//               onChanged: (RangeValues values) {
-//                 setState(() {
-//                   _currentRangeValues = values;
-//                 });
-//               },
-//             ),
-//             const SizedBox(height: 16),
-//             Text(
-//               '${_currentRangeValues.end.toInt() > 3000 ? 4 : 'N/A'} Products found',
-//               style: const TextStyle(
-//                 fontSize: 16,
-//                 color: Colors.grey,
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
 //   }
 // }

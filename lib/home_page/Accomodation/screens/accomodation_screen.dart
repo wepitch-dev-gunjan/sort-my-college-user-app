@@ -282,7 +282,7 @@ class AccommodationCard extends StatelessWidget {
                                     imageUrl,
                                     height: 180,
                                     width: width,
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
 

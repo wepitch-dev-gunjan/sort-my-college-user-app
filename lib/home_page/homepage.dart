@@ -235,25 +235,79 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          icon: Icon(
-                            _showBackArrow
-                                ? Icons.arrow_back
-                                : Icons.arrow_forward,
-                            color: const Color(0xff1F0A68),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 18),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            height: 25,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (_showBackArrow) {
+                                  _scrollToStart();
+                                } else {
+                                  _scrollToAccommodation();
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                backgroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  side: BorderSide(
+                                      color: Colors.grey, width: 0.2),
+                                ),
+                                elevation: 2,
+                              ),
+                              // ignore: prefer_const_constructors
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Text(
+                                    "View more",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Icon(
+                                    _showBackArrow
+                                        ? Icons.arrow_back
+                                        : Icons.arrow_forward,
+                                    size: 12,
+                                    color: Colors.black,
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                          onPressed: () {
-                            if (_showBackArrow) {
-                              _scrollToStart();
-                            } else {
-                              _scrollToAccommodation();
-                            }
-                          },
-                        ),
-                      ],
+                          // ElevatedButton.icon(
+                          //   onPressed: () {},
+                          //   label: Text("data"),
+                          //   icon: Icon(Icons.arrow_back),
+                          // )
+                          // IconButton(
+                          //   icon: Icon(
+                          //     _showBackArrow
+                          //         ? Icons.arrow_back
+                          //         : Icons.arrow_forward,
+                          //     color: const Color(0xff1F0A68),
+                          //   ),
+                          //   onPressed: () {
+                          //     if (_showBackArrow) {
+                          //       _scrollToStart();
+                          //     } else {
+                          //       _scrollToAccommodation();
+                          //     }
+                          //   },
+                          // ),
+                        ],
+                      ),
                     ),
 
                     // Padding(

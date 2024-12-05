@@ -7,6 +7,7 @@ import 'package:myapp/page-1/shared.dart';
 import 'package:myapp/page-1/splash_screen_n.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../common/deep_linking.dart';
 import 'edulevel_new.dart';
 
 // class SplashScreen1 extends StatefulWidget {
@@ -135,11 +136,18 @@ class SplashScreen1 extends StatefulWidget {
 }
 
 class _SplashScreen1State extends State<SplashScreen1> {
+
+  late final DeepLinkHandler _deepLinkHandler;
+
+
+
   @override
   void initState() {
     super.initState();
     configLoading();
     _checkLoginStatus();
+    _deepLinkHandler = DeepLinkHandler(context);
+    _deepLinkHandler.init();
   }
 
   Future<void> _checkLoginStatus() async {

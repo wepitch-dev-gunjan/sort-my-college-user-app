@@ -12,10 +12,13 @@ import '../components/review_card.dart';
 
 class VisitProfilePage extends StatefulWidget {
   final String id;
-  final String title;
-  const VisitProfilePage({super.key, required this.id, required this.title});
 
-  @override                                                         
+  const VisitProfilePage({
+    super.key,
+    required this.id,
+  });
+
+  @override
   State<VisitProfilePage> createState() => _VisitProfilePageState();
 }
 
@@ -93,7 +96,7 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
         : Scaffold(
             backgroundColor: Colors.white,
             appBar: CusAppBar(
-              title: widget.title,
+              title: instituteDetails['name'] ?? "N/A",
               icon: Icons.more_vert,
               action: [
                 Padding(

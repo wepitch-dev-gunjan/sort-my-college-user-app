@@ -163,7 +163,9 @@ class EpCard extends StatelessWidget {
                                             const SizedBox(width: 5.0),
                                             InkWell(
                                               onTap: () {
-                                                shareLinks();
+                                                epShareLinks(
+                                                    id: data[index]['_id']
+                                                        .toString());
                                               },
                                               child: Container(
                                                 margin:
@@ -275,7 +277,7 @@ class EpCard extends StatelessWidget {
                                       MaterialPageRoute(
                                         builder: (context) => VisitProfilePage(
                                           id: data[index]['_id'],
-                                          title: data[index]['name'],
+                                          // title: data[index]['name'],
                                         ),
                                       ),
                                     );

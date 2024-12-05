@@ -95,7 +95,7 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
                     images[index],
                     height: 260,
                     width: width,
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                     loadingBuilder: (context, child, loadingProgress) =>
                         loadingProgress == null
                             ? child
