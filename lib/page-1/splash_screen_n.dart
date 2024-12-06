@@ -16,7 +16,7 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
 
   @override
   Widget build(BuildContext context) {
-    log("Splash Screen New");
+    log("Welcome to SMC");
     var mHeight = MediaQuery.sizeOf(context).height;
     var mWidth = MediaQuery.sizeOf(context).width;
     print(mHeight);

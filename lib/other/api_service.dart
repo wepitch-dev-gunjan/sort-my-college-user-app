@@ -553,7 +553,7 @@ class ApiService {
       headers: headers,
       body: jsonEncode(body),
     );
-    console.log("Verfiying Otp123 : ${response.body}");
+    
     return jsonDecode(response.body);
   }
 
@@ -569,7 +569,7 @@ class ApiService {
       headers: headers,
       body: jsonEncode(body),
     );
-    console.log("Verfiying Otp123 : ${response.body}");
+   
     return jsonDecode(response.body);
   }
 

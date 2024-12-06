@@ -2,9 +2,9 @@ import 'dart:developer';
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/home_page/entrance_preparation/screens/visit_profile_page.dart';
+import 'package:myapp/page-1/splash_screen_n.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../home_page/counsellor_page/counsellor_details_screen.dart';
-
-
 
 class DeepLinkHandler {
   final BuildContext context;
@@ -35,7 +35,57 @@ class DeepLinkHandler {
     }
   }
 
-  void _handleIncomingLink(Uri? uri) {
+  // void _handleIncomingLink(Uri? uri) {
+  //   if (uri != null && uri.pathSegments.isNotEmpty) {
+  //     final String type = uri.pathSegments[0]; // 'counsellor' ya 'ep'
+  //     final String? id =
+  //         uri.pathSegments.length > 1 ? uri.pathSegments[1] : null;
+
+  //     if (id != null) {
+  //       if (type == 'counsellor') {
+  //         // Counsellor ke liye navigate karega
+  //         Navigator.of(context).push(
+  //           MaterialPageRoute(
+  //             builder: (context) => CounsellorDetailsScreen(id: id),
+  //           ),
+  //         );
+  //       } else if (type == 'ep') {
+  //         Navigator.of(context).push(
+  //           MaterialPageRoute(
+  //             builder: (context) => VisitProfilePage(
+  //               id: id,
+  //             ),
+  //           ),
+  //         );
+  //       } else {
+  //         log("URI type not recognized: $type");
+  //       }
+  //     } else {
+  //       log("ID is missing in the URI.");
+  //     }
+  //   } else {
+  //     log("URI doesn't match expected path or is null.");
+  //   }
+  // }
+
+  void _handleIncomingLink(Uri? uri) async {
+    // Login status check karein
+    final bool isLoggedIn = await isUserLoggedIn();
+
+    log("ISLOgin ====>>>$isLoggedIn");
+
+    if (!isLoggedIn) {
+      // Agar user login nahi hai, toh LoginScreen par redirect karein
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) =>
+              const SplashScreenNew(), // Apka login screen widget
+        ),
+      );
+      return; // Further processing stop karein
+    }
+
+    // Agar user logged in hai toh deep link handle karein
     if (uri != null && uri.pathSegments.isNotEmpty) {
       final String type = uri.pathSegments[0]; // 'counsellor' ya 'ep'
       final String? id =
@@ -43,7 +93,6 @@ class DeepLinkHandler {
 
       if (id != null) {
         if (type == 'counsellor') {
-          // Counsellor ke liye navigate karega
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => CounsellorDetailsScreen(id: id),
@@ -52,9 +101,7 @@ class DeepLinkHandler {
         } else if (type == 'ep') {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => VisitProfilePage(
-                id: id,
-              ),
+              builder: (context) => VisitProfilePage(id: id),
             ),
           );
         } else {
@@ -69,7 +116,10 @@ class DeepLinkHandler {
   }
 }
 
-
+Future<bool> isUserLoggedIn() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getBool("authLogin") ?? false; // Default: false
+}
 
 
 // import 'dart:async';
