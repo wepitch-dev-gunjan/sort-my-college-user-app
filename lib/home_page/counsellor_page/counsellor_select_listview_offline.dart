@@ -542,7 +542,7 @@ class _CounsellorListPage_offlineState
                                                                                                 ),
                                                                                                 GestureDetector(
                                                                                                   onTap: () {
-                                                                                                    shareLinks();
+                                                                                                    counsellorShareLinks(id: listController.cousnellorlist_data[index].id);
                                                                                                   },
                                                                                                   child: Container(
                                                                                                     margin: const EdgeInsets.fromLTRB(0, 14, 0, 0),

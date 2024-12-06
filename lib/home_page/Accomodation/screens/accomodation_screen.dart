@@ -162,6 +162,7 @@ class AccommodationCard extends StatelessWidget {
                       )),
             ).then((result) {
               if (result != null) {
+                log("result$result");
                 onFiltersUpdated(result);
                 onRefresh();
               }
@@ -270,153 +271,151 @@ class AccommodationCard extends StatelessWidget {
               child: Column(
                 children: [
                   Card(
-                      color: Colors.white,
-                      child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(
-                                    imageUrl,
-                                    height: 180,
-                                    width: width,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              imageUrl,
+                              height: 180,
+                              width: width,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
 
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 5.0, right: 5.0, top: 10),
-                                  child: Text(
-                                    name,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: GoogleFonts.inter(
-                                      fontSize: 24 * ffem,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 5),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 5.0, right: 5.0, top: 10),
+                            child: Text(
+                              name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.inter(
+                                fontSize: 24 * ffem,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width: width / 2.1,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      SizedBox(
-                                        width: width / 2.1,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const SizedBox(height: 3.0),
-                                            Text(
-                                              "$area, $city",
-                                              overflow: TextOverflow.ellipsis,
-                                              style: GoogleFonts.inter(
-                                                fontSize: 14 * ffem,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ],
+                                      const SizedBox(height: 3.0),
+                                      Text(
+                                        "$area, $city",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: GoogleFonts.inter(
+                                          fontSize: 14 * ffem,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                      Expanded(
-                                        child: Row(
-                                          children: [
-                                            const Icon(
-                                              Icons.star,
-                                              size: 12,
-                                              color: Colors.orange,
-                                            ),
-                                            const SizedBox(width: 2.0),
-                                            Flexible(
-                                              child: Text(
-                                                "$rating Rating | ($reviewsCount) Reviews",
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: GoogleFonts.inter(
-                                                  fontSize: 11 * ffem,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            )
-                                          ],
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.star,
+                                        size: 12,
+                                        color: Colors.orange,
+                                      ),
+                                      const SizedBox(width: 2.0),
+                                      Flexible(
+                                        child: Text(
+                                          "$rating Rating | ($reviewsCount) Reviews",
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: GoogleFonts.inter(
+                                            fontSize: 11 * ffem,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       )
                                     ],
                                   ),
-                                ),
-                                const SizedBox(height: 12),
-                                // Price and button
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 5.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                )
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          // Price and button
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width: width / 2.1,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      SizedBox(
-                                        width: width / 2.1,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Starting from",
-                                              overflow: TextOverflow.ellipsis,
-                                              style: GoogleFonts.inter(
-                                                fontSize: 16 * ffem,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  price.toString(),
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: GoogleFonts.inter(
-                                                    fontSize: 18 * ffem,
-                                                    fontWeight: FontWeight.w700,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  "/Month",
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: GoogleFonts.inter(
-                                                    fontSize: 16 * ffem,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
+                                      Text(
+                                        "Starting from",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: GoogleFonts.inter(
+                                          fontSize: 16 * ffem,
+                                          fontWeight: FontWeight.w400,
                                         ),
                                       ),
-                                      Btn(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DetailAccommodation(
-                                                      data: accommodation),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            price.toString(),
+                                            overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.inter(
+                                              fontSize: 18 * ffem,
+                                              fontWeight: FontWeight.w700,
                                             ),
-                                          );
-                                        },
-                                        btnName: "View Details",
-                                        textColor: Colors.white,
-                                        btnColor: const Color(0xff1F0A68),
-                                      )
+                                          ),
+                                          Text(
+                                            "/Month",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.inter(
+                                              fontSize: 16 * ffem,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 ),
-                              ]))),
+                                Btn(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            DetailAccommodation(
+                                                data: accommodation),
+                                      ),
+                                    );
+                                  },
+                                  btnName: "View Details",
+                                  textColor: Colors.white,
+                                  btnColor: const Color(0xff1F0A68),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             );

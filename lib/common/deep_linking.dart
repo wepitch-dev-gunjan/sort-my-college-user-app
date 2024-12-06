@@ -1,9 +1,10 @@
-
 import 'dart:developer';
-
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/home_page/entrance_preparation/screens/visit_profile_page.dart';
+import '../home_page/counsellor_page/counsellor_details_screen.dart';
+
+
 
 class DeepLinkHandler {
   final BuildContext context;
@@ -35,7 +36,6 @@ class DeepLinkHandler {
   }
 
   void _handleIncomingLink(Uri? uri) {
-
     if (uri != null && uri.pathSegments.isNotEmpty) {
       final String type = uri.pathSegments[0]; // 'counsellor' ya 'ep'
       final String? id =
@@ -44,13 +44,11 @@ class DeepLinkHandler {
       if (id != null) {
         if (type == 'counsellor') {
           // Counsellor ke liye navigate karega
-          // Navigator.of(context).push(
-          //   MaterialPageRoute(
-          //     builder: (context) => CounsellorProfilePage(
-          //       id: id,
-          //     ),
-          //   ),
-          // );
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => CounsellorDetailsScreen(id: id),
+            ),
+          );
         } else if (type == 'ep') {
           Navigator.of(context).push(
             MaterialPageRoute(
