@@ -387,8 +387,10 @@ class _CounsellorListPage_offlineState
                                                                           },
                                                                           icon: const Icon(
                                                                             Icons.share,
+                                                                            color:
+                                                                                Color(0xff1F0A68),
                                                                             size:
-                                                                                22,
+                                                                                20,
                                                                           ))),
                                                                   Positioned(
                                                                     left: 10 *
