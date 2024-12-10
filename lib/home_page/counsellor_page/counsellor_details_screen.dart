@@ -100,7 +100,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
               padding: const EdgeInsets.only(right: 16),
               child: GestureDetector(
                 onTap: () {
-                  shareLinks();
+                  counsellorShareLinks(id: widget.id);
                 },
                 child: Image.asset(
                   "assets/page-1/images/share.png",
@@ -450,7 +450,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                               const SizedBox(
                                 height: 10,
                               ),
-
                               ReadMoreText(
                                 counsellor['how_will_i_help']
                                     .map((e) => "\u2022 $e")
@@ -480,7 +479,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                   color: const Color(0xff040404),
                                 ),
                               ),
-
                               const SizedBox(height: 12),
                               const Text(
                                 'More Information',
@@ -612,7 +610,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                       reviews:
                                           counsellor['client_testimonials'],
                                     ),
-
                               const SizedBox(height: 16),
                               const Text(
                                 'Give a Review',
@@ -692,7 +689,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                       )),
                                 ),
                               ),
-                             
                             ],
                           ),
                         ),

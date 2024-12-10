@@ -16,6 +16,7 @@ import 'package:myapp/utils/common.dart';
 import 'package:provider/provider.dart';
 import 'page-1/splash_screen_1.dart';
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
 
   final bool isLoggedIn;
   static Future<bool?> loggIn() async {
+    
     return await SharedPre.getAuthLogin();
   }
 

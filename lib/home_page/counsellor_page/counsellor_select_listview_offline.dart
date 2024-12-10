@@ -390,7 +390,7 @@ class _CounsellorListPage_offlineState
                                                                             color:
                                                                                 Color(0xff1F0A68),
                                                                             size:
-                                                                                20,
+                                                                                18,
                                                                           ))),
                                                                   Positioned(
                                                                     left: 10 *
