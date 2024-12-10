@@ -59,7 +59,7 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Welcome to SortMyCollege India’s First ',
+                    text: 'Welcome to SortMyCollegeIndia’s First ',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,

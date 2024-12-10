@@ -41,7 +41,7 @@
     </intent-filter>
     
     <!-- Enable Flutter Deep Linking -->
-    <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
+    <meta-data android:name="flutter_deeplinking_enabled" android:value="false" />
 
     <!-- Deep Linking for "/ep/" -->
     <intent-filter android:autoVerify="true">
@@ -50,7 +50,7 @@
         <category android:name="android.intent.category.BROWSABLE" />
         <data android:scheme="https" android:host="sortmycollege.com" android:pathPrefix="/ep/" />
     </intent-filter>
-
+  
     <!-- Deep Linking for "/counsellor/" -->
     <intent-filter android:autoVerify="true">
         <action android:name="android.intent.action.VIEW" />

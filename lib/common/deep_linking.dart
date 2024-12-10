@@ -35,38 +35,7 @@ class DeepLinkHandler {
     }
   }
 
-  // void _handleIncomingLink(Uri? uri) {
-  //   if (uri != null && uri.pathSegments.isNotEmpty) {
-  //     final String type = uri.pathSegments[0]; // 'counsellor' ya 'ep'
-  //     final String? id =
-  //         uri.pathSegments.length > 1 ? uri.pathSegments[1] : null;
 
-  //     if (id != null) {
-  //       if (type == 'counsellor') {
-  //         // Counsellor ke liye navigate karega
-  //         Navigator.of(context).push(
-  //           MaterialPageRoute(
-  //             builder: (context) => CounsellorDetailsScreen(id: id),
-  //           ),
-  //         );
-  //       } else if (type == 'ep') {
-  //         Navigator.of(context).push(
-  //           MaterialPageRoute(
-  //             builder: (context) => VisitProfilePage(
-  //               id: id,
-  //             ),
-  //           ),
-  //         );
-  //       } else {
-  //         log("URI type not recognized: $type");
-  //       }
-  //     } else {
-  //       log("ID is missing in the URI.");
-  //     }
-  //   } else {
-  //     log("URI doesn't match expected path or is null.");
-  //   }
-  // }
 
   void _handleIncomingLink(Uri? uri) async {
     // Login status check karein

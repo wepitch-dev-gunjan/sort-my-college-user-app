@@ -378,6 +378,19 @@ class _CounsellorListPage_offlineState
                                                               child: Stack(
                                                                 children: [
                                                                   Positioned(
+                                                                      right:
+                                                                          -15,
+                                                                      top: -10,
+                                                                      child: IconButton(
+                                                                          onPressed: () {
+                                                                            counsellorShareLinks(id: listController.cousnellorlist_data[index].id);
+                                                                          },
+                                                                          icon: const Icon(
+                                                                            Icons.share,
+                                                                            size:
+                                                                                22,
+                                                                          ))),
+                                                                  Positioned(
                                                                     left: 10 *
                                                                         fem,
                                                                     child:
@@ -540,21 +553,22 @@ class _CounsellorListPage_offlineState
                                                                                                     ],
                                                                                                   ),
                                                                                                 ),
-                                                                                                GestureDetector(
-                                                                                                  onTap: () {
-                                                                                                    counsellorShareLinks(id: listController.cousnellorlist_data[index].id);
-                                                                                                  },
-                                                                                                  child: Container(
-                                                                                                    margin: const EdgeInsets.fromLTRB(0, 14, 0, 0),
-                                                                                                    width: 17.42 * fem,
-                                                                                                    height: 18.86 * fem,
-                                                                                                    child: Image.asset(
-                                                                                                      'assets/page-1/images/group-38-oFX.png',
-                                                                                                      width: 17.42 * fem,
-                                                                                                      height: 18.86 * fem,
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ),
+
+                                                                                                // GestureDetector(
+                                                                                                //   onTap: () {
+                                                                                                //     counsellorShareLinks(id: listController.cousnellorlist_data[index].id);
+                                                                                                //   },
+                                                                                                //   child: Container(
+                                                                                                //     margin: const EdgeInsets.fromLTRB(0, 14, 0, 0),
+                                                                                                //     width: 17.42 * fem,
+                                                                                                //     height: 18.86 * fem,
+                                                                                                //     child: Image.asset(
+                                                                                                //       'assets/page-1/images/group-38-oFX.png',
+                                                                                                //       width: 17.42 * fem,
+                                                                                                //       height: 18.86 * fem,
+                                                                                                //     ),
+                                                                                                //   ),
+                                                                                                // ),
                                                                                               ],
                                                                                             ),
                                                                                           ),
