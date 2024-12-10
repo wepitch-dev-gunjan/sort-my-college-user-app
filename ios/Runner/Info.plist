@@ -8,10 +8,6 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>SortMyCollege</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>App need image from gallery or camera to take picture and upload picture and this image is use as profile picture</string>
-	<key>NSCameraUsageDescription</key>
-	<string>App need camera permission so that user can take picture from camera and upload picture to server and use image as profile picture</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -23,13 +19,28 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1.1</string>
+	<string>1.1.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.sortmycollege</string>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>2</string>
+	<key>FlutterDeepLinkingEnabled</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>App need camera permission so that user can take picture from camera and upload picture to server and use image as profile picture</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>App need image from gallery or camera to take picture and upload picture and this image is use as profile picture</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -42,8 +53,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>FlutterDeepLinkingEnabled</key>
-	<true/>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
