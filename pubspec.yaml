@@ -43,6 +43,8 @@ dependencies:
   cached_network_image: ^3.4.0
   flutter_spinkit: ^5.2.1
   app_links: ^6.3.2
+  upgrader: ^11.3.1
+  in_app_update: ^4.2.3
 
   
 dev_dependencies:
