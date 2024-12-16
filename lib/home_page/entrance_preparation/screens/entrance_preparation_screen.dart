@@ -163,9 +163,11 @@ class EpCard extends StatelessWidget {
                                             const SizedBox(width: 5.0),
                                             InkWell(
                                               onTap: () {
-                                                epShareLinks(
-                                                    id: data[index]['_id']
-                                                        .toString());
+
+                                                shareLinks();
+                                                // epShareLinks(
+                                                //     id: data[index]['_id']
+                                                //         .toString());
                                               },
                                               child: Container(
                                                 margin:
