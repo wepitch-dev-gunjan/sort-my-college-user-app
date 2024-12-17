@@ -1,5 +1,6 @@
 import UIKit
 import Flutter
+import app_links
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -8,6 +9,23 @@ import Flutter
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
+
+    // Handle Universal Link or Custom URL from launch options
+    if let url = AppLinks.shared.getLink(launchOptions: launchOptions) {
+      AppLinks.shared.handleLink(url: url)
+      return true // Stop propagation to other handlers
+    }
+
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+  }
+
+  // Handle Custom URL schemes (if app is already running)
+  override func application(
+    _ app: UIApplication,
+    open url: URL,
+    options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+  ) -> Bool {
+    AppLinks.shared.handleLink(url: url)
+    return true
   }
 }

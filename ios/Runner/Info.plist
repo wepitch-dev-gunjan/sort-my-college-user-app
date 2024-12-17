@@ -35,6 +35,13 @@
 			</array>
 		</dict>
 	</array>
+
+    <!-- Universal Links Configuration -->
+    <key>com.apple.developer.associated-domains</key>
+    <array>
+        <string>applinks:sortmycollege.com</string>
+    </array>
+
 	<key>CFBundleVersion</key>
 	<string>2</string>
 	<key>FlutterDeepLinkingEnabled</key>
