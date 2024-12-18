@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -639,8 +640,19 @@ class _HomePageState extends State<HomePage> {
                                                                 .push(
                                                           context,
                                                           MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                WebinarDetailsPageWidget(
+                                                              builder:
+                                                                  (context) {
+                                                            log("registerdDate=====${trending.registeredDate}");
+                                                            log("webinar image=====${trending.webinarImage}");
+                                                            log("webinar tilte=====${trending.webinarTitle}");
+                                                            log("webianr date=====${trending.webinarDate}");
+                                                            log("webinar by=====${trending.webinarBy}");
+                                                            log("webinar starting days=====${trending.webinarStartingInDays}");
+                                                            log("registred=====${trending.registered}");
+                                                            log("webinar date=====${trending.webinarDate}");
+                                                            log("webianr join url=====${trending.webinarJoinUrl}");
+                                                            log("canJoin=====${trending.canJoin}");
+                                                            return WebinarDetailsPageWidget(
                                                               webinarId:
                                                                   trending.id,
                                                               registerdDate:
@@ -667,8 +679,8 @@ class _HomePageState extends State<HomePage> {
                                                                       .webinarJoinUrl,
                                                               canJoin: trending
                                                                   .canJoin,
-                                                            ),
-                                                          ),
+                                                            );
+                                                          }),
                                                         );
 
                                                         if (registrationStatus ==

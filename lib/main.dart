@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -16,7 +18,6 @@ import 'package:myapp/utils/common.dart';
 import 'package:provider/provider.dart';
 import 'page-1/splash_screen_1.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
@@ -29,7 +30,6 @@ class MyApp extends StatelessWidget {
 
   final bool isLoggedIn;
   static Future<bool?> loggIn() async {
-    
     return await SharedPre.getAuthLogin();
   }
 
@@ -64,16 +64,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
 // // ============================== ! Pretty Log in console !==========================
 
-// class Console {
-//   static data(dynamic responseBody, {String? value}) {
-//     var encoder = const JsonEncoder.withIndent('  ');
-//     final prettyString = encoder.convert(responseBody);
-//     const String red = '\x1B[37m';
-//     const String reset = '\x1B[0m';
-//     log("${red}value$prettyString$reset");
-//   }
-// }
+class Console {
+  static data(dynamic responseBody, {String? value}) {
+    var encoder = const JsonEncoder.withIndent('  ');
+    final prettyString = encoder.convert(responseBody);
+    const String red = '\x1B[37m';
+    const String reset = '\x1B[0m';
+    log("${red}value$prettyString$reset");
+  }
+}

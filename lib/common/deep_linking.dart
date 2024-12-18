@@ -6,6 +6,7 @@ import 'package:myapp/page-1/splash_screen_n.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../home_page/counsellor_page/counsellor_details_screen.dart';
 
+
 class DeepLinkHandler {
   final BuildContext context;
   late final AppLinks _appLinks;
@@ -15,64 +16,84 @@ class DeepLinkHandler {
   void init() async {
     _appLinks = AppLinks();
 
+    // Listen for real-time deep links
     _appLinks.uriLinkStream.listen(
       (Uri? uri) {
-        log("Received URI: $uri");
-        _handleIncomingLink(uri);
+        if (uri != null) {
+          log("Received URI: $uri");
+          _handleIncomingLink(uri);
+        } else {
+          log("Received a null URI.");
+        }
       },
       onError: (err) {
         log("Error in link stream: $err");
       },
     );
 
-    // Handle initial deep link when the app launches
+    // Handle the initial deep link when the app launches
     try {
       final initialUri = await _appLinks.getInitialLink();
-      log("Initial URI: $initialUri");
-      _handleIncomingLink(initialUri);
+      if (initialUri != null) {
+        log("Initial URI: $initialUri");
+        _handleIncomingLink(initialUri);
+      } else {
+        log("No initial URI received.");
+      }
     } catch (e) {
       log("Error in getting initial link: $e");
     }
   }
 
-
-
   void _handleIncomingLink(Uri? uri) async {
-    // Login status check karein
+    // Check login status
     final bool isLoggedIn = await isUserLoggedIn();
-
-    log("ISLOgin ====>>>$isLoggedIn");
+    log("Is User Logged In: $isLoggedIn");
 
     if (!isLoggedIn) {
-      // Agar user login nahi hai, toh LoginScreen par redirect karein
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) =>
-              const SplashScreenNew(), // Apka login screen widget
-        ),
-      );
-      return; // Further processing stop karein
+      // Redirect to Login Screen if not logged in
+      if (context.mounted) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const SplashScreenNew(), // Your login screen widget
+          ),
+        );
+      } else {
+        log("Context is not mounted. Skipping navigation.");
+      }
+      return;
     }
 
-    // Agar user logged in hai toh deep link handle karein
+    // Handle the URI if user is logged in
     if (uri != null && uri.pathSegments.isNotEmpty) {
-      final String type = uri.pathSegments[0]; // 'counsellor' ya 'ep'
+      final String type = uri.pathSegments[0]; // 'counsellor' or 'ep'
       final String? id =
           uri.pathSegments.length > 1 ? uri.pathSegments[1] : null;
 
+      log("URI Path Segments: ${uri.pathSegments}");
+      log("Type: $type, ID: $id");
+
       if (id != null) {
         if (type == 'counsellor') {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => CounsellorDetailsScreen(id: id),
-            ),
-          );
+          if (context.mounted) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => CounsellorDetailsScreen(id: id),
+              ),
+            );
+          } else {
+            log("Context is not mounted. Skipping navigation.");
+          }
         } else if (type == 'ep') {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => VisitProfilePage(id: id),
-            ),
-          );
+          if (context.mounted) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => VisitProfilePage(id: id),
+              ),
+            );
+          } else {
+            log("Context is not mounted. Skipping navigation.");
+          }
         } else {
           log("URI type not recognized: $type");
         }
@@ -81,6 +102,12 @@ class DeepLinkHandler {
       }
     } else {
       log("URI doesn't match expected path or is null.");
+      // Optionally navigate to a default screen if URI is invalid
+      // if (context.mounted) {
+      //   Navigator.of(context).pushReplacement(
+      //     MaterialPageRoute(builder: (context) => const DefaultScreen()), // Your default screen
+      //   );
+      // }
     }
   }
 }

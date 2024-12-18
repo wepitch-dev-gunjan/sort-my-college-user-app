@@ -29,10 +29,6 @@
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
 			<string>com.sortmycollege</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>app</string>
-			</array>
 		</dict>
 	</array>
 

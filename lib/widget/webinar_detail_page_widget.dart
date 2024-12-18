@@ -5,6 +5,7 @@ import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import '../main.dart';
 import '../utils/share_links.dart';
 import '../webinar_page/webinar_pastwebnar_page.dart';
 
@@ -59,17 +60,17 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
 
   Future<void> _initializeSharedPreferences(String id) async {
     value = await ApiService.getWebinarDetailsData(id);
+    Console.data(value);
+
     isLoading = false;
 
-    _prefs = await SharedPreferences.getInstance();
-    bool isStarting = _prefs.getBool('isRegistrationStarting') ?? false;
+    // _prefs = await SharedPreferences.getInstance();
 
     setState(() {
       value = value;
       // widget.webinarRegister = isStarting;
     });
   }
-
 
   bool has24HoursPassed = false;
 
@@ -490,10 +491,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                 regdate: widget.registerdDate,
                 isRegisterNow: widget.webinarRegister,
                 canJoin: widget.canJoin!,
-              )
-
-           
-              ),
+              )),
           // ),
         ),
       ),
