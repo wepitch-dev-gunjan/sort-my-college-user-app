@@ -150,88 +150,88 @@ class AccommodationCard extends StatelessWidget {
           width: 45,
           height: 45,
         ),
-        // const SizedBox(height: 10.0),
-        // GestureDetector(
-        //   onTap: () {
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(
-        //           builder: (context) => FilterScreen(
-        //                 cities: cities,
-        //                 colleges: colleges,
-        //               )),
-        //     ).then((result) {
-        //       if (result != null) {
-        //         log("result$result");
-        //         onFiltersUpdated(result);
-        //         onRefresh();
-        //       }
-        //     });
-        //   },
-        //   child: Padding(
-        //     padding: const EdgeInsets.symmetric(horizontal: 15),
-        //     child: Row(
-        //       children: [
-        //         Container(
-        //           width: 100,
-        //           padding:
-        //               const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-        //           decoration: BoxDecoration(
-        //             border:
-        //                 Border.all(color: const Color(0xffE3E3E3), width: 0.5),
-        //             borderRadius: BorderRadius.circular(21),
-        //           ),
-        //           child: Row(
-        //             mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //             children: [
-        //               Text(
-        //                 "Filters",
-        //                 style: GoogleFonts.inter(
-        //                     fontSize: 16 * ffem, fontWeight: FontWeight.w600),
-        //               ),
-        //               Image.asset(
-        //                 'assets/accommodation/filters.png',
-        //                 height: 18 * fem,
-        //                 width: 25 * fem,
-        //               ),
-        //             ],
-        //           ),
-        //         ),
-        //         const SizedBox(width: 8.0),
-        //         Expanded(
-        //           child: SingleChildScrollView(
-        //             scrollDirection: Axis.horizontal,
-        //             child: Row(
-        //               children: appliedFilters.entries.map((entry) {
-        //                 return Row(
-        //                   children: entry.value.map((value) {
-        //                     return Container(
-        //                       margin: const EdgeInsets.only(right: 8),
-        //                       padding: const EdgeInsets.symmetric(
-        //                           horizontal: 10, vertical: 5),
-        //                       decoration: BoxDecoration(
-        //                         color: Colors.grey[200],
-        //                         borderRadius: BorderRadius.circular(15),
-        //                       ),
-        //                       child: Text(
-        //                         value,
-        //                         style: GoogleFonts.inter(
-        //                           fontSize: 14,
-        //                           fontWeight: FontWeight.w500,
-        //                           color: Colors.black,
-        //                         ),
-        //                       ),
-        //                     );
-        //                   }).toList(),
-        //                 );
-        //               }).toList(),
-        //             ),
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ),
+        const SizedBox(height: 10.0),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => FilterScreen(
+                        cities: cities,
+                        colleges: colleges,
+                      )),
+            ).then((result) {
+              if (result != null) {
+                log("result$result");
+                onFiltersUpdated(result);
+                onRefresh();
+              }
+            });
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Row(
+              children: [
+                Container(
+                  width: 100,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  decoration: BoxDecoration(
+                    border:
+                        Border.all(color: const Color(0xffE3E3E3), width: 0.5),
+                    borderRadius: BorderRadius.circular(21),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        "Filters",
+                        style: GoogleFonts.inter(
+                            fontSize: 16 * ffem, fontWeight: FontWeight.w600),
+                      ),
+                      Image.asset(
+                        'assets/accommodation/filters.png',
+                        height: 18 * fem,
+                        width: 25 * fem,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8.0),
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: appliedFilters.entries.map((entry) {
+                        return Row(
+                          children: entry.value.map((value) {
+                            return Container(
+                              margin: const EdgeInsets.only(right: 8),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Text(
+                                value,
+                                style: GoogleFonts.inter(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,

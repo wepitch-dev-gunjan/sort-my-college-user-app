@@ -211,18 +211,6 @@ class _HomePageState extends State<HomePage> {
                             const SizedBox(width: 30),
                             GestureDetector(
                               onTap: () {
-                                onTapgotoEP(context);
-                              },
-                              child: SizedBox(
-                                height: 110 * fem,
-                                width: 175 * fem,
-                                child: Image.asset(
-                                    "assets/page-1/images/Group 793.png"),
-                              ),
-                            ),
-                            const SizedBox(width: 30),
-                            GestureDetector(
-                              onTap: () {
                                 onTapgotoAccommodation(context);
                               },
                               child: SizedBox(
@@ -230,6 +218,18 @@ class _HomePageState extends State<HomePage> {
                                 width: 175 * fem,
                                 child: Image.asset(
                                     "assets/page-1/images/Group 795.png"),
+                              ),
+                            ),
+                            const SizedBox(width: 30),
+                            GestureDetector(
+                              onTap: () {
+                                onTapgotoEP(context);
+                              },
+                              child: SizedBox(
+                                height: 110 * fem,
+                                width: 175 * fem,
+                                child: Image.asset(
+                                    "assets/page-1/images/Group 793.png"),
                               ),
                             ),
                           ],
@@ -258,7 +258,7 @@ class _HomePageState extends State<HomePage> {
                                 backgroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),
-                                  side: BorderSide(
+                                  side: const BorderSide(
                                       color: Colors.grey, width: 0.2),
                                 ),
                                 elevation: 2,

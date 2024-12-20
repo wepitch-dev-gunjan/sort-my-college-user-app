@@ -17,8 +17,8 @@ epShareLinks({required String id}) {
 }
 
 counsellorShareLinks({required String id}) {
-  Share.share('https://sortmycollege.com/counsellor/$id',
-      subject: "This is a counsellor profile");
+  Share.share(
+     "https://sortmycollege.com/counsellor/$id");
 }
 
 accommodationShareLinks({required String id}) {
