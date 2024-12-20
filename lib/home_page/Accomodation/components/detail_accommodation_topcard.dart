@@ -189,7 +189,7 @@ class AccommondationTopCardState extends State<AccommondationTopCard> {
                     right: 12,
                     child: GestureDetector(
                       onTap: () {
-                        shareLinks();
+                        accommodationShareLinks(id: widget.data['_id']);
                       },
                       child: Image.asset(
                         "assets/page-1/images/share.png",

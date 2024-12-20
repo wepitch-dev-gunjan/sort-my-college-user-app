@@ -14,28 +14,13 @@ shareLinks() {
 
 epShareLinks({required String id}) {
   Share.share('https://sortmycollege.com/ep/$id');
-
-  // if (Platform.isIOS) {
-  //   Share.share('https://apps.apple.com/in/app/sort-my-college/id6480402447');
-  // } else if (Platform.isAndroid) {
-  //   Share.share(
-  //       'https://play.google.com/store/apps/details?id=com.sortmycollege');
-  // } else {
-  //   throw 'Platform not supported';
-  // }
 }
 
-
-
 counsellorShareLinks({required String id}) {
-  Share.share('https://sortmycollege.com/counsellor/$id');
+  Share.share('https://sortmycollege.com/counsellor/$id',
+      subject: "This is a counsellor profile");
+}
 
-  // if (Platform.isIOS) {
-  //   Share.share('https://apps.apple.com/in/app/sort-my-college/id6480402447');
-  // } else if (Platform.isAndroid) {
-  //   Share.share(
-  //       'https://play.google.com/store/apps/details?id=com.sortmycollege');
-  // } else {
-  //   throw 'Platform not supported';
-  // }
+accommodationShareLinks({required String id}) {
+  Share.share('https://sortmycollege.com/accommodation/$id');
 }
