@@ -13,6 +13,308 @@ class FilterScreen extends StatefulWidget {
   FilterScreenState createState() => FilterScreenState();
 }
 
+class FilterScreenState extends State<FilterScreen> {
+  bool isLoading = true;
+
+  String selectedCategory = 'City';
+  String searchQuery = '';
+  Map<String, List<String>> filterOptions = {
+    'City': [],
+    'Gender': ['Male', 'Female'],
+    'Occupancy Type': ['Single', 'Double', 'Triple'],
+    'Budget': [], // Initially empty
+    'Near By Colleges': [],
+  };
+
+  late Map<String, List<bool>> selectedOptions;
+  RangeValues budgetRange = const RangeValues(1000, 10000); // Budget range slider values
+
+  @override
+  void initState() {
+    super.initState();
+
+    filterOptions['City'] = widget.cities;
+    filterOptions['Near By Colleges'] = widget.colleges;
+
+    selectedOptions = {};
+    for (var category in filterOptions.keys) {
+      selectedOptions[category] =
+          List<bool>.filled(filterOptions[category]!.length, false);
+    }
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double baseWidth = 460;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double ffem = fem * 0.97;
+
+    // Get the filtered options based on the search query
+    List<String> filteredOptions = filterOptions[selectedCategory]!
+        .where((option) =>
+            option.toLowerCase().contains(searchQuery.toLowerCase()))
+        .toList();
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        toolbarHeight: 40,
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        title: Text(
+          'Filters',
+          style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              setState(() {
+                for (var key in selectedOptions.keys) {
+                  selectedOptions[key] =
+                      List<bool>.filled(selectedOptions[key]!.length, false);
+                }
+              });
+            },
+            child: Text(
+              'CLEAR ALL',
+              style: GoogleFonts.inter(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700),
+            ),
+          ),
+        ],
+      ),
+      body: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(
+              strokeWidth: 2,
+            ))
+          : Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.height,
+                  height: 0.5,
+                  color: Colors.black12,
+                ),
+                Expanded(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: ListView(
+                          children: filterOptions.keys.map((category) {
+                            bool isSelected = selectedCategory == category;
+                            return Column(
+                              children: [
+                                ListTile(
+                                  title: Text(
+                                    category,
+                                    style: TextStyle(
+                                      color: isSelected
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                  tileColor: isSelected
+                                      ? const Color(0xff1F0A68)
+                                      : Colors.white,
+                                  onTap: () {
+                                    setState(() {
+                                      selectedCategory = category;
+                                      searchQuery = ''; // Reset search query
+                                    });
+                                  },
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  height: 1,
+                                  color: Colors.black12,
+                                ),
+                              ],
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      Container(
+                        width: 0.5,
+                        height: MediaQuery.of(context).size.height,
+                        color: Colors.black12,
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Column(
+                          children: [
+                            if (selectedCategory == 'City' ||
+                                selectedCategory == 'Near By Colleges')
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CupertinoSearchTextField(
+                                  onChanged: (value) {
+                                    setState(() {
+                                      searchQuery = value;
+                                    });
+                                  },
+                                ),
+                              ),
+
+                            // Budget Range Slider
+                            if (selectedCategory == 'Budget')
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      'Budget Range: ₹${budgetRange.start.toInt()} - ₹${budgetRange.end.toInt()}',
+                                      style: GoogleFonts.inter(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    RangeSlider(
+                                      values: budgetRange,
+                                      min: 1000,
+                                      max: 10000,
+                                      divisions: 18,
+                                      activeColor: const Color(0xff1F0A68),
+                                      inactiveColor: Colors.grey,
+                                      labels: RangeLabels(
+                                        '₹${budgetRange.start.toInt()}',
+                                        '₹${budgetRange.end.toInt()}',
+                                      ),
+                                      onChanged: (RangeValues values) {
+                                        setState(() {
+                                          budgetRange = values;
+
+                                          // Dynamically update the Budget list in filterOptions
+                                          filterOptions['Budget'] = [
+                                            '₹${budgetRange.start.toInt()}',
+                                            '₹${budgetRange.end.toInt()}',
+                                          ];
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                            // Checkbox List
+                            if (selectedCategory != 'Budget')
+                              Expanded(
+                                child: ListView.builder(
+                                  itemCount: filteredOptions.length,
+                                  itemBuilder: (context, index) {
+                                    String option = filteredOptions[index];
+                                    int originalIndex =
+                                        filterOptions[selectedCategory]!
+                                            .indexOf(option); // Get the original index
+                                    return CheckboxListTile(
+                                      controlAffinity:
+                                          ListTileControlAffinity.leading,
+                                      value: selectedOptions[selectedCategory]![
+                                          originalIndex],
+                                      title: Text(option),
+                                      onChanged: (bool? value) {
+                                        setState(() {
+                                          selectedOptions[selectedCategory]![
+                                              originalIndex] = value!;
+                                        });
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+      bottomNavigationBar: BottomAppBar(
+        padding: EdgeInsets.zero,
+        height: 50,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 60,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        width: 0.5,
+                        color: Colors.black12,
+                      )),
+                  child: Text(
+                    "CLOSE",
+                    style: GoogleFonts.inter(
+                      fontSize: 15 * ffem,
+                      color: const Color(0xff7F7E85),
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  // Collect selected items into a map
+                  Map<String, List<String>> selectedItems = {};
+                  selectedOptions.forEach((category, values) {
+                    List<String> selected = [];
+                    for (int i = 0; i < values.length; i++) {
+                      if (values[i]) {
+                        selected.add(filterOptions[category]![i]);
+                      }
+                    }
+                    if (selected.isNotEmpty) {
+                      selectedItems[category] = selected;
+                    }
+                  });
+
+                  // Add Budget range to selectedItems
+                  if (filterOptions['Budget'] != null && filterOptions['Budget']!.isNotEmpty) {
+                    selectedItems['Budget'] = filterOptions['Budget']!;
+                  }
+
+                  log("Selected Items =>> $selectedItems");
+                  Navigator.pop(context, selectedItems);
+                },
+                child: Container(
+                  color: const Color(0xff1F0A68),
+                  alignment: Alignment.center,
+                  height: 60.2,
+                  child: Text(
+                    "APPLY",
+                    style: GoogleFonts.inter(
+                      fontSize: 15 * ffem,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
 // class FilterScreenState extends State<FilterScreen> {
 //   bool isLoading = true;
 
@@ -267,298 +569,298 @@ class FilterScreen extends StatefulWidget {
 //   }
 // }
 
-class FilterScreenState extends State<FilterScreen> {
-  bool isLoading = true;
+// class FilterScreenState extends State<FilterScreen> {
+//   bool isLoading = true;
 
-  String selectedCategory = 'City';
-  String searchQuery = '';
-  Map<String, List<String>> filterOptions = {
-    'City': [],
-    'Gender': ['Male', 'Female'],
-    'Occupancy Type': ['Single', 'Double', 'Triple'],
-    'Budget': ['Low', 'Medium', 'High'],
-    'Near By Colleges': [],
-  };
+//   String selectedCategory = 'City';
+//   String searchQuery = '';
+//   Map<String, List<String>> filterOptions = {
+//     'City': [],
+//     'Gender': ['Male', 'Female'],
+//     'Occupancy Type': ['Single', 'Double', 'Triple'],
+//     'Budget': ['Low', 'Medium', 'High'],
+//     'Near By Colleges': [],
+//   };
 
-  late Map<String, List<bool>> selectedOptions;
-  RangeValues budgetRange =
-      const RangeValues(1000, 10000); // Budget range slider values
+//   late Map<String, List<bool>> selectedOptions;
+//   RangeValues budgetRange =
+//       const RangeValues(1000, 10000); // Budget range slider values
 
-  @override
-  void initState() {
-    super.initState();
+//   @override
+//   void initState() {
+//     super.initState();
 
-    filterOptions['City'] = widget.cities;
-    filterOptions['Near By Colleges'] = widget.colleges;
+//     filterOptions['City'] = widget.cities;
+//     filterOptions['Near By Colleges'] = widget.colleges;
 
-    selectedOptions = {};
-    for (var category in filterOptions.keys) {
-      selectedOptions[category] =
-          List<bool>.filled(filterOptions[category]!.length, false);
-    }
+//     selectedOptions = {};
+//     for (var category in filterOptions.keys) {
+//       selectedOptions[category] =
+//           List<bool>.filled(filterOptions[category]!.length, false);
+//     }
 
-    setState(() {
-      isLoading = false;
-    });
-  }
+//     setState(() {
+//       isLoading = false;
+//     });
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    double baseWidth = 460;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
-    double ffem = fem * 0.97;
+//   @override
+//   Widget build(BuildContext context) {
+//     double baseWidth = 460;
+//     double fem = MediaQuery.of(context).size.width / baseWidth;
+//     double ffem = fem * 0.97;
 
-    // Get the filtered options based on the search query
-    List<String> filteredOptions = filterOptions[selectedCategory]!
-        .where((option) =>
-            option.toLowerCase().contains(searchQuery.toLowerCase()))
-        .toList();
+//     // Get the filtered options based on the search query
+//     List<String> filteredOptions = filterOptions[selectedCategory]!
+//         .where((option) =>
+//             option.toLowerCase().contains(searchQuery.toLowerCase()))
+//         .toList();
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        toolbarHeight: 40,
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Filters',
-          style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              setState(() {
-                for (var key in selectedOptions.keys) {
-                  selectedOptions[key] =
-                      List<bool>.filled(selectedOptions[key]!.length, false);
-                }
-                budgetRange = const RangeValues(1000, 10000);
-              });
-            },
-            child: Text(
-              'CLEAR ALL',
-              style: GoogleFonts.inter(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700),
-            ),
-          ),
-        ],
-      ),
-      body: isLoading
-          ? const Center(
-              child: CircularProgressIndicator(
-              strokeWidth: 2,
-            ))
-          : Column(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.height,
-                  height: 0.5,
-                  color: Colors.black12,
-                ),
-                Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: ListView(
-                          children: filterOptions.keys.map((category) {
-                            bool isSelected = selectedCategory == category;
-                            return Column(
-                              children: [
-                                ListTile(
-                                  title: Text(
-                                    category,
-                                    style: TextStyle(
-                                      color: isSelected
-                                          ? Colors.white
-                                          : Colors.black,
-                                    ),
-                                  ),
-                                  tileColor: isSelected
-                                      ? const Color(0xff1F0A68)
-                                      : Colors.white,
-                                  onTap: () {
-                                    setState(() {
-                                      selectedCategory = category;
-                                      searchQuery = ''; // Reset search query
-                                    });
-                                  },
-                                ),
-                                Container(
-                                  width: double.infinity,
-                                  height: 1,
-                                  color: Colors.black12,
-                                ),
-                              ],
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                      Container(
-                        width: 0.5,
-                        height: MediaQuery.of(context).size.height,
-                        color: Colors.black12,
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Column(
-                          children: [
-                            if (selectedCategory == 'City' ||
-                                selectedCategory == 'Near By Colleges')
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: CupertinoSearchTextField(
-                                  onChanged: (value) {
-                                    setState(() {
-                                      searchQuery = value;
-                                    });
-                                  },
-                                ),
-                              ),
-                            if (selectedCategory == 'Budget')
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      'Budget Range: ₹${budgetRange.start.toInt()} - ₹${budgetRange.end.toInt()}',
-                                      style: GoogleFonts.inter(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    RangeSlider(
-                                      values: budgetRange,
-                                      min: 1000,
-                                      max: 10000,
-                                      divisions: 18,
-                                      activeColor: const Color(0xff1F0A68),
-                                      inactiveColor: Colors.grey,
-                                      labels: RangeLabels(
-                                        '₹${budgetRange.start.toInt()}',
-                                        '₹${budgetRange.end.toInt()}',
-                                      ),
-                                      onChanged: (RangeValues values) {
-                                        setState(() {
-                                          budgetRange = values;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
+//     return Scaffold(
+//       backgroundColor: Colors.white,
+//       appBar: AppBar(
+//         toolbarHeight: 40,
+//         backgroundColor: Colors.white,
+//         automaticallyImplyLeading: false,
+//         title: Text(
+//           'Filters',
+//           style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400),
+//         ),
+//         actions: [
+//           TextButton(
+//             onPressed: () {
+//               setState(() {
+//                 for (var key in selectedOptions.keys) {
+//                   selectedOptions[key] =
+//                       List<bool>.filled(selectedOptions[key]!.length, false);
+//                 }
+//                 budgetRange = const RangeValues(1000, 10000);
+//               });
+//             },
+//             child: Text(
+//               'CLEAR ALL',
+//               style: GoogleFonts.inter(
+//                   color: Colors.black,
+//                   fontSize: 14,
+//                   fontWeight: FontWeight.w700),
+//             ),
+//           ),
+//         ],
+//       ),
+//       body: isLoading
+//           ? const Center(
+//               child: CircularProgressIndicator(
+//               strokeWidth: 2,
+//             ))
+//           : Column(
+//               children: [
+//                 Container(
+//                   width: MediaQuery.of(context).size.height,
+//                   height: 0.5,
+//                   color: Colors.black12,
+//                 ),
+//                 Expanded(
+//                   child: Row(
+//                     children: [
+//                       Expanded(
+//                         flex: 2,
+//                         child: ListView(
+//                           children: filterOptions.keys.map((category) {
+//                             bool isSelected = selectedCategory == category;
+//                             return Column(
+//                               children: [
+//                                 ListTile(
+//                                   title: Text(
+//                                     category,
+//                                     style: TextStyle(
+//                                       color: isSelected
+//                                           ? Colors.white
+//                                           : Colors.black,
+//                                     ),
+//                                   ),
+//                                   tileColor: isSelected
+//                                       ? const Color(0xff1F0A68)
+//                                       : Colors.white,
+//                                   onTap: () {
+//                                     setState(() {
+//                                       selectedCategory = category;
+//                                       searchQuery = ''; // Reset search query
+//                                     });
+//                                   },
+//                                 ),
+//                                 Container(
+//                                   width: double.infinity,
+//                                   height: 1,
+//                                   color: Colors.black12,
+//                                 ),
+//                               ],
+//                             );
+//                           }).toList(),
+//                         ),
+//                       ),
+//                       Container(
+//                         width: 0.5,
+//                         height: MediaQuery.of(context).size.height,
+//                         color: Colors.black12,
+//                       ),
+//                       Expanded(
+//                         flex: 3,
+//                         child: Column(
+//                           children: [
+//                             if (selectedCategory == 'City' ||
+//                                 selectedCategory == 'Near By Colleges')
+//                               Padding(
+//                                 padding: const EdgeInsets.all(8.0),
+//                                 child: CupertinoSearchTextField(
+//                                   onChanged: (value) {
+//                                     setState(() {
+//                                       searchQuery = value;
+//                                     });
+//                                   },
+//                                 ),
+//                               ),
+//                             if (selectedCategory == 'Budget')
+//                               Padding(
+//                                 padding: const EdgeInsets.all(8.0),
+//                                 child: Column(
+//                                   children: [
+//                                     Text(
+//                                       'Budget Range: ₹${budgetRange.start.toInt()} - ₹${budgetRange.end.toInt()}',
+//                                       style: GoogleFonts.inter(
+//                                         fontSize: 14,
+//                                         fontWeight: FontWeight.w500,
+//                                       ),
+//                                     ),
+//                                     RangeSlider(
+//                                       values: budgetRange,
+//                                       min: 1000,
+//                                       max: 10000,
+//                                       divisions: 18,
+//                                       activeColor: const Color(0xff1F0A68),
+//                                       inactiveColor: Colors.grey,
+//                                       labels: RangeLabels(
+//                                         '₹${budgetRange.start.toInt()}',
+//                                         '₹${budgetRange.end.toInt()}',
+//                                       ),
+//                                       onChanged: (RangeValues values) {
+//                                         setState(() {
+//                                           budgetRange = values;
+//                                         });
+//                                       },
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),
 
-                            // Checkbox List
-                            if (selectedCategory != 'Budget')
-                              Expanded(
-                                child: ListView.builder(
-                                  itemCount: filteredOptions.length,
-                                  itemBuilder: (context, index) {
-                                    String option = filteredOptions[index];
-                                    int originalIndex =
-                                        filterOptions[selectedCategory]!
-                                            .indexOf(option);
-                                    return CheckboxListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.leading,
-                                      value: selectedOptions[selectedCategory]![
-                                          originalIndex],
-                                      title: Text(option),
-                                      onChanged: (bool? value) {
-                                        setState(() {
-                                          selectedOptions[selectedCategory]![
-                                              originalIndex] = value!;
-                                        });
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-      bottomNavigationBar: BottomAppBar(
-        padding: EdgeInsets.zero,
-        height: 50,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Expanded(
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 60,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        width: 0.5,
-                        color: Colors.black12,
-                      )),
-                  child: Text(
-                    "CLOSE",
-                    style: GoogleFonts.inter(
-                      fontSize: 15 * ffem,
-                      color: const Color(0xff7F7E85),
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: GestureDetector(
-                onTap: () {
-                  // Collect selected items into a map
-                  Map<String, dynamic> selectedItems = {};
-                  selectedOptions.forEach((category, values) {
-                    List<String> selected = [];
-                    for (int i = 0; i < values.length; i++) {
-                      if (values[i]) {
-                        selected.add(filterOptions[category]![i]);
-                      }
-                    }
-                    if (selected.isNotEmpty) {
-                      selectedItems[category] = selected;
-                    }
-                  });
-                  selectedItems['Budget'] = {
-                    'start': budgetRange.start.toInt(),
-                    'end': budgetRange.end.toInt(),
-                  };
+//                             // Checkbox List
+//                             if (selectedCategory != 'Budget')
+//                               Expanded(
+//                                 child: ListView.builder(
+//                                   itemCount: filteredOptions.length,
+//                                   itemBuilder: (context, index) {
+//                                     String option = filteredOptions[index];
+//                                     int originalIndex =
+//                                         filterOptions[selectedCategory]!
+//                                             .indexOf(option);
+//                                     return CheckboxListTile(
+//                                       controlAffinity:
+//                                           ListTileControlAffinity.leading,
+//                                       value: selectedOptions[selectedCategory]![
+//                                           originalIndex],
+//                                       title: Text(option),
+//                                       onChanged: (bool? value) {
+//                                         setState(() {
+//                                           selectedOptions[selectedCategory]![
+//                                               originalIndex] = value!;
+//                                         });
+//                                       },
+//                                     );
+//                                   },
+//                                 ),
+//                               ),
+//                           ],
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//       bottomNavigationBar: BottomAppBar(
+//         padding: EdgeInsets.zero,
+//         height: 50,
+//         child: Row(
+//           mainAxisSize: MainAxisSize.max,
+//           children: [
+//             Expanded(
+//               child: GestureDetector(
+//                 onTap: () {
+//                   Navigator.pop(context);
+//                 },
+//                 child: Container(
+//                   alignment: Alignment.center,
+//                   height: 60,
+//                   decoration: BoxDecoration(
+//                       color: Colors.white,
+//                       border: Border.all(
+//                         width: 0.5,
+//                         color: Colors.black12,
+//                       )),
+//                   child: Text(
+//                     "CLOSE",
+//                     style: GoogleFonts.inter(
+//                       fontSize: 15 * ffem,
+//                       color: const Color(0xff7F7E85),
+//                       fontWeight: FontWeight.w700,
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ),
+//             Expanded(
+//               child: GestureDetector(
+//                 onTap: () {
+//                   // Collect selected items into a map
+//                   Map<String, dynamic> selectedItems = {};
+//                   selectedOptions.forEach((category, values) {
+//                     List<String> selected = [];
+//                     for (int i = 0; i < values.length; i++) {
+//                       if (values[i]) {
+//                         selected.add(filterOptions[category]![i]);
+//                       }
+//                     }
+//                     if (selected.isNotEmpty) {
+//                       selectedItems[category] = selected;
+//                     }
+//                   });
+//                   selectedItems['Budget'] = {
+//                     'start': budgetRange.start.toInt(),
+//                     'end': budgetRange.end.toInt(),
+//                   };
 
-                  log("Selected Items =>> $selectedItems");
-                  Navigator.pop(context, selectedItems);
+//                   log("Selected Items =>> $selectedItems");
+//                   Navigator.pop(context, selectedItems);
 
              
-                },
-                child: Container(
-                  color: const Color(0xff1F0A68),
-                  alignment: Alignment.center,
-                  height: 60.2,
-                  child: Text(
-                    "APPLY",
-                    style: GoogleFonts.inter(
-                      fontSize: 15 * ffem,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//                 },
+//                 child: Container(
+//                   color: const Color(0xff1F0A68),
+//                   alignment: Alignment.center,
+//                   height: 60.2,
+//                   child: Text(
+//                     "APPLY",
+//                     style: GoogleFonts.inter(
+//                       fontSize: 15 * ffem,
+//                       color: Colors.white,
+//                       fontWeight: FontWeight.w700,
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

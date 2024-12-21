@@ -35,14 +35,10 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
 
   Future<void> getAllAccommodation() async {
     final res = await ApiService.getAllAccommodation();
-    if (res != null) {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('accommodationData', jsonEncode(res));
-      setState(() {
-        data = res;
-        isLoading = false;
-      });
-    }
+    setState(() {
+      data = res;
+      isLoading = false;
+    });
   }
 
   getCities() async {
@@ -198,13 +194,100 @@ class AccommodationCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8.0),
+                // Expanded(
+                //   child: SingleChildScrollView(
+                //     scrollDirection: Axis.horizontal,
+                //     child: Row(
+                //       children: appliedFilters.entries.map((entry) {
+                //         return Row(
+                //           children: entry.value.map((value) {
+                //             return Container(
+                //               margin: const EdgeInsets.only(right: 8),
+                //               padding: const EdgeInsets.symmetric(
+                //                   horizontal: 10, vertical: 5),
+                //               decoration: BoxDecoration(
+                //                 color: Colors.grey[200],
+                //                 borderRadius: BorderRadius.circular(15),
+                //               ),
+                //               child: Text(
+                //                 value,
+                //                 style: GoogleFonts.inter(
+                //                   fontSize: 14,
+                //                   fontWeight: FontWeight.w500,
+                //                   color: Colors.black,
+                //                 ),
+                //               ),
+                //             );
+                //           }).toList(),
+                //         );
+                //       }).toList(),
+                //     ),
+                //   ),
+                // ),
+                // Expanded(
+                //   child: SingleChildScrollView(
+                //     scrollDirection: Axis.horizontal,
+                //     child: Row(
+                //       children: appliedFilters.entries.map((entry) {
+                //         if (entry.key == 'Budget') {
+                //           // Special handling for budget range
+                //           final budget = entry.value as Map<String, dynamic>;
+                //           return Container(
+                //             margin: const EdgeInsets.only(right: 8),
+                //             padding: const EdgeInsets.symmetric(
+                //                 horizontal: 10, vertical: 5),
+                //             decoration: BoxDecoration(
+                //               color: Colors.grey[200],
+                //               borderRadius: BorderRadius.circular(15),
+                //             ),
+                //             child: Text(
+                //               "₹${budget['start']} - ₹${budget['end']}",
+                //               style: GoogleFonts.inter(
+                //                 fontSize: 14,
+                //                 fontWeight: FontWeight.w500,
+                //                 color: Colors.black,
+                //               ),
+                //             ),
+                //           );
+                //         } else {
+                //           // Handle other filters as a list of strings
+                //           return Row(
+                //             children:
+                //                 (entry.value as List<String>).map((value) {
+                //               return Container(
+                //                 margin: const EdgeInsets.only(right: 8),
+                //                 padding: const EdgeInsets.symmetric(
+                //                     horizontal: 10, vertical: 5),
+                //                 decoration: BoxDecoration(
+                //                   color: Colors.grey[200],
+                //                   borderRadius: BorderRadius.circular(15),
+                //                 ),
+                //                 child: Text(
+                //                   value,
+                //                   style: GoogleFonts.inter(
+                //                     fontSize: 14,
+                //                     fontWeight: FontWeight.w500,
+                //                     color: Colors.black,
+                //                   ),
+                //                 ),
+                //               );
+                //             }).toList(),
+                //           );
+                //         }
+                //       }).toList(),
+                //     ),
+                //   ),
+                // ),
+
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: appliedFilters.entries.map((entry) {
-                        return Row(
-                          children: entry.value.map((value) {
+                        if (entry.key == 'Budget') {
+                          // Special handling for budget range
+                          if (entry.value is Map<String, dynamic>) {
+                            final budget = entry.value as Map<String, dynamic>;
                             return Container(
                               margin: const EdgeInsets.only(right: 8),
                               padding: const EdgeInsets.symmetric(
@@ -214,7 +297,7 @@ class AccommodationCard extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: Text(
-                                value,
+                                "₹${budget['start']} - ₹${budget['end']}",
                                 style: GoogleFonts.inter(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -222,12 +305,40 @@ class AccommodationCard extends StatelessWidget {
                                 ),
                               ),
                             );
-                          }).toList(),
-                        );
+                          }
+                          return const SizedBox(); // Return an empty widget if the type is incorrect
+                        } else {
+                          // Handle other filters as a list of strings
+                          if (entry.value is List<String>) {
+                            return Row(
+                              children:
+                                  (entry.value as List<String>).map((value) {
+                                return Container(
+                                  margin: const EdgeInsets.only(right: 8),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 5),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Text(
+                                    value,
+                                    style: GoogleFonts.inter(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            );
+                          }
+                          return const SizedBox(); // Return an empty widget if the type is incorrect
+                        }
                       }).toList(),
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ),
