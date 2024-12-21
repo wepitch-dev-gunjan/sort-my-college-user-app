@@ -280,65 +280,65 @@ class AccommodationCard extends StatelessWidget {
                 // ),
 
                 Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: appliedFilters.entries.map((entry) {
-                        if (entry.key == 'Budget') {
-                          // Special handling for budget range
-                          if (entry.value is Map<String, dynamic>) {
-                            final budget = entry.value as Map<String, dynamic>;
-                            return Container(
-                              margin: const EdgeInsets.only(right: 8),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
-                              decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Text(
-                                "₹${budget['start']} - ₹${budget['end']}",
-                                style: GoogleFonts.inter(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            );
-                          }
-                          return const SizedBox(); // Return an empty widget if the type is incorrect
-                        } else {
-                          // Handle other filters as a list of strings
-                          if (entry.value is List<String>) {
-                            return Row(
-                              children:
-                                  (entry.value as List<String>).map((value) {
-                                return Container(
-                                  margin: const EdgeInsets.only(right: 8),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 5),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[200],
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: Text(
-                                    value,
-                                    style: GoogleFonts.inter(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
-                            );
-                          }
-                          return const SizedBox(); // Return an empty widget if the type is incorrect
-                        }
-                      }).toList(),
+  child: SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: Row(
+      children: appliedFilters.entries.map((entry) {
+        if (entry.key == 'Budget') {
+          // Special handling for budget range
+          if (entry.value is Map<String, dynamic>) {
+            final budget = entry.value as Map<String, dynamic>;
+            return Container(
+              margin: const EdgeInsets.only(right: 8),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Text(
+                "₹${budget['start']} - ₹${budget['end']}",
+                style: GoogleFonts.inter(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
+              ),
+            );
+          }
+          return const SizedBox(); // Return an empty widget if the type is incorrect
+        } else {
+          // Handle other filters as a list of strings
+          if (entry.value is List<String>) {
+            return Row(
+              children: (entry.value as List<String>).map((value) {
+                return Container(
+                  margin: const EdgeInsets.only(right: 8),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Text(
+                    value,
+                    style: GoogleFonts.inter(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
                     ),
                   ),
-                )
+                );
+              }).toList(),
+            );
+          }
+          return const SizedBox(); // Return an empty widget if the type is incorrect
+        }
+      }).toList(),
+    ),
+  ),
+)
+
               ],
             ),
           ),

@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FilterScreen extends StatefulWidget {
   final List<String> cities;
@@ -12,6 +14,8 @@ class FilterScreen extends StatefulWidget {
   @override
   FilterScreenState createState() => FilterScreenState();
 }
+
+
 
 class FilterScreenState extends State<FilterScreen> {
   bool isLoading = true;
@@ -42,9 +46,52 @@ class FilterScreenState extends State<FilterScreen> {
           List<bool>.filled(filterOptions[category]!.length, false);
     }
 
+    _loadFilters();
+  }
+
+  Future<void> _loadFilters() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? savedFilters = prefs.getString('selectedFilters');
+    String? savedBudget = prefs.getString('budgetRange');
+
+    if (savedFilters != null) {
+      setState(() {
+        selectedOptions = Map<String, List<bool>>.from(
+          jsonDecode(savedFilters).map(
+            (key, value) => MapEntry(key, List<bool>.from(value)),
+          ),
+        );
+      });
+    }
+
+    if (savedBudget != null) {
+      setState(() {
+        List<double> budgetValues =
+            List<double>.from(jsonDecode(savedBudget).map((e) => e.toDouble()));
+        budgetRange = RangeValues(budgetValues[0], budgetValues[1]);
+        filterOptions['Budget'] = [
+          '₹${budgetRange.start.toInt()}',
+          '₹${budgetRange.end.toInt()}',
+        ];
+      });
+    }
+
     setState(() {
       isLoading = false;
     });
+  }
+
+  Future<void> _saveFilters() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('selectedFilters', jsonEncode(selectedOptions));
+    await prefs.setString(
+        'budgetRange', jsonEncode([budgetRange.start, budgetRange.end]));
+  }
+
+  Future<void> _clearFilters() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('selectedFilters');
+    await prefs.remove('budgetRange');
   }
 
   @override
@@ -71,13 +118,14 @@ class FilterScreenState extends State<FilterScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               setState(() {
                 for (var key in selectedOptions.keys) {
                   selectedOptions[key] =
                       List<bool>.filled(selectedOptions[key]!.length, false);
                 }
               });
+              await _clearFilters(); // Clear filters from SharedPreferences
             },
             child: Text(
               'CLEAR ALL',
@@ -215,13 +263,11 @@ class FilterScreenState extends State<FilterScreen> {
                                     return CheckboxListTile(
                                       controlAffinity:
                                           ListTileControlAffinity.leading,
-                                      value: selectedOptions[selectedCategory]![
-                                          originalIndex],
+                                      value: selectedOptions[selectedCategory]![originalIndex],
                                       title: Text(option),
                                       onChanged: (bool? value) {
                                         setState(() {
-                                          selectedOptions[selectedCategory]![
-                                              originalIndex] = value!;
+                                          selectedOptions[selectedCategory]![originalIndex] = value!;
                                         });
                                       },
                                     );
@@ -269,7 +315,7 @@ class FilterScreenState extends State<FilterScreen> {
             ),
             Expanded(
               child: GestureDetector(
-                onTap: () {
+                onTap: () async {
                   // Collect selected items into a map
                   Map<String, List<String>> selectedItems = {};
                   selectedOptions.forEach((category, values) {
@@ -290,6 +336,7 @@ class FilterScreenState extends State<FilterScreen> {
                   }
 
                   log("Selected Items =>> $selectedItems");
+                  await _saveFilters(); // Save filters before navigating away
                   Navigator.pop(context, selectedItems);
                 },
                 child: Container(
@@ -313,6 +360,7 @@ class FilterScreenState extends State<FilterScreen> {
     );
   }
 }
+
 
 
 // class FilterScreenState extends State<FilterScreen> {
