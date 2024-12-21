@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:myapp/home_page/model/banner_image_model.dart';
@@ -553,7 +554,7 @@ class ApiService {
       headers: headers,
       body: jsonEncode(body),
     );
-    
+
     return jsonDecode(response.body);
   }
 
@@ -569,7 +570,7 @@ class ApiService {
       headers: headers,
       body: jsonEncode(body),
     );
-   
+
     return jsonDecode(response.body);
   }
 
@@ -1074,12 +1075,306 @@ class ApiService {
 
 //==========================! Accommodation APIS !=========================================
 
-  static Future getAllAccommodation() async {
-    var url = Uri.parse(
-        "${AppConstants.baseUrl}/admin/accommodation/user/getallaccommodation");
-    final response = await http.get(url);
-    return jsonDecode(response.body);
+  // static Future getAllAccommodation({required Map filters}) async {
+  //   var url = Uri.parse(
+  //       "${AppConstants.baseUrl}/admin/accommodation/user/getallaccommodation");
+  //   final response = await http.get(url,);
+  //   return jsonDecode(response.body);
+  // }
+
+  static Future getAllAccommodation({
+    required Map<String, dynamic> filters,
+  }) async {
+    log("filters123$filters");
+
+    // Create a copy of the filters map to modify it
+    final updatedFilters = Map<String, dynamic>.from(filters);
+
+    // Handle the Budget key
+    if (updatedFilters.containsKey('Budget') &&
+        updatedFilters['Budget'] is List) {
+      List<dynamic> budget = updatedFilters['Budget'];
+      if (budget.length == 2) {
+        updatedFilters['MinBudget'] =
+            budget[0]; // Assign first index to MinBudget
+        updatedFilters['MaxBudget'] =
+            budget[1]; // Assign second index to MaxBudget
+      }
+      updatedFilters.remove('Budget'); // Remove the original Budget key
+    }
+
+    // Define keys that should be sent as arrays
+    final keysAsArray = [
+      'City',
+      'Gender',
+      'Occupancy Type',
+      'Near By Colleges'
+    ];
+
+    // Map the keys to the required format
+    Map<String, dynamic> queryParameters = {};
+    updatedFilters.forEach((key, value) {
+      // Convert the key to the desired format
+      String formattedKey = key.toLowerCase().replaceAll(' ', '');
+
+      // Handle special cases for capitalization
+      if (formattedKey == 'minbudget') {
+        formattedKey = 'minBudget';
+      } else if (formattedKey == 'maxbudget') {
+        formattedKey = 'maxBudget';
+      } else if (formattedKey == 'nearbycolleges') {
+        formattedKey = 'nearbyCollege';
+      } else if (formattedKey == 'occupancytype') {
+        formattedKey = 'occupancyType';
+      }
+
+      // Ensure values for specific keys are sent as arrays
+      if (keysAsArray.contains(key)) {
+        if (value is String) {
+          queryParameters[formattedKey] = [
+            value
+          ]; // Wrap single string into an array
+        } else if (value is List) {
+          queryParameters[formattedKey] =
+              value; // Keep as array if already a list
+        }
+      } else {
+        queryParameters[formattedKey] = value; // Assign other values as-is
+      }
+    });
+
+    log("QueryParms$queryParameters");
+
+    // Initialize Dio
+    Dio dio = Dio();
+
+    try {
+      // Send GET request with query parameters
+      final response = await dio.get(
+        "${AppConstants.baseUrl}/admin/accommodation/user/getallaccommodation",
+        data: queryParameters, // Use queryParameters for GET
+      );
+
+      // Handle response
+      if (response.statusCode == 200) {
+        return response.data; // Return response body
+      } else {
+        throw Exception('Failed to load accommodations');
+      }
+    } catch (e) {
+      log("Error occurred: $e");
+      throw Exception('Failed to load accommodations');
+    }
   }
+
+  // static Future getAllAccommodation({
+  //   required Map<String, dynamic> filters,
+  // }) async {
+  //   log("filters123$filters");
+
+  //   // Create a copy of the filters map to modify it
+  //   final updatedFilters = Map<String, dynamic>.from(filters);
+
+  //   // Handle the Budget key
+  //   if (updatedFilters.containsKey('Budget') &&
+  //       updatedFilters['Budget'] is List) {
+  //     List<dynamic> budget = updatedFilters['Budget'];
+  //     if (budget.length == 2) {
+  //       updatedFilters['minBudget'] =
+  //           budget[0]; // Assign first index to minBudget
+  //       updatedFilters['maxBudget'] =
+  //           budget[1]; // Assign second index to maxBudget
+  //     }
+  //     updatedFilters.remove('Budget'); // Remove the original Budget key
+  //   }
+
+  //   // Define keys that should be sent as arrays
+  //   final keysAsArray = [
+  //     'City',
+  //     'Gender',
+  //     'Occupancy Type',
+  //     'Near By Colleges'
+  //   ];
+
+  //   // Map the keys to the required format
+  //   Map<String, dynamic> queryParameters = {};
+  //   updatedFilters.forEach((key, value) {
+  //     // Convert the key to the desired format
+  //     String formattedKey = key.toLowerCase().replaceAll(' ', '');
+  //     if (formattedKey == 'nearbycolleges') formattedKey = 'nearbyCollege';
+  //     if (formattedKey == 'occupancytype') formattedKey = 'occupancyType';
+
+  //     // Ensure values for specific keys are sent as arrays
+  //     if (keysAsArray.contains(key)) {
+  //       if (value is String) {
+  //         queryParameters[formattedKey] = [
+  //           value
+  //         ]; // Wrap single string into an array
+  //       } else if (value is List) {
+  //         queryParameters[formattedKey] =
+  //             value; // Keep as array if already a list
+  //       }
+  //     } else {
+  //       queryParameters[formattedKey] = value; // Assign other values as-is
+  //     }
+  //   });
+
+  //   log("QueryParms$queryParameters");
+
+  //   // Initialize Dio
+  //   Dio dio = Dio();
+
+  //   try {
+  //     // Send GET request with query parameters
+  //     final response = await dio.get(
+  //       "${AppConstants.baseUrl}/admin/accommodation/user/getallaccommodation",
+  //       data: queryParameters, // Use `queryParameters` instead of `data`
+  //     );
+
+  //     // Handle response
+  //     if (response.statusCode == 200) {
+  //       return response.data; // Return response body
+  //     } else {
+  //       throw Exception('Failed to load accommodations');
+  //     }
+  //   } catch (e) {
+  //     log("Error occurred: $e");
+  //     throw Exception('Failed to load accommodations');
+  //   }
+  // }
+
+  // static Future getAllAccommodation({
+  //   required Map<String, dynamic> filters,
+  // }) async {
+  //   log("filters123$filters");
+
+  //   // Create a copy of the filters map to modify it
+  //   final updatedFilters = Map<String, dynamic>.from(filters);
+
+  //   // Handle the Budget key
+  //   if (updatedFilters.containsKey('Budget') &&
+  //       updatedFilters['Budget'] is List) {
+  //     List<dynamic> budget = updatedFilters['Budget'];
+  //     if (budget.length == 2) {
+  //       updatedFilters['minBudget'] =
+  //           budget[0]; // Assign first index to minBudget
+  //       updatedFilters['maxBudget'] =
+  //           budget[1]; // Assign second index to maxBudget
+  //     }
+  //     updatedFilters.remove('Budget'); // Remove the original Budget key
+  //   }
+
+  //   // Define keys that should be sent as arrays
+  //   final keysAsArray = ['city', 'gender', 'occupancyType', 'nearbyCollege'];
+
+  //   // Map the keys to lowercase and camelCase, keeping 'minBudget' and 'maxBudget' unchanged
+  //   var queryParameters = updatedFilters.map((key, value) {
+  //     // Ensure minBudget and maxBudget keys retain proper casing
+  //     String formattedKey = key.toLowerCase().replaceAll(' ', '');
+  //     if (formattedKey == 'minbudget' || formattedKey == 'maxbudget') {
+  //       formattedKey = key; // Preserve the case for minBudget and maxBudget
+  //     }
+
+  //     if (keysAsArray.contains(formattedKey)) {
+  //       // Ensure values for specific keys are sent as arrays
+  //       if (value is String) {
+  //         return MapEntry(
+  //             formattedKey, [value]); // Wrap single string into an array
+  //       } else if (value is List) {
+  //         return MapEntry(
+  //             formattedKey, value); // Keep as array if already a list
+  //       }
+  //     }
+
+  //     if (value is List) {
+  //       // Convert list to a comma-separated string for other keys
+  //       return MapEntry(formattedKey, value.join(','));
+  //     }
+  //     return MapEntry(
+  //         formattedKey, value.toString()); // Keep other values as is
+  //   });
+
+  //   log("QueryParms$queryParameters");
+
+  //   // Initialize Dio
+  //   Dio dio = Dio();
+
+  //   try {
+  //     // Send GET request with query parameters
+  //     final response = await dio.get(
+  //       "${AppConstants.baseUrl}/admin/accommodation/user/getallaccommodation",
+  //       data: queryParameters,
+  //     );
+
+  //     // Handle response
+  //     if (response.statusCode == 200) {
+  //       return response.data; // Return response body
+  //     } else {
+  //       throw Exception('Failed to load accommodations');
+  //     }
+  //   } catch (e) {
+  //     log("Error occurred: $e");
+  //     throw Exception('Failed to load accommodations');
+  //   }
+  // }
+
+  // static Future getAllAccommodation(
+  //     {required Map<String, dynamic> filters}) async {
+  //   log("filters123$filters");
+
+  //   // Create a copy of the filters map to modify it
+  //   final updatedFilters = Map<String, dynamic>.from(filters);
+
+  //   // Handle the Budget key
+  //   if (updatedFilters.containsKey('Budget') &&
+  //       updatedFilters['Budget'] is List) {
+  //     List<dynamic> budget = updatedFilters['Budget'];
+  //     if (budget.length == 2) {
+  //       updatedFilters['minBudget'] =
+  //           budget[0]; // Assign first index to minBudget
+  //       updatedFilters['maxBudget'] =
+  //           budget[1]; // Assign second index to maxBudget
+  //     }
+  //     updatedFilters.remove('Budget'); // Remove the original Budget key
+  //   }
+
+  //   // Map the keys to lowercase and camelCase, keeping 'minBudget' and 'maxBudget' unchanged
+  //   var queryParameters = updatedFilters.map((key, value) {
+  //     // Ensure minBudget and maxBudget keys retain proper casing
+  //     String formattedKey = key.toLowerCase().replaceAll(' ', '');
+  //     if (formattedKey == 'minbudget' || formattedKey == 'maxbudget') {
+  //       formattedKey = key; // Preserve the case for minBudget and maxBudget
+  //     }
+
+  //     if (value is List) {
+  //       // Convert list to the format key:[value1,value2]
+  //       return MapEntry(
+  //           formattedKey, '[${value.map((e) => e.toString()).join(',')}]');
+  //     }
+  //     return MapEntry(
+  //         formattedKey, value.toString()); // Convert other values to string
+  //   });
+
+  //   // Create the URI with query parameters
+  //   var url = Uri.parse(
+  //           "${AppConstants.baseUrl}/admin/accommodation/user/getallaccommodation")
+  //       .replace(queryParameters: queryParameters);
+
+  //   log("Updated query parameters: $queryParameters");
+
+  //   log("url$url");
+
+  //   // Make the GET request
+  //   final response = await http.get(url);
+
+  //   // Return the response as decoded JSON
+  //   if (response.statusCode == 200) {
+  //     // log("response${jsonDecode(response.body)}");
+  //     return jsonDecode(response.body);
+  //   } else {
+  //     throw Exception('Failed to load accommodations');
+  //   }
+  // }
 
   static Future<Map<String, dynamic>> accommodationFeedback(
       {String? id, double? ratingVal, String? feedbackMsg}) async {

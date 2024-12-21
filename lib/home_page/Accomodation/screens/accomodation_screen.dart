@@ -9,7 +9,6 @@ import 'package:myapp/other/api_service.dart';
 import '../../../shared/colors_const.dart';
 import '../../entrance_preparation/components/commons.dart';
 import '../../entrance_preparation/screens/entrance_preparation_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AccomodationScreen extends StatefulWidget {
   const AccomodationScreen({super.key});
@@ -23,51 +22,51 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
   dynamic data;
   List<String> cities = [];
   List<String> colleges = [];
-  Map<String, List<String>> appliedFilters = {};
+  Map<String, List<String>> appliedFilters = {}; // Applied filters
 
   @override
   void initState() {
     super.initState();
-    getAllAccommodation();
     getCities();
     getColleges();
+    fetchAccommodations(); // Fetch data with filters
   }
 
-  Future<void> getAllAccommodation() async {
-    final res = await ApiService.getAllAccommodation();
+  Future<void> fetchAccommodations() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    final res = await ApiService.getAllAccommodation(filters: appliedFilters);
     setState(() {
       data = res;
       isLoading = false;
     });
   }
 
-  getCities() async {
+  Future<void> getCities() async {
     final res = await ApiService.getCities();
     setState(() {
       cities = res['cities'].cast<String>();
-      isLoading = false;
     });
   }
 
-  getColleges() async {
+  Future<void> getColleges() async {
     final res = await ApiService.getColleges();
     setState(() {
       colleges = res['colleges'].cast<String>();
-      isLoading = false;
     });
-  }
-
-  Future<void> _refreshAccommodations() async {
-    setState(() {
-      isLoading = true;
-    });
-    await getAllAccommodation();
   }
 
   void _applyFilters(Map<String, List<String>> filters) {
     setState(() {
-      appliedFilters = filters;
+      appliedFilters = filters; // Update applied filters
     });
+    fetchAccommodations(); // Fetch data with new filters
+  }
+
+  Future<void> _refreshAccommodations() async {
+    fetchAccommodations(); // Refresh accommodations
   }
 
   @override
@@ -99,9 +98,9 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
                         cities: cities,
                         colleges: colleges,
                         data: data,
-                        onRefresh: _refreshAccommodations, // Refresh function
+                        onRefresh: _refreshAccommodations,
                         appliedFilters: appliedFilters,
-                        onFiltersUpdated: _applyFilters,
+                        onFiltersUpdated: _applyFilters, // Filter callback
                       ),
                     ],
                   ),
@@ -109,6 +108,105 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
     );
   }
 }
+
+// class AccomodationScreen extends StatefulWidget {
+//   const AccomodationScreen({super.key});
+
+//   @override
+//   State<AccomodationScreen> createState() => _AccomodationScreenState();
+// }
+
+// class _AccomodationScreenState extends State<AccomodationScreen> {
+//   bool isLoading = true;
+//   dynamic data;
+//   List<String> cities = [];
+//   List<String> colleges = [];
+//   Map<String, List<String>> appliedFilters = {};
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     getAllAccommodation();
+//     getCities();
+//     getColleges();
+//   }
+
+//   Future<void> getAllAccommodation() async {
+//     final res = await ApiService.getAllAccommodation();
+//     setState(() {
+//       data = res;
+//       isLoading = false;
+//     });
+//   }
+
+//   getCities() async {
+//     final res = await ApiService.getCities();
+//     setState(() {
+//       cities = res['cities'].cast<String>();
+//       isLoading = false;
+//     });
+//   }
+
+//   getColleges() async {
+//     final res = await ApiService.getColleges();
+//     setState(() {
+//       colleges = res['colleges'].cast<String>();
+//       isLoading = false;
+//     });
+//   }
+
+//   Future<void> _refreshAccommodations() async {
+//     setState(() {
+//       isLoading = true;
+//     });
+//     await getAllAccommodation();
+//   }
+
+//   void _applyFilters(Map<String, List<String>> filters) {
+//     setState(() {
+//       appliedFilters = filters;
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: ColorsConst.whiteColor,
+//       appBar: const CusAppBar(
+//         title: 'Accommodation',
+//       ),
+//       body: isLoading
+//           ? const AccommodationShimmerEffect()
+//           : data == null || data.isEmpty
+//               ? const Center(
+//                   child: Text(
+//                     'No Data Available',
+//                     style: TextStyle(
+//                       fontSize: 18,
+//                       color: Colors.grey,
+//                     ),
+//                   ),
+//                 )
+//               : RefreshIndicator(
+//                   backgroundColor: Colors.white,
+//                   color: Colors.black,
+//                   onRefresh: _refreshAccommodations,
+//                   child: ListView(
+//                     children: [
+//                       AccommodationCard(
+//                         cities: cities,
+//                         colleges: colleges,
+//                         data: data,
+//                         onRefresh: _refreshAccommodations, // Refresh function
+//                         appliedFilters: appliedFilters,
+//                         onFiltersUpdated: _applyFilters,
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//     );
+//   }
+// }
 
 class AccommodationCard extends StatelessWidget {
   final List<String> cities, colleges;
@@ -280,65 +378,65 @@ class AccommodationCard extends StatelessWidget {
                 // ),
 
                 Expanded(
-  child: SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: Row(
-      children: appliedFilters.entries.map((entry) {
-        if (entry.key == 'Budget') {
-          // Special handling for budget range
-          if (entry.value is Map<String, dynamic>) {
-            final budget = entry.value as Map<String, dynamic>;
-            return Container(
-              margin: const EdgeInsets.only(right: 8),
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 10, vertical: 5),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Text(
-                "₹${budget['start']} - ₹${budget['end']}",
-                style: GoogleFonts.inter(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                ),
-              ),
-            );
-          }
-          return const SizedBox(); // Return an empty widget if the type is incorrect
-        } else {
-          // Handle other filters as a list of strings
-          if (entry.value is List<String>) {
-            return Row(
-              children: (entry.value as List<String>).map((value) {
-                return Container(
-                  margin: const EdgeInsets.only(right: 8),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Text(
-                    value,
-                    style: GoogleFonts.inter(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: appliedFilters.entries.map((entry) {
+                        if (entry.key == 'Budget') {
+                          // Special handling for budget range
+                          if (entry.value is Map<String, dynamic>) {
+                            final budget = entry.value as Map<String, dynamic>;
+                            return Container(
+                              margin: const EdgeInsets.only(right: 8),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Text(
+                                "₹${budget['start']} - ₹${budget['end']}",
+                                style: GoogleFonts.inter(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            );
+                          }
+                          return const SizedBox(); // Return an empty widget if the type is incorrect
+                        } else {
+                          // Handle other filters as a list of strings
+                          if (entry.value is List<String>) {
+                            return Row(
+                              children:
+                                  (entry.value as List<String>).map((value) {
+                                return Container(
+                                  margin: const EdgeInsets.only(right: 8),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 5),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Text(
+                                    value,
+                                    style: GoogleFonts.inter(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            );
+                          }
+                          return const SizedBox(); // Return an empty widget if the type is incorrect
+                        }
+                      }).toList(),
                     ),
                   ),
-                );
-              }).toList(),
-            );
-          }
-          return const SizedBox(); // Return an empty widget if the type is incorrect
-        }
-      }).toList(),
-    ),
-  ),
-)
-
+                )
               ],
             ),
           ),
