@@ -219,41 +219,54 @@ class FilterScreenState extends State<FilterScreen>
                                 ),
                               ),
                             if (selectedCategory == 'Budget')
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      'Budget Range: ₹${budgetRange.start.toInt()} - ₹${budgetRange.end.toInt()}',
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 8),
+                                    child: Text(
+                                      'Select Budget Range',
                                       style: GoogleFonts.inter(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
-                                    RangeSlider(
-                                      values: budgetRange,
-                                      min: 1000,
-                                      max: 100000,
-                                      divisions: ((100000 - 1000) / 1000)
-                                          .round(), // 99 divisions
-                                      activeColor: const Color(0xff1F0A68),
-                                      inactiveColor: Colors.grey,
-                                      labels: RangeLabels(
-                                        '${budgetRange.start.toInt()}',
-                                        '${budgetRange.end.toInt()}',
+                                  ),
+                                  const SizedBox(height: 5.0),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15.0),
+                                    child: Text(
+                                      '₹${budgetRange.start.toInt()} - ₹${budgetRange.end.toInt()}',
+                                      style: GoogleFonts.inter(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
                                       ),
-                                      onChanged: (RangeValues values) {
-                                        setState(() {
-                                          budgetRange = values;
-                                          filterOptions['Budget'] = [
-                                            '${budgetRange.start.toInt()}',
-                                            '${budgetRange.end.toInt()}',
-                                          ];
-                                        });
-                                      },
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  RangeSlider(
+                                    values: budgetRange,
+                                    min: 1000,
+                                    max: 100000,
+                                    divisions: ((100000 - 1000) / 1000).round(),
+                                    activeColor: const Color(0xff1F0A68),
+                                    inactiveColor: Colors.grey,
+                                    labels: RangeLabels(
+                                      '${budgetRange.start.toInt()}',
+                                      '${budgetRange.end.toInt()}',
+                                    ),
+                                    onChanged: (RangeValues values) {
+                                      setState(() {
+                                        budgetRange = values;
+                                        filterOptions['Budget'] = [
+                                          '${budgetRange.start.toInt()}',
+                                          '${budgetRange.end.toInt()}',
+                                        ];
+                                      });
+                                    },
+                                  ),
+                                ],
                               ),
                             if (selectedCategory != 'Budget')
                               Expanded(

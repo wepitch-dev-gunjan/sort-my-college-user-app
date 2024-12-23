@@ -163,11 +163,10 @@ class EpCard extends StatelessWidget {
                                             const SizedBox(width: 5.0),
                                             InkWell(
                                               onTap: () {
-
-                                                shareLinks();
-                                                // epShareLinks(
-                                                //     id: data[index]['_id']
-                                                //         .toString());
+                                                // shareLinks();
+                                                epShareLinks(
+                                                    id: data[index]['_id']
+                                                        .toString());
                                               },
                                               child: Container(
                                                 margin:
@@ -292,7 +291,7 @@ class EpCard extends StatelessWidget {
                                   onTap: () async {
                                     final response = await ApiService.epEnquiry(
                                         id: data[index]['_id'].toString());
-                                    log("ResponseEnquiry$response");
+
                                     if (response['message'] ==
                                         'Enquiry added successfully') {
                                       showDialog(

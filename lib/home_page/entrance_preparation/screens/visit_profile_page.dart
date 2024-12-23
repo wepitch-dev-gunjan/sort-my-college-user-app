@@ -96,14 +96,16 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
         : Scaffold(
             backgroundColor: Colors.white,
             appBar: CusAppBar(
-              title: instituteDetails['name'] ?? "N/A",
+              title: instituteDetails == null
+                  ? "Loading..."
+                  : instituteDetails["name"] ?? "N/A",
               icon: Icons.more_vert,
               action: [
                 Padding(
                     padding: const EdgeInsets.only(right: 15),
                     child: GestureDetector(
                       onTap: () {
-                        shareLinks();
+                        epShareLinks(id: widget.id);
                       },
                       child: Image.asset(
                         "assets/page-1/images/share.png",
