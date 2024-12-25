@@ -617,6 +617,9 @@ class _HomePageState extends State<HomePage> {
                                                 DateTime webinarDate =
                                                     DateTime.parse(trending
                                                         .registeredDate!);
+
+                                                log("WEBINAR DATE$webinarDate");
+
                                                 DateTime currentDate =
                                                     DateTime.now();
                                                 if (webinarDate
@@ -642,7 +645,7 @@ class _HomePageState extends State<HomePage> {
                                                           MaterialPageRoute(
                                                               builder:
                                                                   (context) {
-                                                            log("registerdDate=====${trending.registeredDate}");
+                                                            log("registerd Date=====${trending.registeredDate}");
                                                             log("webinar image=====${trending.webinarImage}");
                                                             log("webinar tilte=====${trending.webinarTitle}");
                                                             log("webianr date=====${trending.webinarDate}");
@@ -658,14 +661,13 @@ class _HomePageState extends State<HomePage> {
                                                               registerdDate:
                                                                   trending
                                                                       .registeredDate,
-                                                              webinarImg: trending
-                                                                  .webinarImage,
-                                                              webinarTitle: trending
-                                                                  .webinarTitle,
+                                                              // webinarImg: trending
+                                                              //     .webinarImage,
+
                                                               webinarDate: trending
                                                                   .webinarDate,
-                                                              webinarBy: trending
-                                                                  .webinarBy,
+                                                              // webinarBy: trending
+                                                              //     .webinarBy,
                                                               webinarStartDays:
                                                                   trending
                                                                       .webinarStartingInDays,
@@ -674,9 +676,9 @@ class _HomePageState extends State<HomePage> {
                                                                       .registered!,
                                                               registrationDate:
                                                                   webinarDate,
-                                                              webinarJoinUrl:
-                                                                  trending
-                                                                      .webinarJoinUrl,
+                                                              // webinarJoinUrl:
+                                                              //     trending
+                                                              //         .webinarJoinUrl,
                                                               canJoin: trending
                                                                   .canJoin,
                                                             );

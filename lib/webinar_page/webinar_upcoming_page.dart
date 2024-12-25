@@ -146,13 +146,7 @@ class _WebinarUpcomingPageDataWidgetState
   static dateTimeDif() {
     DateTime dt1 = DateTime.parse("2024-03-28 06:30:00");
     DateTime dt2 = DateTime.parse("2024-03-28 05:30:00");
-
-    Duration diff = dt1.difference(dt2);
-
-//print(diff.inDays);
-//output (in days): 1198
-
-    print(diff.inMinutes);
+    dt1.difference(dt2);
   }
 
   @override
@@ -185,14 +179,14 @@ class _WebinarUpcomingPageDataWidgetState
             builder: (context) => WebinarDetailsPageWidget(
               registerdDate: widget.webinarModel.resisterDate,
               webinarId: widget.webinarModel.id!,
-              webinarImg: widget.webinarModel.webinarImage!,
-              webinarTitle: widget.webinarModel.webinarTitle!,
+              // webinarImg: widget.webinarModel.webinarImage!,
+              // webinarTitle: widget.webinarModel.webinarTitle!,
               webinarDate: widget.webinarModel.webinarDate!,
-              webinarBy: widget.webinarModel.webinarBy!,
+              // webinarBy: widget.webinarModel.webinarBy!,
               webinarStartDays: widget.webinarModel.webnar_startdays!,
               webinarRegister: widget.webinarModel.registered,
               registrationDate: registrationDate,
-              webinarJoinUrl: widget.webinarModel.joinUrl!,
+              // webinarJoinUrl: widget.webinarModel.joinUrl!,
               canJoin: widget.webinarModel.canJoin,
             ),
           ),
@@ -291,7 +285,6 @@ class _WebinarUpcomingPageDataWidgetState
                                 ),
                               ),
                             ),
-
                             RegisterNowWidget(
                               onPressed: () async {
                                 var daysDifference = calculateDaysDifference(
@@ -348,7 +341,6 @@ class _WebinarUpcomingPageDataWidgetState
                               isRegisterNow: widget.webinarModel.registered,
                               canJoin: widget.webinarModel.canJoin!,
                             )
-
                           ],
                         ),
                       ),

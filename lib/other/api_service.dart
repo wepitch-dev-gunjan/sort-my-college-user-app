@@ -15,7 +15,6 @@ import '../model/counsellor_data.dart';
 import '../model/counsellor_sessions.dart';
 import '../model/course_model.dart';
 import 'constants.dart';
-import 'dart:developer' as console show log;
 
 class ApiService {
   static Future<Map<String, dynamic>> updateBookingSession(

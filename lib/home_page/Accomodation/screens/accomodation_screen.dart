@@ -406,31 +406,28 @@ class AccommodationCard extends StatelessWidget {
                           return const SizedBox(); // Return an empty widget if the type is incorrect
                         } else {
                           // Handle other filters as a list of strings
-                          if (entry.value is List<String>) {
-                            return Row(
-                              children:
-                                  (entry.value as List<String>).map((value) {
-                                return Container(
-                                  margin: const EdgeInsets.only(right: 8),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 5),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[200],
-                                    borderRadius: BorderRadius.circular(15),
+                          return Row(
+                            children:
+                                (entry.value as List<String>).map((value) {
+                              return Container(
+                                margin: const EdgeInsets.only(right: 8),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Text(
+                                  value,
+                                  style: GoogleFonts.inter(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
                                   ),
-                                  child: Text(
-                                    value,
-                                    style: GoogleFonts.inter(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
-                            );
-                          }
-                          return const SizedBox(); // Return an empty widget if the type is incorrect
+                                ),
+                              );
+                            }).toList(),
+                          );
                         }
                       }).toList(),
                     ),

@@ -10,13 +10,7 @@ import '../utils/share_links.dart';
 import '../webinar_page/webinar_pastwebnar_page.dart';
 
 class WebinarDetailsPageWidget extends StatefulWidget {
-  final String? webinarId,
-      webinarImg,
-      webinarTitle,
-      webinarDate,
-      webinarSpeaker,
-      webinarBy,
-      webinarJoinUrl;
+  final String? webinarId, webinarDate;
 
   bool webinarRegister;
   final int? webinarStartDays;
@@ -27,16 +21,13 @@ class WebinarDetailsPageWidget extends StatefulWidget {
 
   WebinarDetailsPageWidget(
       {required this.webinarId,
-      this.webinarSpeaker,
-      required this.webinarImg,
-      required this.webinarTitle,
+      // required this.webinarTitle,
       required this.webinarDate,
-      required this.webinarBy,
       required this.webinarStartDays,
       required this.webinarRegister,
       required this.registrationDate,
       this.registerdDate,
-      required this.webinarJoinUrl,
+      // required this.webinarJoinUrl,
       super.key,
       this.canJoin});
 
@@ -154,7 +145,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                               borderRadius: BorderRadius.circular(10),
                               image: DecorationImage(
                                 image: NetworkImage(
-                                  widget.webinarImg!,
+                                  value['webinar_image'],
                                 ),
                                 fit: BoxFit.cover,
                               ),
@@ -190,7 +181,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                 ),
                               ),
                               Text(
-                                widget.webinarBy!,
+                                value['webinar_by'] ?? "N/A",
                                 style: SafeGoogleFont("Inter",
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600,
@@ -485,7 +476,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                       isRegistere &&
                       widget.canJoin == true) {
                     await ApiService.webinarJoin(widget.webinarId!);
-                    launchUrlString(widget.webinarJoinUrl!);
+                    launchUrlString(value["webinar_join_url"]);
                   }
                 },
                 regdate: widget.registerdDate,

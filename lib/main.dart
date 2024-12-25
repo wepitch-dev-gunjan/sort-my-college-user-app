@@ -26,7 +26,10 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.isLoggedIn});
+  const MyApp({
+    super.key,
+    required this.isLoggedIn,
+  });
 
   final bool isLoggedIn;
   static Future<bool?> loggIn() async {
