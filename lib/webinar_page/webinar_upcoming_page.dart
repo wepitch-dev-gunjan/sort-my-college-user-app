@@ -98,7 +98,6 @@ class WebinarUpcomingPageDataWidget extends StatefulWidget {
 class _WebinarUpcomingPageDataWidgetState
     extends State<WebinarUpcomingPageDataWidget> {
   late SharedPreferences _prefs;
-  bool _isRegistrationStarting = false;
   String register_status = '';
   String webinarData = '';
 
@@ -122,7 +121,6 @@ class _WebinarUpcomingPageDataWidgetState
         await _updateRegistrationStatus(false);
       } else {
         setState(() {
-          _isRegistrationStarting = true;
         });
       }
     }
@@ -130,7 +128,6 @@ class _WebinarUpcomingPageDataWidgetState
 
   Future<void> _updateRegistrationStatus(bool isStarting) async {
     setState(() {
-      _isRegistrationStarting = isStarting;
     });
 
     if (isStarting) {
@@ -157,16 +154,11 @@ class _WebinarUpcomingPageDataWidgetState
   }
 
   Widget cardView(BuildContext context) {
-    bool has24HoursPassed = false;
     DateTime registrationDate =
         DateTime.parse(widget.webinarModel.resisterDate!);
     Duration difference = DateTime.now().difference(registrationDate);
-    var pastdays;
     if (difference.inHours >= 24) {
-      has24HoursPassed = true;
-      pastdays = difference.inDays;
     } else {
-      has24HoursPassed = false;
     }
 
     bool isRegistered = widget.webinarModel.registered;

@@ -100,7 +100,6 @@ class WebinarUpComingWidget extends StatefulWidget {
 
 class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
   late SharedPreferences _prefs;
-  bool _isRegistrationStarting = false;
   String register_status = '';
   String webinarData = '';
 
@@ -124,7 +123,6 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
         await _updateRegistrationStatus(false);
       } else {
         setState(() {
-          _isRegistrationStarting = true;
         });
       }
     }
@@ -132,7 +130,6 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
 
   Future<void> _updateRegistrationStatus(bool isStarting) async {
     setState(() {
-      _isRegistrationStarting = isStarting;
     });
 
     if (isStarting) {
