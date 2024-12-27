@@ -207,6 +207,7 @@ class CounsellorDetailsProvider extends ChangeNotifier {
 
   void fetchCounsellor_session(
       {required String id, String? date, String? sessionType}) async {
+    log("SessionDateApi method$date");
     try {
       isLoading = true;
       if (date != null) {

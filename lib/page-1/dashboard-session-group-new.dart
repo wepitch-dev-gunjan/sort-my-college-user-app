@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:myapp/booking_page/checkout_screen.dart';
 import 'package:myapp/home_page/homepagecontainer_2.dart';
+import 'package:myapp/main.dart';
 import 'package:myapp/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -51,6 +52,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
   // bool isExpanded = false;
   SessionDate sessionDate = SessionDate();
   String selectedDate = Jiffy.now().format(pattern: "d MMM");
+
   String selectedSessionDate = Jiffy.now().format(pattern: "dd/MM/yyyy");
 
   late TabController tabController;
@@ -89,13 +91,9 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
 
   void fetchDataFromApi() {
     var date = Jiffy.now().format(pattern: "yyyy-M-d");
-    context.read<CounsellorDetailsProvider>().fetchCounsellor_session(
-        id: widget.id, date: date, sessionType: "Group");
-  }
 
-  void fetchDataFromApiAll() {
-    var date = Jiffy.now().format(pattern: "yyyy-M-d");
-    context.read<CounsellorDetailsProvider>().fetchCounsellor_session_all(
+    log("dateeeeeeeeee$date");
+    context.read<CounsellorDetailsProvider>().fetchCounsellor_session(
         id: widget.id, date: date, sessionType: "Group");
   }
 
@@ -136,6 +134,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                 tabs: sessionDate.dates.map((e) {
                                   return GestureDetector(
                                     onTap: () {
+                                      log("SessionDate111  ${e.date.toString()}");
                                       var data = isDateIsSame(
                                           e.formattedDate,
                                           counsellorSessionProvider
@@ -146,6 +145,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                       String date = Jiffy.parse(e.date,
                                               pattern: "d MMM yyyy")
                                           .format(pattern: "yyyy-M-d");
+                                      log("datecurrent$date");
                                       selectedSessionDate = Jiffy.parse(date)
                                           .format(pattern: "dd/M/yyyy");
 
@@ -391,9 +391,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                   ),
                                                 ],
                                               ),
-                                              const SizedBox(
-                                                height: 5,
-                                              ),
+                                              const SizedBox(height: 5),
                                               Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment

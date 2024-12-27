@@ -618,7 +618,7 @@ class _HomePageState extends State<HomePage> {
                                                     DateTime.parse(trending
                                                         .registeredDate!);
 
-                                                log("WEBINAR DATE$webinarDate");
+                                                // log("WEBINAR DATE$webinarDate");
 
                                                 DateTime currentDate =
                                                     DateTime.now();
@@ -652,7 +652,7 @@ class _HomePageState extends State<HomePage> {
                                                             log("webinar by=====${trending.webinarBy}");
                                                             log("webinar starting days=====${trending.webinarStartingInDays}");
                                                             log("registred=====${trending.registered}");
-                                                            log("webinar date=====${trending.webinarDate}");
+                                                            // log("webinar date=====${trending.webinarDate}");
                                                             log("webianr join url=====${trending.webinarJoinUrl}");
                                                             log("canJoin=====${trending.canJoin}");
                                                             return WebinarDetailsPageWidget(

@@ -37,8 +37,6 @@ class WebinarDetailsPageWidget extends StatefulWidget {
 }
 
 class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
-  late SharedPreferences _prefs;
-  bool _isRegistrationStarting = false;
   var value;
   var dataList;
   bool isLoading = true;
@@ -51,15 +49,9 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
 
   Future<void> _initializeSharedPreferences(String id) async {
     value = await ApiService.getWebinarDetailsData(id);
-    Console.data(value);
-
     isLoading = false;
-
-    // _prefs = await SharedPreferences.getInstance();
-
     setState(() {
       value = value;
-      // widget.webinarRegister = isStarting;
     });
   }
 
@@ -69,12 +61,10 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
   Widget build(BuildContext context) {
     bool isRegistere = widget.webinarRegister;
 
-    Duration difference = DateTime.now().difference(widget.registrationDate);
+    DateTime.now().difference(widget.registrationDate);
     var diff = daysBetween(DateTime.now(), widget.registrationDate);
-    var pastdays;
     if (diff < 0) {
       has24HoursPassed = true; // in past webinar done
-      pastdays = diff.abs();
       //pastdays = difference.inDays;
     } else if (diff > 0) {
       has24HoursPassed = false; // in future
@@ -276,7 +266,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                                       ),
                                                       Expanded(
                                                         child: Text(
-                                                          "$trimmedLine",
+                                                          trimmedLine,
                                                           style: SafeGoogleFont(
                                                             "Inter",
                                                             fontSize: 12,
