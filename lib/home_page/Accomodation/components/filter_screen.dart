@@ -22,7 +22,7 @@ class FilterScreenState extends State<FilterScreen>
   String searchQuery = '';
   Map<String, List<String>> filterOptions = {
     'City': [],
-    'Gender': ['Male', 'Female'],
+    'Gender': ['Boys', 'Girls'],
     'Occupancy Type': ['Single', 'Double', 'Triple'],
     'Budget': [],
     'Near By Colleges': [],
@@ -136,6 +136,9 @@ class FilterScreenState extends State<FilterScreen>
                   selectedOptions[key] =
                       List<bool>.filled(selectedOptions[key]!.length, false);
                 }
+                // Reset budget range and clear budget options
+                budgetRange = const RangeValues(1000, 100000);
+                filterOptions['Budget'] = [];
               });
               await _clearFilters();
             },

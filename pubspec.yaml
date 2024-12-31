@@ -45,6 +45,7 @@ dependencies:
   app_links: ^6.3.2
   upgrader: ^11.3.1
   in_app_update: ^4.2.3
+  webview_flutter: ^4.10.0
 
   
 dev_dependencies:
