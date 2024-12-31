@@ -459,7 +459,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                       const SizedBox(
                                                         height: 5,
                                                       ),
-                                                      GestureDetector(
+                                                      InkWell(
                                                         onTap: () {
                                                           setState(() {
                                                             expandedIndex =
@@ -473,30 +473,43 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                                               CrossAxisAlignment
                                                                   .end,
                                                           children: [
-                                                            Text(
-                                                              'View Details',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 12,
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w800,
-                                                                height: 0,
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      vertical:
+                                                                          5),
+                                                              child: Text(
+                                                                'View Details',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 12,
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w800,
+                                                                  height: 0,
+                                                                ),
                                                               ),
                                                             ),
                                                             SizedBox(
-                                                              width: 10,
+                                                              width: 10
                                                             ),
-                                                            Icon(
-                                                              Icons
-                                                                  .arrow_forward_ios,
-                                                              size: 15,
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      vertical:
+                                                                          5),
+                                                              child: Icon(
+                                                                Icons
+                                                                    .arrow_forward_ios,
+                                                                size: 15,
+                                                              ),
                                                             )
                                                           ],
                                                         ),

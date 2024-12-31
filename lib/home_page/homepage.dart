@@ -189,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
                       child: SingleChildScrollView(
                         controller: _scrollController,
                         scrollDirection: Axis.horizontal,
@@ -208,7 +208,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 30),
+                            const SizedBox(width: 10),
                             GestureDetector(
                               onTap: () {
                                 onTapgotoAccommodation(context);
@@ -220,7 +220,7 @@ class _HomePageState extends State<HomePage> {
                                     "assets/page-1/images/Group 795.png"),
                               ),
                             ),
-                            const SizedBox(width: 30),
+                            const SizedBox(width: 10),
                             GestureDetector(
                               onTap: () {
                                 onTapgotoEP(context);

@@ -463,7 +463,7 @@ class _Counseling_Session_PersonnelState
                                                       const SizedBox(
                                                         height: 5,
                                                       ),
-                                                      GestureDetector(
+                                                      InkWell(
                                                         onTap: () {
                                                           setState(() {
                                                             expandedIndex =
@@ -477,30 +477,43 @@ class _Counseling_Session_PersonnelState
                                                               CrossAxisAlignment
                                                                   .end,
                                                           children: [
-                                                            Text(
-                                                              'View Details',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 12,
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w800,
-                                                                height: 0,
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      vertical:
+                                                                          5),
+                                                              child: Text(
+                                                                'View Details',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 12,
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w800,
+                                                                  height: 0,
+                                                                ),
                                                               ),
                                                             ),
                                                             SizedBox(
                                                               width: 10,
                                                             ),
-                                                            Icon(
-                                                              Icons
-                                                                  .arrow_forward_ios,
-                                                              size: 15,
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                vertical: 5,
+                                                              ),
+                                                              child: Icon(
+                                                                Icons
+                                                                    .arrow_forward_ios,
+                                                                size: 15,
+                                                              ),
                                                             )
                                                           ],
                                                         ),
@@ -806,11 +819,11 @@ List<String> sampleViewDetails = [
   "\u2022 duration:",
 ];
 
-
-
 bool isDateIsSame(String date, List<Sessions> sessions) {
   // Normalize the date format, adding leading zeros if necessary
-  var formattedDate = Jiffy.parse(date, pattern: date.contains('/') ? "dd/MM" : "d MMM").format(pattern: "dd MMM");
+  var formattedDate =
+      Jiffy.parse(date, pattern: date.contains('/') ? "dd/MM" : "d MMM")
+          .format(pattern: "dd MMM");
 
   for (final element in sessions) {
     // Format the session date consistently
@@ -826,7 +839,9 @@ String slotCount(String date, List<Sessions> sessions) {
   dynamic totalSlots = 0;
 
   // Normalize the date format
-  var formattedDate = Jiffy.parse(date, pattern: date.contains('/') ? "dd/MM" : "d MMM").format(pattern: "dd MMM");
+  var formattedDate =
+      Jiffy.parse(date, pattern: date.contains('/') ? "dd/MM" : "d MMM")
+          .format(pattern: "dd MMM");
 
   for (final element in sessions) {
     // Format the session date consistently
@@ -837,6 +852,3 @@ String slotCount(String date, List<Sessions> sessions) {
   }
   return totalSlots > 0 ? totalSlots.toString() : "";
 }
-
-
-
