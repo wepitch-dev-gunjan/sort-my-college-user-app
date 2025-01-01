@@ -17,9 +17,7 @@ import 'package:myapp/utils.dart';
 import 'package:myapp/utils/common.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
 import 'page-1/splash_screen_1.dart';
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -83,9 +81,6 @@ class Console {
   }
 }
 
-
-
-
 class ZoomWebView extends StatefulWidget {
   final String url;
 
@@ -114,4 +109,7 @@ class _ZoomWebViewState extends State<ZoomWebView> {
     );
   }
 }
+
+
+
 

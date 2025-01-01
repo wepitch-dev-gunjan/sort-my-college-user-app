@@ -1074,14 +1074,14 @@ class ApiService {
 
 //==========================! Accommodation APIS !=========================================
 
-  // static Future getAllAccommodation({required Map filters}) async {
-  //   var url = Uri.parse(
-  //       "${AppConstants.baseUrl}/admin/accommodation/user/getallaccommodation");
-  //   final response = await http.get(url,);
-  //   return jsonDecode(response.body);
-  // }
+  static Future getAllAccommodation({required String id}) async {
+    var url = Uri.parse(
+        "${AppConstants.baseUrl}/admin/accommodation/user/getAccomodation/$id");
+    final response = await http.get(url,);
+    return jsonDecode(response.body);
+  }
 
-  static Future getAllAccommodation({
+  static Future getAllAccommodations({
     required Map<String, dynamic> filters,
   }) async {
     log("filters123$filters");
@@ -1150,7 +1150,7 @@ class ApiService {
     try {
       // Send GET request with query parameters
       final response = await dio.get(
-        "${AppConstants.baseUrl}/admin/accommodation/user/getallaccommodation",
+        "${AppConstants.baseUrl}/admin/accommodation/user/getallaccommodations",
         data: queryParameters, // Use queryParameters for GET
       );
 

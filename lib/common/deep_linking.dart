@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/home_page/Accomodation/screens/detail_accommodation.dart';
 import 'package:myapp/home_page/entrance_preparation/screens/visit_profile_page.dart';
 import 'package:myapp/page-1/splash_screen_n.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -94,7 +95,18 @@ class DeepLinkHandler {
           } else {
             log("Context is not mounted. Skipping navigation.");
           }
-        } else {
+        }else if (type == 'accommodation') {
+          if (context.mounted) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => DetailAccommodation(id: id),
+              ),
+            );
+          } else {
+            log("Context is not mounted. Skipping navigation.");
+          }
+        }
+         else {
           log("URI type not recognized: $type");
         }
       } else {

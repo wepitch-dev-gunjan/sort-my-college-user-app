@@ -646,8 +646,7 @@ class _HomePageState extends State<HomePage> {
                                                               builder:
                                                                   (context) {
                                                             log("registerd Date=====${trending.registeredDate}");
-                                                            log("webinar image=====${trending.webinarImage}");
-                                                            log("webinar tilte=====${trending.webinarTitle}");
+                                                            log("Register Date tilte=====${trending.webinarTitle}");
                                                             log("webianr date=====${trending.webinarDate}");
                                                             log("webinar by=====${trending.webinarBy}");
                                                             log("webinar starting days=====${trending.webinarStartingInDays}");
@@ -661,13 +660,9 @@ class _HomePageState extends State<HomePage> {
                                                               registerdDate:
                                                                   trending
                                                                       .registeredDate,
-                                                              // webinarImg: trending
-                                                              //     .webinarImage,
-
                                                               webinarDate: trending
                                                                   .webinarDate,
-                                                              // webinarBy: trending
-                                                              //     .webinarBy,
+                                                              
                                                               webinarStartDays:
                                                                   trending
                                                                       .webinarStartingInDays,
@@ -676,9 +671,7 @@ class _HomePageState extends State<HomePage> {
                                                                       .registered!,
                                                               registrationDate:
                                                                   webinarDate,
-                                                              // webinarJoinUrl:
-                                                              //     trending
-                                                              //         .webinarJoinUrl,
+                                                           
                                                               canJoin: trending
                                                                   .canJoin,
                                                             );

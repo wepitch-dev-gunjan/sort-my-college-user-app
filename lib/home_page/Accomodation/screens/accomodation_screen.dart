@@ -18,7 +18,7 @@ class AccomodationScreen extends StatefulWidget {
 
 class _AccomodationScreenState extends State<AccomodationScreen> {
   bool isLoading = true;
-  dynamic data;
+  List data = [];
   List<String> cities = [];
   List<String> colleges = [];
   Map<String, List<String>> appliedFilters = {}; // Applied filters
@@ -36,7 +36,7 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
       isLoading = true;
     });
 
-    final res = await ApiService.getAllAccommodation(filters: appliedFilters);
+    final res = await ApiService.getAllAccommodations(filters: appliedFilters);
     setState(() {
       data = res;
       isLoading = false;
@@ -108,105 +108,6 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
   }
 }
 
-// class AccomodationScreen extends StatefulWidget {
-//   const AccomodationScreen({super.key});
-
-//   @override
-//   State<AccomodationScreen> createState() => _AccomodationScreenState();
-// }
-
-// class _AccomodationScreenState extends State<AccomodationScreen> {
-//   bool isLoading = true;
-//   dynamic data;
-//   List<String> cities = [];
-//   List<String> colleges = [];
-//   Map<String, List<String>> appliedFilters = {};
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     getAllAccommodation();
-//     getCities();
-//     getColleges();
-//   }
-
-//   Future<void> getAllAccommodation() async {
-//     final res = await ApiService.getAllAccommodation();
-//     setState(() {
-//       data = res;
-//       isLoading = false;
-//     });
-//   }
-
-//   getCities() async {
-//     final res = await ApiService.getCities();
-//     setState(() {
-//       cities = res['cities'].cast<String>();
-//       isLoading = false;
-//     });
-//   }
-
-//   getColleges() async {
-//     final res = await ApiService.getColleges();
-//     setState(() {
-//       colleges = res['colleges'].cast<String>();
-//       isLoading = false;
-//     });
-//   }
-
-//   Future<void> _refreshAccommodations() async {
-//     setState(() {
-//       isLoading = true;
-//     });
-//     await getAllAccommodation();
-//   }
-
-//   void _applyFilters(Map<String, List<String>> filters) {
-//     setState(() {
-//       appliedFilters = filters;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: ColorsConst.whiteColor,
-//       appBar: const CusAppBar(
-//         title: 'Accommodation',
-//       ),
-//       body: isLoading
-//           ? const AccommodationShimmerEffect()
-//           : data == null || data.isEmpty
-//               ? const Center(
-//                   child: Text(
-//                     'No Data Available',
-//                     style: TextStyle(
-//                       fontSize: 18,
-//                       color: Colors.grey,
-//                     ),
-//                   ),
-//                 )
-//               : RefreshIndicator(
-//                   backgroundColor: Colors.white,
-//                   color: Colors.black,
-//                   onRefresh: _refreshAccommodations,
-//                   child: ListView(
-//                     children: [
-//                       AccommodationCard(
-//                         cities: cities,
-//                         colleges: colleges,
-//                         data: data,
-//                         onRefresh: _refreshAccommodations, // Refresh function
-//                         appliedFilters: appliedFilters,
-//                         onFiltersUpdated: _applyFilters,
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//     );
-//   }
-// }
-
 class AccommodationCard extends StatelessWidget {
   final List<String> cities, colleges;
 
@@ -227,7 +128,7 @@ class AccommodationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("filters===>>$appliedFilters");
+    log("accommodation$data");
     double baseWidth = 460;
     double width = MediaQuery.of(context).size.width;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -255,7 +156,6 @@ class AccommodationCard extends StatelessWidget {
                       )),
             ).then((result) {
               if (result != null) {
-                log("result$result");
                 onFiltersUpdated(result);
                 onRefresh();
               }
@@ -291,91 +191,6 @@ class AccommodationCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8.0),
-                // Expanded(
-                //   child: SingleChildScrollView(
-                //     scrollDirection: Axis.horizontal,
-                //     child: Row(
-                //       children: appliedFilters.entries.map((entry) {
-                //         return Row(
-                //           children: entry.value.map((value) {
-                //             return Container(
-                //               margin: const EdgeInsets.only(right: 8),
-                //               padding: const EdgeInsets.symmetric(
-                //                   horizontal: 10, vertical: 5),
-                //               decoration: BoxDecoration(
-                //                 color: Colors.grey[200],
-                //                 borderRadius: BorderRadius.circular(15),
-                //               ),
-                //               child: Text(
-                //                 value,
-                //                 style: GoogleFonts.inter(
-                //                   fontSize: 14,
-                //                   fontWeight: FontWeight.w500,
-                //                   color: Colors.black,
-                //                 ),
-                //               ),
-                //             );
-                //           }).toList(),
-                //         );
-                //       }).toList(),
-                //     ),
-                //   ),
-                // ),
-                // Expanded(
-                //   child: SingleChildScrollView(
-                //     scrollDirection: Axis.horizontal,
-                //     child: Row(
-                //       children: appliedFilters.entries.map((entry) {
-                //         if (entry.key == 'Budget') {
-                //           // Special handling for budget range
-                //           final budget = entry.value as Map<String, dynamic>;
-                //           return Container(
-                //             margin: const EdgeInsets.only(right: 8),
-                //             padding: const EdgeInsets.symmetric(
-                //                 horizontal: 10, vertical: 5),
-                //             decoration: BoxDecoration(
-                //               color: Colors.grey[200],
-                //               borderRadius: BorderRadius.circular(15),
-                //             ),
-                //             child: Text(
-                //               "₹${budget['start']} - ₹${budget['end']}",
-                //               style: GoogleFonts.inter(
-                //                 fontSize: 14,
-                //                 fontWeight: FontWeight.w500,
-                //                 color: Colors.black,
-                //               ),
-                //             ),
-                //           );
-                //         } else {
-                //           // Handle other filters as a list of strings
-                //           return Row(
-                //             children:
-                //                 (entry.value as List<String>).map((value) {
-                //               return Container(
-                //                 margin: const EdgeInsets.only(right: 8),
-                //                 padding: const EdgeInsets.symmetric(
-                //                     horizontal: 10, vertical: 5),
-                //                 decoration: BoxDecoration(
-                //                   color: Colors.grey[200],
-                //                   borderRadius: BorderRadius.circular(15),
-                //                 ),
-                //                 child: Text(
-                //                   value,
-                //                   style: GoogleFonts.inter(
-                //                     fontSize: 14,
-                //                     fontWeight: FontWeight.w500,
-                //                     color: Colors.black,
-                //                   ),
-                //                 ),
-                //               );
-                //             }).toList(),
-                //           );
-                //         }
-                //       }).toList(),
-                //     ),
-                //   ),
-                // ),
-
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -407,8 +222,7 @@ class AccommodationCard extends StatelessWidget {
                         } else {
                           // Handle other filters as a list of strings
                           return Row(
-                            children:
-                                (entry.value as List<String>).map((value) {
+                            children: (entry.value).map((value) {
                               return Container(
                                 margin: const EdgeInsets.only(right: 8),
                                 padding: const EdgeInsets.symmetric(
@@ -443,33 +257,18 @@ class AccommodationCard extends StatelessWidget {
           itemCount: data.length,
           itemBuilder: (context, index) {
             var accommodation = data[index];
-            String imageUrl = (accommodation['images'] != null &&
-                    accommodation['images'].isNotEmpty)
-                ? accommodation['images'][0]
-                : 'https://via.placeholder.com/150';
+            log("acc$accommodation");
+            String imageUrl =
+                accommodation['images'] ?? 'https://via.placeholder.com/150';
+
             String name = accommodation['name'] ?? 'N/A';
             String area = accommodation['address']['area'] ?? 'N/A';
             String city = accommodation['address']['city'] ?? 'N/A';
 
-            double rating = (accommodation['rating'] != null)
-                ? (accommodation['rating'] is int
-                    ? accommodation['rating'].toDouble()
-                    : accommodation['rating'])
-                : 0.0;
-            int reviewsCount = accommodation['reviews_count'] ?? 0;
+            String rating = accommodation['rating'] ?? "N/A";
+            String reviewsCount = accommodation['review_count'] ?? "N/A";
 
-            String price = 'N/A';
-            if (accommodation['rooms']?.isNotEmpty ?? false) {
-              double? lowestPrice = accommodation['rooms']
-                  ?.map((room) =>
-                      (room['monthly_charge'] as num?)?.toDouble() ??
-                      double.infinity)
-                  .reduce((a, b) => a < b ? a : b);
-
-              if (lowestPrice != double.infinity) {
-                price = "${lowestPrice!.toInt()} INR";
-              }
-            }
+            dynamic price = accommodation['monthly_charge'] ?? 'N/A';
 
             return Padding(
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -606,7 +405,7 @@ class AccommodationCard extends StatelessWidget {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             DetailAccommodation(
-                                                data: accommodation),
+                                                id: data[index]["_id"]),
                                       ),
                                     );
                                   },
