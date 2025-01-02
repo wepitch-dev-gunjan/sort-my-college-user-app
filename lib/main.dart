@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -16,7 +14,6 @@ import 'package:myapp/page-1/shared.dart';
 import 'package:myapp/utils.dart';
 import 'package:myapp/utils/common.dart';
 import 'package:provider/provider.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'page-1/splash_screen_1.dart';
 
 Future<void> main() async {
@@ -71,44 +68,46 @@ class MyApp extends StatelessWidget {
 
 // // ============================== ! Pretty Log in console !==========================
 
-class Console {
-  static data(dynamic responseBody, {String? value}) {
-    var encoder = const JsonEncoder.withIndent('  ');
-    final prettyString = encoder.convert(responseBody);
-    const String red = '\x1B[37m';
-    const String reset = '\x1B[0m';
-    log("${red}value$prettyString$reset");
-  }
-}
+// class Console {
+//   static data(dynamic responseBody, {String? value}) {
+//     var encoder = const JsonEncoder.withIndent('  ');
+//     final prettyString = encoder.convert(responseBody);
+//     const String red = '\x1B[37m';
+//     const String reset = '\x1B[0m';
+//     log("${red}value$prettyString$reset");
+//   }
+// }
 
-class ZoomWebView extends StatefulWidget {
-  final String url;
 
-  ZoomWebView({required this.url});
 
-  @override
-  State<ZoomWebView> createState() => _ZoomWebViewState();
-}
+// class ZoomWebView extends StatefulWidget {
+//   final String url;
 
-class _ZoomWebViewState extends State<ZoomWebView> {
-  late final WebViewController _controller;
+//   ZoomWebView({required this.url});
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadRequest(Uri.parse(widget.url));
-  }
+//   @override
+//   State<ZoomWebView> createState() => _ZoomWebViewState();
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Join Zoom Webinar")),
-      body: WebViewWidget(controller: _controller),
-    );
-  }
-}
+// class _ZoomWebViewState extends State<ZoomWebView> {
+//   late final WebViewController _controller;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _controller = WebViewController()
+//       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+//       ..loadRequest(Uri.parse(widget.url));
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text("Join Zoom Webinar")),
+//       body: WebViewWidget(controller: _controller),
+//     );
+//   }
+// }
 
 
 

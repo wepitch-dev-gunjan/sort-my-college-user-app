@@ -1,35 +1,34 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:myapp/home_page/homepage.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import '../main.dart';
 import '../utils/share_links.dart';
-import '../webinar_page/webinar_pastwebnar_page.dart';
 
 class WebinarDetailsPageWidget extends StatefulWidget {
-  final String? webinarId, webinarDate;
+  final String? webinarId;
 
-  bool webinarRegister;
-  final int? webinarStartDays;
-  DateTime registrationDate;
-  final bool? canJoin;
+  // bool webinarRegister;
+  // final int? webinarStartDays;
+  // DateTime registrationDate;
+  // final bool? canJoin;
 
-  final String? registerdDate;
+  // final String? registerdDate;
 
-  WebinarDetailsPageWidget(
-      {required this.webinarId,
-      // required this.webinarTitle,
-      required this.webinarDate,
-      required this.webinarStartDays,
-      required this.webinarRegister,
-      required this.registrationDate,
-      this.registerdDate,
-      // required this.webinarJoinUrl,
-      super.key,
-      this.canJoin});
+  WebinarDetailsPageWidget({
+    required this.webinarId,
+    // required this.webinarTitle,
+    // required this.webinarDate,
+    // required this.webinarStartDays,
+    // required this.webinarRegister,
+    // required this.registrationDate,
+    // this.registerdDate,
+    // required this.webinarJoinUrl,
+    super.key,
+    // this.canJoin
+  });
 
   @override
   State<WebinarDetailsPageWidget> createState() =>
@@ -59,18 +58,26 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    bool isRegistere = widget.webinarRegister;
-
-    DateTime.now().difference(widget.registrationDate);
-    var diff = daysBetween(DateTime.now(), widget.registrationDate);
-    if (diff < 0) {
-      has24HoursPassed = true; // in past webinar done
-      //pastdays = difference.inDays;
-    } else if (diff > 0) {
-      has24HoursPassed = false; // in future
-    } else if (diff == 0) {
-      has24HoursPassed = false; // in today
+    if (value == null) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
     }
+    log("valueRegisterddate${value['registered']}");
+    bool isRegistere = value['registered'];
+
+    // DateTime.now().difference(widget.registrationDate);
+    // var diff = daysBetween(DateTime.now(), widget.registrationDate);
+    // if (diff < 0) {
+    //   has24HoursPassed = true; // in past webinar done
+    //   //pastdays = difference.inDays;
+    // } else if (diff > 0) {
+    //   has24HoursPassed = false; // in future
+    // } else if (diff == 0) {
+    //   has24HoursPassed = false; // in today
+    // }
 
     return PopScope(
       canPop: false,
@@ -102,9 +109,10 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 20),
-              child: GestureDetector(
+              child: InkWell(
+                borderRadius: BorderRadius.circular(30),
                 onTap: () {
-                  shareLinks();
+                  webinarShareLinks(id: widget.webinarId.toString());
                 },
                 child: Image.asset(
                   "assets/page-1/images/share.png",
@@ -192,7 +200,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                 width: 6,
                               ),
                               Text(
-                                widget.webinarDate!,
+                                value['webinar_date'],
                                 style: SafeGoogleFont(
                                   "Inter",
                                   fontSize: 13,
@@ -423,11 +431,11 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
               child: RegisterNowWidget(
                 onPressed: () async {
                   var daysDifference = calculateDaysDifference(
-                      registeredDate: widget.registerdDate!,
-                      webinarRegister: widget.webinarRegister,
-                      canJoin: widget.canJoin!);
+                      registeredDate: value['registered_date']!,
+                      webinarRegister: value['registered'],
+                      canJoin: value['can_join']);
 
-                  if (!widget.webinarRegister) {
+                  if (!value['registered']) {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -452,7 +460,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
 
                                 setState(() {
                                   isRegistere = true;
-                                  widget.webinarRegister = true;
+                                  value['registered'] = true;
                                   // widget.webinarRegister = true;
                                 });
                                 Navigator.of(context).pop();
@@ -464,14 +472,14 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                     );
                   } else if (daysDifference == 0 &&
                       isRegistere &&
-                      widget.canJoin == true) {
+                      value['can_join'] == true) {
                     await ApiService.webinarJoin(widget.webinarId!);
                     launchUrlString(value["webinar_join_url"]);
                   }
                 },
-                regdate: widget.registerdDate,
-                isRegisterNow: widget.webinarRegister,
-                canJoin: widget.canJoin!,
+                regdate: value['registered_date'],
+                isRegisterNow: value['registered'],
+                canJoin: value['can_join']!,
               )),
           // ),
         ),

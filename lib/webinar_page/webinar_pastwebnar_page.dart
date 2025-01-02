@@ -118,15 +118,13 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
       if (currentTime.difference(savedTime).inDays >= 3) {
         await _updateRegistrationStatus(false);
       } else {
-        setState(() {
-        });
+        setState(() {});
       }
     }
   }
 
   Future<void> _updateRegistrationStatus(bool isStarting) async {
-    setState(() {
-    });
+    setState(() {});
 
     if (isStarting) {
       await _prefs.setInt(
@@ -162,8 +160,7 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
         DateTime.parse(widget.webinarModel.resisterDate!);
     Duration difference = DateTime.now().difference(registrationDate);
     if (difference.inHours >= 24) {
-    } else {
-    }
+    } else {}
 
     bool isRegistered = widget.webinarModel.registered;
 
@@ -173,17 +170,17 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
           context,
           MaterialPageRoute(
             builder: (context) => WebinarDetailsPageWidget(
-              registerdDate: widget.webinarModel.resisterDate,
+              // registerdDate: widget.webinarModel.resisterDate,
               webinarId: widget.webinarModel.id!,
               // webinarImg: widget.webinarModel.webinarImage!,
               // webinarTitle: widget.webinarModel.webinarTitle!,
-              webinarDate: widget.webinarModel.webinarDate!,
+              // webinarDate: widget.webinarModel.webinarDate!,
               // webinarBy: widget.webinarModel.webinarBy!,
-              webinarStartDays: widget.webinarModel.webnar_startdays!,
-              webinarRegister: widget.webinarModel.registered,
-              registrationDate: registrationDate,
+              // webinarStartDays: widget.webinarModel.webnar_startdays!,
+              // webinarRegister: widget.webinarModel.registered,
+              // registrationDate: registrationDate,
               // webinarJoinUrl: widget.webinarModel.joinUrl!,
-              canJoin: widget.webinarModel.canJoin,
+              // canJoin: widget.webinarModel.canJoin,
             ),
           ),
         );
@@ -281,7 +278,6 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                                 ),
                               ),
                             ),
-
                             RegisterNowWidget(
                               onPressed: () async {
                                 var daysDifference = calculateDaysDifference(
@@ -338,7 +334,6 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                               isRegisterNow: widget.webinarModel.registered,
                               canJoin: widget.webinarModel.canJoin!,
                             )
-
                           ],
                         ),
                       ),

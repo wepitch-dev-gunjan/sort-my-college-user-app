@@ -65,6 +65,13 @@
         <category android:name="android.intent.category.BROWSABLE" />
         <data android:scheme="https" android:host="sortmycollege.com" android:pathPrefix="/accommodation/" />
     </intent-filter>
+     <!-- Deep Linking for "/webinar/" -->
+    <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="https" android:host="sortmycollege.com" android:pathPrefix="/webinar/" />
+    </intent-filter>
     </activity>
 
         <!-- Don't delete the meta-data below.

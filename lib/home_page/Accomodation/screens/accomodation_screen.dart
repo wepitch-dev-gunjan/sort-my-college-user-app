@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/home_page/Accomodation/components/filter_screen.dart';
@@ -77,7 +77,7 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
       ),
       body: isLoading
           ? const AccommodationShimmerEffect()
-          : data == null || data.isEmpty
+          : data.isEmpty
               ? const Center(
                   child: Text(
                     'No Data Available',
@@ -128,7 +128,6 @@ class AccommodationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("accommodation$data");
     double baseWidth = 460;
     double width = MediaQuery.of(context).size.width;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -257,7 +256,6 @@ class AccommodationCard extends StatelessWidget {
           itemCount: data.length,
           itemBuilder: (context, index) {
             var accommodation = data[index];
-            log("acc$accommodation");
             String imageUrl =
                 accommodation['images'] ?? 'https://via.placeholder.com/150';
 

@@ -657,23 +657,23 @@ class _HomePageState extends State<HomePage> {
                                                             return WebinarDetailsPageWidget(
                                                               webinarId:
                                                                   trending.id,
-                                                              registerdDate:
-                                                                  trending
-                                                                      .registeredDate,
-                                                              webinarDate: trending
-                                                                  .webinarDate,
-                                                              
-                                                              webinarStartDays:
-                                                                  trending
-                                                                      .webinarStartingInDays,
-                                                              webinarRegister:
-                                                                  trending
-                                                                      .registered!,
-                                                              registrationDate:
-                                                                  webinarDate,
-                                                           
-                                                              canJoin: trending
-                                                                  .canJoin,
+                                                              // registerdDate:
+                                                              //     trending
+                                                              // .registeredDate,
+                                                              // webinarDate: trending
+                                                              //     .webinarDate,
+
+                                                              // webinarStartDays:
+                                                              //     trending
+                                                              //         .webinarStartingInDays,
+                                                              // webinarRegister:
+                                                              //     trending
+                                                              //         .registered!,
+                                                              // registrationDate:
+                                                              //     webinarDate,
+
+                                                              // canJoin: trending
+                                                              //     .canJoin,
                                                             );
                                                           }),
                                                         );
@@ -792,94 +792,99 @@ class _HomePageState extends State<HomePage> {
                                                                   const SizedBox(
                                                                       height:
                                                                           14),
-                                                                  Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .only(
-                                                                        left:
-                                                                            10),
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: [
-                                                                        GestureDetector(
-                                                                          onTap:
-                                                                              () {
-                                                                            if (Platform.isIOS) {
-                                                                              Share.share('https://apps.apple.com/in/app/sort-my-college/id6480402447');
-                                                                            } else if (Platform.isAndroid) {
-                                                                              Share.share('https://play.google.com/store/apps/details?id=com.sortmycollege');
-                                                                            } else {
-                                                                              throw 'Platform not supported';
-                                                                            }
-                                                                          },
-                                                                          child:
-                                                                              Center(
-                                                                            child:
-                                                                                Image.asset(
-                                                                              "assets/page-1/images/group-38-oFX.png",
-                                                                              width: 20,
-                                                                              height: 20,
-                                                                              color: const Color(0xFF1F0A68),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        RegisterNowWidget(
+                                                                  Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    children: [
+                                                                      IconButton(
                                                                           onPressed:
-                                                                              () async {
-                                                                            var daysDifference =
-                                                                                calculateDaysDifference(
-                                                                              registeredDate: trending.registeredDate!,
-                                                                              webinarRegister: trending.registered!,
-                                                                              canJoin: trending.canJoin!,
-                                                                            );
-
-                                                                            if (!trending
-                                                                                .registered!) {
-                                                                              showDialog(
-                                                                                context: context,
-                                                                                builder: (BuildContext context) {
-                                                                                  return AlertDialog(
-                                                                                    backgroundColor: Colors.white,
-                                                                                    title: const Text("Register"),
-                                                                                    content: const Text("Are you sure you want to register for this webinar?"),
-                                                                                    actions: [
-                                                                                      TextButton(
-                                                                                        child: const Text("Cancel"),
-                                                                                        onPressed: () {
-                                                                                          Navigator.of(context).pop();
-                                                                                        },
-                                                                                      ),
-                                                                                      TextButton(
-                                                                                        child: const Text("Yes"),
-                                                                                        onPressed: () async {
-                                                                                          await ApiService.webinarRegister(trending.id!);
-                                                                                          setState(() {
-                                                                                            trending.registered = true;
-                                                                                          });
-                                                                                          Navigator.of(context).pop();
-                                                                                        },
-                                                                                      ),
-                                                                                    ],
-                                                                                  );
-                                                                                },
-                                                                              );
-                                                                            } else if (daysDifference == 0 &&
-                                                                                isRegistered &&
-                                                                                trending.canJoin == true) {
-                                                                              await ApiService.webinarJoin(trending.id!);
-                                                                              launchUrlString(trending.webinarJoinUrl!);
-                                                                            }
+                                                                              () {
+                                                                            webinarShareLinks(id: trending.id.toString());
                                                                           },
-                                                                          regdate:
-                                                                              trending.registeredDate,
-                                                                          isRegisterNow:
-                                                                              trending.registered!,
-                                                                          canJoin:
-                                                                              trending.canJoin!,
-                                                                        )
-                                                                      ],
-                                                                    ),
+                                                                          icon:
+                                                                              const Icon(
+                                                                            Icons.share,
+                                                                            size:
+                                                                                26,
+                                                                            color:
+                                                                                Color(0xff1F0A68),
+                                                                          )),
+                                                                      // GestureDetector(
+                                                                      //   onTap:
+                                                                      //       () {
+                                                                      //     webinarShareLinks(id: trending.id.toString());
+                                                                      //   },
+                                                                      //   child:
+                                                                      //       Center(
+                                                                      //     child:
+                                                                      //         Image.asset(
+                                                                      //       "assets/page-1/images/group-38-oFX.png",
+                                                                      //       width: 20,
+                                                                      //       height: 20,
+                                                                      //       color: const Color(0xFF1F0A68),
+                                                                      //     ),
+                                                                      //   ),
+                                                                      // ),
+
+                                                                      RegisterNowWidget(
+                                                                        onPressed:
+                                                                            () async {
+                                                                          var daysDifference =
+                                                                              calculateDaysDifference(
+                                                                            registeredDate:
+                                                                                trending.registeredDate!,
+                                                                            webinarRegister:
+                                                                                trending.registered!,
+                                                                            canJoin:
+                                                                                trending.canJoin!,
+                                                                          );
+
+                                                                          if (!trending
+                                                                              .registered!) {
+                                                                            showDialog(
+                                                                              context: context,
+                                                                              builder: (BuildContext context) {
+                                                                                return AlertDialog(
+                                                                                  backgroundColor: Colors.white,
+                                                                                  title: const Text("Register"),
+                                                                                  content: const Text("Are you sure you want to register for this webinar?"),
+                                                                                  actions: [
+                                                                                    TextButton(
+                                                                                      child: const Text("Cancel"),
+                                                                                      onPressed: () {
+                                                                                        Navigator.of(context).pop();
+                                                                                      },
+                                                                                    ),
+                                                                                    TextButton(
+                                                                                      child: const Text("Yes"),
+                                                                                      onPressed: () async {
+                                                                                        await ApiService.webinarRegister(trending.id!);
+                                                                                        setState(() {
+                                                                                          trending.registered = true;
+                                                                                        });
+                                                                                        Navigator.of(context).pop();
+                                                                                      },
+                                                                                    ),
+                                                                                  ],
+                                                                                );
+                                                                              },
+                                                                            );
+                                                                          } else if (daysDifference == 0 &&
+                                                                              isRegistered &&
+                                                                              trending.canJoin == true) {
+                                                                            await ApiService.webinarJoin(trending.id!);
+                                                                            launchUrlString(trending.webinarJoinUrl!);
+                                                                          }
+                                                                        },
+                                                                        regdate:
+                                                                            trending.registeredDate,
+                                                                        isRegisterNow:
+                                                                            trending.registered!,
+                                                                        canJoin:
+                                                                            trending.canJoin!,
+                                                                      )
+                                                                    ],
                                                                   ),
                                                                 ],
                                                               ),
@@ -1245,9 +1250,10 @@ class _HomePageState extends State<HomePage> {
                 Positioned(
                   top: 5,
                   right: 10,
-                  child: GestureDetector(
+                  child: InkWell(
                     onTap: () {
-                      shareLinks();
+                      counsellorShareLinks(
+                          id: latestSessionsModel.counsellorId!);
                     },
                     child: Center(
                       child: Image.asset(

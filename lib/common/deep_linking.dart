@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/home_page/Accomodation/screens/detail_accommodation.dart';
 import 'package:myapp/home_page/entrance_preparation/screens/visit_profile_page.dart';
 import 'package:myapp/page-1/splash_screen_n.dart';
+import 'package:myapp/widget/webinar_detail_page_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../home_page/counsellor_page/counsellor_details_screen.dart';
 
@@ -100,6 +101,17 @@ class DeepLinkHandler {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => DetailAccommodation(id: id),
+              ),
+            );
+          } else {
+            log("Context is not mounted. Skipping navigation.");
+          }
+        }
+        else if (type == 'webinar') {
+          if (context.mounted) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => WebinarDetailsPageWidget(webinarId: id),
               ),
             );
           } else {

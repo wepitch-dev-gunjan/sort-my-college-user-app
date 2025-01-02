@@ -24,3 +24,7 @@ counsellorShareLinks({required String id}) {
 accommodationShareLinks({required String id}) {
   Share.share('https://sortmycollege.com/accommodation/$id');
 }
+
+webinarShareLinks({required String id}) {
+  Share.share('https://sortmycollege.com/webinar/$id');
+}
