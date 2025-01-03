@@ -493,71 +493,87 @@ class _HomePageState extends State<HomePage> {
 
                     // Padding(
                     //   padding: const EdgeInsets.symmetric(horizontal: 10),
-                    //   child: Card(
-                    //     color: Colors.white,
-                    //     surfaceTintColor: Colors.white,
-                    //     elevation: 2,
-                    //     shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(16)),
-                    //     child: Padding(
-                    //       padding: const EdgeInsets.only(
-                    //           left: 10, right: 10, top: 10),
-                    //       child: Row(
-                    //         children: [
-                    //           CircleAvatar(
-                    //             radius: 38,
-                    //             backgroundImage: NetworkImage(
-                    //                 "https://res.cloudinary.com/dlbmxyxmv/image/upload/v1734674265/counsellor-profile-pics/counsellor-profile-pic-1734674263876.png"),
+                    //   child: ListView.builder(
+                    //     itemCount: 2,
+                    //     itemBuilder: (context, index) {
+                    //       return Card(
+                    //         color: Colors.white,
+                    //         surfaceTintColor: Colors.white,
+                    //         elevation: 2,
+                    //         shape: RoundedRectangleBorder(
+                    //             borderRadius: BorderRadius.circular(16)),
+                    //         child: const Padding(
+                    //           padding:
+                    //               EdgeInsets.only(left: 10, right: 10, top: 10),
+                    //           child: Row(
+                    //             children: [
+                    //               CircleAvatar(
+                    //                 radius: 38,
+                    //                 backgroundImage: NetworkImage(
+                    //                     "https://res.cloudinary.com/dlbmxyxmv/image/upload/v1734674265/counsellor-profile-pics/counsellor-profile-pic-1734674263876.png"),
+                    //               ),
+                    //             ],
                     //           ),
-                    //         ],
-                    //       ),
-                    //     ),
+                    //         ),
+                    //       );
+                    //     },
                     //   ),
                     // ),
 
-                    if (counsellorSessionProvider.popularWorkShopList.isEmpty)
-                      const SizedBox()
-                    else
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 28.0 * fem),
-                            child: const Text(
-                              'Latest Sessions',
-                              style: TextStyle(
-                                color: Color(0xFF1F0A68),
-                                fontSize: 20,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w500,
+                    counsellorSessionProvider.popularWorkShopList.isEmpty
+                        ? const SizedBox()
+                        : Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 28.0 * fem),
+                                child: const Row(
+                                  children: [
+                                    Text(
+                                      'Latest Sessions',
+                                      style: TextStyle(
+                                        color: Color(0xFF1F0A68),
+                                        fontSize: 20,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w500,
+                                        height: 0,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          SizedBox(
-                            height:
-                                220, // Use an appropriate height or calculate based on the content
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: counsellorSessionProvider
-                                  .popularWorkShopList.length,
-                              itemBuilder: (context, index) {
-                                LatestSessionsModel popular =
-                                    counsellorSessionProvider
-                                        .popularWorkShopList[index];
+                              const SizedBox(height: 4),
+                              Container(
+                                constraints: BoxConstraints(
+                                  maxHeight:
+                                      MediaQuery.of(context).size.height * 0.28,
+                                ),
+                                child: counsellorSessionProvider
+                                        .popularWorkShopList.isEmpty
+                                    ? const Center(
+                                        child: Text("No Data Found"),
+                                      )
+                                    : ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        shrinkWrap: true,
+                                        physics: const PageScrollPhysics(),
+                                        itemCount: counsellorSessionProvider
+                                            .popularWorkShopList.length,
+                                        itemBuilder: (context, index) {
+                                          LatestSessionsModel popular =
+                                              counsellorSessionProvider
+                                                  .popularWorkShopList[index];
 
-                                return profileCard(
-                                  popular,
-                                  index,
-                                  counsellorSessionProvider
-                                      .popularWorkShopList.length,
-                                );
-                              },
-                            ),
+                                          return profileCard(
+                                            popular,
+                                            index,
+                                            counsellorSessionProvider
+                                                .popularWorkShopList.length,
+                                          );
+                                        },
+                                      ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-
                     const SizedBox(height: 10),
                     counsellorSessionProvider.trendingWebinarList.isEmpty
                         ? const SizedBox()
