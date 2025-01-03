@@ -1248,19 +1248,17 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 Positioned(
-                  top: 5,
-                  right: 10,
-                  child: InkWell(
-                    onTap: () {
+                  top: -10,
+                  right: -8,
+                  child: IconButton(
+                    onPressed: () {
                       counsellorShareLinks(
                           id: latestSessionsModel.counsellorId!);
                     },
-                    child: Center(
-                      child: Image.asset(
-                        "assets/page-1/images/group-38-oFX.png",
-                        color: const Color(0xFF1F0A68),
-                        height: 20.h,
-                      ),
+                    icon: const Icon(
+                      Icons.share,
+                      size: 26,
+                      color: Color(0xff1F0A68),
                     ),
                   ),
                 ),
