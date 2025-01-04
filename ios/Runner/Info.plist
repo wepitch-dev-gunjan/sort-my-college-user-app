@@ -37,7 +37,12 @@
     <array>
         <string>applinks:sortmycollege.com</string>
     </array>
-
+	<!-- For Notification  -->
+	<key>UIBackgroundModes</key>
+    <array>  
+    <string>fetch</string> 
+    <string>remote-notification</string>
+    </array>
 	<key>CFBundleVersion</key>
 	<string>2</string>
 	<key>FlutterDeepLinkingEnabled</key>
