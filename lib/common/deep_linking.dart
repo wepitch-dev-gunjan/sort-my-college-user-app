@@ -22,10 +22,10 @@ class DeepLinkHandler {
     _appLinks.uriLinkStream.listen(
       (Uri? uri) {
         if (uri != null) {
-          log("Received URI: $uri");
+          // log("Received URI: $uri");
           _handleIncomingLink(uri);
         } else {
-          log("Received a null URI.");
+          // log("Received a null URI.");
         }
       },
       onError: (err) {
@@ -37,10 +37,10 @@ class DeepLinkHandler {
     try {
       final initialUri = await _appLinks.getInitialLink();
       if (initialUri != null) {
-        log("Initial URI: $initialUri");
+        // log("Initial URI: $initialUri");
         _handleIncomingLink(initialUri);
       } else {
-        log("No initial URI received.");
+        // log("No initial URI received.");
       }
     } catch (e) {
       log("Error in getting initial link: $e");
@@ -50,7 +50,7 @@ class DeepLinkHandler {
   void _handleIncomingLink(Uri? uri) async {
     // Check login status
     final bool isLoggedIn = await isUserLoggedIn();
-    log("Is User Logged In: $isLoggedIn");
+    // log("Is User Logged In: $isLoggedIn");
 
     if (!isLoggedIn) {
       // Redirect to Login Screen if not logged in
@@ -72,8 +72,8 @@ class DeepLinkHandler {
       final String? id =
           uri.pathSegments.length > 1 ? uri.pathSegments[1] : null;
 
-      log("URI Path Segments: ${uri.pathSegments}");
-      log("Type: $type, ID: $id");
+      // log("URI Path Segments: ${uri.pathSegments}");
+      // log("Type: $type, ID: $id");
 
       if (id != null) {
         if (type == 'counsellor') {
@@ -84,7 +84,7 @@ class DeepLinkHandler {
               ),
             );
           } else {
-            log("Context is not mounted. Skipping navigation.");
+            // log("Context is not mounted. Skipping navigation.");
           }
         } else if (type == 'ep') {
           if (context.mounted) {
@@ -94,7 +94,7 @@ class DeepLinkHandler {
               ),
             );
           } else {
-            log("Context is not mounted. Skipping navigation.");
+            // log("Context is not mounted. Skipping navigation.");
           }
         }else if (type == 'accommodation') {
           if (context.mounted) {
@@ -103,8 +103,8 @@ class DeepLinkHandler {
                 builder: (context) => DetailAccommodation(id: id),
               ),
             );
-          } else {
-            log("Context is not mounted. Skipping navigation.");
+          // } else {
+          //   log("Context is not mounted. Skipping navigation.");
           }
         }
         else if (type == 'webinar') {
@@ -115,14 +115,14 @@ class DeepLinkHandler {
               ),
             );
           } else {
-            log("Context is not mounted. Skipping navigation.");
+            // log("Context is not mounted. Skipping navigation.");
           }
         }
          else {
-          log("URI type not recognized: $type");
+          // log("URI type not recognized: $type");
         }
       } else {
-        log("ID is missing in the URI.");
+        // log("ID is missing in the URI.");
       }
     } else {
       log("URI doesn't match expected path or is null.");

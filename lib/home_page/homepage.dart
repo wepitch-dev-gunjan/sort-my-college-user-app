@@ -655,35 +655,9 @@ class _HomePageState extends State<HomePage> {
                                                           MaterialPageRoute(
                                                               builder:
                                                                   (context) {
-                                                            log("registerd Date=====${trending.registeredDate}");
-                                                            log("Register Date tilte=====${trending.webinarTitle}");
-                                                            log("webianr date=====${trending.webinarDate}");
-                                                            log("webinar by=====${trending.webinarBy}");
-                                                            log("webinar starting days=====${trending.webinarStartingInDays}");
-                                                            log("registred=====${trending.registered}");
-                                                            // log("webinar date=====${trending.webinarDate}");
-                                                            log("webianr join url=====${trending.webinarJoinUrl}");
-                                                            log("canJoin=====${trending.canJoin}");
                                                             return WebinarDetailsPageWidget(
                                                               webinarId:
                                                                   trending.id,
-                                                              // registerdDate:
-                                                              //     trending
-                                                              // .registeredDate,
-                                                              // webinarDate: trending
-                                                              //     .webinarDate,
-
-                                                              // webinarStartDays:
-                                                              //     trending
-                                                              //         .webinarStartingInDays,
-                                                              // webinarRegister:
-                                                              //     trending
-                                                              //         .registered!,
-                                                              // registrationDate:
-                                                              //     webinarDate,
-
-                                                              // canJoin: trending
-                                                              //     .canJoin,
                                                             );
                                                           }),
                                                         );
@@ -966,7 +940,6 @@ class _HomePageState extends State<HomePage> {
         sessionDateTime.difference(currentTime).inMinutes <= 30 &&
             sessionDateTime.difference(currentTime).inMinutes >= 0;
 
-    log("Image???????????${latestSessionsModel.counsellorProfilePic!}");
     return Padding(
       padding: const EdgeInsets.only(
         left: 10,
