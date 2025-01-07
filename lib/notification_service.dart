@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:myapp/home_page/notification_page/noti.dart';
 import 'package:myapp/navigation.dart';
-
 import 'local_notification.dart';
 
 class NotificationServices {
@@ -40,8 +39,7 @@ class NotificationServices {
 
   Future<String> getAccessToken() async {
     final client = await clientViaServiceAccount(
-        ServiceAccountCredentials.fromJson({}),
-        scopes);
+        ServiceAccountCredentials.fromJson({}), scopes);
 
     final accessToken = client.credentials.accessToken.data;
     log("Token =>>$accessToken");
@@ -50,7 +48,7 @@ class NotificationServices {
 
   Future<String?> getToken() async {
     String? token = await messaging.getToken();
-    log('Token: $token');
+    log('Token For IOS: $token');
     return token;
   }
 }
@@ -82,10 +80,8 @@ class MessageService {
     log("Firebase Messaging initialized.");
   }
 
-
-
   //handle  tap or navigation user  on notification when app is in background or terminated
- static Future<void> backgroudAndTerminateAppNavatior() async {
+  static Future<void> backgroudAndTerminateAppNavatior() async {
     // when app is terminated
     RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
@@ -96,12 +92,12 @@ class MessageService {
 
     //when app ins background
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
-       navigateTo( const Notification2());
+      navigateTo(const Notification2());
     });
   }
 
   // foregorud state in Ios app
-static  Future forgroundMessage() async {
+  static Future forgroundMessage() async {
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(
       alert: true,
