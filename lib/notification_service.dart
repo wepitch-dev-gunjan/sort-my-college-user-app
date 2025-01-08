@@ -42,13 +42,13 @@ class NotificationServices {
         ServiceAccountCredentials.fromJson({}), scopes);
 
     final accessToken = client.credentials.accessToken.data;
-    log("Token =>>$accessToken");
+    log("ACCESS Token =>>$accessToken");
     return accessToken;
   }
 
   Future<String?> getToken() async {
     String? token = await messaging.getToken();
-    log('Token For IOS: $token');
+    log('FCM TOKEN: $token');
     return token;
   }
 }
