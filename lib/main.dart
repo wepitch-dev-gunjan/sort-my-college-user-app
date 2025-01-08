@@ -35,6 +35,7 @@ Future<void> main() async {
   await NotificationServices().requestPermission();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await NotificationServices().getAccessToken();
+  // await Future.delayed(Duration(seconds: 5));
   await NotificationServices().getToken();
   MessageService.firebaseInit();
   MessageService.forgroundMessage();

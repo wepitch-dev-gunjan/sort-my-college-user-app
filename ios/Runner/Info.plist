@@ -31,22 +31,12 @@
 			<string>com.sortmycollege</string>
 		</dict>
 	</array>
-
-    <!-- Universal Links Configuration -->
-    <key>com.apple.developer.associated-domains</key>
-    <array>
-        <string>applinks:sortmycollege.com</string>
-    </array>
-	<!-- For Notification  -->
-	<key>UIBackgroundModes</key>
-    <array>  
-    <string>fetch</string> 
-    <string>remote-notification</string>
-    </array>
 	<key>CFBundleVersion</key>
 	<string>2</string>
 	<key>FlutterDeepLinkingEnabled</key>
 	<false/>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+    <false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
@@ -55,6 +45,11 @@
 	<string>App need image from gallery or camera to take picture and upload picture and this image is use as profile picture</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -71,6 +66,10 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:sortmycollege.com</string>
 	</array>
 </dict>
 </plist>

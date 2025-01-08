@@ -98,6 +98,7 @@ class MessageService {
 
   // foregorud state in Ios app
   static Future forgroundMessage() async {
+    log("IOS Running");
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(
       alert: true,
