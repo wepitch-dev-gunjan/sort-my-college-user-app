@@ -47,7 +47,7 @@ class NotificationServices {
   }
 
   Future<String?> getToken() async {
-    String? token = await messaging.getToken();
+    String? token = await messaging.getAPNSToken();
     log('FCM TOKEN: $token');
     return token;
   }

@@ -34,6 +34,7 @@ Future<void> main() async {
   );
   await NotificationServices().requestPermission();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  MessageService.forgroundMessage();
   await NotificationServices().getAccessToken();
   await NotificationServices().getToken();
   MessageService.firebaseInit();
