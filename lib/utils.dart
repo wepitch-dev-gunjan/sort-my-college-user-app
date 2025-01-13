@@ -102,7 +102,7 @@ class SessionDate {
     DateTime dt1 = DateTime.parse("2024-03-28 06:30:00");
     DateTime dt2 = DateTime.parse("2024-03-28 05:30:00");
 
-    Duration diff = dt1.difference(dt2);
+    dt1.difference(dt2);
   }
 
   void getDates() {
@@ -141,64 +141,3 @@ class DateModel {
   });
 }
 
-
-// class SessionDate {
-//   static DateTime now = DateTime.now();
-
-//   static String todayDate = DateFormat("d MMM").format(now);
-//   static String year = Jiffy.now().format(pattern: "yyyy");
-
-//   static String get todayDay {
-//     String day = Jiffy.parse("$todayDate $year", pattern: "d MMM yyyy")
-//         .format(pattern: 'EEEE')
-//         .toString();
-//     log("day=====>$todayDay");
-//     return day;
-//   }
-
-//   final List<DateModel> dates = [];
-
-//   static dateTimeDif() {
-//     DateTime dt1 = DateTime.parse("2024-03-28 06:30:00");
-//     DateTime dt2 = DateTime.parse("2024-03-28 05:30:00");
-
-//     Duration diff = dt1.difference(dt2);
-
-//   }
-
-//   void getDates() {
-//     var myFormat = DateFormat('d MMM');
-//     DateTime todayNum = DateTime.now();
-
-//     for (int i = 0; i <= 5; i++) {
-//       DateTime futureDate = todayNum.add(Duration(days: i));
-
-//       String formattedDate = myFormat.format(futureDate);
-
-//       String day = Jiffy.parse("$formattedDate $year", pattern: "d MMM yyyy")
-//           .format(pattern: 'EEEE')
-//           .toString()
-//           .substring(0, 3);
-
-//       dates.add(DateModel(
-//           index: i,
-//           day: day,
-//           formattedDate: formattedDate,
-//           date: "$formattedDate $year"));
-//     }
-//   }
-// }
-
-// class DateModel {
-//   final int index;
-//   final String date;
-//   final String formattedDate;
-//   final String day;
-
-//   DateModel({
-//     required this.index,
-//     required this.day,
-//     required this.formattedDate,
-//     required this.date,
-//   });
-// }
