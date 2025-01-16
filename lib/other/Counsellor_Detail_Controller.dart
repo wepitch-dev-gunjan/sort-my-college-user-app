@@ -11,25 +11,10 @@ class CounsellorDetailController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
-    //fetchCounsellor();
+
     fetchCounsellor_detail();
   }
-
-  /*void fetchCounsellor () async {
-    try{
-       isLoading(true);
-       var counsellor = await ApiService.getCounsellor_1();
-       cousnellorlist.assignAll(counsellor);
-    }
-    finally{
-      //isLoading(false);
-      isLoading(true);
-
-    }
-
-  }*/
 
   void fetchCounsellor_detail() async {
     try {

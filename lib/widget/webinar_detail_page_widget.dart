@@ -10,25 +10,7 @@ import '../utils/share_links.dart';
 class WebinarDetailsPageWidget extends StatefulWidget {
   final String? webinarId;
 
-  // bool webinarRegister;
-  // final int? webinarStartDays;
-  // DateTime registrationDate;
-  // final bool? canJoin;
-
-  // final String? registerdDate;
-
-  WebinarDetailsPageWidget({
-    required this.webinarId,
-    // required this.webinarTitle,
-    // required this.webinarDate,
-    // required this.webinarStartDays,
-    // required this.webinarRegister,
-    // required this.registrationDate,
-    // this.registerdDate,
-    // required this.webinarJoinUrl,
-    super.key,
-    // this.canJoin
-  });
+  const WebinarDetailsPageWidget({required this.webinarId, super.key});
 
   @override
   State<WebinarDetailsPageWidget> createState() =>
@@ -65,19 +47,8 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
         ),
       );
     }
-    log("valueRegisterddate${value['registered']}");
-    bool isRegistere = value['registered'];
 
-    // DateTime.now().difference(widget.registrationDate);
-    // var diff = daysBetween(DateTime.now(), widget.registrationDate);
-    // if (diff < 0) {
-    //   has24HoursPassed = true; // in past webinar done
-    //   //pastdays = difference.inDays;
-    // } else if (diff > 0) {
-    //   has24HoursPassed = false; // in future
-    // } else if (diff == 0) {
-    //   has24HoursPassed = false; // in today
-    // }
+    bool isRegistere = value['registered'];
 
     return PopScope(
       canPop: false,
@@ -135,7 +106,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                         alignment: Alignment.bottomCenter,
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              bottom: 28.0, right: 20, left: 20),
+                              bottom: 15.0, right: 11, left: 11),
                           child: Container(
                             height: 196,
                             width: double.maxFinite,
@@ -190,12 +161,10 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(11, 9, 15, 8),
+                          padding: const EdgeInsets.fromLTRB(11, 5, 15, 8),
                           child: Row(
                             children: [
-                              Image.asset(
-                                "assets/page-1/images/clock.png",
-                              ),
+                              const Icon(Icons.watch_later),
                               const SizedBox(
                                 width: 6,
                               ),
@@ -210,9 +179,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 7,
-                        ),
+                        const SizedBox(height: 7),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 11),
                           child: Container(
@@ -304,7 +271,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
+                                        horizontal: 14),
                                     child: Text(
                                       "What will you Learn?",
                                       style: SafeGoogleFont(
@@ -390,7 +357,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.fromLTRB(
-                                        20, 19, 15, 19),
+                                        14, 19, 15, 19),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,

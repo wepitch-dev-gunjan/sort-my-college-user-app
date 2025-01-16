@@ -125,23 +125,19 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
 
   Future<void> saveDetails() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool valueSaved = false;
 
     prefs.setString('name', _namecontroller.text.toString());
 
     if (currentEducation != null) {
       prefs.setString('education_level', currentEducation!);
-      valueSaved = true;
     }
 
     if (currentGender != null) {
       prefs.setString('gender', currentGender!);
-      valueSaved = true;
     }
 
     if (currentDob != null) {
       prefs.setString('date_of_birth', currentDob!);
-      valueSaved = true;
     }
 
     ApiService.save_profile(

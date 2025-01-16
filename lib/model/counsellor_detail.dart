@@ -1,10 +1,3 @@
-// To parse this JSON data, do
-//
-//     final counsellorDetail = counsellorDetailFromJson(jsonString);
-
-// To parse this JSON data, do
-//
-//     final counsellorDetail = counsellorDetailFromJson(jsonString);
 
 import 'dart:convert';
 

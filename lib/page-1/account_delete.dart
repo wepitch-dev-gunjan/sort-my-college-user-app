@@ -18,8 +18,6 @@ class _AccountDelete extends State<AccountDelete> {
 
   @override
   Widget build(BuildContext context) {
-    double baseWidth = 430;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {

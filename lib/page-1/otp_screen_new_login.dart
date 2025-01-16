@@ -56,10 +56,7 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
 
-    double mHeight = MediaQuery.sizeOf(context).height;
-    double mWidth = MediaQuery.sizeOf(context).width;
 
-    var code = '';
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(

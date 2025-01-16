@@ -5,7 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:myapp/booking_page/checkout_screen.dart';
 import 'package:myapp/home_page/homepagecontainer_2.dart';
-import 'package:myapp/main.dart';
 import 'package:myapp/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -134,8 +133,7 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                 tabs: sessionDate.dates.map((e) {
                                   return GestureDetector(
                                     onTap: () {
-                                      log("SessionDate111  ${e.date.toString()}");
-                                      var data = isDateIsSame(
+                                      isDateIsSame(
                                           e.formattedDate,
                                           counsellorSessionProvider
                                                   .allDetails.sessions ??
@@ -145,7 +143,6 @@ class _Counseling_Session_groupState extends State<Counseling_Session_group>
                                       String date = Jiffy.parse(e.date,
                                               pattern: "d MMM yyyy")
                                           .format(pattern: "yyyy-M-d");
-                                      log("datecurrent$date");
                                       selectedSessionDate = Jiffy.parse(date)
                                           .format(pattern: "dd/M/yyyy");
 

@@ -21,6 +21,7 @@ import 'package:provider/provider.dart';
 import 'notification_service.dart';
 import 'page-1/splash_screen_1.dart';
 
+
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -77,7 +78,6 @@ class MyApp extends StatelessWidget {
           scaffoldMessengerKey: snackbarKey,
           scrollBehavior: MyCustomScrollBehavior(),
           theme: ThemeData(primarySwatch: Colors.grey),
-          // home: ZoomWebView(url: "https://wepitch.uk/"),
           home: SplashScreen1(isLoggedIn: isLoggedIn),
           builder: EasyLoading.init(),
         ),

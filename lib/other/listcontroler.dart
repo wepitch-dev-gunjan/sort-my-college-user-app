@@ -8,30 +8,15 @@ class ListController extends GetxController
   var isLoading = true.obs;
   List<CounsellorModel> cousnellorlist=[];
   List<CounsellorData> cousnellorlist_data=[];
-  List<EPModel> epModelList = [];
+  // List<EPModel> epModelList = [];
 
   @override
   void onInit() {
     super.onInit();
-    //fetchCounsellor();
     fetchCounsellor_data();
-    // fetchEpList_data();
-
   }
 
-  /*void fetchCounsellor () async {
-    try{
-       isLoading(true);
-       var counsellor = await ApiService.getCounsellor_1();
-       cousnellorlist.assignAll(counsellor);
-    }
-    finally{
-      //isLoading(false);
-      isLoading(true);
 
-    }
-
-  }*/
 
   void fetchCounsellor_data () async {
     try{
@@ -44,14 +29,5 @@ class ListController extends GetxController
     }
   }
 
-  // void fetchEpList_data () async {
-  //   try{
-  //     isLoading(true);
-  //     var ep = await ApiService.getEPListData();
-  //     epModelList.assignAll(ep);
-  //   }
-  //   finally{
-  //     isLoading(false);
-  //   }
-  // }
+ 
 }
