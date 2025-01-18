@@ -21,7 +21,6 @@ import 'package:provider/provider.dart';
 import 'notification_service.dart';
 import 'page-1/splash_screen_1.dart';
 
-
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -33,10 +32,11 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await NotificationServices().requestPermission();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  MessageService.forgroundMessage();
   await NotificationServices().getAccessToken();
   await NotificationServices().getToken();
   MessageService.firebaseInit();
-  MessageService.forgroundMessage();
+
   MessageService.backgroudAndTerminateAppNavatior();
 
   bool? isLoggedIn = await MyApp.loggIn();
