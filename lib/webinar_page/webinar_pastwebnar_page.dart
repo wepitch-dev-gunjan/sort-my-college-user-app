@@ -136,17 +136,6 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
     await _prefs.setBool('isRegistrationStarting', isStarting);
   }
 
-  static dateTimeDif() {
-    DateTime dt1 = DateTime.parse("2024-03-28 06:30:00");
-    DateTime dt2 = DateTime.parse("2024-03-28 05:30:00");
-
-    Duration diff = dt1.difference(dt2);
-
-//print(diff.inDays);
-//output (in days): 1198
-
-    print(diff.inMinutes);
-  }
 
   @override
   Widget build(BuildContext context) {

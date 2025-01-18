@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_null_comparison
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/home_page/help_screen.dart';
 import 'package:myapp/page-1/splash_screen_n.dart';
 import 'package:myapp/utils.dart';
@@ -297,24 +296,6 @@ class _Drawer1State extends State<Drawer1> {
     );
   }
 
-  Future _accountDelete() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await EasyLoading.show(
-      dismissOnTap: false,
-    );
-
-    Future.delayed(const Duration(seconds: 1), () async {
-      await prefs.clear();
-      EasyLoading.dismiss();
-      if (mounted) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const AccountDelete()),
-          (route) => false,
-        );
-      }
-    });
-  }
 
   Future _logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:myapp/other/api_service.dart';
 import '../model/counsellor_data.dart';
 import '../model/cousnellor_list_model.dart';
-import '../model/ep_model.dart';
 class ListController extends GetxController
 {
   var isLoading = true.obs;

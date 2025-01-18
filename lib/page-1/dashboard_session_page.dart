@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/other/constants.dart';
 import 'package:myapp/page-1/dashboard-session-group-new.dart';
-import 'package:myapp/home_page/homepagecontainer_2.dart';
 import 'package:myapp/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dashboard-session-personnel-new.dart';
@@ -156,13 +155,6 @@ class _CounsellingSessionPageState extends State<CounsellingSessionPage> {
     );
   }
 
-  Future<bool> _onBackPressed() async {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const HomePageContainer_2()),
-    );
-    return true;
-  }
 
   Widget customButton(
       {required String title,

@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:developer';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +17,6 @@ import 'package:myapp/utils/share_links.dart';
 import 'package:myapp/widget/custom_webniar_card_widget.dart';
 import 'package:myapp/widget/webinar_detail_page_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../booking_page/checkout_screen.dart';
@@ -48,7 +44,6 @@ class _HomePageState extends State<HomePage> {
   CounsellorDetailsProvider counsellorDetailsProvider =
       CounsellorDetailsProvider();
 
-  late SharedPreferences _prefs;
 
   @override
   void initState() {
@@ -846,18 +841,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<void> _updateRegistrationStatus(bool isStarting) async {
-    setState(() {});
-
-    if (isStarting) {
-      await _prefs.setInt(
-          'startingTimestamp', DateTime.now().millisecondsSinceEpoch);
-    } else {
-      await _prefs.remove('startingTimestamp');
-    }
-
-    await _prefs.setBool('isRegistrationStarting', isStarting);
-  }
 
   CustomWebinarCard buildCustomWebinarCard(
     TrandingWebinarModel trending,

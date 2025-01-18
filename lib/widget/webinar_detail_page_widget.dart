@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:myapp/home_page/homepage.dart';
 import 'package:myapp/other/api_service.dart';

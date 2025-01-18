@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -23,11 +22,9 @@ class CustomWebinarCard extends StatefulWidget {
 }
 
 class _CustomWebinarCardState extends State<CustomWebinarCard> {
-  final int _currentIndex = 0;
   var pastdays;
 
   final PageController _pageController = PageController(initialPage: 0);
-  late Timer _timer;
 
   @override
   void initState() {
@@ -40,22 +37,6 @@ class _CustomWebinarCardState extends State<CustomWebinarCard> {
     super.dispose();
   }
 
-  void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
-      if (_currentIndex < 2) {
-        _pageController.nextPage(
-          duration: const Duration(seconds: 6),
-          curve: Curves.easeInOut,
-        );
-      } else {
-        _pageController.animateToPage(
-          0,
-          duration: const Duration(milliseconds: 5),
-          curve: Curves.easeInOut,
-        );
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

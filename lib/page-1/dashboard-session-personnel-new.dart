@@ -4,7 +4,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:myapp/booking_page/checkout_screen.dart';
-import 'package:myapp/home_page/homepagecontainer_2.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils.dart';
 import 'package:provider/provider.dart';
@@ -802,13 +801,6 @@ class _Counseling_Session_PersonnelState
         valueColor: AlwaysStoppedAnimation<Color>(Colors.red));
   }
 
-  Future<bool> _onBackPressed() async {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const HomePageContainer_2()),
-    );
-    return true;
-  }
 }
 
 List<String> sampleViewDetails = [
