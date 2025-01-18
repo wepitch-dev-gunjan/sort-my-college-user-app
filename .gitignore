@@ -45,4 +45,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-/lib/notification_service
+/lib/notification_service.dart
+lib/notification_service.dart
+
