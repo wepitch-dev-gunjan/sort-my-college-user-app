@@ -36,7 +36,7 @@
 	<key>FlutterDeepLinkingEnabled</key>
 	<false/>
 	<key>FirebaseAppDelegateProxyEnabled</key>
-	<true/>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
