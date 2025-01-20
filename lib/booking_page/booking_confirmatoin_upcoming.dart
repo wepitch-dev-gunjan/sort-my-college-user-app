@@ -7,7 +7,7 @@ import 'package:myapp/other/constants.dart';
 import '../common/url_launcher.dart';
 import '../other/api_service.dart';
 import '../shared/colors_const.dart';
-import '../utils.dart';
+import '../utils/utils.dart';
 import 'booking_confirmatoin_past.dart';
 
 class BookingConfirmationUpcoming extends StatefulWidget {

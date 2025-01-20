@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/news/model/news_response.dart';
 import 'package:myapp/shared/colors_const.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/utils/utils.dart';
 
 class NewsAllDetailScreen extends StatefulWidget {
   const NewsAllDetailScreen({required this.newsArticle, super.key});

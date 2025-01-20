@@ -6,7 +6,7 @@ import 'package:myapp/news/provider/news_provider.dart';
 import 'package:myapp/news/ui/news_all_detail_screen.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/shared/string_const.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../other/api_service.dart';

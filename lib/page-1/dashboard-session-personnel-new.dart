@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:myapp/booking_page/checkout_screen.dart';
 import 'package:myapp/shared/colors_const.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';

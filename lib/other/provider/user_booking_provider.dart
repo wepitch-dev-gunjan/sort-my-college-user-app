@@ -12,9 +12,7 @@ class UserBookingProvider extends ChangeNotifier {
       {required bool past, required bool today, required bool upcoming}) async {
     isLoading = true;
     try {
-      var userBookings = await ApiService.getUserBookings(
-          today: today, past: past, upcoming: upcoming);
-      // userBooking = userBookings;
+ 
     } finally {
       isLoading = false;
     }

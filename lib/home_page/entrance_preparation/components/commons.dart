@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../shared/colors_const.dart';
-import '../../../utils.dart';
+import '../../../utils/utils.dart';
 
 class CusAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;

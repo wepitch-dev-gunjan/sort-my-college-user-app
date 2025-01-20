@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/utils/utils.dart';
 
 import 'filter_location.dart';
 import 'filter_course.dart';

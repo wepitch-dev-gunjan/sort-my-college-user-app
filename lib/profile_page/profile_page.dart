@@ -13,7 +13,7 @@ import 'package:myapp/other/constants.dart';
 import 'package:myapp/page-1/account_delete.dart';
 import 'package:myapp/profile_page/widget/profile_edit_dialog.dart';
 import 'package:myapp/shared/colors_const.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {

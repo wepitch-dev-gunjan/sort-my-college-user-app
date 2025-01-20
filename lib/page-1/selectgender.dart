@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/page-1/selectdob.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../utils.dart';
+import '../utils/utils.dart';
 
 class SelectGender extends StatefulWidget {
   const SelectGender({super.key});

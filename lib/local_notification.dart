@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:myapp/home_page/notification_page/noti.dart';
-import 'package:myapp/navigation.dart';
+import 'package:myapp/utils/navigation.dart';
 
 String logoName = 'logo';
 
@@ -76,7 +76,7 @@ class LocalNotification {
         presentSound: true,
       );
 
-      // Notification details
+      // Notificati on details
       final NotificationDetails notificationDetails =
           NotificationDetails(android: androidDetails, iOS: iosDetails);
 

@@ -4,7 +4,7 @@ import 'package:myapp/other/api_service.dart';
 import 'package:myapp/profile_page/widget/drop_down_dialog.dart';
 import 'package:myapp/profile_page/widget/edit_dob_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../utils.dart';
+import '../../utils/utils.dart';
 
 class ProfileEditDialog extends StatefulWidget {
   final String name;

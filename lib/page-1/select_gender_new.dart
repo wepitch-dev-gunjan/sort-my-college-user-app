@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/page-1/edulevel_new.dart';
-import 'package:myapp/slide_screen.dart';
+import 'package:myapp/utils/slide_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../utils.dart';
+import '../utils/utils.dart';
 
 class SelectGenderNew extends StatefulWidget {
   const SelectGenderNew({super.key});

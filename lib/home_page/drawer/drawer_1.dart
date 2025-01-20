@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/home_page/help_screen.dart';
 import 'package:myapp/page-1/splash_screen_n.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../other/api_service.dart';
 import '../../page-1/account_delete.dart';

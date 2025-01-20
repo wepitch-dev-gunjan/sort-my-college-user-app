@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:myapp/other/api_service.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/utils/utils.dart';
 import 'booking_confirmatoin_past.dart';
 
 class BookingPast extends StatefulWidget {

@@ -11,7 +11,7 @@ import 'package:myapp/home_page/homepagecontainer.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/listcontroler.dart';
 import 'package:myapp/page-1/dashboard_session_page.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/utils/utils.dart';
 import 'package:myapp/utils/share_links.dart';
 
 class CounsellorListPage_offline extends StatefulWidget {

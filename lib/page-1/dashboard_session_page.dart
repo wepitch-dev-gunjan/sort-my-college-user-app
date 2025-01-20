@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/other/constants.dart';
 import 'package:myapp/page-1/dashboard-session-group-new.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dashboard-session-personnel-new.dart';
 

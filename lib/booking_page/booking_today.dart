@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:myapp/booking_page/booking_confirmatoin_today.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/utils/utils.dart';
 import '../other/api_service.dart';
 
 class BookingToday extends StatefulWidget {

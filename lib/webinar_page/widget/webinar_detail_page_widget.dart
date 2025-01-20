@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:myapp/home_page/homepage.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/shared/colors_const.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/utils/utils.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import '../utils/share_links.dart';
+import '../../utils/share_links.dart';
 
 class WebinarDetailsPageWidget extends StatefulWidget {
   final String? webinarId;

@@ -5,7 +5,7 @@ import 'package:myapp/other/api_service.dart';
 import 'package:myapp/page-1/otp_screen_new_login.dart';
 import 'package:myapp/page-1/sign_up_screen_new.dart';
 import 'package:myapp/shared/colors_const.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/utils/utils.dart';
 import '../other/constants.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -14,10 +14,10 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  _LoginScreenNewState createState() => _LoginScreenNewState();
+  LoginScreenNewState createState() => LoginScreenNewState();
 }
 
-class _LoginScreenNewState extends State<LoginScreen> {
+class LoginScreenNewState extends State<LoginScreen> {
   TextEditingController countryController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -230,7 +230,7 @@ class _LoginScreenNewState extends State<LoginScreen> {
     );
 
     ApiService.callVerifyOtpByPhone(phoneNumber).then((value) async {
-      print(value);
+     
 
       EasyLoading.dismiss();
 

@@ -6,7 +6,7 @@ import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/webinar_page/webinar_pastwebnar_page.dart';
 import 'package:myapp/webinar_page/webinar_today_page.dart';
 import 'package:myapp/webinar_page/webinar_upcoming_page.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class WebinarPage extends StatefulWidget {

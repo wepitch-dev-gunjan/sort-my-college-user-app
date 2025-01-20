@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:myapp/home_page/entrance_preparation/screens/visit_profile_page.dart';
 import 'package:myapp/other/api_service.dart';
 import '../../../shared/colors_const.dart';
-import '../../../utils.dart';
+import '../../../utils/utils.dart';
 import '../../../utils/share_links.dart';
 import '../components/commons.dart';
 import '../components/ep_comp.dart';

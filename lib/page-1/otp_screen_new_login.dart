@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/constants.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/utils/utils.dart';
 import 'package:myapp/utils/common.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:myapp/booking_page/booking_past.dart';
 import 'package:myapp/booking_page/booking_today.dart';
 import 'package:myapp/booking_page/booking_upcoming.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../other/api_service.dart';
 

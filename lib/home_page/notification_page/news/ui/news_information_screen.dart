@@ -6,7 +6,7 @@ import 'package:myapp/home_page/notification_page/news/provider/news_provider1.d
 import 'package:myapp/home_page/notification_page/news/ui/news_all_info_screen.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/shared/string_const.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class NewsInformationScreen extends StatefulWidget {
