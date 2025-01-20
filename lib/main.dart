@@ -26,6 +26,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
 }
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
@@ -36,7 +37,6 @@ Future<void> main() async {
   await NotificationServices().getAccessToken();
   await NotificationServices().getToken();
   MessageService.firebaseInit();
-
   MessageService.backgroudAndTerminateAppNavatior();
 
   bool? isLoggedIn = await MyApp.loggIn();

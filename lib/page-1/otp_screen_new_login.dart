@@ -56,7 +56,6 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
 
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -224,7 +223,7 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
                                     } else {
                                       EasyLoading.dismiss();
 
-                                      ShowSnackBarMsg(value['error'],
+                                      showSnackBarMsg(value['error'],
                                           color: Colors.red);
                                     }
                                     EasyLoading.dismiss();
@@ -284,7 +283,6 @@ void configLoading() {
     ..boxShadow = <BoxShadow>[]
     ..indicatorType = EasyLoadingIndicatorType.circle;
 }
-
 
 // void onTapGettingstarted(BuildContext context) {
 //   Navigator.pushReplacement(context,

@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/home_page/homepagecontainer.dart';
@@ -6,6 +9,7 @@ import 'package:myapp/page-1/selectgender.dart';
 import 'package:myapp/page-1/shared.dart';
 import 'package:myapp/page-1/splash_screen_n.dart';
 import 'package:myapp/shared/colors_const.dart';
+import 'package:myapp/utils/common.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../common/deep_linking.dart';
 import 'edulevel_new.dart';
@@ -22,7 +26,6 @@ import 'edulevel_new.dart';
 //   @override
 //   State<SplashScreen1> createState() => _SplashScreen1State();
 // }
-
 
 // class _SplashScreen1State extends State<SplashScreen1> {
 //   @override
@@ -86,7 +89,7 @@ import 'edulevel_new.dart';
 //               MaterialPageRoute(builder: (context) => const SplashScreenNew()));
 //         }
 //       }
-     
+
 //     });
 //     super.initState();
 //   }
@@ -120,8 +123,6 @@ import 'edulevel_new.dart';
 //   }
 // }
 
-
-
 class SplashScreen1 extends StatefulWidget {
   const SplashScreen1({super.key, required this.isLoggedIn});
 
@@ -136,14 +137,12 @@ class SplashScreen1 extends StatefulWidget {
 }
 
 class _SplashScreen1State extends State<SplashScreen1> {
-
   late final DeepLinkHandler _deepLinkHandler;
-
-
 
   @override
   void initState() {
     super.initState();
+    internetConnectivity();
     configLoading();
     _checkLoginStatus();
     _deepLinkHandler = DeepLinkHandler(context);
@@ -167,13 +166,17 @@ class _SplashScreen1State extends State<SplashScreen1> {
         }
       } else if (prefs.getString("education_level")?.isEmpty ?? true) {
         if (mounted) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const EducationLevelNew()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const EducationLevelNew()));
         }
       } else {
         if (mounted) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const HomePageContainer()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const HomePageContainer()));
         }
       }
     } else {
@@ -211,4 +214,22 @@ class _SplashScreen1State extends State<SplashScreen1> {
       ),
     );
   }
+}
+
+void internetConnectivity() {
+  Connectivity()
+      .onConnectivityChanged
+      .listen((List<ConnectivityResult> result) {
+    ConnectivityResult connectionStatus =
+        result.isNotEmpty ? result.first : ConnectivityResult.none;
+
+    log("Internet Status: $connectionStatus"); // Debug ke liye print
+
+    if (connectionStatus != ConnectivityResult.mobile &&
+        connectionStatus != ConnectivityResult.wifi) {
+      showSnackBarMsg("You Are Offline", color: Colors.red);
+    } else {
+      log("Connected");
+    }
+  });
 }
