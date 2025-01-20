@@ -142,7 +142,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
   @override
   void initState() {
     super.initState();
-    internetConnectivity();
+    // internetConnectivity();
     configLoading();
     _checkLoginStatus();
     _deepLinkHandler = DeepLinkHandler(context);
@@ -216,20 +216,20 @@ class _SplashScreen1State extends State<SplashScreen1> {
   }
 }
 
-void internetConnectivity() {
-  Connectivity()
-      .onConnectivityChanged
-      .listen((List<ConnectivityResult> result) {
-    ConnectivityResult connectionStatus =
-        result.isNotEmpty ? result.first : ConnectivityResult.none;
+// void internetConnectivity() {
+//   Connectivity()
+//       .onConnectivityChanged
+//       .listen((List<ConnectivityResult> result) {
+//     ConnectivityResult connectionStatus =
+//         result.isNotEmpty ? result.first : ConnectivityResult.none;
 
-    log("Internet Status: $connectionStatus"); // Debug ke liye print
+//     log("Internet Status: $connectionStatus"); // Debug ke liye print
 
-    if (connectionStatus != ConnectivityResult.mobile &&
-        connectionStatus != ConnectivityResult.wifi) {
-      showSnackBarMsg("You Are Offline", color: Colors.red);
-    } else {
-      log("Connected");
-    }
-  });
-}
+//     if (connectionStatus != ConnectivityResult.mobile &&
+//         connectionStatus != ConnectivityResult.wifi) {
+//       showSnackBarMsg("You Are Offline", color: Colors.red);
+//     } else {
+//       log("Connected");
+//     }
+//   });
+// }
