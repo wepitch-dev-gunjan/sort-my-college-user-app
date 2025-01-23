@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/home_page/help_screen.dart';
 import 'package:myapp/page-1/splash_screen_n.dart';
 import 'package:myapp/utils/utils.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../other/api_service.dart';
 import '../../page-1/account_delete.dart';
@@ -18,15 +19,23 @@ class Drawer1 extends StatefulWidget {
 class _Drawer1State extends State<Drawer1> {
   String path = '';
   String name = "";
-
+  String appVersion = '';
   @override
   void initState() {
     getAllInfo();
+    _getAppVersion();
     super.initState();
   }
 
   void getAllInfo() async {
     ApiService.get_profile().then((value) => loadDefaultValue());
+  }
+
+  Future<void> _getAppVersion() async {
+    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      appVersion = '${packageInfo.version} (${packageInfo.buildNumber})';
+    });
   }
 
   void loadDefaultValue() async {
@@ -287,15 +296,19 @@ class _Drawer1State extends State<Drawer1> {
               height: 61,
               width: width * 0.57,
             ),
-            const SizedBox(
-              height: 60,
+            const SizedBox(height: 40),
+            Center(
+              child: Text(
+                'App Version: $appVersion',
+                style: TextStyle(),
+              ),
             ),
+            const SizedBox(height: 10),
           ],
         ),
       ),
     );
   }
-
 
   Future _logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
