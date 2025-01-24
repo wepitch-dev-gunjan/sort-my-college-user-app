@@ -8,15 +8,116 @@ import 'package:myapp/webinar_page/webinar_page.dart';
 import 'counsellor_page/counsellor_select_listview_offline.dart';
 import 'entrance_preparation/screens/entrance_preparation_screen.dart';
 
-class HomePageContainer_2 extends StatefulWidget {
-  const HomePageContainer_2({super.key});
+// class HomePageContainer_2 extends StatefulWidget {
+//   const HomePageContainer_2({super.key});
+
+//   @override
+//   State<HomePageContainer_2> createState() => _HomePageContainer_2State();
+// }
+
+// class _HomePageContainer_2State extends State<HomePageContainer_2> {
+//   int selectedIndex = 0;
+
+//   final Widget _home = const CounsellorListPage_offline();
+//   final Widget _webnar = const WebinarPage();
+//   final Widget _booking = const BookingPage();
+//   final Widget _news = const NewsScreen();
+//   final Widget _profile = const ProfilePage();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: getBody(),
+//       bottomNavigationBar: BottomNavigationBar(
+//         type: BottomNavigationBarType.fixed,
+//         currentIndex: selectedIndex,
+//         iconSize: 22.0,
+//         selectedFontSize: 14.0,
+//         unselectedFontSize: 12.0,
+//         selectedItemColor: const Color(0xff512DA8),
+//         unselectedItemColor: const Color(0xff565656),
+//         showSelectedLabels: true,
+//         showUnselectedLabels: true,
+//         items: const [
+//           BottomNavigationBarItem(
+//             label: "Home",
+//             icon: Icon(
+//               Icons.home_outlined,
+//               size: 26,
+//             ),
+//           ),
+//           BottomNavigationBarItem(
+//             label: "Webinar",
+//             icon: Icon(
+//               Icons.smart_display_outlined,
+//               size: 26,
+//             ),
+//           ),
+//           BottomNavigationBarItem(
+//               label: "Booking",
+//               icon: Icon(
+//                 Icons.calendar_month_outlined,
+//                 size: 24,
+//               )
+//               // icon: ImageIcon(
+//               //   AssetImage("assets/page-1/images/booking.png"),
+//               // ),
+//               ),
+//           BottomNavigationBarItem(
+//             icon: ImageIcon(
+//               AssetImage("assets/page-1/images/newspaper-1-s6H.png"),
+//             ),
+//             label: "News",
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.account_circle_outlined, size: 26),
+//             label: "Profile",
+//           )
+//         ],
+//         onTap: (int index) {
+//           onTapHandler(index);
+//         },
+//       ),
+//     );
+//   }
+
+//   void onTapHandler(int index) {
+//     setState(() {
+//       selectedIndex = index;
+//     });
+//   }
+
+//   Widget getBody() {
+//     if (selectedIndex == 0) {
+//       return _home;
+//     } else if (selectedIndex == 1) {
+//       return _webnar;
+//     } else if (selectedIndex == 2) {
+//       return _booking;
+//     } else if (selectedIndex == 3) {
+//       return _news;
+//     } else if (selectedIndex == 4) {
+//       return _profile;
+//     } else {
+//       return _home;
+//     }
+//   }
+
+// }
+
+
+
+
+class CounsellorWithHomePage extends StatefulWidget {
+  const CounsellorWithHomePage({super.key});
 
   @override
-  State<HomePageContainer_2> createState() => _HomePageContainer_2State();
+  State<CounsellorWithHomePage> createState() => _CounsellorWithHomePageState();
 }
 
-class _HomePageContainer_2State extends State<HomePageContainer_2> {
+class _CounsellorWithHomePageState extends State<CounsellorWithHomePage> {
   int selectedIndex = 0;
+  DateTime? lastTapped;
 
   final Widget _home = const CounsellorListPage_offline();
   final Widget _webnar = const WebinarPage();
@@ -27,7 +128,18 @@ class _HomePageContainer_2State extends State<HomePageContainer_2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: getBody(),
+      body: GestureDetector(
+        onDoubleTap: () {
+          if (selectedIndex == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const HomePageContainer()),
+            );
+          }
+        },
+        child: getBody(),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: selectedIndex,
@@ -54,15 +166,12 @@ class _HomePageContainer_2State extends State<HomePageContainer_2> {
             ),
           ),
           BottomNavigationBarItem(
-              label: "Booking",
-              icon: Icon(
-                Icons.calendar_month_outlined,
-                size: 24,
-              )
-              // icon: ImageIcon(
-              //   AssetImage("assets/page-1/images/booking.png"),
-              // ),
-              ),
+            label: "Booking",
+            icon: Icon(
+              Icons.calendar_month_outlined,
+              size: 24,
+            ),
+          ),
           BottomNavigationBarItem(
             icon: ImageIcon(
               AssetImage("assets/page-1/images/newspaper-1-s6H.png"),
@@ -72,7 +181,7 @@ class _HomePageContainer_2State extends State<HomePageContainer_2> {
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_outlined, size: 26),
             label: "Profile",
-          )
+          ),
         ],
         onTap: (int index) {
           onTapHandler(index);
@@ -102,25 +211,12 @@ class _HomePageContainer_2State extends State<HomePageContainer_2> {
       return _home;
     }
   }
-
-  // void onTapgotocounsellor(BuildContext context) {
-  //   Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //           builder: (context) => const CounsellorListPage_offline()));
-  //   //Navigator.push(context, MaterialPageRoute(builder: (context) => Webnar()));
-  // }
-
-  // void onTapGettingstarted2(BuildContext context) {
-  //   Navigator.push(
-  //       context, MaterialPageRoute(builder: (context) => const WebinarPage()));
-  // }
-
-  // void onTapGettingstarted3(BuildContext context) {
-  //   // Navigator.push(
-  //   //     context, MaterialPageRoute(builder: (context) => const ExplorerFeed()));
-  // }
 }
+
+
+
+
+
 
 class EpWithHomePage extends StatefulWidget {
   const EpWithHomePage({super.key});

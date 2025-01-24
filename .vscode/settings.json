@@ -1,5 +1,7 @@
 {
     "cmake.sourceDirectory": "C:/Users/ARVIND/Desktop/Flutter_Project/sort-my-college-mobile-app/linux",
     "dart.previewFlutterUiGuides": true,
-    "files.autoSave": "afterDelay"
+    "files.autoSave": "afterDelay",
+    "editor.formatOnSave": true,
+    "editor.fontSize": 18
 }

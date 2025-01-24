@@ -296,11 +296,14 @@ class _Drawer1State extends State<Drawer1> {
               height: 61,
               width: width * 0.57,
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 30),
             Center(
               child: Text(
                 'App Version: $appVersion',
-                style: TextStyle(),
+                style: SafeGoogleFont(
+                  "Inter",
+                  fontSize: 13.0,
+                ),
               ),
             ),
             const SizedBox(height: 10),

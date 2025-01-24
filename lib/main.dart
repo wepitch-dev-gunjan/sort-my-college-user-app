@@ -18,7 +18,6 @@ import 'package:myapp/other/provider/user_booking_provider.dart';
 import 'package:myapp/page-1/shared.dart';
 import 'package:myapp/utils/utils.dart';
 import 'package:myapp/utils/common.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'notification_service.dart';
 import 'page-1/splash_screen_1.dart';
@@ -57,10 +56,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  FirebaseAnalyticsObserver observer =
-      FirebaseAnalyticsObserver(analytics: analytics);
+    FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    FirebaseAnalyticsObserver observer =
+        FirebaseAnalyticsObserver(analytics: analytics);
 
     return MultiProvider(
       providers: [
@@ -78,16 +76,15 @@ class MyApp extends StatelessWidget {
         designSize: ScreenUtil.defaultSize,
         minTextAdapt: true,
         child: GetMaterialApp(
-          title: 'SMC App',
-          navigatorObservers: [observer],
-          debugShowCheckedModeBanner: false,
-          navigatorKey: navigatorKey,
-          scaffoldMessengerKey: snackbarKey,
-          scrollBehavior: MyCustomScrollBehavior(),
-          theme: ThemeData(primarySwatch: Colors.grey),
-          home: SplashScreen1(isLoggedIn: isLoggedIn),
-          builder: EasyLoading.init(),
-        ),
+            title: 'SMC App',
+            navigatorObservers: [observer],
+            debugShowCheckedModeBanner: false,
+            navigatorKey: navigatorKey,
+            scaffoldMessengerKey: snackbarKey,
+            scrollBehavior: MyCustomScrollBehavior(),
+            theme: ThemeData(primarySwatch: Colors.grey),
+            home: SplashScreen1(isLoggedIn: isLoggedIn),
+            builder: EasyLoading.init()),
       ),
     );
   }
@@ -143,37 +140,40 @@ class MyApp extends StatelessWidget {
 
 
 
-class AppVersionPage extends StatefulWidget {
-  @override
-  _AppVersionPageState createState() => _AppVersionPageState();
-}
+// class AppVersionPage extends StatefulWidget {  
+//   @override
+//   _AppVersionPageState createState() => _AppVersionPageState();
+// }
 
-class _AppVersionPageState extends State<AppVersionPage> {
-  String _appVersion = '';
+// class _AppVersionPageState extends State<AppVersionPage> {
+//   String _appVersion = '';
 
-  @override
-  void initState() {
-    super.initState();
-    _getAppVersion();
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     _getAppVersion();
+//   }
 
-  Future<void> _getAppVersion() async {
-    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    setState(() {
-      _appVersion = '${packageInfo.version} (${packageInfo.buildNumber})';
-    });
-  }
+//   Future<void> _getAppVersion() async {
+//     final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+//     setState(() {
+//       _appVersion = '${packageInfo.version} (${packageInfo.buildNumber})';
+//     });
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('App Version Example')),
-      body: Center(
-        child: Text(
-          'App Version: $_appVersion',
-          style: TextStyle(fontSize: 18),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('App Version Example')),
+//       body: Center(
+//         child: Text(
+//           'App Version: $_appVersion',
+//           style: TextStyle(fontSize: 18),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
+

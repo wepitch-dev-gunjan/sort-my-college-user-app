@@ -37,7 +37,6 @@ class _CustomWebinarCardState extends State<CustomWebinarCard> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -65,7 +64,6 @@ class _CustomWebinarCardState extends State<CustomWebinarCard> {
             children: [
               Container(
                 height: 190,
-                // width: 390,
                 decoration: BoxDecoration(
                   color: Colors.red,
                   borderRadius: BorderRadius.circular(10),

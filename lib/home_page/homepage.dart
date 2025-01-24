@@ -19,6 +19,7 @@ import 'package:myapp/webinar_page/widget/webinar_detail_page_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import '../app_update.dart';
 import '../booking_page/checkout_screen.dart';
 import '../other/api_service.dart';
 
@@ -44,7 +45,6 @@ class _HomePageState extends State<HomePage> {
   CounsellorDetailsProvider counsellorDetailsProvider =
       CounsellorDetailsProvider();
 
-
   @override
   void initState() {
     super.initState();
@@ -55,12 +55,14 @@ class _HomePageState extends State<HomePage> {
       });
     });
     getAllInfo();
+
     counsellorDetailsProvider =
         Provider.of<CounsellorDetailsProvider>(context, listen: false);
     context.read<CounsellorDetailsProvider>().fetchBannerImage();
     context.read<CounsellorDetailsProvider>().fetchTrendingWebinar();
     context.read<CounsellorDetailsProvider>().fetchPopularWorkShop();
     imgUrlList.clear();
+    checkForUpdate();
   }
 
   void _scrollToAccommodation() {
@@ -112,6 +114,7 @@ class _HomePageState extends State<HomePage> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return PopScope(
       canPop: false,
+      // ignore: deprecated_member_use
       onPopInvoked: (didPop) {
         SystemNavigator.pop();
       },
@@ -760,8 +763,6 @@ class _HomePageState extends State<HomePage> {
                                                                             color:
                                                                                 Color(0xff1F0A68),
                                                                           )),
-                                                                   
-
                                                                       RegisterNowWidget(
                                                                         onPressed:
                                                                             () async {
@@ -840,7 +841,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
 
   CustomWebinarCard buildCustomWebinarCard(
     TrandingWebinarModel trending,
@@ -1202,7 +1202,7 @@ class _HomePageState extends State<HomePage> {
 
   void onTapgotocounsellor(BuildContext context) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const HomePageContainer_2()));
+        MaterialPageRoute(builder: (context) => const CounsellorWithHomePage()));
   }
 
   void onTapgotoEP(BuildContext context) {
@@ -1357,5 +1357,3 @@ int calculateDaysDifference(
 
   return daysDifference;
 }
-
-
