@@ -1,10 +1,9 @@
 import 'dart:developer';
-
 import 'package:in_app_update/in_app_update.dart';
 
 
 
-void checkForUpdate() async {
+void checkForAndroidUpdate() async {
   try {
     log("Check Playstore Update");
     final AppUpdateInfo updateInfo = await InAppUpdate.checkForUpdate();

@@ -7,7 +7,6 @@ import 'package:myapp/model/follower_model.dart';
 import 'package:myapp/other/provider/counsellor_details_provider.dart';
 import 'package:myapp/other/provider/follower_provider.dart';
 import 'package:myapp/page-1/dashboard_session_page.dart';
-// import 'package:myapp/page-1/payment_gateaway.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils/utils.dart';
 import 'package:myapp/utils/share_links.dart';

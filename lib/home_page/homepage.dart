@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -61,8 +63,10 @@ class _HomePageState extends State<HomePage> {
     context.read<CounsellorDetailsProvider>().fetchBannerImage();
     context.read<CounsellorDetailsProvider>().fetchTrendingWebinar();
     context.read<CounsellorDetailsProvider>().fetchPopularWorkShop();
+    if (Platform.isAndroid) {
+      checkForAndroidUpdate();
+    }
     imgUrlList.clear();
-    checkForUpdate();
   }
 
   void _scrollToAccommodation() {
@@ -1201,8 +1205,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   void onTapgotocounsellor(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const CounsellorWithHomePage()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const CounsellorWithHomePage()));
   }
 
   void onTapgotoEP(BuildContext context) {

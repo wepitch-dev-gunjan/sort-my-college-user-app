@@ -14,16 +14,14 @@ import 'package:myapp/page-1/dashboard_session_page.dart';
 import 'package:myapp/utils/utils.dart';
 import 'package:myapp/utils/share_links.dart';
 
-class CounsellorListPage_offline extends StatefulWidget {
-  const CounsellorListPage_offline({super.key});
+class CounsellorScreen extends StatefulWidget {
+  const CounsellorScreen({super.key});
 
   @override
-  State<CounsellorListPage_offline> createState() =>
-      _CounsellorListPage_offlineState();
+  State<CounsellorScreen> createState() => _CounsellorScreenState();
 }
 
-class _CounsellorListPage_offlineState
-    extends State<CounsellorListPage_offline> {
+class _CounsellorScreenState extends State<CounsellorScreen> {
   final ListController listController = Get.put(ListController());
 
   bool isCounsellorsLoading = false;

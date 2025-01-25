@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/booking_page/booking_page.dart';
-import 'package:myapp/home_page/counsellor_page/counsellor_select_listview_offline.dart';
+import 'package:myapp/home_page/counsellor_page/counsellor_screen.dart';
 import 'package:myapp/news/ui/news_screen.dart';
 import 'package:myapp/profile_page/profile_page.dart';
 import 'package:myapp/home_page/homepage.dart';
 import 'package:myapp/webinar_page/webinar_page.dart';
-
-
-
 
 class HomePageContainer extends StatefulWidget {
   const HomePageContainer({super.key});
@@ -105,21 +102,13 @@ class _HomePageContainerState extends State<HomePageContainer> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const CounsellorListPage_offline(),
+        builder: (context) => const CounsellorScreen(),
       ),
     );
   }
 
 
-  void onTapGettingstarted2(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const WebinarPage()));
-  }
 
-  void onTapGettingstarted3(BuildContext context) {
-    // Navigator.push(
-    //     context, MaterialPageRoute(builder: (context) => const ExplorerFeed()));
-  }
 }
 
 
@@ -138,16 +127,10 @@ class _HomePageContainerAfterBookingState extends State<HomePageContainerAfterBo
   final Widget _home = const HomePage();
   final Widget _webNar = const WebinarPage();
   final Widget _booking = const BookingPage();
-  // final Widget _news = CollegeNewsWidget();
   final Widget _news = const NewsScreen();
   final Widget _profile = const ProfilePage();
-  /*Widget _news = News();
-  Widget _profile = Profile();*/
   @override
   Widget build(BuildContext context) {
-    // double baseWidth = 430;
-    // double fem = MediaQuery.of(context).size.width / baseWidth;
-    // double ffem = fem * 0.97;
     return Scaffold(
       body: getBody(),
       bottomNavigationBar: BottomNavigationBar(
@@ -181,13 +164,7 @@ class _HomePageContainerAfterBookingState extends State<HomePageContainerAfterBo
                 Icons.calendar_month_outlined,
                 size: 24,
               )
-              // icon: ImageIcon(
-              //   size: 27,
-              //   color: Colors.black,
-              //   AssetImage(
-              //     "assets/page-1/images/icon_booking.png",
-              //   ),
-              // ),
+           
               ),
           BottomNavigationBarItem(
             icon: ImageIcon(
@@ -232,20 +209,5 @@ class _HomePageContainerAfterBookingState extends State<HomePageContainerAfterBo
     }
   }
 
-  void onTapgotocounsellor(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const CounsellorListPage_offline()));
-  }
-
-  void onTapGettingstarted2(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const WebinarPage()));
-  }
-
-  void onTapGettingstarted3(BuildContext context) {
-    // Navigator.push(
-    //     context, MaterialPageRoute(builder: (context) => const ExplorerFeed()));
-  }
+ 
 }
