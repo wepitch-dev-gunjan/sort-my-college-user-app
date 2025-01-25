@@ -427,7 +427,7 @@ class ApiService {
   }
 
   static Future<Map<String, dynamic>> get_profile() async {
-    var data;
+    dynamic data;
     String phoneNumber = "";
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
@@ -493,7 +493,7 @@ class ApiService {
     final response = await http.get(url, headers: {
       "Authorization": token,
     });
-    var data;
+    dynamic data;
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
       return List<CounsellorData>.from(
@@ -586,7 +586,7 @@ class ApiService {
       url,
       headers: {"Content-Type": "application/json", "Authorization": token},
     );
-    var data;
+    dynamic data;
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
       return CounsellorSessionDetails.fromJson(data);
@@ -611,7 +611,7 @@ class ApiService {
       url,
       headers: {"Content-Type": "application/json", "Authorization": token},
     );
-    var data;
+    dynamic data;
 
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
@@ -632,13 +632,12 @@ class ApiService {
     final token = prefs.getString("token").toString();
     var url = Uri.parse(
         "https://www.sortmycollegeapp.com/counsellor/65f97eaec5894941bf7c96eb/sessions");
-    print(url);
 
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json", "Authorization": token},
     );
-    var data;
+    dynamic data;
 
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
@@ -880,7 +879,7 @@ class ApiService {
       //"Content-Type": "application/json",
       "Authorization": token,
     });
-    var data;
+    dynamic data;
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
       return List<AnnouncementsModel>.from(
@@ -902,7 +901,7 @@ class ApiService {
       //"Content-Type": "application/json",
       "Authorization": token,
     });
-    var data;
+    dynamic data;
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
       return List<CourseModel>.from(data.map((x) => CourseModel.fromJson(x)));
@@ -983,7 +982,7 @@ class ApiService {
       "Authorization": token,
     });
 
-    var data;
+    dynamic data;
 
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
@@ -1050,7 +1049,7 @@ class ApiService {
       "Authorization": token,
     });
 
-    var data;
+    dynamic data;
 
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
@@ -1083,39 +1082,34 @@ class ApiService {
   static Future getAllAccommodations({
     required Map<String, dynamic> filters,
   }) async {
-    log("filters123$filters");
 
-    // Create a copy of the filters map to modify it
+    
     final updatedFilters = Map<String, dynamic>.from(filters);
-
-    // Handle the Budget key
+    
     if (updatedFilters.containsKey('Budget') &&
         updatedFilters['Budget'] is List) {
       List<dynamic> budget = updatedFilters['Budget'];
       if (budget.length == 2) {
         updatedFilters['MinBudget'] =
-            budget[0]; // Assign first index to MinBudget
+            budget[0]; 
         updatedFilters['MaxBudget'] =
-            budget[1]; // Assign second index to MaxBudget
+            budget[1]; 
       }
-      updatedFilters.remove('Budget'); // Remove the original Budget key
+      updatedFilters.remove('Budget'); 
     }
 
-    // Define keys that should be sent as arrays
     final keysAsArray = [
       'City',
       'Gender',
       'Occupancy Type',
       'Near By Colleges'
     ];
-
-    // Map the keys to the required format
+   
     Map<String, dynamic> queryParameters = {};
     updatedFilters.forEach((key, value) {
-      // Convert the key to the desired format
+
       String formattedKey = key.toLowerCase().replaceAll(' ', '');
 
-      // Handle special cases for capitalization
       if (formattedKey == 'minbudget') {
         formattedKey = 'minBudget';
       } else if (formattedKey == 'maxbudget') {
@@ -1126,36 +1120,31 @@ class ApiService {
         formattedKey = 'occupancyType';
       }
 
-      // Ensure values for specific keys are sent as arrays
       if (keysAsArray.contains(key)) {
         if (value is String) {
           queryParameters[formattedKey] = [
             value
-          ]; // Wrap single string into an array
+          ]; 
         } else if (value is List) {
           queryParameters[formattedKey] =
-              value; // Keep as array if already a list
+              value; 
         }
       } else {
-        queryParameters[formattedKey] = value; // Assign other values as-is
+        queryParameters[formattedKey] = value; 
       }
     });
-
-    log("QueryParms$queryParameters");
-
-    // Initialize Dio
+   
     Dio dio = Dio();
 
     try {
-      // Send GET request with query parameters
+      
       final response = await dio.get(
         "${AppConstants.baseUrl}/admin/accommodation/user/getallaccommodations",
-        data: queryParameters, // Use queryParameters for GET
+        data: queryParameters, 
       );
-
-      // Handle response
+     
       if (response.statusCode == 200) {
-        return response.data; // Return response body
+        return response.data; 
       } else {
         throw Exception('Failed to load accommodations');
       }
@@ -1200,7 +1189,7 @@ class ApiService {
       "Authorization": token,
     });
 
-    var data;
+    dynamic data;
 
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
@@ -1242,7 +1231,7 @@ class ApiService {
 
     final response = await http.get(url);
 
-    var data;
+    dynamic data;
 
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
@@ -1259,7 +1248,7 @@ class ApiService {
 
     final response = await http.get(url);
 
-    var data;
+    dynamic data;
 
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());

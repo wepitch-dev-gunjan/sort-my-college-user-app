@@ -10,12 +10,12 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class CustomWebinarCard extends StatefulWidget {
-  CustomWebinarCard({
+  const CustomWebinarCard({
     super.key,
     required this.trandingWebinarModel,
   });
 
-  TrandingWebinarModel trandingWebinarModel;
+ final TrandingWebinarModel trandingWebinarModel;
 
   @override
   State<CustomWebinarCard> createState() => _CustomWebinarCardState();
