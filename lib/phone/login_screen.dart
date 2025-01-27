@@ -130,25 +130,6 @@ class LoginScreenNewState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    // Row(
-                    //   children: [
-                    //     Checkbox(
-                    //       value: isChecked,
-                    //       overlayColor:
-                    //           MaterialStatePropertyAll(Color(0xff1F0A68)),
-                    //       onChanged: (value) {
-                    //         setState(() {
-                    //           isChecked = value!;
-                    //         });
-                    //       },
-                    //     ),
-                    //     const Text(
-                    //       'I accept terms and conditions',
-                    //       style: TextStyle(
-                    //           fontSize: 14, fontWeight: FontWeight.bold),
-                    //     ),
-                    //   ],
-                    // ),
                     const SizedBox(height: 18),
                     SizedBox(
                       width: double.infinity,
@@ -230,8 +211,6 @@ class LoginScreenNewState extends State<LoginScreen> {
     );
 
     ApiService.callVerifyOtpByPhone(phoneNumber).then((value) async {
-     
-
       EasyLoading.dismiss();
 
       if (phoneNumber == "7297827346") {
@@ -254,15 +233,6 @@ class LoginScreenNewState extends State<LoginScreen> {
         }
       }
     });
-  }
-
-  bool validateMobile(String value) {
-    String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-    RegExp regExp = RegExp(patttern);
-    if (!regExp.hasMatch(value)) {
-      return true;
-    }
-    return false;
   }
 
   bool check_val() {

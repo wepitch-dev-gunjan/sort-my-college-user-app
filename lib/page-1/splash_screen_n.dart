@@ -1,8 +1,6 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:myapp/page-1/sign_up_screen_new.dart';
 import 'package:myapp/phone/login_screen.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SplashScreenNew extends StatefulWidget {
   const SplashScreenNew({super.key});
@@ -16,13 +14,12 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
 
   @override
   Widget build(BuildContext context) {
-    log("Welcome to SMC");
     var mHeight = MediaQuery.sizeOf(context).height;
     var mWidth = MediaQuery.sizeOf(context).width;
-    print(mHeight);
-    print(mWidth);
+
     return Scaffold(
       backgroundColor: Colors.white,
+      // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,7 +56,7 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Welcome to SortMyCollegeIndia’s First ',
+                    text: 'Welcome to SortMyCollege India’s First ',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,
@@ -145,7 +142,7 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.all(8),
                           backgroundColor: const Color(0xff1F0A68)),
-                      child: const Text('Register',
+                      child: const Text('Sign Up',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                     ),
@@ -158,41 +155,4 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
       ),
     );
   }
-
-  void launchUrlString(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url, forceSafariVC: false, forceWebView: false);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
 }
-
-// void onTapGettingStarted(BuildContext context) async {
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   var token = prefs.getString("token");
-//   if (token != null) {
-//     Navigator.pushReplacement(
-//         context,
-//         MaterialPageRoute(
-//             builder: (context) =>
-//                 token == null ? const Signup() : const HomePageContainer()));
-//     SharedPre.saveAuthLogin(true);
-//   } else {
-//     Navigator.pushReplacement(
-//         context,
-//         MaterialPageRoute(
-//             builder: (context) =>
-//                 token == null ? const Signup() : const HomePageContainer()));
-//   }
-// }
-// void onTapLogIn(BuildContext context) async {
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   var token = prefs.getString("token");
-//   Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//           builder: (context) =>
-//           token == null ? const Login() : const HomePageContainer()));
-//
-// }

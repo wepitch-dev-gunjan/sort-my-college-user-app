@@ -109,11 +109,8 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                                 //fieldStyle: FieldStyle.box,
                                 outlineBorderRadius: 15,
                                 style: const TextStyle(fontSize: 17),
-                                onChanged: (pin) {
-                                  print("Changed: $pin");
-                                },
+                                onChanged: (pin) {},
                                 onCompleted: (pin) {
-                                  print("Completed: $pin");
                                   otp = pin;
                                 }),
                             const SizedBox(height: 16),
@@ -204,28 +201,18 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                                     if (value["message"] ==
                                             "OTP verified successfully" &&
                                         value["already_registered"] == true) {
-                                      // EasyLoading.showToast("You are already registered user please go to login page",
-                                      //     toastPosition: EasyLoadingToastPosition.bottom );
                                       showSnackBarMsg(
                                           "Already registered? Please log in.",
-                                          color: Colors.orange);
+                                          color: const Color(0xff1f0a68));
 
                                       EasyLoading.dismiss();
-
-                                      /*SharedPreferences prefs = await SharedPreferences.getInstance();
-                                      prefs.setString("phone_number", widget.phoneNumber);
-                                      prefs.setBool("authLogin", true);
-                                      prefs.setString("auth", value["token"]);
-                                      prefs.setString("token", value["token"]);*/
-
                                       Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const LoginScreen()));
-
-                                      /*Navigator.pushReplacement(context,
-                                          MaterialPageRoute(builder: (context) =>  MyHomePage()));*/
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LoginScreen(),
+                                        ),
+                                      );
                                     } else if (value["message"] ==
                                             "OTP verified successfully" &&
                                         value["already_registered"] == false) {
@@ -258,7 +245,6 @@ class _OtpScreenNewState extends State<OtpScreenNew> {
                                 }
                               },
                               child: Container(
-                                // autogroupuwzkHhB (AXyABr4U2J9nG7vbfWUwZK)
                                 width: double.infinity,
                                 height: 45 * fem,
                                 decoration: BoxDecoration(

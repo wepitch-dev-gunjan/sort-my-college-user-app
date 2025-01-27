@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/page-1/otp_screen_new.dart';
 import 'package:myapp/phone/login_screen.dart';
@@ -6,17 +7,16 @@ import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils/utils.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../other/constants.dart';
 import 'package:flutter/services.dart';
 
 class SignupScreenNew extends StatefulWidget {
   const SignupScreenNew({super.key});
 
   @override
-  _Signup createState() => _Signup();
+  Signup createState() => Signup();
 }
 
-class _Signup extends State<SignupScreenNew> {
+class Signup extends State<SignupScreenNew> {
   final _nameController = TextEditingController();
   final phonecontroller = TextEditingController();
 
@@ -26,23 +26,15 @@ class _Signup extends State<SignupScreenNew> {
     configLoading();
   }
 
-  // bool isLoading = false;
   void onTapGettingstarted(BuildContext context, String phoneNumber) async {
     if (!isChecked) {
-      EasyLoading.showToast(
-        'Please accept terms and conditions',
-        toastPosition: EasyLoadingToastPosition.bottom,
-      );
+      Fluttertoast.showToast(msg: 'Please accept terms & conditions');
       return;
     }
 
-    await EasyLoading.show(
-      dismissOnTap: false,
-    );
+    await EasyLoading.show(dismissOnTap: false);
 
     ApiService.callVerifyOtpByPhone(phoneNumber).then((value) async {
-      print(value);
-
       if (value["message"]["description"] == "Message in progress") {
         EasyLoading.showToast(value["message"]["description"],
             toastPosition: EasyLoadingToastPosition.bottom);
@@ -59,6 +51,7 @@ class _Signup extends State<SignupScreenNew> {
   }
 
   bool isChecked = false;
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 430;
@@ -202,7 +195,7 @@ class _Signup extends State<SignupScreenNew> {
                                 ),
                               ),
                               const Text(
-                                'I accept terms and conditions',
+                                'I accept terms & conditions',
                                 style: TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.bold),
                               ),
@@ -227,7 +220,7 @@ class _Signup extends State<SignupScreenNew> {
                                 foregroundColor: Colors.white,
                                 padding: const EdgeInsets.all(8),
                                 backgroundColor: const Color(0xff1F0A68)),
-                            child: const Text('Register',
+                            child: const Text('Sign Up',
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.bold)),
                           ),
@@ -296,12 +289,10 @@ class _Signup extends State<SignupScreenNew> {
   bool check_val() {
     bool isvaluevalid = true;
     if (_nameController.text.toString().trim().isEmpty) {
-      EasyLoading.showToast(AppConstants.fullnameerror,
-          toastPosition: EasyLoadingToastPosition.bottom);
+      Fluttertoast.showToast(msg: "Please enter full name");
       isvaluevalid = false;
     } else if (phonecontroller.text.toString().trim().isEmpty) {
-      EasyLoading.showToast(AppConstants.phoneerror,
-          toastPosition: EasyLoadingToastPosition.bottom);
+      Fluttertoast.showToast(msg: "Please enter phone number");
       isvaluevalid = false;
     }
 
