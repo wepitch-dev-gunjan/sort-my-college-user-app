@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/page-1/select_gender_new.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -64,7 +65,6 @@ class _SelectDobNewState extends State<SelectDobNew> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,13 +76,15 @@ class _SelectDobNewState extends State<SelectDobNew> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text('Question 1/3'),
-              Image.asset('assets/page-1/images/dob.jpg'),
+              const SizedBox(height: 5.0),
+              SvgPicture.asset("assets/page-1/images/Step1.svg"),
               const SizedBox(height: 20),
               Center(
                 child: Container(
                   height: 400,
                   decoration: BoxDecoration(
-                    border: Border.all(color: const Color(0xff1F0A68), width: 2),
+                    border:
+                        Border.all(color: const Color(0xff1F0A68), width: 2),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Padding(
@@ -124,16 +126,19 @@ class _SelectDobNewState extends State<SelectDobNew> {
                     GestureDetector(
                       onTap: () async {
                         if (date == "DD/MM/YYYY") {
-                          EasyLoading.showToast("Please select your date of birth.",
+                          EasyLoading.showToast(
+                              "Please select your date of birth.",
                               toastPosition: EasyLoadingToastPosition.bottom);
                         } else {
                           var selectedDate = DateFormat("d/M/yyyy").parse(date);
                           var now = DateTime.now();
-                          var twelveYearsAgo = now.subtract(const Duration(days: 12 * 365));
+                          var twelveYearsAgo =
+                              now.subtract(const Duration(days: 12 * 365));
                           if (selectedDate.isBefore(twelveYearsAgo)) {
                             var prefs = await SharedPreferences.getInstance();
                             final splittedate = date.split('/');
-                            dob = "${splittedate[2]}-${splittedate[1]}-${splittedate[0]}";
+                            dob =
+                                "${splittedate[2]}-${splittedate[1]}-${splittedate[0]}";
                             prefs.setString("date_of_birth", dob);
                             if (!mounted) return;
                             Navigator.pushReplacement(
@@ -143,7 +148,8 @@ class _SelectDobNewState extends State<SelectDobNew> {
                               ),
                             );
                           } else {
-                            EasyLoading.showToast("You must be at least 12 years old to proceed.",
+                            EasyLoading.showToast(
+                                "You must be at least 12 years old to proceed.",
                                 toastPosition: EasyLoadingToastPosition.bottom);
                           }
                         }

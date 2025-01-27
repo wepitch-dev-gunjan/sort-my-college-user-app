@@ -214,7 +214,7 @@ class LoginScreenNewState extends State<LoginScreen> {
       EasyLoading.dismiss();
 
       if (phoneNumber == "7297827346") {
-        Navigator.pushReplacement(
+        Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => OtpScreenNewLogin(phoneNumber)));
@@ -223,7 +223,7 @@ class LoginScreenNewState extends State<LoginScreen> {
           EasyLoading.showToast(value["message"]["description"],
               toastPosition: EasyLoadingToastPosition.bottom);
           if (!mounted) return;
-          Navigator.pushReplacement(
+          Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => OtpScreenNewLogin(phoneNumber)));

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/constants.dart';
+import 'package:myapp/utils/navigation.dart';
 import 'package:myapp/utils/utils.dart';
 import 'package:myapp/utils/common.dart';
 import 'package:otp_text_field/otp_text_field.dart';
@@ -60,205 +61,232 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
       body: SingleChildScrollView(
         child: Container(
           alignment: Alignment.topCenter,
-          child: Column(
+          child: Stack(
             children: [
-              Container(
-                height: 300,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/page-1/images/www 1 (1).png',
-                      height: 240,
-                      width: 280,
+              Column(
+                children: [
+                  Container(
+                    height: 300,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
                     ),
-                  ],
-                ),
-              ),
-              Container(
-                height: ffem * 500,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Color(0xffF6F7F7),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(100),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/page-1/images/www 1 (1).png',
+                          height: 240,
+                          width: 280,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      top: 40, left: 20, right: 20, bottom: ffem * 1),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(
-                            73 * fem, 10 * fem, 47 * fem, 6 * fem),
-                        width: double.infinity,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            OTPTextField(
-                                controller: otpController,
-                                length: 4,
-                                width: MediaQuery.of(context).size.width,
-                                textFieldAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                fieldWidth: 40,
-                                //fieldStyle: FieldStyle.box,
-                                outlineBorderRadius: 15,
-                                style: const TextStyle(fontSize: 17),
-                                onCompleted: (pin) {
-                                  print("Completed: $pin");
-                                  otp = pin;
-                                }),
-                            const SizedBox(height: 16),
-                            Text(
-                                "${duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}"),
-                            Container(
-                              // didntreceiveanotpresendotpX1s (437:94)
-                              margin: EdgeInsets.fromLTRB(
-                                  0 * fem, 60 * fem, 2 * fem, 15 * fem),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Did not receive an OTP?',
-                                    style: SafeGoogleFont(
-                                      'Roboto',
-                                      fontSize: 15 * ffem,
-                                      fontWeight: FontWeight.w400,
-                                      height: 1.1725 * ffem / fem,
-                                      color: const Color(0xff000000),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  GestureDetector(
-                                    onTap: () {
-                                      if (isResendOtpEnabled) {
-                                        EasyLoading.show();
-                                        ApiService.callVerifyOtpByPhone(
-                                                widget.phoneNumber)
-                                            .then((value) {
-                                          if (value["message"]["description"] ==
-                                              "Message in progress") {
-                                            duration =
-                                                const Duration(minutes: 2);
-                                            setState(() {
-                                              isResendOtpEnabled = false;
+                  Container(
+                    height: ffem * 500,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      color: Color(0xffF6F7F7),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(100),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: 40, left: 20, right: 20, bottom: ffem * 1),
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.fromLTRB(
+                                73 * fem, 10 * fem, 47 * fem, 6 * fem),
+                            width: double.infinity,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                OTPTextField(
+                                    controller: otpController,
+                                    length: 4,
+                                    width: MediaQuery.of(context).size.width,
+                                    textFieldAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    fieldWidth: 40,
+                                    //fieldStyle: FieldStyle.box,
+                                    outlineBorderRadius: 15,
+                                    style: const TextStyle(fontSize: 17),
+                                    onCompleted: (pin) {
+                                      print("Completed: $pin");
+                                      otp = pin;
+                                    }),
+                                const SizedBox(height: 16),
+                                Text(
+                                    "${duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}"),
+                                Container(
+                                  // didntreceiveanotpresendotpX1s (437:94)
+                                  margin: EdgeInsets.fromLTRB(
+                                      0 * fem, 60 * fem, 2 * fem, 15 * fem),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Did not receive an OTP?',
+                                        style: SafeGoogleFont(
+                                          'Roboto',
+                                          fontSize: 15 * ffem,
+                                          fontWeight: FontWeight.w400,
+                                          height: 1.1725 * ffem / fem,
+                                          color: const Color(0xff000000),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 20),
+                                      GestureDetector(
+                                        onTap: () {
+                                          if (isResendOtpEnabled) {
+                                            EasyLoading.show();
+                                            ApiService.callVerifyOtpByPhone(
+                                                    widget.phoneNumber)
+                                                .then((value) {
+                                              if (value["message"]
+                                                      ["description"] ==
+                                                  "Message in progress") {
+                                                duration =
+                                                    const Duration(minutes: 2);
+                                                setState(() {
+                                                  isResendOtpEnabled = false;
+                                                });
+                                                startTimer();
+                                                EasyLoading.showToast(
+                                                    value["message"]
+                                                        ["description"],
+                                                    toastPosition:
+                                                        EasyLoadingToastPosition
+                                                            .bottom);
+                                              } else {
+                                                EasyLoading.showToast(
+                                                    value["message"]
+                                                        ["description"],
+                                                    toastPosition:
+                                                        EasyLoadingToastPosition
+                                                            .bottom);
+                                              }
                                             });
-                                            startTimer();
-                                            EasyLoading.showToast(
-                                                value["message"]["description"],
-                                                toastPosition:
-                                                    EasyLoadingToastPosition
-                                                        .bottom);
-                                          } else {
-                                            EasyLoading.showToast(
-                                                value["message"]["description"],
-                                                toastPosition:
-                                                    EasyLoadingToastPosition
-                                                        .bottom);
-                                          }
-                                        });
-                                      } else {}
-                                    },
-                                    child: Text(
-                                      ' Resend OTP',
-                                      style: SafeGoogleFont(
-                                        'Roboto',
-                                        fontSize: 15 * ffem,
-                                        fontWeight: FontWeight.w600,
-                                        height: 1.1725 * ffem / fem,
-                                        decoration: isResendOtpEnabled
-                                            ? TextDecoration.underline
-                                            : TextDecoration.none,
-                                        color: isResendOtpEnabled
-                                            ? const Color(0xff000000)
-                                            : Colors.grey,
-                                        decorationColor:
-                                            const Color(0xff000000),
+                                          } else {}
+                                        },
+                                        child: Text(
+                                          ' Resend OTP',
+                                          style: SafeGoogleFont(
+                                            'Roboto',
+                                            fontSize: 15 * ffem,
+                                            fontWeight: FontWeight.w600,
+                                            height: 1.1725 * ffem / fem,
+                                            decoration: isResendOtpEnabled
+                                                ? TextDecoration.underline
+                                                : TextDecoration.none,
+                                            color: isResendOtpEnabled
+                                                ? const Color(0xff000000)
+                                                : Colors.grey,
+                                            decorationColor:
+                                                const Color(0xff000000),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () async {
+                                    if (otp.isEmpty) {
+                                      EasyLoading.showToast(
+                                          AppConstants.otperror,
+                                          toastPosition:
+                                              EasyLoadingToastPosition.bottom);
+                                    } else {
+                                      await EasyLoading.show(
+                                          dismissOnTap: false);
+                                      ApiService()
+                                          .loginVerify(
+                                              otp: otp.toString(),
+                                              number: widget.phoneNumber)
+                                          .then((value) async {
+                                        if (value["message"] ==
+                                                "OTP verified successfully" &&
+                                            value["already_registered"] ==
+                                                true) {
+                                          EasyLoading.dismiss();
+                                          EasyLoading.showToast(
+                                              "You are login now",
+                                              toastPosition:
+                                                  EasyLoadingToastPosition
+                                                      .bottom);
+                                          SharedPreferences prefs =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                          prefs.setString("phone_number",
+                                              widget.phoneNumber);
+
+                                          prefs.setBool("authLogin", true);
+                                          prefs.setString(
+                                              "auth", value["token"]);
+                                          prefs.setString(
+                                              "token", value["token"]);
+
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const HomePageContainer()));
+                                        } else {
+                                          EasyLoading.dismiss();
+
+                                          showSnackBarMsg(value['error'],
+                                              color: Colors.red);
+                                        }
+                                        EasyLoading.dismiss();
+                                      });
+                                    }
+                                  },
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 45 * fem,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xff1f0a68),
+                                      borderRadius:
+                                          BorderRadius.circular(10 * fem),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        'Submit OTP',
+                                        textAlign: TextAlign.center,
+                                        style: SafeGoogleFont(
+                                          'Roboto',
+                                          fontSize: 20 * ffem,
+                                          fontWeight: FontWeight.w400,
+                                          height: 1.1725 * ffem / fem,
+                                          color: const Color(0xffffffff),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () async {
-                                if (otp.isEmpty) {
-                                  EasyLoading.showToast(AppConstants.otperror,
-                                      toastPosition:
-                                          EasyLoadingToastPosition.bottom);
-                                } else {
-                                  await EasyLoading.show(dismissOnTap: false);
-                                  ApiService()
-                                      .loginVerify(
-                                          otp: otp.toString(),
-                                          number: widget.phoneNumber)
-                                      .then((value) async {
-                                    if (value["message"] ==
-                                            "OTP verified successfully" &&
-                                        value["already_registered"] == true) {
-                                      EasyLoading.dismiss();
-                                      EasyLoading.showToast("You are login now",
-                                          toastPosition:
-                                              EasyLoadingToastPosition.bottom);
-                                      SharedPreferences prefs =
-                                          await SharedPreferences.getInstance();
-                                      prefs.setString(
-                                          "phone_number", widget.phoneNumber);
-
-                                      prefs.setBool("authLogin", true);
-                                      prefs.setString("auth", value["token"]);
-                                      prefs.setString("token", value["token"]);
-
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const HomePageContainer()));
-                                    } else {
-                                      EasyLoading.dismiss();
-
-                                      showSnackBarMsg(value['error'],
-                                          color: Colors.red);
-                                    }
-                                    EasyLoading.dismiss();
-                                  });
-                                }
-                              },
-                              child: Container(
-                                width: double.infinity,
-                                height: 45 * fem,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xff1f0a68),
-                                  borderRadius: BorderRadius.circular(10 * fem),
                                 ),
-                                child: Center(
-                                  child: Text(
-                                    'Submit OTP',
-                                    textAlign: TextAlign.center,
-                                    style: SafeGoogleFont(
-                                      'Roboto',
-                                      fontSize: 20 * ffem,
-                                      fontWeight: FontWeight.w400,
-                                      height: 1.1725 * ffem / fem,
-                                      color: const Color(0xffffffff),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
+              Positioned(
+                  top: 40,
+                  left: 10,
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        size: 28,
+                      )))
             ],
           ),
         ),

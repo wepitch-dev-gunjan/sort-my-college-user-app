@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:myapp/page-1/edulevel_new.dart';
 import 'package:myapp/utils/slide_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +18,6 @@ class _SelectGenderNewState extends State<SelectGenderNew> {
   static List<String> list = ["Male", "Female", "Other"];
   String selectedOption = list[0];
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +29,9 @@ class _SelectGenderNewState extends State<SelectGenderNew> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text('Question 2/3'),
-              Image.asset("assets/page-1/images/slide.jpg"),
+              const SizedBox(height: 5.0),
+              SvgPicture.asset("assets/page-1/images/Step2.svg"),
+              // Image.asset("assets/page-1/images/slide.jpg"),
               const SizedBox(
                 height: 20,
               ),
@@ -37,7 +39,8 @@ class _SelectGenderNewState extends State<SelectGenderNew> {
                 child: Container(
                   height: 400,
                   decoration: BoxDecoration(
-                    border: Border.all(color: const Color(0xff1F0A68), width: 2),
+                    border:
+                        Border.all(color: const Color(0xff1F0A68), width: 2),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Padding(
@@ -91,7 +94,7 @@ class _SelectGenderNewState extends State<SelectGenderNew> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>  const QNAScreen()));
+                                  builder: (context) => const QNAScreen()));
                         });
                       },
                       child: const Padding(
