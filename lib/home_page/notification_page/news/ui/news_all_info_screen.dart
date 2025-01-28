@@ -6,9 +6,9 @@ import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/utils/utils.dart';
 
 class NewsAllInfoScreen extends StatefulWidget {
-  NewsAllInfoScreen({required this.articles, super.key});
+  const NewsAllInfoScreen({required this.articles, super.key});
 
- Articles articles;
+  final Articles articles;
 
   @override
   State<NewsAllInfoScreen> createState() => _NewsAllInfoScreenState();
@@ -23,13 +23,16 @@ class _NewsAllInfoScreenState extends State<NewsAllInfoScreen> {
         backgroundColor: ColorsConst.appBarColor,
         foregroundColor: ColorsConst.whiteColor,
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) => const NewsInformationScreen()));
           },
-          icon: const Icon(Icons.arrow_back_ios_new,color: Colors.white,),
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.white,
+          ),
         ),
         //titleSpacing: 120,
         title: Padding(
@@ -39,7 +42,6 @@ class _NewsAllInfoScreenState extends State<NewsAllInfoScreen> {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: SafeGoogleFont("Inter",
-
                 fontSize: 18, fontWeight: FontWeight.w600),
           ),
         ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myapp/booking_page/booking_page.dart';
 import 'package:myapp/other/api_service.dart';
-import 'package:myapp/shared/colors_const.dart';
 import 'package:myapp/webinar_page/webinar_pastwebnar_page.dart';
 import 'package:myapp/webinar_page/webinar_today_page.dart';
 import 'package:myapp/webinar_page/webinar_upcoming_page.dart';
@@ -25,7 +24,6 @@ class _WebinarPageState extends State<WebinarPage> {
 
   @override
   void initState() {
-    
     super.initState();
     pageController = PageController(initialPage: selectedIndex);
 
@@ -38,7 +36,6 @@ class _WebinarPageState extends State<WebinarPage> {
 
   @override
   Widget build(BuildContext context) {
-    
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
@@ -72,13 +69,10 @@ class _WebinarPageState extends State<WebinarPage> {
               children: [
                 CustomTab(
                     onPressed: () {
-                     
                       setState(() {
                         selectedIndex = 0;
-                       
                       });
                       pageController.jumpToPage(selectedIndex);
-                   
                     },
                     title: "My Webinar",
                     isSelected: selectedIndex == 0),
@@ -125,37 +119,4 @@ class _WebinarPageState extends State<WebinarPage> {
     username = prefs.getString("name") ?? "user";
     setState(() {});
   }
-}
-
-Widget customButton({
-  required VoidCallback onPressed,
-  required String title,
-  required bool isPressed,
-}) {
-  return Card(
-    elevation: 1,
-    shadowColor: ColorsConst.whiteColor,
-    child: SizedBox(
-      height: 35,
-      width: 100,
-      child: TextButton(
-        onPressed: onPressed,
-        style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(3),
-          ),
-          backgroundColor: Colors.white,
-          foregroundColor: isPressed ? Colors.black : const Color(0xff747474),
-        ),
-        child: Text(
-          title,
-          style: SafeGoogleFont(
-            "Inter",
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-    ),
-  );
 }

@@ -42,13 +42,10 @@ class _BookingPageState extends State<BookingPage> {
 
   @override
   Widget build(BuildContext context) {
-    // double baseWidth = 430;
-    // double fem = MediaQuery.of(context).size.width;
-    // double ffem = fem * 0.97;
+  
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
-        // logic
         SystemNavigator.pop();
       },
       child: Scaffold(
@@ -72,48 +69,43 @@ class _BookingPageState extends State<BookingPage> {
           child: Column(
             children: [
               const SizedBox(
-                height: 19,
+                height: 12,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomTab(
-                        onPressed: () {
-                          selectedIndex = 0;
-                          setState(() {});
-                          _controller.jumpToPage(
-                            selectedIndex,
-                          );
-                        },
-                        title: "Past",
-                        isSelected: selectedIndex == 0,
-                      ),
-                      CustomTab(
-                        onPressed: () {
-                          selectedIndex = 1;
-                          setState(() {});
-                          _controller.jumpToPage(
-                            selectedIndex,
-                          );
-                        },
-                        title: "Today",
-                        isSelected: selectedIndex == 1,
-                      ),
-                      CustomTab(
-                        onPressed: () {
-                          selectedIndex = 2;
-                          setState(() {});
-                          _controller.jumpToPage(
-                            selectedIndex,
-                          );
-                        },
-                        title: "Upcoming",
-                        isSelected: selectedIndex == 2,
-                      ),
-                    ]),
-              ),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                CustomTab(
+                  onPressed: () {
+                    selectedIndex = 0;
+                    setState(() {});
+                    _controller.jumpToPage(
+                      selectedIndex,
+                    );
+                  },
+                  title: "Past",
+                  isSelected: selectedIndex == 0,
+                ),
+                CustomTab(
+                  onPressed: () {
+                    selectedIndex = 1;
+                    setState(() {});
+                    _controller.jumpToPage(
+                      selectedIndex,
+                    );
+                  },
+                  title: "Today",
+                  isSelected: selectedIndex == 1,
+                ),
+                CustomTab(
+                  onPressed: () {
+                    selectedIndex = 2;
+                    setState(() {});
+                    _controller.jumpToPage(
+                      selectedIndex,
+                    );
+                  },
+                  title: "Upcoming",
+                  isSelected: selectedIndex == 2,
+                ),
+              ]),
               const SizedBox(
                 height: 36,
               ),

@@ -371,13 +371,17 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                           ),
                                         ),
                                         const SizedBox(height: 5),
-                                        Text(
-                                          value['speaker_profile'],
-                                          textAlign: TextAlign.start,
-                                          style: SafeGoogleFont(
-                                            "Inter",
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10.0),
+                                          child: Text(
+                                            value['speaker_profile'],
+                                            textAlign: TextAlign.start,
+                                            style: SafeGoogleFont(
+                                              "Inter",
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           ),
                                         )
                                       ],
