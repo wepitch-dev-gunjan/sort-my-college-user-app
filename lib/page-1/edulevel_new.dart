@@ -1,14 +1,11 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/home_page/homepagecontainer.dart';
 import 'package:myapp/page-1/select_gender_new.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../other/api_service.dart';
 import '../utils/utils.dart';
 
@@ -197,11 +194,7 @@ class _EducationLevelNewState extends State<EducationLevelNew> {
                             vertical: 12, horizontal: 20),
                         backgroundColor:
                             const Color(0xff1F0A68), // Button background color
-                        // shape: RoundedRectangleBorder(
-                        //   borderRadius:
-                        //       BorderRadius.circular(30), // Rounded corners
-                        // ),
-                        elevation: 1, // Add elevation for shadow
+                        elevation: 1, 
                       ),
                       onPressed: () async {
                         SharedPreferences prefs =

@@ -149,11 +149,9 @@ class _Drawer1State extends State<Drawer1> {
                               builder: (context) => const HomePageContainer()));
                     },
                     child: ListTile(
-                      leading: Image.asset(
-                        'assets/page-1/images/Home1.png',
-                        height: 20,
-                        width: 20,
-                        fit: BoxFit.cover,
+                      leading: const Icon(
+                        Icons.home_outlined,
+                        size: 28,
                       ),
                       title: Text(
                         "Home",
@@ -210,11 +208,9 @@ class _Drawer1State extends State<Drawer1> {
                           MaterialPageRoute(
                               builder: (context) => const HelpScreen()));
                     },
-                    leading: Image.asset(
-                      'assets/page-1/images/Question.jpg',
-                      height: 20,
-                      width: 20,
-                      fit: BoxFit.cover,
+                    leading: const Icon(
+                      Icons.help_outline,
+                      size: 28,
                     ),
                     title: Text(
                       "Help?",
@@ -268,11 +264,9 @@ class _Drawer1State extends State<Drawer1> {
                   );
                 },
                 child: ListTile(
-                  leading: Image.asset(
-                    'assets/page-1/images/logout1.jpg',
-                    height: 20,
-                    width: 20,
-                    fit: BoxFit.cover,
+                  leading: const Icon(
+                    Icons.logout,
+                    size: 28,
                   ),
                   title: Text(
                     'Log out',
