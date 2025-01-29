@@ -1022,7 +1022,7 @@ class AppBar extends StatelessWidget {
                       builder: (context) => const HomePageContainer()));
               //
             },
-            icon: const Icon(Icons.arrow_back_ios, color: Color(0xff1F0A68)),
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           ),
         ),
         // GestureDetector(
@@ -1049,7 +1049,7 @@ class AppBar extends StatelessWidget {
         const Text(
           'Find Counsellors',
           style: TextStyle(
-            color: Color(0xff1f0a68),
+            color: Colors.black,
             fontSize: 18,
             fontFamily: 'Inter',
             fontWeight: FontWeight.w600,

@@ -91,7 +91,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                   height: 1.2125,
-                  color: const Color(0xff1f0a68),
+                  color: Colors.black,
                 ),
               ),
         actions: [
@@ -103,7 +103,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                 },
                 child: Image.asset(
                   "assets/page-1/images/share.png",
-                  color: const Color(0xff1F0A68),
+                  color: Colors.black,
                   height: 23,
                 ),
               )),
@@ -112,7 +112,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: const Icon(Icons.arrow_back_ios, color: Color(0xff1f0a68))),
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.black)),
         backgroundColor: const Color(0xffffffff),
       ),
       body: isLoading == true

@@ -60,7 +60,7 @@ class _NewsScreen extends State<NewsScreen> {
               style: SafeGoogleFont("Inter",
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: ColorsConst.appBarColor),
+                  color: Colors.black),
             ),
           ),
         ),

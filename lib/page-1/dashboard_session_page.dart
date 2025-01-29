@@ -74,7 +74,7 @@ class _CounsellingSessionPageState extends State<CounsellingSessionPage> {
             fontSize: 18,
             fontWeight: FontWeight.w600,
             height: 1.2125,
-            color: const Color(0xff1f0a68),
+            color: Colors.black,
           ),
         ),
         leading: Padding(
@@ -85,7 +85,7 @@ class _CounsellingSessionPageState extends State<CounsellingSessionPage> {
             },
             child: Image.asset(
               'assets/page-1/images/back.png',
-              color: const Color(0xff1F0A68),
+              color: Colors.black,
             ),
           ),
         ),
@@ -154,7 +154,6 @@ class _CounsellingSessionPageState extends State<CounsellingSessionPage> {
       ),
     );
   }
-
 
   Widget customButton(
       {required String title,

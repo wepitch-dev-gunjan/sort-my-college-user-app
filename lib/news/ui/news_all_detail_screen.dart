@@ -27,7 +27,7 @@ class _NewsAllDetailScreenState extends State<NewsAllDetailScreen> {
             },
             child: Image.asset(
               'assets/page-1/images/back.png',
-              color: ColorsConst.appBarColor,
+              color: Colors.black,
             ),
           ),
         ),
@@ -37,7 +37,7 @@ class _NewsAllDetailScreenState extends State<NewsAllDetailScreen> {
         title: Text(
           "News Detail",
           style: SafeGoogleFont("Inter",
-              fontSize: 18, fontWeight: FontWeight.w600,color: ColorsConst.appBarColor),
+              fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),
         ),
       ),
       body: Padding(
@@ -88,7 +88,6 @@ class _NewsAllDetailScreenState extends State<NewsAllDetailScreen> {
                 height: 12,
               ),
               Text(
-                
                 widget.newsArticle.description!,
                 style: const TextStyle(
                   fontSize: 16,

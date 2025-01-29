@@ -18,7 +18,7 @@ class CusAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
         style: const TextStyle(
-          color: Color(0xff1f0a68),
+          color: Colors.black,
           fontSize: 18,
           fontFamily: 'Inter',
           fontWeight: FontWeight.w600,
@@ -33,7 +33,7 @@ class CusAppBar extends StatelessWidget implements PreferredSizeWidget {
         },
         icon: const Icon(
           Icons.arrow_back_ios,
-          color: ColorsConst.appBarColor,
+          color: Colors.black,
         ),
       ),
     );

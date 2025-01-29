@@ -109,7 +109,7 @@ class _VisitProfilePageState extends State<VisitProfilePage> {
                       },
                       child: Image.asset(
                         "assets/page-1/images/share.png",
-                        color: const Color(0xff1F0A68),
+                        color: Colors.black,
                         height: 23,
                       ),
                     )),

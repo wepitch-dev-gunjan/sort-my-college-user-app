@@ -47,15 +47,16 @@ class _WebinarPageState extends State<WebinarPage> {
           centerTitle: false,
           automaticallyImplyLeading: false,
           backgroundColor: const Color(0xffffffff),
-          foregroundColor: Colors.white,
+          foregroundColor: Colors.black,
           title: Padding(
             padding: const EdgeInsets.only(left: 10),
             child: Text(
               "Webinar",
-              style: SafeGoogleFont("Inter",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xff1F0A68)),
+              style: SafeGoogleFont(
+                "Inter",
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ),

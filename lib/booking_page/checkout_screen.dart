@@ -56,7 +56,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   String? sessionType;
 
   void openCheckOut(var amountt) async {
- 
     amt_send = amountt;
     amount = amountt * 100;
     var options = {
@@ -210,12 +209,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             },
             icon: const Icon(
               Icons.arrow_back_ios,
-              color: ColorsConst.appBarColor,
+              color: Colors.black,
             ),
           ),
           title: const Text(
             'CheckOut',
-            style: TextStyle(color: ColorsConst.appBarColor),
+            style: TextStyle(color: Colors.black),
           ),
         ),
         body: isLoading

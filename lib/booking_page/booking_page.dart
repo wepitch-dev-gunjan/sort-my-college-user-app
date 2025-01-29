@@ -42,7 +42,6 @@ class _BookingPageState extends State<BookingPage> {
 
   @override
   Widget build(BuildContext context) {
-  
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
@@ -61,7 +60,7 @@ class _BookingPageState extends State<BookingPage> {
               style: SafeGoogleFont("Inter",
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xff1F0A68)),
+                  color: Colors.black),
             ),
           ),
         ),

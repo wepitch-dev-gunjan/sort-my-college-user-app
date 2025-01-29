@@ -167,7 +167,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 style: SafeGoogleFont("Inter",
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: ColorsConst.appBarColor),
+                    color: Colors.black),
               ),
             ),
           ),

@@ -62,9 +62,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
           title: Text(
             'Webinar Details',
             style: SafeGoogleFont("Inter",
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: ColorsConst.appBarColor),
+                fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),
           ),
           leading: InkWell(
             onTap: () {

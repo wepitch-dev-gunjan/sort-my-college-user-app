@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,7 +33,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ScrollController _scrollController = ScrollController();
-  bool _showBackArrow = false;
   String name = "";
   String username = "";
   String path = '';
@@ -50,12 +48,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(() {
-      setState(() {
-        // Toggle between showing the back arrow if scrolled past a threshold
-        _showBackArrow = _scrollController.position.pixels > 50;
-      });
-    });
+    _scrollController.addListener(() {});
     getAllInfo();
 
     counsellorDetailsProvider =
@@ -67,22 +60,6 @@ class _HomePageState extends State<HomePage> {
       checkForAndroidUpdate();
     }
     imgUrlList.clear();
-  }
-
-  void _scrollToAccommodation() {
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
-  }
-
-  void _scrollToStart() {
-    _scrollController.animateTo(
-      0,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
   }
 
   void getAllInfo() async {
@@ -138,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                   'Hello, $username',
                   style: const TextStyle(
                       fontSize: 18,
-                      color: Color(0xff1F0A68),
+                      color: Colors.black,
                       fontWeight: FontWeight.w500),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
@@ -157,7 +134,7 @@ class _HomePageState extends State<HomePage> {
               },
               child: Image.asset(
                 'assets/page-1/images/group-59.png',
-                color: const Color(0xff1F0A68),
+                color: Colors.black,
               ),
             ),
           ),
@@ -179,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                 'assets/page-1/images/bell.png',
                 width: 18,
                 height: 18,
-                color: const Color(0xff1F0A68),
+                color: Colors.black,
               ),
             ),
             const SizedBox(width: 28),
@@ -238,60 +215,8 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 18),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          SizedBox(
-                            height: 25,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (_showBackArrow) {
-                                  _scrollToStart();
-                                } else {
-                                  _scrollToAccommodation();
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                backgroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  side: const BorderSide(
-                                      color: Colors.grey, width: 0.2),
-                                ),
-                                elevation: 2,
-                              ),
-                              // ignore: prefer_const_constructors
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Text(
-                                    "View more",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Icon(
-                                    _showBackArrow
-                                        ? Icons.arrow_back
-                                        : Icons.arrow_forward,
-                                    size: 12,
-                                    color: Colors.black,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+
+                    const SizedBox(height: 15.0),
 
                     // Padding(
                     //   padding: const EdgeInsets.all(18.0),
@@ -504,7 +429,7 @@ class _HomePageState extends State<HomePage> {
                                     Text(
                                       'Latest Sessions',
                                       style: TextStyle(
-                                        color: Color(0xFF1F0A68),
+                                        color: Colors.black,
                                         fontSize: 20,
                                         fontFamily: 'Inter',
                                         fontWeight: FontWeight.w500,
@@ -559,7 +484,7 @@ class _HomePageState extends State<HomePage> {
                                     Text(
                                       'Trending Webinars',
                                       style: TextStyle(
-                                        color: Color(0xFF1F0A68),
+                                        color: Colors.black,
                                         fontSize: 20,
                                         fontFamily: 'Inter',
                                         fontWeight: FontWeight.w500,
