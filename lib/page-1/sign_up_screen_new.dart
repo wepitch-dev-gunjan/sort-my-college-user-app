@@ -35,8 +35,8 @@ class Signup extends State<SignupScreenNew> {
     await EasyLoading.show(dismissOnTap: false);
 
     ApiService.callVerifyOtpByPhone(phoneNumber).then((value) async {
-      if (value["message"]["description"] == "Message in progress") {
-        EasyLoading.showToast(value["message"]["description"],
+      if (value["message"] == "OTP sent successfully") {
+        EasyLoading.showToast(value["message"],
             toastPosition: EasyLoadingToastPosition.bottom);
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString("name", _nameController.text.toString());
