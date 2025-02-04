@@ -43,7 +43,6 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
   }
 
   isSessionAboutToStart(String id) async {
-
     final response = await ApiService.isSessionAboutToStart(id: id);
 
     log("canjoinResponse$response");
@@ -60,9 +59,6 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
 
   @override
   Widget build(BuildContext context) {
-    log('CanJoin=========>---$canJoin');
-    log("iddddddddddddddd123${widget.id}");
-
     if (isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
@@ -125,7 +121,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                       children: [
                         const SizedBox(height: 11),
                         Image.asset(
-                          "${AppConstants.imagePath}${booking['booking_data']['session_status'] == "Available" || booking['booking_data']['session_status'] == "Booked" ? "bookingimg.png" : "bookingimg.png"}",
+                          "${AppConstants.imagePath}${booking['booking_data']['session_status'] == "Available" || booking['booking_data']['session_status'] == "Booked" ? "booking-confirm.png" : "booking-confirm.png"}",
                           height: 105,
                           width: 105,
                         ),

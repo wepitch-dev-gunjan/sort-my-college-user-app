@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -219,8 +221,9 @@ class LoginScreenNewState extends State<LoginScreen> {
             MaterialPageRoute(
                 builder: (context) => OtpScreenNewLogin(phoneNumber)));
       } else {
-        if (value["message"]["description"] == "Message in progress") {
-          EasyLoading.showToast(value["message"]["description"],
+        log("value $value");
+        if (value["message"] == "OTP sent successfully") {
+          EasyLoading.showToast(value["message"],
               toastPosition: EasyLoadingToastPosition.bottom);
           if (!mounted) return;
           Navigator.push(

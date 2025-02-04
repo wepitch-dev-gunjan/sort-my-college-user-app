@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:myapp/home_page/counsellor_page/counsellor_details_screen.dart';
@@ -601,7 +602,7 @@ class _HomePageState extends State<HomePage> {
                                                                       trending
                                                                           .webinarImage!),
                                                                   fit: BoxFit
-                                                                      .fill,
+                                                                      .contain,
                                                                 ),
                                                               ),
                                                             ),
@@ -644,7 +645,8 @@ class _HomePageState extends State<HomePage> {
                                                                             CrossAxisAlignment.start,
                                                                         children: [
                                                                           Text(
-                                                                            trending.webinarDate!,
+                                                                            trending.webinarDate!.replaceAll(RegExp(r'\s*@\s*'),
+                                                                                " "),
                                                                             style: SafeGoogleFont("Inter",
                                                                                 fontSize: 12,
                                                                                 fontWeight: FontWeight.w500),
@@ -1193,13 +1195,15 @@ class RegisterNowWidget extends StatelessWidget {
     int daysDifference = webinarDate.difference(today).inDays;
 
     if (daysDifference < 0) {
-      return "Happened ${-daysDifference} days ago";
+      String dayText = (daysDifference == -1) ? "day" : "days";
+      return "Happened ${-daysDifference} $dayText ago";
     } else if (daysDifference == 0 && canJoin == true) {
       return "Join Now";
     } else if (daysDifference == 0) {
       return "Starting today";
     } else {
-      return "Starting in $daysDifference days";
+      String dayText = (daysDifference == 1) ? "day" : "days";
+      return "Starting in $daysDifference $dayText";
     }
   }
 
@@ -1278,12 +1282,23 @@ int calculateDaysDifference(
   DateTime webinarDate = truncateTime(parseDate(registeredDate));
   int daysDifference = webinarDate.difference(today).inDays;
 
+  // if (daysDifference == 0 && webinarRegister && !canJoin) {
+  //   Fluttertoast.showToast(msg: 'The webinar will start 10 minutes early.');
+  // } else if (daysDifference > 0 && !canJoin && webinarRegister) {
+  //   Fluttertoast.showToast(msg: 'Webinar Starting in $daysDifference days');
+  // } else if (daysDifference < 0) {
+  //   Fluttertoast.showToast(msg: 'Webinar happened ${-daysDifference} days ago');
+  // }
+
   if (daysDifference == 0 && webinarRegister && !canJoin) {
     Fluttertoast.showToast(msg: 'The webinar will start 10 minutes early.');
   } else if (daysDifference > 0 && !canJoin && webinarRegister) {
-    Fluttertoast.showToast(msg: 'Webinar Starting in $daysDifference days');
+    String dayText = (daysDifference == 1) ? 'day' : 'days';
+    Fluttertoast.showToast(msg: 'Webinar Starting in $daysDifference $dayText');
   } else if (daysDifference < 0) {
-    Fluttertoast.showToast(msg: 'Webinar happened ${-daysDifference} days ago');
+    String dayText = (daysDifference == -1) ? 'day' : 'days';
+    Fluttertoast.showToast(
+        msg: 'Webinar happened ${-daysDifference} $dayText ago');
   }
 
   return daysDifference;

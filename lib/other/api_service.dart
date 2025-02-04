@@ -682,7 +682,6 @@ class ApiService {
     final headers = {
       'Content-Type': 'application/json',
     };
-
     final url = Uri.parse("${AppConstants.baseUrl}/user/auth/sendOTPPhone");
     final response = await http.post(
       url,
@@ -1075,27 +1074,25 @@ class ApiService {
   static Future getAllAccommodation({required String id}) async {
     var url = Uri.parse(
         "${AppConstants.baseUrl}/admin/accommodation/user/getAccomodation/$id");
-    final response = await http.get(url,);
+    final response = await http.get(
+      url,
+    );
     return jsonDecode(response.body);
   }
 
   static Future getAllAccommodations({
     required Map<String, dynamic> filters,
   }) async {
-
-    
     final updatedFilters = Map<String, dynamic>.from(filters);
-    
+
     if (updatedFilters.containsKey('Budget') &&
         updatedFilters['Budget'] is List) {
       List<dynamic> budget = updatedFilters['Budget'];
       if (budget.length == 2) {
-        updatedFilters['MinBudget'] =
-            budget[0]; 
-        updatedFilters['MaxBudget'] =
-            budget[1]; 
+        updatedFilters['MinBudget'] = budget[0];
+        updatedFilters['MaxBudget'] = budget[1];
       }
-      updatedFilters.remove('Budget'); 
+      updatedFilters.remove('Budget');
     }
 
     final keysAsArray = [
@@ -1104,10 +1101,9 @@ class ApiService {
       'Occupancy Type',
       'Near By Colleges'
     ];
-   
+
     Map<String, dynamic> queryParameters = {};
     updatedFilters.forEach((key, value) {
-
       String formattedKey = key.toLowerCase().replaceAll(' ', '');
 
       if (formattedKey == 'minbudget') {
@@ -1122,29 +1118,25 @@ class ApiService {
 
       if (keysAsArray.contains(key)) {
         if (value is String) {
-          queryParameters[formattedKey] = [
-            value
-          ]; 
+          queryParameters[formattedKey] = [value];
         } else if (value is List) {
-          queryParameters[formattedKey] =
-              value; 
+          queryParameters[formattedKey] = value;
         }
       } else {
-        queryParameters[formattedKey] = value; 
+        queryParameters[formattedKey] = value;
       }
     });
-   
+
     Dio dio = Dio();
 
     try {
-      
       final response = await dio.get(
         "${AppConstants.baseUrl}/admin/accommodation/user/getallaccommodations",
-        data: queryParameters, 
+        data: queryParameters,
       );
-     
+
       if (response.statusCode == 200) {
-        return response.data; 
+        return response.data;
       } else {
         throw Exception('Failed to load accommodations');
       }
@@ -1153,7 +1145,6 @@ class ApiService {
       throw Exception('Failed to load accommodations');
     }
   }
-
 
   static Future<Map<String, dynamic>> accommodationFeedback(
       {String? id, double? ratingVal, String? feedbackMsg}) async {

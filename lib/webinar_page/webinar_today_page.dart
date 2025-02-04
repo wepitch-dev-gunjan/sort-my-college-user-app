@@ -122,15 +122,13 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
       if (currentTime.difference(savedTime).inDays >= 3) {
         await _updateRegistrationStatus(false);
       } else {
-        setState(() {
-        });
+        setState(() {});
       }
     }
   }
 
   Future<void> _updateRegistrationStatus(bool isStarting) async {
-    setState(() {
-    });
+    setState(() {});
 
     if (isStarting) {
       await _prefs.setInt(
@@ -217,7 +215,8 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${widget.webinarModel.webinarDate}',
+                            widget.webinarModel.webinarDate!
+                                .replaceAll(RegExp(r'\s*@\s*'), ' '),
                             overflow: TextOverflow.ellipsis,
                             style: SafeGoogleFont(
                               "Inter",
@@ -262,7 +261,6 @@ class _WebinarUpComingWidgetState extends State<WebinarUpComingWidget> {
                                 ),
                               ),
                             ),
-
                             RegisterNowWidget(
                               onPressed: () async {
                                 var daysDifference = calculateDaysDifference(
@@ -419,11 +417,3 @@ Widget customButton1({
     ),
   );
 }
-
-
-
-
-
-
-
-

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myapp/other/api_service.dart';
+import 'package:myapp/other/constants.dart';
 import 'package:myapp/profile_page/widget/drop_down_dialog.dart';
 import 'package:myapp/profile_page/widget/edit_dob_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,7 +9,14 @@ import '../../utils/utils.dart';
 
 class ProfileEditDialog extends StatefulWidget {
   final String name;
-  const ProfileEditDialog({super.key, required this.name});
+  final String education;
+  final String gender, dob;
+  const ProfileEditDialog(
+      {super.key,
+      required this.name,
+      required this.education,
+      required this.gender,
+      required this.dob});
 
   @override
   State<ProfileEditDialog> createState() => _ProfileEditDialogState();
@@ -21,11 +29,17 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
   String username = "";
 
   final TextEditingController _namecontroller = TextEditingController();
+  final TextEditingController _educontroller = TextEditingController();
+  final TextEditingController _dobcontroller = TextEditingController();
+  final TextEditingController _genderController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _namecontroller.text = widget.name;
+    _educontroller.text = widget.education;
+    _dobcontroller.text = widget.dob;
+    _genderController.text = widget.gender;
     loaddefaultValue();
   }
 
@@ -44,6 +58,7 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
     double ffem = fem * 0.97;
 
     return AlertDialog(
+      backgroundColor: Colors.white,
       title: const Text('Edit User Detail'),
       content: SingleChildScrollView(
         child: Column(
@@ -72,7 +87,7 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
             ),
             TextField(
               readOnly: true,
-              controller: TextEditingController(text: currentEducation),
+              controller: _educontroller,
               decoration: const InputDecoration(
                 labelText: 'Education',
                 border: OutlineInputBorder(),
@@ -86,7 +101,7 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
             ),
             TextField(
               readOnly: true,
-              controller: TextEditingController(text: currentGender),
+              controller: _genderController,
               decoration: const InputDecoration(
                 labelText: 'Gender',
                 border: OutlineInputBorder(),
@@ -99,6 +114,7 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
               height: 20,
             ),
             EditDobWidget(
+              dob: widget.dob,
               callback: (String dob) {
                 setState(() {
                   currentDob = dob;
@@ -113,12 +129,25 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text('Cancel'),
+          child: const Text(
+            'Cancel',
+            style: TextStyle(color: Colors.black),
+          ),
         ),
-        TextButton(
-          onPressed: saveDetails,
-          child: const Text('Save'),
-        ),
+
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xff1F0A68)),
+          onPressed: () {},
+          child: const Text(
+            "Save",
+            style: TextStyle(color: Colors.white),
+          ),
+        )
+        // TextButton(
+        //   onPressed: saveDetails,
+        //   child: const Text('Save'),
+        // ),
       ],
     );
   }
@@ -148,11 +177,80 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
         .then((value) => Navigator.pop(context));
   }
 
+  // void showEducationDropdown(BuildContext context) async {
+  //   List<String> educationList = [
+  //     "School",
+  //     "College",
+  //     "Graduated",
+  //   ];
+
+  //   showDialog<String>(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return DropDownDialog(
+  //         callback: (value) {
+  //           setState(() {
+  //             if (value == "School") {
+  //               currentEducation = "Student";
+  //             } else {
+  //               currentEducation = value;
+  //             }
+  //             if (value == "Graduated") {
+  //               currentEducation = "Graduated";
+  //             } else {
+  //               currentEducation = value;
+  //             }
+  //           });
+  //         },
+  //         itemList: educationList,
+  //         label: 'Select Education',
+  //       );
+  //     },
+  //   );
+  // }
+
+  // void showGenderDropdown(BuildContext context) async {
+  //   List<String> genderList = ['Male', 'Female', 'Other'];
+  //   showDialog<String>(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return DropDownDialog(
+  //         callback: (value) {
+  //           setState(() {
+  //             currentGender = value;
+  //           });
+  //         },
+  //         itemList: genderList,
+  //         label: 'Select Gender',
+  //       );
+  //     },
+  //   );
+  // }
+
+  // itemProfile(
+  //   String title,
+  //   String subtitle,
+  //   IconData iconData,
+  // ) {
+  //   return Container(
+  //     height: MediaQuery.of(context).size.height * 0.08,
+  //     decoration: BoxDecoration(
+  //       color: Colors.white,
+  //       borderRadius: BorderRadius.circular(10),
+  //     ),
+  //     child: ListTile(
+  //       title: Text(title),
+  //       subtitle: Text(subtitle),
+  //       leading: Icon(iconData),
+  //     ),
+  //   );
+  // }
+
   void showEducationDropdown(BuildContext context) async {
     List<String> educationList = [
       "School",
       "College",
-      "Graduation",
+      "Graduated",
     ];
 
     showDialog<String>(
@@ -163,14 +261,13 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
             setState(() {
               if (value == "School") {
                 currentEducation = "Student";
-              } else {
-                currentEducation = value;
-              }
-              if (value == "Graduation") {
+              } else if (value == "Graduated") {
                 currentEducation = "Graduated";
               } else {
                 currentEducation = value;
               }
+              // Update the controller text
+              _educontroller.text = currentEducation!;
             });
           },
           itemList: educationList,
@@ -189,31 +286,14 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
           callback: (value) {
             setState(() {
               currentGender = value;
+              // Update the controller text
+              _genderController.text = currentGender!;
             });
           },
           itemList: genderList,
           label: 'Select Gender',
         );
       },
-    );
-  }
-
-  itemProfile(
-    String title,
-    String subtitle,
-    IconData iconData,
-  ) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.08,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: ListTile(
-        title: Text(title),
-        subtitle: Text(subtitle),
-        leading: Icon(iconData),
-      ),
     );
   }
 }

@@ -124,7 +124,7 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                           height: 11,
                         ),
                         Image.asset(
-                          "${AppConstants.imagePath}${booking['booking_data']['session_status'] == "Available" || booking['booking_data']['session_status'] == "Booked" ? "bookingimg.png" : "bookingimg.png"}",
+                          "${AppConstants.imagePath}${booking['booking_data']['session_status'] == "Available" || booking['booking_data']['session_status'] == "Booked" ? "booking-confirm.png" : "booking-confirm.png"}",
                           height: 105,
                           width: 105,
                         ),

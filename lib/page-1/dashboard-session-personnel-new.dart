@@ -411,36 +411,6 @@ class _Counseling_Session_PersonnelState
                                                         ),
                                                       ),
 
-                                                      // Text(
-                                                      //   counsellorSessionProvider
-                                                      //               .details
-                                                      //               .sessions?[
-                                                      //                   index]
-                                                      //               .sessionTime !=
-                                                      //           null
-                                                      //       ? DateFormat(
-                                                      //               'h:mm a')
-                                                      //           .format(
-                                                      //           DateTime
-                                                      //               .fromMillisecondsSinceEpoch(
-                                                      //             counsellorSessionProvider
-                                                      //                 .details
-                                                      //                 .sessions![
-                                                      //                     index]
-                                                      //                 .sessionTime!,
-                                                      //             isUtc: true,
-                                                      //           ).toLocal(),
-                                                      //         )
-                                                      //       : 'N/A',
-                                                      //   style: const TextStyle(
-                                                      //     color: Colors.black,
-                                                      //     fontSize: 12,
-                                                      //     fontFamily: 'Inter',
-                                                      //     fontWeight:
-                                                      //         FontWeight.w400,
-                                                      //     height: 0,
-                                                      //   ),
-                                                      // ),
                                                       const SizedBox(
                                                         height: 5,
                                                       ),
@@ -457,9 +427,9 @@ class _Counseling_Session_PersonnelState
                                                           height: 0,
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        height: 5,
-                                                      ),
+                                                      // const SizedBox(
+                                                      //   height: 5,
+                                                      // ),
                                                       InkWell(
                                                         onTap: () {
                                                           setState(() {
@@ -525,22 +495,78 @@ class _Counseling_Session_PersonnelState
                                                                       .start,
                                                               children: [
                                                                 Text(
-                                                                    "Name : ${widget.name}"),
+                                                                  "Name : ${widget.name}",
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontFamily:
+                                                                        'Inter',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    height: 0,
+                                                                  ),
+                                                                ),
                                                                 const SizedBox(
                                                                   height: 5,
                                                                 ),
                                                                 Text(
-                                                                    "Slots : ${counsellorSessionProvider.details.sessions?[index].sessionSlots ?? "0"}"),
+                                                                  "Slots : ${counsellorSessionProvider.details.sessions?[index].sessionSlots ?? "0"}",
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontFamily:
+                                                                        'Inter',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    height: 0,
+                                                                  ),
+                                                                ),
                                                                 const SizedBox(
                                                                   height: 5,
                                                                 ),
                                                                 Text(
-                                                                    "Duration : ${counsellorSessionProvider.details.sessions?[index].sessionDuration ?? "0"}"),
+                                                                  "Duration : ${counsellorSessionProvider.details.sessions?[index].sessionDuration ?? "0"}",
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontFamily:
+                                                                        'Inter',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    height: 0,
+                                                                  ),
+                                                                ),
                                                                 const SizedBox(
                                                                   height: 5,
                                                                 ),
                                                                 Text(
-                                                                    "Session Status : ${counsellorSessionProvider.details.sessions?[index].sessionStatus ?? "N/A"}"),
+                                                                  "Session Status : ${counsellorSessionProvider.details.sessions?[index].sessionStatus ?? "N/A"}",
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontFamily:
+                                                                        'Inter',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    height: 0,
+                                                                  ),
+                                                                ),
                                                               ],
                                                             )
                                                           : const SizedBox()
@@ -800,7 +826,6 @@ class _Counseling_Session_PersonnelState
     const CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.red));
   }
-
 }
 
 List<String> sampleViewDetails = [

@@ -113,7 +113,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                 image: NetworkImage(
                                   value['webinar_image'],
                                 ),
-                                fit: BoxFit.cover,
+                                fit: BoxFit.contain,
                               ),
                             ),
                           ),
@@ -166,7 +166,8 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                 width: 6,
                               ),
                               Text(
-                                value['webinar_date'],
+                                value['webinar_date']
+                                    .replaceAll(RegExp(r'\s*@\s*'), ' '),
                                 style: SafeGoogleFont(
                                   "Inter",
                                   fontSize: 13,

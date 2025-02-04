@@ -136,7 +136,6 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
     await _prefs.setBool('isRegistrationStarting', isStarting);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -207,7 +206,8 @@ class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${widget.webinarModel.webinarDate}',
+                            widget.webinarModel.webinarDate!
+                                .replaceAll(RegExp(r'\s*@\s*'), ' '),
                             style: SafeGoogleFont(
                               "Inter",
                               fontSize: 12,

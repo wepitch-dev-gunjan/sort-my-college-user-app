@@ -60,7 +60,7 @@ class _Notification2State extends State<Notification2> {
             },
             icon: const Icon(
               Icons.arrow_back_ios_new,
-              color: Color(0xff1F0A68),
+              color: Colors.black,
             ),
           ),
         ),
@@ -70,7 +70,7 @@ class _Notification2State extends State<Notification2> {
             "Inter",
             fontSize: 18,
             fontWeight: FontWeight.w600,
-            color: const Color(0xff1F0A68),
+            color: Colors.black,
           ),
         ),
       ),

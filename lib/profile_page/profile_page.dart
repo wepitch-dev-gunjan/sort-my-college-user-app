@@ -254,7 +254,12 @@ class _ProfilePageState extends State<ProfilePage> {
                             await showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return ProfileEditDialog(name: username);
+                                  return ProfileEditDialog(
+                                    name: username,
+                                    education: eduLevel,
+                                    gender: gender,
+                                    dob: dob,
+                                  );
                                 });
                             getAllInfo();
                           },

@@ -120,15 +120,13 @@ class _WebinarUpcomingPageDataWidgetState
       if (currentTime.difference(savedTime).inDays >= 3) {
         await _updateRegistrationStatus(false);
       } else {
-        setState(() {
-        });
+        setState(() {});
       }
     }
   }
 
   Future<void> _updateRegistrationStatus(bool isStarting) async {
-    setState(() {
-    });
+    setState(() {});
 
     if (isStarting) {
       await _prefs.setInt(
@@ -139,7 +137,6 @@ class _WebinarUpcomingPageDataWidgetState
 
     await _prefs.setBool('isRegistrationStarting', isStarting);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -153,8 +150,7 @@ class _WebinarUpcomingPageDataWidgetState
         DateTime.parse(widget.webinarModel.resisterDate!);
     Duration difference = DateTime.now().difference(registrationDate);
     if (difference.inHours >= 24) {
-    } else {
-    }
+    } else {}
 
     bool isRegistered = widget.webinarModel.registered;
 
@@ -165,7 +161,6 @@ class _WebinarUpcomingPageDataWidgetState
           MaterialPageRoute(
             builder: (context) => WebinarDetailsPageWidget(
               webinarId: widget.webinarModel.id!,
-             
             ),
           ),
         );
@@ -213,7 +208,8 @@ class _WebinarUpcomingPageDataWidgetState
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${widget.webinarModel.webinarDate}',
+                            widget.webinarModel.webinarDate!
+                                .replaceAll(RegExp(r'\s*@\s*'), ' '),
                             style: SafeGoogleFont(
                               "Inter",
                               fontSize: 12,
