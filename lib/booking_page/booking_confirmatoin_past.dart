@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/constants.dart';
 import '../common/url_launcher.dart';
+import '../home_page/help_screen.dart';
 import '../shared/colors_const.dart';
 import '../utils/utils.dart';
 
@@ -23,8 +25,6 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
   var booking;
   var canJoin = false;
 
-  // String sessionTime = "";
-  // String sessionDate = "";
 
   @override
   void initState() {
@@ -65,8 +65,6 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
 
     var bookingSlot = booking['booking_data']['session_slots'] -
         booking['booking_data']['session_available_slots'];
-
-    // log("BookingSlot=========>>>>------$bookingSlot");
     String sessionDate = DateFormat('dd-MM-yyyy')
         .format(DateTime.parse(booking['booking_data']['session_date']));
 
@@ -107,7 +105,7 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
               child: Text("No data"),
             )
           : Container(
-              margin: const EdgeInsets.only(left: 16, right: 16, top: 26),
+              margin: const EdgeInsets.only(left: 16, right: 16, top: 10),
               decoration: const BoxDecoration(
                   border: Border(
                       right: BorderSide(
@@ -231,15 +229,7 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                   const SizedBox(
                                     height: 4,
                                   ),
-                                  // widget.isUpcoming
-                                  //     ? const SizedBox()
-                                  //     : Text(
-                                  //         "Host has joined",
-                                  //         style: SafeGoogleFont("Inter",
-                                  //             fontSize: 12,
-                                  //             fontWeight: FontWeight.w600,
-                                  //             color: Colors.grey),
-                                  //       )
+                                
                                 ],
                               ),
                             ],
@@ -266,9 +256,6 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                 radius: 30,
                                 backgroundImage: NetworkImage(
                                     "${booking['booked_entity']['profile_pic']}"
-                                    // widget
-                                    //       .counsellorDetails.profilePic ??
-                                    //   "https://media.gettyimages.com/id/1334712074/vector/coming-soon-message.jpg?s=612x612&w=0&k=20&c=0GbpL-k_lXkXC4LidDMCFGN_Wo8a107e5JzTwYteXaw=",
                                     ),
                               ),
                               const SizedBox(
@@ -344,8 +331,6 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                               ),
                               Text(
                                 " : ${booking['booking_data']['_id']}",
-
-                                // " : ${widget.bookingData.id}",
                                 style: SafeGoogleFont(
                                   "Inter",
                                   fontSize: 14,
@@ -371,8 +356,6 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                       Expanded(
                                         child: Text(
                                           "${booking['booking_data']['session_topic']}",
-
-                                          // " : ${widget.bookingData.id}",
                                           style: SafeGoogleFont(
                                             "Inter",
                                             fontSize: 14,
@@ -426,13 +409,7 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                   fontSize: 14,
                                 ),
                               )
-                              // Text(
-                              //   " : ${booking['booking_data']['session_date']}",
-                              //   style: SafeGoogleFont(
-                              //     "Inter",
-                              //     fontSize: 14,
-                              //   ),
-                              // )
+                             
                             ],
                           ),
                           const SizedBox(
@@ -457,13 +434,7 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                 ),
                               )
 
-                              // Text(
-                              //   " :${booking['booking_data']['session_time']}",
-                              //   style: SafeGoogleFont(
-                              //     "Inter",
-                              //     fontSize: 14,
-                              //   ),
-                              // )
+                            
                             ],
                           ),
                           const SizedBox(height: 4),
@@ -595,14 +566,7 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                   fontSize: 14,
                                 ),
                               )
-                              // Text(
-                              //   "last",
-                              //   // " : ${Jiffy.parse(widget.bookingData.updatedAt!).format(pattern: 'dd/MM/yyyy')}",
-                              //   style: SafeGoogleFont(
-                              //     "Inter",
-                              //     fontSize: 14,
-                              //   ),
-                              // )
+                            
                             ],
                           ),
                         ],
@@ -753,7 +717,34 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 50.0)
+                    // const SizedBox(height: 30.0),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30, bottom: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const HelpScreen(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              "Need help?",
+                              style: GoogleFonts.inter(
+                                fontSize: 13,
+                                decoration: TextDecoration.underline,
+                                color: const Color(0xff1F0A68),
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -762,42 +753,6 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
   }
 }
 
-// Widget customButton({
-//   required BuildContext context,
-//   required String sessionDate,
-//   sessionTime,
-//   required int sessionDuration,
-//   required VoidCallback onPressed,
-//   required String title,
-// }) {
-//   return SizedBox(
-//     width: 137,
-//     height: 38,
-//     child: OutlinedButton(
-//       onPressed: onPressed,
-//       style: OutlinedButton.styleFrom(
-//           foregroundColor:
-//               isSessionExpired(sessionDate, sessionTime, sessionDuration)
-//                   ? Colors.white
-//                   : Colors.white,
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(10),
-//           ),
-//           backgroundColor:
-//               isSessionExpired(sessionDate, sessionTime, sessionDuration)
-//                   ? Colors.grey
-//                   : const Color(0xff1F0A68)),
-//       child: Text(
-//         title,
-//         style: SafeGoogleFont(
-//           "Inter",
-//           fontSize: 12,
-//           fontWeight: FontWeight.w600,
-//         ),
-//       ),
-//     ),
-//   );
-// }
 
 Widget customButton({
   required BuildContext context,

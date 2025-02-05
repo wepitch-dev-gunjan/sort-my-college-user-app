@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/home_page/counsellor_page/counsellor_details_screen.dart';
 import 'package:myapp/other/api_service.dart';
@@ -11,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../home_page/help_screen.dart';
 import '../home_page/homepagecontainer.dart';
 
 class CheckOutScreen extends StatefulWidget {
@@ -222,8 +224,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 child: CircularProgressIndicator(),
               )
             : Padding(
-                padding: const EdgeInsets.only(
-                    left: 8, right: 8, top: 30, bottom: 0),
+                padding:
+                    const EdgeInsets.only(left: 8, right: 8, top: 0, bottom: 0),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -359,8 +361,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                           .checkOutDetailsList[0].sessionType ==
                                       "Personal"
                               ? 120
-                              : 130,
+                              : 150,
                           child: ListView(
+                            physics: const NeverScrollableScrollPhysics(),
                             children: [
                               Row(
                                 children: [
@@ -690,6 +693,26 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                         color: ColorsConst.whiteColor),
                                   )),
                             ),
+                            const SizedBox(height: 8.0),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const HelpScreen(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                "Need help?",
+                                style: GoogleFonts.inter(
+                                  fontSize: 13,
+                                  decoration: TextDecoration.underline,
+                                  color: const Color(0xff1F0A68),
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            )
                           ],
                         ),
                       ),

@@ -1,10 +1,12 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/constants.dart';
 import '../common/url_launcher.dart';
+import '../home_page/help_screen.dart';
 import '../shared/colors_const.dart';
 import '../utils/utils.dart';
 import 'booking_confirmatoin_past.dart';
@@ -109,7 +111,7 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
               child: Text("No data"),
             )
           : Container(
-              margin: const EdgeInsets.only(left: 16, right: 16, top: 26),
+              margin: const EdgeInsets.only(left: 16, right: 16, top: 10),
               decoration: const BoxDecoration(
                   border: Border(
                       right: BorderSide(width: 0.5, color: Colors.grey))),
@@ -675,7 +677,33 @@ class _BookingConfirmationTodayState extends State<BookingConfirmationToday> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 50.0)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30, bottom: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const HelpScreen(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              "Need help?",
+                              style: GoogleFonts.inter(
+                                fontSize: 13,
+                                decoration: TextDecoration.underline,
+                                color: const Color(0xff1F0A68),
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),
