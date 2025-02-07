@@ -66,7 +66,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
           ),
           leading: InkWell(
             onTap: () {
-              Navigator.pop(context);
+             Navigator.pop(context, true);
             },
             child: const Icon(
               Icons.arrow_back_ios,

@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:myapp/home_page/counsellor_page/counsellor_details_screen.dart';
@@ -560,15 +559,17 @@ class _HomePageState extends State<HomePage> {
                                                             );
                                                           }),
                                                         );
-
                                                         if (registrationStatus ==
                                                             true) {
-                                                          // Update the webinar list or status
-                                                          setState(() {
-                                                            // Refresh the webinar list or status
-                                                            counsellorSessionProvider
-                                                                .refresh();
-                                                          });
+                                                          // Refresh the data by calling fetch methods again
+                                                          context
+                                                              .read<
+                                                                  CounsellorDetailsProvider>()
+                                                              .fetchTrendingWebinar();
+                                                          // context
+                                                          //     .read<
+                                                          //         CounsellorDetailsProvider>()
+                                                          //     .fetchPopularWorkShop();
                                                         }
                                                       },
                                                       child: Card(
@@ -773,13 +774,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  CustomWebinarCard buildCustomWebinarCard(
-    TrandingWebinarModel trending,
-  ) {
-    return CustomWebinarCard(
-      trandingWebinarModel: trending,
-    );
-  }
+  // CustomWebinarCard buildCustomWebinarCard(
+  //   TrandingWebinarModel trending,
+  // ) {
+  //   return CustomWebinarCard(
+  //     trandingWebinarModel: trending,
+  //   );
+  // }
 
   Widget profileCard(
       LatestSessionsModel latestSessionsModel, int cardIndex, int totalCards) {
