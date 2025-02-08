@@ -41,6 +41,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
   Widget build(BuildContext context) {
     if (value == null) {
       return const Scaffold(
+        backgroundColor: Colors.white,
         body: Center(
           child: CircularProgressIndicator(),
         ),
@@ -66,7 +67,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
           ),
           leading: InkWell(
             onTap: () {
-             Navigator.pop(context, true);
+              Navigator.pop(context, true);
             },
             child: const Icon(
               Icons.arrow_back_ios,
@@ -113,7 +114,7 @@ class _WebinarDetailsPageWidgetState extends State<WebinarDetailsPageWidget> {
                                 image: NetworkImage(
                                   value['webinar_image'],
                                 ),
-                                fit: BoxFit.contain,
+                                fit: BoxFit.fill,
                               ),
                             ),
                           ),

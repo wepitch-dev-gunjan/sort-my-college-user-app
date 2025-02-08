@@ -23,15 +23,14 @@ class EntrancePreparationScreen extends StatefulWidget {
 class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
   dynamic data;
   bool isLoading = true;
-  var enquiry;
 
   @override
   void initState() {
-    getEpData();
     super.initState();
+    getEpData();
   }
 
-  getEpData() async {
+  Future<void> getEpData() async {
     final res = await ApiService.getEPListData();
     setState(() {
       data = res;
@@ -47,7 +46,14 @@ class _EntrancePreparationScreenState extends State<EntrancePreparationScreen> {
         title: 'Entrance Preparation',
         icon: Icons.search,
       ),
-      body: isLoading ? const EpShimmerEffect() : EpCard(data: data),
+      body: isLoading
+          ? const EpShimmerEffect()
+          : RefreshIndicator(
+              backgroundColor: Colors.white,
+              color: Colors.black,
+              onRefresh: getEpData,
+              child: EpCard(data: data),
+            ),
     );
   }
 }
@@ -448,7 +454,6 @@ class _TopSliderState extends State<TopSlider> {
                   left: 290.75 * fem,
                   top: 10 * fem,
                   bottom: 10,
-                  // right: widget.right ?? 0,
                   child: Image.asset(
                     widget.src,
                     fit: BoxFit.contain,
@@ -578,7 +583,6 @@ class _TopSliderAccommodationState extends State<TopSliderAccommodation> {
                   right: 25 * fem,
                   top: 10 * fem,
                   bottom: 10,
-                  // right: widget.right ?? 0,
                   child: Image.asset(
                     widget.src,
                     fit: BoxFit.contain,

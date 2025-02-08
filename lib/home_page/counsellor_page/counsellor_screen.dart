@@ -141,6 +141,8 @@ class _CounsellorScreenState extends State<CounsellorScreen> {
                       child: Stack(
                         children: [
                           RefreshIndicator(
+                            backgroundColor: Colors.white,
+                            color: Colors.black,
                             onRefresh: _refresh,
                             child: SingleChildScrollView(
                               controller: _scrollController,

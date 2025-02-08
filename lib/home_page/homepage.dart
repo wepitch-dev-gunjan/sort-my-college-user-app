@@ -15,10 +15,10 @@ import 'package:myapp/shared/colors_const.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:myapp/utils/utils.dart';
 import 'package:myapp/utils/share_links.dart';
-import 'package:myapp/webinar_page/widget/custom_webniar_card_widget.dart';
 import 'package:myapp/webinar_page/widget/webinar_detail_page_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../app_update.dart';
 import '../booking_page/checkout_screen.dart';
@@ -66,6 +66,20 @@ class _HomePageState extends State<HomePage> {
     await ApiService.get_profile().then(
       (value) => initPrefrence(value),
     );
+  }
+
+  Future<void> refreshData() async {
+    setState(() {
+      isFetched = false; // Reset fetched status if needed
+    });
+
+    context.read<CounsellorDetailsProvider>().fetchBannerImage();
+    context.read<CounsellorDetailsProvider>().fetchTrendingWebinar();
+    context.read<CounsellorDetailsProvider>().fetchPopularWorkShop();
+
+    setState(() {
+      isFetched = true; // Mark as fetched again
+    });
   }
 
   void saveImagePathToPrefs(String path) async {
@@ -162,614 +176,627 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(width: 28),
           ],
         ),
-        body: counsellorSessionProvider.isNull
-            ? const CircularProgressIndicator()
-            : SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: SingleChildScrollView(
-                        controller: _scrollController,
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                onTapgotocounsellor(context);
-                              },
-                              child: SizedBox(
-                                height: 110 * fem,
-                                width: 175 * fem,
-                                child: Image.asset(
-                                  "assets/page-1/images/find_counsellor.png",
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            GestureDetector(
-                              onTap: () {
-                                onTapgotoAccommodation(context);
-                              },
-                              child: SizedBox(
-                                height: 110 * fem,
-                                width: 175 * fem,
-                                child: Image.asset(
-                                    "assets/page-1/images/Group 795.png"),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            GestureDetector(
-                              onTap: () {
-                                onTapgotoEP(context);
-                              },
-                              child: SizedBox(
-                                height: 110 * fem,
-                                width: 175 * fem,
-                                child: Image.asset(
-                                    "assets/page-1/images/Group 793.png"),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 15.0),
-
-                    // Padding(
-                    //   padding: const EdgeInsets.all(18.0),
-                    //   child: SizedBox(
-                    //     width: double.infinity,
-                    //     height: 110 * fem,
-                    //     child: Row(
-                    //       children: [
-                    //         Expanded(
-                    //           child: GestureDetector(
-                    //             onTap: () {
-                    //               onTapgotocounsellor(context);
-                    //             },
-                    //             child: Container(
-                    //               width: 110 * fem,
-                    //               height: 120 * fem,
-                    //               clipBehavior: Clip.antiAlias,
-                    //               decoration: BoxDecoration(
-                    //                 color: const Color(0xffffffff),
-                    //                 borderRadius: BorderRadius.circular(20),
-                    //                 boxShadow: [
-                    //                   BoxShadow(
-                    //                     offset: const Offset(0, 4),
-                    //                     blurRadius: 4,
-                    //                     color: Colors.black.withOpacity(0.1),
-                    //                   ),
-                    //                 ],
-                    //               ),
-                    //               child: Image.asset(
-                    //                 "assets/page-1/images/find_counsellor.png",
-                    //               ),
-                    //             ),
-                    //           ),
-                    //         ),
-                    //         const SizedBox(width: 34),
-                    //         Expanded(
-                    //           child: GestureDetector(
-                    //             onTap: () {
-                    //               // Navigator.push(
-                    //               //   context,
-                    //               //   MaterialPageRoute(
-                    //               //     builder: (context) =>
-                    //               //         const CommingSoonPage(),
-                    //               //   ),
-                    //               // );
-                    //               Navigator.push(
-                    //                 context,
-                    //                 MaterialPageRoute(
-                    //                   builder: (context) =>
-                    //                       const EpWithHomePage(),
-                    //                 ),
-                    //               );
-                    //             },
-                    //             child: Visibility(
-                    //               //visible: true,
-                    //               child: Container(
-                    //                 width: 110 * fem,
-                    //                 height: 120 * fem,
-                    //                 clipBehavior: Clip.antiAlias,
-                    //                 decoration: BoxDecoration(
-                    //                   color: const Color(0xffffffff),
-                    //                   borderRadius: BorderRadius.circular(20),
-                    //                   boxShadow: [
-                    //                     BoxShadow(
-                    //                       offset: const Offset(0, 4),
-                    //                       blurRadius: 4,
-                    //                       color: Colors.black.withOpacity(0.1),
-                    //                     ),
-                    //                   ],
-                    //                 ),
-                    //                 child: Image.asset(
-                    //                   "assets/page-1/images/Group 793.png",
-                    //                 ),
-                    //               ),
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
-                    // Visibility(
-                    //   // visible: false,
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.all(18.0),
-                    //     child: SizedBox(
-                    //       width: double.infinity,
-                    //       height: 112 * fem,
-                    //       child: Row(
-                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //         children: [
-                    //           Expanded(
-                    //             child: GestureDetector(
-                    //               onTap: () {
-                    //                 Navigator.push(
-                    //                     context,
-                    //                     MaterialPageRoute(
-                    //                         builder: (context) =>
-                    //                             const ComingSoon()));
-                    //               },
-                    //               child: Container(
-                    //                 width: 110 * fem,
-                    //                 height: 120 * fem,
-                    //                 clipBehavior: Clip.antiAlias,
-                    //                 decoration: BoxDecoration(
-                    //                   color: const Color(0xff6450A8),
-                    //                   borderRadius: BorderRadius.circular(20),
-                    //                   boxShadow: [
-                    //                     BoxShadow(
-                    //                       offset: const Offset(0, 4),
-                    //                       blurRadius: 4,
-                    //                       color: Colors.black.withOpacity(0.1),
-                    //                     ),
-                    //                   ],
-                    //                 ),
-                    //                 child: Image.asset(
-                    //                   "assets/page-1/images/Group 794.png",
-                    //                 ),
-                    //               ),
-                    //             ),
-                    //           ),
-                    //           const SizedBox(
-                    //             width: 34,
-                    //           ),
-                    //           Expanded(
-                    //             child: Row(
-                    //               crossAxisAlignment: CrossAxisAlignment.center,
-                    //               mainAxisAlignment: MainAxisAlignment.center,
-                    //               children: [
-                    //                 Expanded(
-                    //                   child: GestureDetector(
-                    //                     onTap: () {
-                    //                       Navigator.push(
-                    //                           context,
-                    //                           MaterialPageRoute(
-                    //                               builder: (context) =>
-                    //                                   const AccommodationWithHomePage()));
-                    //                     },
-                    //                     child: Container(
-                    //                       width: 140 * fem,
-                    //                       height: 140 * fem,
-                    //                       clipBehavior: Clip.antiAlias,
-                    //                       decoration: BoxDecoration(
-                    //                         color: const Color(0xff5273B4),
-                    //                         borderRadius:
-                    //                             BorderRadius.circular(20),
-                    //                         boxShadow: [
-                    //                           BoxShadow(
-                    //                             offset: const Offset(0, 4),
-                    //                             blurRadius: 4,
-                    //                             color: Colors.black
-                    //                                 .withOpacity(0.1),
-                    //                           ),
-                    //                         ],
-                    //                       ),
-                    //                       child: Image.asset(
-                    //                         "assets/page-1/images/Group 795.png",
-                    //                       ),
-                    //                     ),
-                    //                   ),
-                    //                 ),
-                    //               ],
-                    //             ),
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     ),
-                    //   ),),
-
-                    // const SizedBox(height: 10),
-                    Align(
-                      child: Container(
-                        constraints: const BoxConstraints(
-                          maxHeight: 120,
-                          maxWidth: 390,
-                        ),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12)),
-                        width: 390 * fem,
-                        height: 120 * fem,
-                        child: ImageSlideshow(
-                            autoPlayInterval: 6000,
-                            isLoop: true,
-                            indicatorColor: Colors.black,
-                            indicatorBackgroundColor: Colors.white,
-                            children: imgUrlList
-                                .map((e) => Container(
-                                      width: 390 * fem,
-                                      height: 120 * fem,
-                                      decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(16)),
-                                        image: DecorationImage(
-                                            image: NetworkImage(e)),
-                                      ),
-                                    ))
-                                .toList()),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    counsellorSessionProvider.popularWorkShopList.isEmpty
-                        ? const SizedBox()
-                        : Column(
+        body: RefreshIndicator(
+          backgroundColor: Colors.white,
+          color: Colors.black,
+          onRefresh: () async {
+            await refreshData();
+          },
+          child: counsellorSessionProvider.isNull
+              ? const CircularProgressIndicator()
+              : SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: SingleChildScrollView(
+                          controller: _scrollController,
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Padding(
-                                padding: EdgeInsets.only(left: 28.0 * fem),
-                                child: const Row(
-                                  children: [
-                                    Text(
-                                      'Latest Sessions',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w500,
-                                        height: 0,
-                                      ),
-                                    )
-                                  ],
+                              GestureDetector(
+                                onTap: () {
+                                  onTapgotocounsellor(context);
+                                },
+                                child: SizedBox(
+                                  height: 110 * fem,
+                                  width: 175 * fem,
+                                  child: Image.asset(
+                                    "assets/page-1/images/find_counsellor.png",
+                                  ),
                                 ),
                               ),
-                              const SizedBox(height: 4),
-                              Container(
-                                constraints: BoxConstraints(
-                                  maxHeight:
-                                      MediaQuery.of(context).size.height * 0.28,
+                              const SizedBox(width: 10),
+                              GestureDetector(
+                                onTap: () {
+                                  onTapgotoAccommodation(context);
+                                },
+                                child: SizedBox(
+                                  height: 110 * fem,
+                                  width: 175 * fem,
+                                  child: Image.asset(
+                                      "assets/page-1/images/Group 795.png"),
                                 ),
-                                child: counsellorSessionProvider
-                                        .popularWorkShopList.isEmpty
-                                    ? const Center(
-                                        child: Text("No Data Found"),
-                                      )
-                                    : ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        shrinkWrap: true,
-                                        physics: const PageScrollPhysics(),
-                                        itemCount: counsellorSessionProvider
-                                            .popularWorkShopList.length,
-                                        itemBuilder: (context, index) {
-                                          LatestSessionsModel popular =
-                                              counsellorSessionProvider
-                                                  .popularWorkShopList[index];
-
-                                          return profileCard(
-                                            popular,
-                                            index,
-                                            counsellorSessionProvider
-                                                .popularWorkShopList.length,
-                                          );
-                                        },
-                                      ),
+                              ),
+                              const SizedBox(width: 10),
+                              GestureDetector(
+                                onTap: () {
+                                  onTapgotoEP(context);
+                                },
+                                child: SizedBox(
+                                  height: 110 * fem,
+                                  width: 175 * fem,
+                                  child: Image.asset(
+                                      "assets/page-1/images/Group 793.png"),
+                                ),
                               ),
                             ],
                           ),
-                    const SizedBox(height: 10),
-                    counsellorSessionProvider.trendingWebinarList.isEmpty
-                        ? const SizedBox()
-                        : Column(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(left: 28.0 * fem),
-                                child: const Row(
-                                  children: [
-                                    Text(
-                                      'Trending Webinars',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w500,
-                                        height: 0,
-                                      ),
-                                    ),
-                                  ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 15.0),
+
+                      // Padding(
+                      //   padding: const EdgeInsets.all(18.0),
+                      //   child: SizedBox(
+                      //     width: double.infinity,
+                      //     height: 110 * fem,
+                      //     child: Row(
+                      //       children: [
+                      //         Expanded(
+                      //           child: GestureDetector(
+                      //             onTap: () {
+                      //               onTapgotocounsellor(context);
+                      //             },
+                      //             child: Container(
+                      //               width: 110 * fem,
+                      //               height: 120 * fem,
+                      //               clipBehavior: Clip.antiAlias,
+                      //               decoration: BoxDecoration(
+                      //                 color: const Color(0xffffffff),
+                      //                 borderRadius: BorderRadius.circular(20),
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     offset: const Offset(0, 4),
+                      //                     blurRadius: 4,
+                      //                     color: Colors.black.withOpacity(0.1),
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //               child: Image.asset(
+                      //                 "assets/page-1/images/find_counsellor.png",
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //         const SizedBox(width: 34),
+                      //         Expanded(
+                      //           child: GestureDetector(
+                      //             onTap: () {
+                      //               // Navigator.push(
+                      //               //   context,
+                      //               //   MaterialPageRoute(
+                      //               //     builder: (context) =>
+                      //               //         const CommingSoonPage(),
+                      //               //   ),
+                      //               // );
+                      //               Navigator.push(
+                      //                 context,
+                      //                 MaterialPageRoute(
+                      //                   builder: (context) =>
+                      //                       const EpWithHomePage(),
+                      //                 ),
+                      //               );
+                      //             },
+                      //             child: Visibility(
+                      //               //visible: true,
+                      //               child: Container(
+                      //                 width: 110 * fem,
+                      //                 height: 120 * fem,
+                      //                 clipBehavior: Clip.antiAlias,
+                      //                 decoration: BoxDecoration(
+                      //                   color: const Color(0xffffffff),
+                      //                   borderRadius: BorderRadius.circular(20),
+                      //                   boxShadow: [
+                      //                     BoxShadow(
+                      //                       offset: const Offset(0, 4),
+                      //                       blurRadius: 4,
+                      //                       color: Colors.black.withOpacity(0.1),
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //                 child: Image.asset(
+                      //                   "assets/page-1/images/Group 793.png",
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      // Visibility(
+                      //   // visible: false,
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.all(18.0),
+                      //     child: SizedBox(
+                      //       width: double.infinity,
+                      //       height: 112 * fem,
+                      //       child: Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         children: [
+                      //           Expanded(
+                      //             child: GestureDetector(
+                      //               onTap: () {
+                      //                 Navigator.push(
+                      //                     context,
+                      //                     MaterialPageRoute(
+                      //                         builder: (context) =>
+                      //                             const ComingSoon()));
+                      //               },
+                      //               child: Container(
+                      //                 width: 110 * fem,
+                      //                 height: 120 * fem,
+                      //                 clipBehavior: Clip.antiAlias,
+                      //                 decoration: BoxDecoration(
+                      //                   color: const Color(0xff6450A8),
+                      //                   borderRadius: BorderRadius.circular(20),
+                      //                   boxShadow: [
+                      //                     BoxShadow(
+                      //                       offset: const Offset(0, 4),
+                      //                       blurRadius: 4,
+                      //                       color: Colors.black.withOpacity(0.1),
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //                 child: Image.asset(
+                      //                   "assets/page-1/images/Group 794.png",
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //           const SizedBox(
+                      //             width: 34,
+                      //           ),
+                      //           Expanded(
+                      //             child: Row(
+                      //               crossAxisAlignment: CrossAxisAlignment.center,
+                      //               mainAxisAlignment: MainAxisAlignment.center,
+                      //               children: [
+                      //                 Expanded(
+                      //                   child: GestureDetector(
+                      //                     onTap: () {
+                      //                       Navigator.push(
+                      //                           context,
+                      //                           MaterialPageRoute(
+                      //                               builder: (context) =>
+                      //                                   const AccommodationWithHomePage()));
+                      //                     },
+                      //                     child: Container(
+                      //                       width: 140 * fem,
+                      //                       height: 140 * fem,
+                      //                       clipBehavior: Clip.antiAlias,
+                      //                       decoration: BoxDecoration(
+                      //                         color: const Color(0xff5273B4),
+                      //                         borderRadius:
+                      //                             BorderRadius.circular(20),
+                      //                         boxShadow: [
+                      //                           BoxShadow(
+                      //                             offset: const Offset(0, 4),
+                      //                             blurRadius: 4,
+                      //                             color: Colors.black
+                      //                                 .withOpacity(0.1),
+                      //                           ),
+                      //                         ],
+                      //                       ),
+                      //                       child: Image.asset(
+                      //                         "assets/page-1/images/Group 795.png",
+                      //                       ),
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //   ),),
+
+                      // const SizedBox(height: 10),
+                      Align(
+                        child: GestureDetector(
+                          // onTap: () async {
+                          //   final Uri redirectLink = Uri.parse(
+                          //       // "https://docs.google.com/forms/d/e/1FAIpQLScnxPNgt3nBHsmHN06tQAiqyrxm9i-ZvQsFd9tBphd8BCZG8A/viewform",
+                          //       );
+                          //   if (await canLaunchUrl(redirectLink)) {
+                          //     await launchUrl(redirectLink,
+                          //         mode: LaunchMode.inAppBrowserView);
+                          //   } else {
+                          //     throw 'Could not launch $redirectLink';
+                          //   }
+                          // },
+                          child: Container(
+                            constraints: const BoxConstraints(
+                              maxHeight: 120,
+                              maxWidth: 390,
+                            ),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12)),
+                            width: 390 * fem,
+                            height: 120 * fem,
+                            child: ImageSlideshow(
+                                autoPlayInterval: 6000,
+                                isLoop: true,
+                                indicatorColor: Colors.black,
+                                indicatorBackgroundColor: Colors.white,
+                                children: imgUrlList
+                                    .map((e) => Container(
+                                          width: 390 * fem,
+                                          height: 120 * fem,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(16)),
+                                            image: DecorationImage(
+                                                image: NetworkImage(e)),
+                                          ),
+                                        ))
+                                    .toList()),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
+                      counsellorSessionProvider.popularWorkShopList.isEmpty
+                          ? const SizedBox()
+                          : Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: 28.0 * fem),
+                                  child: const Row(
+                                    children: [
+                                      Text(
+                                        'Latest Sessions',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontFamily: 'Inter',
+                                          fontWeight: FontWeight.w500,
+                                          height: 0,
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 14, right: 14, bottom: 0, top: 2),
-                                  child:
-                                      counsellorSessionProvider
-                                              .trendingWebinarList.isEmpty
-                                          ? const Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 100),
-                                              child: Center(
-                                                  child:
-                                                      CircularProgressIndicator()),
-                                            )
-                                          : ListView.builder(
-                                              shrinkWrap: true,
-                                              physics:
-                                                  const NeverScrollableScrollPhysics(),
-                                              itemCount:
-                                                  counsellorSessionProvider
-                                                      .trendingWebinarList
-                                                      .length,
-                                              itemBuilder: (context, index) {
-                                                TrandingWebinarModel trending =
+                                const SizedBox(height: 4),
+                                Container(
+                                  constraints: BoxConstraints(
+                                    maxHeight:
+                                        MediaQuery.of(context).size.height *
+                                            0.28,
+                                  ),
+                                  child: counsellorSessionProvider
+                                          .popularWorkShopList.isEmpty
+                                      ? const Center(
+                                          child: Text("No Data Found"),
+                                        )
+                                      : ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: true,
+                                          physics: const PageScrollPhysics(),
+                                          itemCount: counsellorSessionProvider
+                                              .popularWorkShopList.length,
+                                          itemBuilder: (context, index) {
+                                            LatestSessionsModel popular =
+                                                counsellorSessionProvider
+                                                    .popularWorkShopList[index];
+
+                                            return profileCard(
+                                              popular,
+                                              index,
+                                              counsellorSessionProvider
+                                                  .popularWorkShopList.length,
+                                            );
+                                          },
+                                        ),
+                                ),
+                              ],
+                            ),
+                      const SizedBox(height: 10),
+                      counsellorSessionProvider.trendingWebinarList.isEmpty
+                          ? const SizedBox()
+                          : Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: 28.0 * fem),
+                                  child: const Row(
+                                    children: [
+                                      Text(
+                                        'Trending Webinars',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontFamily: 'Inter',
+                                          fontWeight: FontWeight.w500,
+                                          height: 0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 14, right: 14, bottom: 0, top: 2),
+                                    child:
+                                        counsellorSessionProvider
+                                                .trendingWebinarList.isEmpty
+                                            ? const Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 100),
+                                                child: Center(
+                                                    child:
+                                                        CircularProgressIndicator()),
+                                              )
+                                            : ListView.builder(
+                                                shrinkWrap: true,
+                                                physics:
+                                                    const NeverScrollableScrollPhysics(),
+                                                itemCount:
                                                     counsellorSessionProvider
                                                         .trendingWebinarList
-                                                        .reversed
-                                                        .toList()[index];
+                                                        .length,
+                                                itemBuilder: (context, index) {
+                                                  TrandingWebinarModel
+                                                      trending =
+                                                      counsellorSessionProvider
+                                                          .trendingWebinarList
+                                                          .reversed
+                                                          .toList()[index];
 
-                                                DateTime webinarDate =
-                                                    DateTime.parse(trending
-                                                        .registeredDate!);
+                                                  DateTime webinarDate =
+                                                      DateTime.parse(trending
+                                                          .registeredDate!);
 
-                                                // log("WEBINAR DATE$webinarDate");
+                                                  // log("WEBINAR DATE$webinarDate");
 
-                                                DateTime currentDate =
-                                                    DateTime.now();
-                                                if (webinarDate
-                                                    .isBefore(currentDate)) {
-                                                  return const SizedBox
-                                                      .shrink();
-                                                }
+                                                  DateTime currentDate =
+                                                      DateTime.now();
+                                                  if (webinarDate
+                                                      .isBefore(currentDate)) {
+                                                    return const SizedBox
+                                                        .shrink();
+                                                  }
 
-                                                currentDate
-                                                    .difference(webinarDate);
-                                                bool isRegistered =
-                                                    trending.registered!;
+                                                  currentDate
+                                                      .difference(webinarDate);
+                                                  bool isRegistered =
+                                                      trending.registered!;
 
-                                                return Column(
-                                                  children: [
-                                                    GestureDetector(
-                                                      onTap: () async {
-                                                        bool?
-                                                            registrationStatus =
-                                                            await Navigator
-                                                                .push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder:
-                                                                  (context) {
-                                                            return WebinarDetailsPageWidget(
-                                                              webinarId:
-                                                                  trending.id,
-                                                            );
-                                                          }),
-                                                        );
-                                                        if (registrationStatus ==
-                                                            true) {
-                                                          // Refresh the data by calling fetch methods again
-                                                          context
-                                                              .read<
-                                                                  CounsellorDetailsProvider>()
-                                                              .fetchTrendingWebinar();
-                                                          // context
-                                                          //     .read<
-                                                          //         CounsellorDetailsProvider>()
-                                                          //     .fetchPopularWorkShop();
-                                                        }
-                                                      },
-                                                      child: Card(
-                                                        shadowColor: ColorsConst
-                                                            .whiteColor,
-                                                        color: Colors.white,
-                                                        surfaceTintColor:
-                                                            Colors.white,
-                                                        elevation: 2,
-                                                        shape: RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10)),
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Container(
-                                                              height: 190,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
-                                                                image:
-                                                                    DecorationImage(
-                                                                  image: NetworkImage(
-                                                                      trending
-                                                                          .webinarImage!),
-                                                                  fit: BoxFit
-                                                                      .contain,
+                                                  return Column(
+                                                    children: [
+                                                      GestureDetector(
+                                                        onTap: () async {
+                                                          bool?
+                                                              registrationStatus =
+                                                              await Navigator
+                                                                  .push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) {
+                                                              return WebinarDetailsPageWidget(
+                                                                webinarId:
+                                                                    trending.id,
+                                                              );
+                                                            }),
+                                                          );
+                                                          if (registrationStatus ==
+                                                              true) {
+                                                            // Refresh the data by calling fetch methods again
+                                                            context
+                                                                .read<
+                                                                    CounsellorDetailsProvider>()
+                                                                .fetchTrendingWebinar();
+                                                            // context
+                                                            //     .read<
+                                                            //         CounsellorDetailsProvider>()
+                                                            //     .fetchPopularWorkShop();
+                                                          }
+                                                        },
+                                                        child: Card(
+                                                          shadowColor:
+                                                              ColorsConst
+                                                                  .whiteColor,
+                                                          color: Colors.white,
+                                                          surfaceTintColor:
+                                                              Colors.white,
+                                                          elevation: 2,
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10)),
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Container(
+                                                                height: 190,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                  image:
+                                                                      DecorationImage(
+                                                                    image: NetworkImage(
+                                                                        trending
+                                                                            .webinarImage!),
+                                                                    fit: BoxFit
+                                                                        .fill,
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .fromLTRB(
-                                                                      10,
-                                                                      8,
-                                                                      20,
-                                                                      10),
-                                                              child: Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    trending
-                                                                        .webinarTitle!,
-                                                                    style: SafeGoogleFont(
-                                                                        "Inter",
-                                                                        fontSize:
-                                                                            16,
-                                                                        fontWeight:
-                                                                            FontWeight.w600),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                      height:
-                                                                          4),
-                                                                  Row(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      Column(
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          Text(
-                                                                            trending.webinarDate!.replaceAll(RegExp(r'\s*@\s*'),
-                                                                                " "),
-                                                                            style: SafeGoogleFont("Inter",
-                                                                                fontSize: 12,
-                                                                                fontWeight: FontWeight.w500),
-                                                                          ),
-                                                                          const SizedBox(
-                                                                              height: 3),
-                                                                          Text(
-                                                                            trending.webinarBy!,
-                                                                            style: SafeGoogleFont("Inter",
-                                                                                fontSize: 11,
-                                                                                fontWeight: FontWeight.w500),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  const SizedBox(
-                                                                      height:
-                                                                          12),
-                                                                  Container(
-                                                                    height: 1,
-                                                                    width: double
-                                                                        .infinity,
-                                                                    color: const Color(
-                                                                        0xffAFAFAF),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                      height:
-                                                                          14),
-                                                                  Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      IconButton(
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .fromLTRB(
+                                                                        10,
+                                                                        8,
+                                                                        20,
+                                                                        10),
+                                                                child: Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Text(
+                                                                      trending
+                                                                          .webinarTitle!,
+                                                                      style: SafeGoogleFont(
+                                                                          "Inter",
+                                                                          fontSize:
+                                                                              16,
+                                                                          fontWeight:
+                                                                              FontWeight.w600),
+                                                                    ),
+                                                                    const SizedBox(
+                                                                        height:
+                                                                            4),
+                                                                    Row(
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Column(
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Text(
+                                                                              trending.webinarDate!.replaceAll(RegExp(r'\s*@\s*'), " "),
+                                                                              style: SafeGoogleFont("Inter", fontSize: 12, fontWeight: FontWeight.w500),
+                                                                            ),
+                                                                            const SizedBox(height: 3),
+                                                                            Text(
+                                                                              trending.webinarBy!,
+                                                                              style: SafeGoogleFont("Inter", fontSize: 11, fontWeight: FontWeight.w500),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    const SizedBox(
+                                                                        height:
+                                                                            12),
+                                                                    Container(
+                                                                      height: 1,
+                                                                      width: double
+                                                                          .infinity,
+                                                                      color: const Color(
+                                                                          0xffAFAFAF),
+                                                                    ),
+                                                                    const SizedBox(
+                                                                        height:
+                                                                            14),
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        IconButton(
+                                                                            onPressed:
+                                                                                () {
+                                                                              webinarShareLinks(id: trending.id.toString());
+                                                                            },
+                                                                            icon:
+                                                                                const Icon(
+                                                                              Icons.share,
+                                                                              size: 26,
+                                                                              color: Color(0xff1F0A68),
+                                                                            )),
+                                                                        RegisterNowWidget(
                                                                           onPressed:
-                                                                              () {
-                                                                            webinarShareLinks(id: trending.id.toString());
-                                                                          },
-                                                                          icon:
-                                                                              const Icon(
-                                                                            Icons.share,
-                                                                            size:
-                                                                                26,
-                                                                            color:
-                                                                                Color(0xff1F0A68),
-                                                                          )),
-                                                                      RegisterNowWidget(
-                                                                        onPressed:
-                                                                            () async {
-                                                                          var daysDifference =
-                                                                              calculateDaysDifference(
-                                                                            registeredDate:
-                                                                                trending.registeredDate!,
-                                                                            webinarRegister:
-                                                                                trending.registered!,
-                                                                            canJoin:
-                                                                                trending.canJoin!,
-                                                                          );
-
-                                                                          if (!trending
-                                                                              .registered!) {
-                                                                            showDialog(
-                                                                              context: context,
-                                                                              builder: (BuildContext context) {
-                                                                                return AlertDialog(
-                                                                                  backgroundColor: Colors.white,
-                                                                                  title: const Text("Register"),
-                                                                                  content: const Text("Are you sure you want to register for this webinar?"),
-                                                                                  actions: [
-                                                                                    TextButton(
-                                                                                      child: const Text("Cancel"),
-                                                                                      onPressed: () {
-                                                                                        Navigator.of(context).pop();
-                                                                                      },
-                                                                                    ),
-                                                                                    TextButton(
-                                                                                      child: const Text("Yes"),
-                                                                                      onPressed: () async {
-                                                                                        await ApiService.webinarRegister(trending.id!);
-                                                                                        setState(() {
-                                                                                          trending.registered = true;
-                                                                                        });
-                                                                                        Navigator.of(context).pop();
-                                                                                      },
-                                                                                    ),
-                                                                                  ],
-                                                                                );
-                                                                              },
+                                                                              () async {
+                                                                            var daysDifference =
+                                                                                calculateDaysDifference(
+                                                                              registeredDate: trending.registeredDate!,
+                                                                              webinarRegister: trending.registered!,
+                                                                              canJoin: trending.canJoin!,
                                                                             );
-                                                                          } else if (daysDifference == 0 &&
-                                                                              isRegistered &&
-                                                                              trending.canJoin == true) {
-                                                                            await ApiService.webinarJoin(trending.id!);
-                                                                            launchUrlString(trending.webinarJoinUrl!);
-                                                                          }
-                                                                        },
-                                                                        regdate:
-                                                                            trending.registeredDate,
-                                                                        isRegisterNow:
-                                                                            trending.registered!,
-                                                                        canJoin:
-                                                                            trending.canJoin!,
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                ],
+
+                                                                            if (!trending
+                                                                                .registered!) {
+                                                                              showDialog(
+                                                                                context: context,
+                                                                                builder: (BuildContext context) {
+                                                                                  return AlertDialog(
+                                                                                    backgroundColor: Colors.white,
+                                                                                    title: const Text("Register"),
+                                                                                    content: const Text("Are you sure you want to register for this webinar?"),
+                                                                                    actions: [
+                                                                                      TextButton(
+                                                                                        child: const Text("Cancel"),
+                                                                                        onPressed: () {
+                                                                                          Navigator.of(context).pop();
+                                                                                        },
+                                                                                      ),
+                                                                                      TextButton(
+                                                                                        child: const Text("Yes"),
+                                                                                        onPressed: () async {
+                                                                                          await ApiService.webinarRegister(trending.id!);
+                                                                                          setState(() {
+                                                                                            trending.registered = true;
+                                                                                          });
+                                                                                          Navigator.of(context).pop();
+                                                                                        },
+                                                                                      ),
+                                                                                    ],
+                                                                                  );
+                                                                                },
+                                                                              );
+                                                                            } else if (daysDifference == 0 &&
+                                                                                isRegistered &&
+                                                                                trending.canJoin == true) {
+                                                                              await ApiService.webinarJoin(trending.id!);
+                                                                              launchUrlString(trending.webinarJoinUrl!);
+                                                                            }
+                                                                          },
+                                                                          regdate:
+                                                                              trending.registeredDate,
+                                                                          isRegisterNow:
+                                                                              trending.registered!,
+                                                                          canJoin:
+                                                                              trending.canJoin!,
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            )),
-                            ],
-                          )
-                  ],
+                                                    ],
+                                                  );
+                                                },
+                                              )),
+                              ],
+                            )
+                    ],
+                  ),
                 ),
-              ),
+        ),
       ),
     );
   }

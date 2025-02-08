@@ -46,7 +46,7 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
               ),
               SizedBox(height: mHeight * 0.03),
               const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: 40),
                 child: Text(
                   'Welcome to SortMyCollege India’s First Super App for Students',
                   style: TextStyle(
