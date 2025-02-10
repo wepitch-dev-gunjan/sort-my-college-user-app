@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -39,6 +40,7 @@ class _HomePageState extends State<HomePage> {
   late var value;
   bool isFetched = false;
   bool has24HoursPassed = false;
+  bool isLoading = false;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -409,17 +411,19 @@ class _HomePageState extends State<HomePage> {
                       // const SizedBox(height: 10),
                       Align(
                         child: GestureDetector(
-                          // onTap: () async {
-                          //   final Uri redirectLink = Uri.parse(
-                          //       // "https://docs.google.com/forms/d/e/1FAIpQLScnxPNgt3nBHsmHN06tQAiqyrxm9i-ZvQsFd9tBphd8BCZG8A/viewform",
-                          //       );
-                          //   if (await canLaunchUrl(redirectLink)) {
-                          //     await launchUrl(redirectLink,
-                          //         mode: LaunchMode.inAppBrowserView);
-                          //   } else {
-                          //     throw 'Could not launch $redirectLink';
-                          //   }
-                          // },
+                          onTap: () async {
+                            log("ImageURL LIst$imgUrlList");
+                            final Uri redirectLink = Uri.parse(
+                              "https://forms.gle/bMtmPCBpYK6Do1269",
+                            );
+                            if (await canLaunchUrl(redirectLink)) {
+                              await launchUrl(
+                                redirectLink,
+                              );
+                            } else {
+                              throw 'Could not launch $redirectLink';
+                            }
+                          },
                           child: Container(
                             constraints: const BoxConstraints(
                               maxHeight: 120,

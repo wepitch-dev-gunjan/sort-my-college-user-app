@@ -35,6 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
+    // loadDefaultValue();
     getAllInfo();
   }
 
@@ -283,6 +284,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
+                                  backgroundColor: Colors.white,
                                   title: const Text('Alert!'),
                                   content: const Text(
                                       'Are you sure want to Delete account!'),

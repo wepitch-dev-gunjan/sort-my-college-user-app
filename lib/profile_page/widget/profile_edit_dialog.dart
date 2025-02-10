@@ -138,7 +138,7 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
         ElevatedButton(
           style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xff1F0A68)),
-          onPressed: () {},
+          onPressed: saveDetails,
           child: const Text(
             "Save",
             style: TextStyle(color: Colors.white),
