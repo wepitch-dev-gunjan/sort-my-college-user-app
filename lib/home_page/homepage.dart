@@ -412,7 +412,6 @@ class _HomePageState extends State<HomePage> {
                       Align(
                         child: GestureDetector(
                           onTap: () async {
-                            log("ImageURL LIst$imgUrlList");
                             final Uri redirectLink = Uri.parse(
                               "https://forms.gle/bMtmPCBpYK6Do1269",
                             );
