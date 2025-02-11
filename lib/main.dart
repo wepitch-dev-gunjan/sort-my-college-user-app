@@ -31,12 +31,14 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  // MessageService.forgroundMessage();
-  // await NotificationServices().getAccessToken();
-  // await NotificationServices().getToken();
-  // MessageService.firebaseInit();
-  // MessageService.backgroudAndTerminateAppNavatior();
+  await NotificationServices().requestPermission();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  MessageService.forgroundMessage();
+  await NotificationServices().getAccessToken();
+  await NotificationServices().getToken();
+  MessageService.firebaseInit();
+  MessageService.backgroudAndTerminateAppNavatior();
   bool? isLoggedIn = await MyApp.loggIn();
   runApp(MyApp(isLoggedIn: isLoggedIn!));
 }
