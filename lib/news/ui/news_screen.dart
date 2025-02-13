@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -158,6 +160,7 @@ class _NewsScreen extends State<NewsScreen> {
                               ),
                               GestureDetector(
                                 onTap: () {
+                                  log("${articles[index]}");
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(

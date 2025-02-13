@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -30,15 +32,24 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await NotificationServices().requestPermission();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
   MessageService.forgroundMessage();
-  await NotificationServices().getAccessToken();
+  // await NotificationServices().getAccessToken();
   await NotificationServices().getToken();
   MessageService.firebaseInit();
   MessageService.backgroudAndTerminateAppNavatior();
+
+  await FirebaseMessaging.instance
+      .unsubscribeFromTopic("news_updates")
+      .then((_) {
+    log("✅ Successfully subscribed to topic: news_updates");
+  }).catchError((error) {
+    log("❌ Error subscribing to topic: $error");
+  });
+
   bool? isLoggedIn = await MyApp.loggIn();
   runApp(MyApp(isLoggedIn: isLoggedIn!));
 }
