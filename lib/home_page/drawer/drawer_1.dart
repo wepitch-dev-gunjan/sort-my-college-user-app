@@ -1,10 +1,13 @@
 // ignore_for_file: unnecessary_null_comparison
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:myapp/home_page/help_screen.dart';
 import 'package:myapp/page-1/splash_screen_n.dart';
 import 'package:myapp/utils/utils.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../notifications/notification_handler.dart';
 import '../../other/api_service.dart';
 import '../../page-1/account_delete.dart';
 import '../homepagecontainer.dart';
@@ -245,19 +248,63 @@ class _Drawer1State extends State<Drawer1> {
                                 Navigator.pop(context);
                               },
                               child: const Text('Cancel')),
+
                           TextButton(
                             onPressed: () async {
+                              // Fetch the list of followed counsellors
+                              var followedCounsellors =
+                                  await ApiService.getUserFollowing();
+
+                              // Perform unsubscription in the background
+                              Future.microtask(() async {
+                                List<Future<void>> unsubscriptionFutures = [];
+
+                                for (var counselor in followedCounsellors) {
+                                  if (counselor.containsKey('id')) {
+                                    String topic =
+                                        "counsellor_${counselor['id']}";
+                                    unsubscriptionFutures
+                                        .add(TopicManager.unsubscribe(topic));
+                                  }
+                                }
+
+                                // Unsubscribe from "smc_users"
+                                unsubscriptionFutures
+                                    .add(TopicManager.unsubscribe("smc_users"));
+
+                                // Wait for unsubscriptions to complete
+                                await Future.wait(unsubscriptionFutures);
+
+                                log("All topics unsubscribed successfully");
+                              });
+
+                              // Proceed with logout immediately
                               await _logout();
                               if (mounted) {
                                 Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SplashScreenNew()));
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SplashScreenNew()),
+                                );
                               }
                             },
                             child: const Text('Logout'),
-                          ),
+                          )
+
+                          // TextButton(
+                          //   onPressed: () async {
+                          //     await _logout();
+                          //     if (mounted) {
+                          //       Navigator.pushReplacement(
+                          //           context,
+                          //           MaterialPageRoute(
+                          //               builder: (context) =>
+                          //                   const SplashScreenNew()));
+                          //     }
+                          //   },
+                          //   child: const Text('Logout'),
+                          // ),
                         ],
                       );
                     },
@@ -307,15 +354,8 @@ class _Drawer1State extends State<Drawer1> {
     );
   }
 
-  Future _logout() async {
+  Future<void> _logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
-    if (mounted) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const AccountDelete()),
-        (route) => false,
-      );
-    }
+    await prefs.clear(); // Clear user session
   }
 }

@@ -13,6 +13,7 @@ import 'package:myapp/utils/share_links.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../notifications/notification_handler.dart';
 import '../../other/api_service.dart';
 import '../entrance_preparation/components/commons.dart';
 
@@ -240,22 +241,27 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                         child: TextButton(
                                           onPressed: () async {
                                             log("Following => ${counsellor['following']}");
+
+                                            String topicName =
+                                                "counsellor_${counsellor['_id']}"; // Topic name
+
                                             if (isFollowing) {
+                                              // Unfollow counsellor
                                               var value = await ApiService
                                                   .unfollowCouncellor(
                                                       counsellor['_id'],
                                                       setIsFollowingLoading);
-
-                                              log("value$isFollowing");
-
                                               isFollowing =
                                                   value["data"]["followed"];
-
-                                              log("Isfollow$value");
                                               followerCount = followerCount - 1;
+        // ======================================! Topic Subscribe !================================
+                                              await TopicManager.unsubscribe(
+                                                  topicName);
+                                              log("Unsubscribed from $topicName");
 
                                               setState(() {});
                                             } else {
+                                              // Follow counsellor
                                               var value = await ApiService
                                                   .followCouncellor(
                                                       counsellor['_id'],
@@ -265,11 +271,50 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                               isFollowing =
                                                   value["data"]["followed"];
                                               log("Isfollow$isFollowing");
+
                                               followerCount = followerCount + 1;
+
+                                              // Subscribe to the topic
+                                              await TopicManager.subscribe(
+                                                  topicName);
+                                              log("Subscribed to $topicName");
 
                                               setState(() {});
                                             }
                                           },
+
+                                          // onPressed: () async {
+                                          //   log("Following => ${counsellor['following']}");
+                                          //   if (isFollowing) {
+                                          //     var value = await ApiService
+                                          //         .unfollowCouncellor(
+                                          //             counsellor['_id'],
+                                          //             setIsFollowingLoading);
+
+                                          //     log("value$isFollowing");
+
+                                          //     isFollowing =
+                                          //         value["data"]["followed"];
+
+                                          //     log("Isfollow$value");
+                                          //     followerCount = followerCount - 1;
+
+                                          //     setState(() {});
+                                          //   } else {
+                                          //     var value = await ApiService
+                                          //         .followCouncellor(
+                                          //             counsellor['_id'],
+                                          //             setIsFollowingLoading);
+                                          //     log("value1$value");
+
+                                          //     isFollowing =
+                                          //         value["data"]["followed"];
+                                          //     log("Isfollow$isFollowing");
+                                          //     followerCount = followerCount + 1;
+
+                                          //     setState(() {});
+                                          //   }
+                                          // },
                                           style: TextButton.styleFrom(
                                             padding: EdgeInsets.zero,
                                             backgroundColor: isFollowing

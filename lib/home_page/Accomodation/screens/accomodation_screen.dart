@@ -32,11 +32,13 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
   }
 
   Future<void> fetchAccommodations() async {
+    if (!mounted) return; // Check if widget is still mounted
     setState(() {
       isLoading = true;
     });
 
     final res = await ApiService.getAllAccommodations(filters: appliedFilters);
+    if (!mounted) return; // Check if widget is still mounted
     setState(() {
       data = res;
       isLoading = false;
@@ -45,6 +47,7 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
 
   Future<void> getCities() async {
     final res = await ApiService.getCities();
+    if (!mounted) return; // Check if widget is still mounted
     setState(() {
       cities = res['cities'].cast<String>();
     });
@@ -52,12 +55,14 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
 
   Future<void> getColleges() async {
     final res = await ApiService.getColleges();
+    if (!mounted) return; // Check if widget is still mounted
     setState(() {
       colleges = res['colleges'].cast<String>();
     });
   }
 
   void _applyFilters(Map<String, List<String>> filters) {
+    if (!mounted) return; // Check if widget is still mounted
     setState(() {
       appliedFilters = filters; // Update applied filters
     });
@@ -69,7 +74,16 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
   }
 
   @override
+  void dispose() {
+    data.clear();
+    cities.clear();
+    colleges.clear();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: ColorsConst.whiteColor,
       appBar: const CusAppBar(

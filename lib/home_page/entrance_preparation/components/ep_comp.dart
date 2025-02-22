@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -6,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../notifications/notification_handler.dart';
 import '../../../utils/utils.dart';
 import '../screens/announcement_screen.dart';
 import '../screens/faculties_all_screen.dart';
@@ -693,20 +695,53 @@ class _ProfileCardState extends State<ProfileCard> {
                 children: [
                   FollowerBtn(
                     onTap: () async {
+                      String topicName =
+                          "ep_${widget.id}"; // Topic name for institute
+
                       if (isFollowing) {
+                        // Unfollow Institute
                         var value = await ApiService.unfollowInstitute(
                             widget.id, setIsFollowingLoading);
+
                         isFollowing = value["status"].toLowerCase() == 'true';
                         followerCount = followerCount - 1;
+
+                        // Unsubscribe from topic
+                        await TopicManager.unsubscribe(topicName);
+                        log("Unsubscribed from $topicName");
+
                         setState(() {});
                       } else {
+                        // Follow Institute
                         var value = await ApiService.followInstitute(
                             widget.id, setIsFollowingLoading);
+
                         isFollowing = value["status"].toLowerCase() == 'true';
                         followerCount = followerCount + 1;
+
+                        // Subscribe to topic
+                        await TopicManager.subscribe(topicName);
+                        log("Subscribed to $topicName");
+
                         setState(() {});
                       }
                     },
+
+                    // onTap: () async {
+                    //   if (isFollowing) {
+                    //     var value = await ApiService.unfollowInstitute(
+                    //         widget.id, setIsFollowingLoading);
+                    //     isFollowing = value["status"].toLowerCase() == 'true';
+                    //     followerCount = followerCount - 1;
+                    //     setState(() {});
+                    //   } else {
+                    //     var value = await ApiService.followInstitute(
+                    //         widget.id, setIsFollowingLoading);
+                    //     isFollowing = value["status"].toLowerCase() == 'true';
+                    //     followerCount = followerCount + 1;
+                    //     setState(() {});
+                    //   }
+                    // },
                     btnColor:
                         isFollowing ? Colors.white : const Color(0xff1F0A68),
                     child: Center(

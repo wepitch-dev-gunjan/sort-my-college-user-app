@@ -26,12 +26,20 @@ class _WebinarPageState extends State<WebinarPage> {
   void initState() {
     super.initState();
     pageController = PageController(initialPage: selectedIndex);
-
     SessionDate.dateTimeDif();
   }
 
   void getAllInfo() async {
-    await ApiService.get_profile().then((value) => getname_savedata());
+    await ApiService.get_profile().then((value) {
+      if (!mounted) return; // Check if widget is still mounted
+      getname_savedata();
+    });
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -102,7 +110,6 @@ class _WebinarPageState extends State<WebinarPage> {
                 controller: pageController,
                 physics: const NeverScrollableScrollPhysics(),
                 children: const [
-                  //WebinarPastPage(),
                   WebinarPastDataPage(),
                   WebinarTodayPage(),
                   WebinarUpcomingPage(),

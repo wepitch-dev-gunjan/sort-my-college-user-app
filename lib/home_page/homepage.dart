@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -412,6 +413,16 @@ class _HomePageState extends State<HomePage> {
                       Align(
                         child: GestureDetector(
                           onTap: () async {
+                            FirebaseAnalytics.instance.logEvent(
+                              name: "button_clicked", // Event name
+                              parameters: {
+                                "button_name": "image_slideshow",
+                                "user_name":
+                                    username, // Yaha user ka naam bhej rahe hain
+                                "timestamp": DateTime.now().toString(),
+                              },
+                            );
+
                             final Uri redirectLink = Uri.parse(
                               "https://forms.gle/bMtmPCBpYK6Do1269",
                             );

@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:myapp/home_page/notification_page/noti.dart';
 import 'package:myapp/utils/navigation.dart';
+import 'package:myapp/webinar_page/widget/webinar_detail_page_widget.dart';
 
 String logoName = 'logo';
 
@@ -33,7 +34,18 @@ class LocalNotification {
       // Use initialization settings in the plugin
       await _flutterLocalNotificationsPlugin.initialize(initializationSettings,
           onDidReceiveNotificationResponse: (payload) {
-        navigateTo(const Notification2());
+        log("${message.data['type']}");
+
+        if (message.data['type'] == 'webinar') {
+          log("${message.data['id']}");
+          navigateTo(WebinarDetailsPageWidget(webinarId: message.data['id']));
+
+          
+        }
+        else{
+            navigateTo(const Notification2());
+        }
+      
       });
 
       log("Local notification initialized successfully.");

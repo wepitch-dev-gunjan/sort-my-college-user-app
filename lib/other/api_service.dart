@@ -761,6 +761,8 @@ class ApiService {
     };
     final response = await http.get(url, headers: headers);
 
+    log("Resp=>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${jsonDecode(response.body)}");
+
     return jsonDecode(response.body);
   }
 
@@ -1246,6 +1248,32 @@ class ApiService {
     if (response.statusCode == 200) {
       data = jsonDecode(response.body.toString());
 
+      return data;
+    }
+    return [];
+  }
+
+  static Future getUserFollowing() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token").toString();
+
+    final headers = {
+      'Content-Type': 'application/json',
+      "Authorization": token,
+    };
+
+    final url = Uri.parse('${AppConstants.baseUrl}/counsellor/user/followings');
+
+    log("URL==>>>>>$url");
+
+    final response = await http.get(url, headers: headers);
+
+    log("Resp==>>>${jsonDecode(response.body)}");
+
+    if (response.statusCode == 200) {
+      dynamic data = jsonDecode(response.body);
+
+      log("data===>>>$data");
       return data;
     }
     return [];

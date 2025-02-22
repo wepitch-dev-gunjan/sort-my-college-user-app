@@ -22,8 +22,13 @@ class _WebinarUpcomingPageState extends State<WebinarUpcomingPage> {
   @override
   void initState() {
     super.initState();
-    context.read<CounsellorDetailsProvider>().fetchWebinar_Data("Upcoming");
-    // context.read<CounsellorDetailsProvider>().fetchMyWebinar();
+    _fetchWebinarData();
+  }
+
+  void _fetchWebinarData() {
+    Future.delayed(Duration.zero, () {
+      context.read<CounsellorDetailsProvider>().fetchWebinar_Data("Upcoming");
+    });
   }
 
   @override
@@ -97,46 +102,46 @@ class WebinarUpcomingPageDataWidget extends StatefulWidget {
 
 class _WebinarUpcomingPageDataWidgetState
     extends State<WebinarUpcomingPageDataWidget> {
-  late SharedPreferences _prefs;
-  String register_status = '';
-  String webinarData = '';
+  // late SharedPreferences _prefs;
+  // String register_status = '';
+  // String webinarData = '';
 
   @override
   void initState() {
     super.initState();
-    _initializeSharedPreferences();
+    // _initializeSharedPreferences();
   }
 
-  Future<void> _initializeSharedPreferences() async {
-    _prefs = await SharedPreferences.getInstance();
-    bool isStarting = _prefs.getBool('isRegistrationStarting') ?? false;
+  // Future<void> _initializeSharedPreferences() async {
+  //   _prefs = await SharedPreferences.getInstance();
+  //   bool isStarting = _prefs.getBool('isRegistrationStarting') ?? false;
 
-    if (isStarting) {
-      DateTime savedTime = DateTime.fromMillisecondsSinceEpoch(
-        _prefs.getInt('startingTimestamp') ?? 0,
-      );
+  //   if (isStarting) {
+  //     DateTime savedTime = DateTime.fromMillisecondsSinceEpoch(
+  //       _prefs.getInt('startingTimestamp') ?? 0,
+  //     );
 
-      DateTime currentTime = DateTime.now();
-      if (currentTime.difference(savedTime).inDays >= 3) {
-        await _updateRegistrationStatus(false);
-      } else {
-        setState(() {});
-      }
-    }
-  }
+  //     DateTime currentTime = DateTime.now();
+  //     if (currentTime.difference(savedTime).inDays >= 3) {
+  //       await _updateRegistrationStatus(false);
+  //     } else {
+  //       setState(() {});
+  //     }
+  //   }
+  // }
 
-  Future<void> _updateRegistrationStatus(bool isStarting) async {
-    setState(() {});
+  // Future<void> _updateRegistrationStatus(bool isStarting) async {
+  //   setState(() {});
 
-    if (isStarting) {
-      await _prefs.setInt(
-          'startingTimestamp', DateTime.now().millisecondsSinceEpoch);
-    } else {
-      await _prefs.remove('startingTimestamp');
-    }
+  //   if (isStarting) {
+  //     await _prefs.setInt(
+  //         'startingTimestamp', DateTime.now().millisecondsSinceEpoch);
+  //   } else {
+  //     await _prefs.remove('startingTimestamp');
+  //   }
 
-    await _prefs.setBool('isRegistrationStarting', isStarting);
-  }
+  //   await _prefs.setBool('isRegistrationStarting', isStarting);
+  // }
 
   @override
   Widget build(BuildContext context) {
