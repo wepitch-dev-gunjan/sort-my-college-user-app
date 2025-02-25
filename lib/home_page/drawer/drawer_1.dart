@@ -249,48 +249,48 @@ class _Drawer1State extends State<Drawer1> {
                               },
                               child: const Text('Cancel')),
 
-                          TextButton(
-                            onPressed: () async {
-                              // Fetch the list of followed counsellors
-                              var followedCounsellors =
-                                  await ApiService.getUserFollowing();
+                          // TextButton(
+                          //   onPressed: () async {
+                          //     // Fetch the list of followed counsellors
+                          //     var followedCounsellors =
+                          //         await ApiService.getUserFollowing();
 
-                              // Perform unsubscription in the background
-                              Future.microtask(() async {
-                                List<Future<void>> unsubscriptionFutures = [];
+                          //     // Perform unsubscription in the background
+                          //     Future.microtask(() async {
+                          //       List<Future<void>> unsubscriptionFutures = [];
 
-                                for (var counselor in followedCounsellors) {
-                                  if (counselor.containsKey('id')) {
-                                    String topic =
-                                        "counsellor_${counselor['id']}";
-                                    unsubscriptionFutures
-                                        .add(TopicManager.unsubscribe(topic));
-                                  }
-                                }
+                          //       for (var counselor in followedCounsellors) {
+                          //         if (counselor.containsKey('id')) {
+                          //           String topic =
+                          //               "counsellor_${counselor['id']}";
+                          //           unsubscriptionFutures
+                          //               .add(TopicManager.unsubscribe(topic));
+                          //         }
+                          //       }
 
-                                // Unsubscribe from "smc_users"
-                                unsubscriptionFutures
-                                    .add(TopicManager.unsubscribe("smc_users"));
+                          //       // Unsubscribe from "smc_users"
+                          //       unsubscriptionFutures
+                          //           .add(TopicManager.unsubscribe("smc_users"));
 
-                                // Wait for unsubscriptions to complete
-                                await Future.wait(unsubscriptionFutures);
+                          //       // Wait for unsubscriptions to complete
+                          //       await Future.wait(unsubscriptionFutures);
 
-                                log("All topics unsubscribed successfully");
-                              });
+                          //       log("All topics unsubscribed successfully");
+                          //     });
 
-                              // Proceed with logout immediately
-                              await _logout();
-                              if (mounted) {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SplashScreenNew()),
-                                );
-                              }
-                            },
-                            child: const Text('Logout'),
-                          )
+                          //     // Proceed with logout immediately
+                          //     await _logout();
+                          //     if (mounted) {
+                          //       Navigator.pushReplacement(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             builder: (context) =>
+                          //                 const SplashScreenNew()),
+                          //       );
+                          //     }
+                          //   },
+                          //   child: const Text('Logout'),
+                          // )
 
                           // TextButton(
                           //   onPressed: () async {
@@ -305,6 +305,47 @@ class _Drawer1State extends State<Drawer1> {
                           //   },
                           //   child: const Text('Logout'),
                           // ),
+
+                          TextButton(
+                            onPressed: () async {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+
+                              // 🔹 Get subscribed topics before removing them
+                              List<String> subscribedTopics =
+                                  prefs.getStringList('subscribedTopics') ?? [];
+
+                              await prefs.remove('subscribedTopics');
+                              await prefs.remove('allTopics');
+
+                              // 🔹 Perform logout
+                              await _logout();
+
+                              // 🔹 Navigate to the new screen
+                              if (mounted) {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SplashScreenNew()),
+                                );
+                              }
+
+                              // 🔹 Perform unsubscription in the background after navigation
+                              Future.microtask(() async {
+                                List<Future<void>> unsubscriptionFutures =
+                                    subscribedTopics
+                                        .map((topic) =>
+                                            TopicManager.unsubscribe(topic))
+                                        .toList();
+
+                                await Future.wait(unsubscriptionFutures);
+
+                                log("✅ All subscribed topics unsubscribed");
+                              });
+                            },
+                            child: const Text('Logout'),
+                          )
                         ],
                       );
                     },

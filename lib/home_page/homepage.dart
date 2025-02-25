@@ -741,6 +741,7 @@ class _HomePageState extends State<HomePage> {
                                                                         RegisterNowWidget(
                                                                           onPressed:
                                                                               () async {
+                                                                            log("canJoin${trending.canJoin!}");
                                                                             var daysDifference =
                                                                                 calculateDaysDifference(
                                                                               registeredDate: trending.registeredDate!,

@@ -248,29 +248,45 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
                                           prefs.setString(
                                               "token", value["token"]);
 
+//===========================================! Subscribe ALL Notification Topic !===================================================================
+
                                           // ApiService.getUserFollowing()
                                           //     .then((value) async {
+                                          //   // Pehle smc_users ko subscribe karo
+                                          //   await TopicManager.subscribe(
+                                          //       "smc_users");
+
                                           //   // List to store all subscription futures
                                           //   List<Future<void>>
                                           //       subscriptionFutures = [];
 
-                                          //   // Subscribe to all counselor topics in parallel
-                                          //   for (var counselor in value) {
-                                          //     if (counselor.containsKey('id')) {
+                                          //   // Subscribe to all institute topics
+                                          //   if (value.containsKey(
+                                          //       'followedInstituteIds')) {
+                                          //     for (var instituteId in value[
+                                          //         'followedInstituteIds']) {
                                           //       String topic =
-                                          //           "counsellor_${counselor['id']}";
+                                          //           "ep_$instituteId";
                                           //       subscriptionFutures.add(
                                           //           TopicManager.subscribe(
                                           //               topic));
                                           //     }
                                           //   }
 
-                                          //   // Add "smc_users" subscription to the list
-                                          //   subscriptionFutures.add(
-                                          //       TopicManager.subscribe(
-                                          //           "smc_users"));
+                                          //   // Subscribe to all counselor topics
+                                          //   if (value.containsKey(
+                                          //       'followedCounsellorIds')) {
+                                          //     for (var counsellorId in value[
+                                          //         'followedCounsellorIds']) {
+                                          //       String topic =
+                                          //           "counsellor_$counsellorId";
+                                          //       subscriptionFutures.add(
+                                          //           TopicManager.subscribe(
+                                          //               topic));
+                                          //     }
+                                          //   }
 
-                                          //   // Wait for all subscriptions to complete in parallel
+                                          //   // Wait for all remaining subscriptions to complete in parallel
                                           //   await Future.wait(
                                           //       subscriptionFutures);
 
@@ -279,47 +295,71 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
 
                                           ApiService.getUserFollowing()
                                               .then((value) async {
-                                            // List to store all subscription futures
-                                            List<Future<void>>
-                                                subscriptionFutures = [];
+                                            SharedPreferences prefs =
+                                                await SharedPreferences
+                                                    .getInstance();
 
-                                            // Subscribe to all institute topics
+                                            // List to store all topics
+                                            List<String> allTopics = [
+                                              "smc_users"
+                                            ];
+                                            List<String> subscribedTopics = [];
+
+                                            // Add institute topics
                                             if (value.containsKey(
                                                 'followedInstituteIds')) {
                                               for (var instituteId in value[
                                                   'followedInstituteIds']) {
-                                                String topic =
-                                                    "ep_$instituteId";
-                                                subscriptionFutures.add(
-                                                    TopicManager.subscribe(
-                                                        topic));
+                                                allTopics
+                                                    .add("ep_$instituteId");
                                               }
                                             }
 
-                                            // Subscribe to all counselor topics
+                                            // Add counselor topics
                                             if (value.containsKey(
                                                 'followedCounsellorIds')) {
                                               for (var counsellorId in value[
                                                   'followedCounsellorIds']) {
-                                                String topic =
-                                                    "counsellor_$counsellorId";
-                                                subscriptionFutures.add(
-                                                    TopicManager.subscribe(
-                                                        topic));
+                                                allTopics.add(
+                                                    "counsellor_$counsellorId");
                                               }
                                             }
 
-                                            // Add "smc_users" subscription to the list
-                                            subscriptionFutures.add(
-                                                TopicManager.subscribe(
-                                                    "smc_users"));
+                                            // 🔥 Save all topics to local storage (before subscription)
+                                            await prefs.setStringList(
+                                                'allTopics', allTopics);
 
-                                            // Wait for all subscriptions to complete in parallel
+                                            // List to track all subscription futures
+                                            List<Future<void>>
+                                                subscriptionFutures = [];
+
+                                            // Subscribe to all topics and save successful ones
+                                            for (String topic in allTopics) {
+                                              subscriptionFutures.add(
+                                                TopicManager.subscribe(topic)
+                                                    .then((_) {
+                                                  subscribedTopics.add(topic);
+                                                }).catchError((error) {
+                                                  print(
+                                                      "❌ Failed to subscribe to $topic: $error");
+                                                }),
+                                              );
+                                            }
+
+                                            // Wait for all subscriptions to complete
                                             await Future.wait(
                                                 subscriptionFutures);
 
-                                            log("All topics subscribed successfully");
+                                            // 🔥 Save subscribed topics to local storage
+                                            await prefs.setStringList(
+                                                'subscribedTopics',
+                                                subscribedTopics);
+
+                                            // 📝 Log subscribed topics
+                                            log("✅ Successfully Subscribed Topics: $subscribedTopics");
                                           });
+
+//==============================================================================================================================================================
 
                                           EasyLoading.dismiss();
                                           Navigator.pushReplacement(
@@ -404,8 +444,3 @@ void configLoading() {
     ..boxShadow = <BoxShadow>[]
     ..indicatorType = EasyLoadingIndicatorType.circle;
 }
-
-// void onTapGettingstarted(BuildContext context) {
-//   Navigator.pushReplacement(context,
-//       MaterialPageRoute(builder: (context) =>  QNAScreen()));
-// }

@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myapp/home_page/homepagecontainer.dart';
+import 'package:myapp/notifications/notification_handler.dart';
 import 'package:myapp/page-1/select_gender_new.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../other/api_service.dart';
@@ -142,59 +143,13 @@ class _EducationLevelNewState extends State<EducationLevelNew> {
                         ),
                       ),
                     ),
-                    // GestureDetector(
-                    //   onTap: () async {
-                    //     SharedPreferences prefs =
-                    //         await SharedPreferences.getInstance();
-                    //     prefs.setString("education_level", selectedOption);
-
-                    //     var value = await ApiService.save_profile(
-                    //         prefs.getString("name"),
-                    //         prefs.getString("date_of_birth"),
-                    //         prefs.getString("gender"),
-                    //         prefs.getString("education_level"));
-
-                    //     if (value["message"] ==
-                    //         "User registered successfully") {
-                    //       Fluttertoast.showToast(
-                    //           msg: 'User registered successfully');
-                    //       if (!mounted) return;
-                    //       Future.delayed(const Duration(microseconds: 0), () {
-                    //         Navigator.pushReplacement(
-                    //             context,
-                    //             MaterialPageRoute(
-                    //                 builder: (context) =>
-                    //                     const HomePageContainer()));
-                    //       });
-                    //     } else {
-                    //       EasyLoading.showToast(value["error"],
-                    //           toastPosition: EasyLoadingToastPosition.bottom);
-
-                    //       prefs.clear();
-                    //     }
-                    //   },
-                    //   child: const Padding(
-                    //     padding: EdgeInsets.all(10),
-                    //     child: Row(
-                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //       children: [
-                    //         Center(
-                    //             child: Icon(
-                    //           Icons.arrow_circle_right_outlined,
-                    //           size: 40,
-                    //           color: Color(0xff1F0A68),
-                    //         ))
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                             vertical: 12, horizontal: 20),
                         backgroundColor:
                             const Color(0xff1F0A68), // Button background color
-                        elevation: 1, 
+                        elevation: 1,
                       ),
                       onPressed: () async {
                         SharedPreferences prefs =
@@ -213,21 +168,22 @@ class _EducationLevelNewState extends State<EducationLevelNew> {
                           Fluttertoast.showToast(
                               msg: 'User registered successfully',
                               backgroundColor: Colors.green);
+
                           if (!mounted) return;
-                          Future.delayed(const Duration(microseconds: 0), () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const HomePageContainer()),
-                            );
-                          });
+
+                          await Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const HomePageContainer()),
+                          );
+//==================================! Subscribe Notificatio Topic !==========================================================
+                          await TopicManager.subscribe("smc_users");
                         } else {
                           EasyLoading.showToast(
                             value["error"],
                             toastPosition: EasyLoadingToastPosition.bottom,
                           );
-
                           prefs.clear();
                         }
                       },

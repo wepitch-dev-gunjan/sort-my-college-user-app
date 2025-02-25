@@ -6,6 +6,8 @@ import 'package:myapp/profile_page/profile_page.dart';
 import 'package:myapp/home_page/homepage.dart';
 import 'package:myapp/webinar_page/webinar_page.dart';
 
+import '../notifications/notification_handler.dart';
+
 class HomePageContainer extends StatefulWidget {
   const HomePageContainer({super.key});
 
@@ -21,6 +23,12 @@ class _HomePageContainerState extends State<HomePageContainer> {
   final Widget _booking = const BookingPage();
   final Widget _news = const NewsScreen();
   final Widget _profile = const ProfilePage();
+  @override
+  void initState() {
+    super.initState();
+    // 🔥 Call the retry subscription function when the screen loads
+    retryPendingSubscriptions();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,22 +114,18 @@ class _HomePageContainerState extends State<HomePageContainer> {
       ),
     );
   }
-
-
-
 }
-
-
-
 
 class HomePageContainerAfterBooking extends StatefulWidget {
   const HomePageContainerAfterBooking({super.key});
 
   @override
-  State<HomePageContainerAfterBooking> createState() => _HomePageContainerAfterBookingState();
+  State<HomePageContainerAfterBooking> createState() =>
+      _HomePageContainerAfterBookingState();
 }
 
-class _HomePageContainerAfterBookingState extends State<HomePageContainerAfterBooking> {
+class _HomePageContainerAfterBookingState
+    extends State<HomePageContainerAfterBooking> {
   int selectedIndex = 2;
 
   final Widget _home = const HomePage();
@@ -163,9 +167,7 @@ class _HomePageContainerAfterBookingState extends State<HomePageContainerAfterBo
               icon: Icon(
                 Icons.calendar_month_outlined,
                 size: 24,
-              )
-           
-              ),
+              )),
           BottomNavigationBarItem(
             icon: ImageIcon(
               AssetImage("assets/page-1/images/newspaper-1-s6H.png"),
@@ -208,6 +210,4 @@ class _HomePageContainerAfterBookingState extends State<HomePageContainerAfterBo
       return _home;
     }
   }
-
- 
 }

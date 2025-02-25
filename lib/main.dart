@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'dart:developer';
+
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -21,10 +20,6 @@ import 'package:provider/provider.dart';
 import 'notifications/notification_handler.dart';
 import 'page-1/splash_screen_1.dart';
 
-// @pragma('vm:entry-point')
-// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   await Firebase.initializeApp();
-// }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
