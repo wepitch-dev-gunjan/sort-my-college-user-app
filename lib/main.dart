@@ -1,4 +1,3 @@
-
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -19,7 +18,6 @@ import 'package:myapp/utils/common.dart';
 import 'package:provider/provider.dart';
 import 'notifications/notification_handler.dart';
 import 'page-1/splash_screen_1.dart';
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

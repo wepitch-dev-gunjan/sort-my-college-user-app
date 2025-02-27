@@ -6,6 +6,9 @@ import 'package:myapp/home_page/notification_page/noti.dart';
 import 'package:myapp/utils/navigation.dart';
 import 'package:myapp/webinar_page/widget/webinar_detail_page_widget.dart';
 
+import '../home_page/counsellor_page/counsellor_details_screen.dart';
+import '../home_page/entrance_preparation/screens/announcement_screen.dart';
+
 String logoName = 'logo';
 
 class LocalNotification {
@@ -35,17 +38,17 @@ class LocalNotification {
       await _flutterLocalNotificationsPlugin.initialize(initializationSettings,
           onDidReceiveNotificationResponse: (payload) {
         log("${message.data['type']}");
-
         if (message.data['type'] == 'webinar') {
-          log("${message.data['id']}");
           navigateTo(WebinarDetailsPageWidget(webinarId: message.data['id']));
-
-          
+        } else if (message.data['type'] == 'session') {
+          navigateTo(CounsellorDetailsScreen(id: message.data['id']));
+        } else if (message.data['type'] == 'announcement') {
+          navigateTo(AnnouncementScreen(
+              id: message.data[
+                  'id'])); // Replace with the actual screen for announcements
+        } else {
+          navigateTo(const Notification2());
         }
-        else{
-            navigateTo(const Notification2());
-        }
-      
       });
 
       log("Local notification initialized successfully.");
