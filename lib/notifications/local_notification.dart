@@ -1,15 +1,7 @@
-// String logoName = 'mipmap/ic_iauncher';
 import 'dart:developer';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:myapp/home_page/notification_page/noti.dart';
-import 'package:myapp/utils/navigation.dart';
-import 'package:myapp/webinar_page/widget/webinar_detail_page_widget.dart';
-
-import '../home_page/counsellor_page/counsellor_details_screen.dart';
-import '../home_page/entrance_preparation/screens/announcement_screen.dart';
-
-String logoName = 'logo';
+import 'package:myapp/notifications/notification_service.dart';
 
 class LocalNotification {
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
@@ -18,8 +10,6 @@ class LocalNotification {
   // Android and iOS initialization settings
   AndroidInitializationSettings androidInitializationSettings =
       const AndroidInitializationSettings('@drawable/logo');
-  // AndroidInitializationSettings androidInitializationSettings =
-  //      AndroidInitializationSettings(logoName);
 
   final DarwinInitializationSettings _iosSetting =
       const DarwinInitializationSettings();
@@ -37,18 +27,7 @@ class LocalNotification {
       // Use initialization settings in the plugin
       await _flutterLocalNotificationsPlugin.initialize(initializationSettings,
           onDidReceiveNotificationResponse: (payload) {
-        log("${message.data['type']}");
-        if (message.data['type'] == 'webinar') {
-          navigateTo(WebinarDetailsPageWidget(webinarId: message.data['id']));
-        } else if (message.data['type'] == 'session') {
-          navigateTo(CounsellorDetailsScreen(id: message.data['id']));
-        } else if (message.data['type'] == 'announcement') {
-          navigateTo(AnnouncementScreen(
-              id: message.data[
-                  'id'])); // Replace with the actual screen for announcements
-        } else {
-          navigateTo(const Notification2());
-        }
+        handleNotificationNavigation(message);
       });
 
       log("Local notification initialized successfully.");
@@ -60,10 +39,10 @@ class LocalNotification {
   // Method to send or show notifications
   Future<void> sendNotification(RemoteMessage message) async {
     try {
-      log("Preparing to send notification...");
-      log("Message data: ${message.data}");
-      log("Notification title: ${message.notification?.title}");
-      log("Notification body: ${message.notification?.body}");
+      // log("Preparing to send notification...");
+      // log("Message data: ${message.data}");
+      // log("Notification title: ${message.notification?.title}");
+      // log("Notification body: ${message.notification?.body}");
 
       // Android notification channel setup
       AndroidNotificationChannel channel = AndroidNotificationChannel(
