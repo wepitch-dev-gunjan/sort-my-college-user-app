@@ -39,10 +39,10 @@ class LocalNotification {
   // Method to send or show notifications
   Future<void> sendNotification(RemoteMessage message) async {
     try {
-      // log("Preparing to send notification...");
-      // log("Message data: ${message.data}");
-      // log("Notification title: ${message.notification?.title}");
-      // log("Notification body: ${message.notification?.body}");
+      log("Preparing to send notification...");
+      log("Message data: ${message.data}");
+      log("Notification title: ${message.notification?.title}");
+      log("Notification body: ${message.notification?.body}");
 
       // Android notification channel setup
       AndroidNotificationChannel channel = AndroidNotificationChannel(

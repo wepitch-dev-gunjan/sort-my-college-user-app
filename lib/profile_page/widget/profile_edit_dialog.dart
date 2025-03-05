@@ -170,11 +170,12 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
     }
 
     ApiService.save_profile(
-            prefs.getString('name'),
-            prefs.getString("date_of_birth"),
-            prefs.getString("gender"),
-            prefs.getString("education_level"))
-        .then((value) => Navigator.pop(context));
+      name: prefs.getString('name'),
+      dob: prefs.getString("date_of_birth"),
+      gender: prefs.getString("gender"),
+      edulevel: prefs.getString("education_level"),
+     
+    ).then((value) => Navigator.pop(context));
   }
 
   // void showEducationDropdown(BuildContext context) async {

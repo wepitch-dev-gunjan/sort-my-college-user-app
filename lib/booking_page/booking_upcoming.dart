@@ -52,7 +52,7 @@ class _BookingUpcomingState extends State<BookingUpcoming> {
                 itemCount: bookings.length,
                 itemBuilder: (context, index) {
                   // var time =
-                      // "${bookings[index]['booking_data']["session_time"]}";
+                  // "${bookings[index]['booking_data']["session_time"]}";
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Container(
@@ -181,9 +181,9 @@ class _BookingUpcomingState extends State<BookingUpcoming> {
                                                     return BookingConfirmationUpcoming(
                                                       id: bookings[index]
                                                           ['_id'],
-                                                      bookingID: bookings[index]
-                                                              ['booking_data']
-                                                          ["_id"],
+                                                      // bookingID: bookings[index]
+                                                      //         ['booking_data']
+                                                      //     ["_id"],
                                                     );
                                                   }),
                                                 );
@@ -247,7 +247,6 @@ class _BookingUpcomingState extends State<BookingUpcoming> {
                   );
                 },
               );
-
   }
 
   parseDuration(String durationString) {

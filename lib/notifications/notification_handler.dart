@@ -17,7 +17,9 @@ class NotificationHandler {
     MessageService.backgroudAndTerminateAppNavatior();
 
     // await NotificationServices().getAccessToken();
-    await NotificationServices().getToken();
+  
+
+  
   }
 
   @pragma('vm:entry-point')

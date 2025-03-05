@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:myapp/home_page/homepagecontainer.dart';
 import 'package:myapp/home_page/notification_page/noti.dart';
 import 'package:myapp/utils/navigation.dart';
 import '../home_page/counsellor_page/counsellor_details_screen.dart';
@@ -53,10 +54,10 @@ class MessageService {
     log("Initializing Firebase Messaging...");
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      // log('Got a message whilst in the foreground!');
-      // log('Message title: ${message.notification?.title ?? "No title"}');
-      // log('Message body: ${message.notification?.body ?? "No body"}');
-      // log('Message data: ${message.data}');
+      log('Got a message whilst in the foreground!');
+      log('Message title: ${message.notification?.title ?? "No title"}');
+      log('Message body: ${message.notification?.body ?? "No body"}');
+      log('Message data: ${message.data}');
 
       if (message.notification != null) {
         if (Platform.isIOS) {
@@ -112,7 +113,9 @@ void handleNotificationNavigation(RemoteMessage message) {
     navigateTo(CounsellorDetailsScreen(id: message.data['id']));
   } else if (message.data['type'] == 'announcement') {
     navigateTo(AnnouncementScreen(id: message.data['id']));
+  } else if (message.data['type'] == 'session_booking') {
+    navigateTo(const HomePageContainerAfterBooking());
   } else {
-    navigateTo(const Notification2());
+    navigateTo(const HomePageContainer());
   }
 }

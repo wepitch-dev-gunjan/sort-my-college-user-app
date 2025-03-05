@@ -12,10 +12,9 @@ import 'booking_confirmatoin_past.dart';
 
 class BookingConfirmationUpcoming extends StatefulWidget {
   final String id;
-  final String bookingID;
+  // final String bookingID;
 
-  const BookingConfirmationUpcoming(
-      {super.key, required this.id, required this.bookingID});
+  const BookingConfirmationUpcoming({super.key, required this.id});
 
   @override
   State<BookingConfirmationUpcoming> createState() =>
@@ -32,7 +31,7 @@ class _BookingConfirmationUpcomingState
   void initState() {
     super.initState();
     getUpcomingBooking(widget.id);
-    isSessionAboutToStart(widget.bookingID);
+    // isSessionAboutToStart(widget.bookingID);
   }
 
   getUpcomingBooking(String id) async {
@@ -43,13 +42,19 @@ class _BookingConfirmationUpcomingState
       booking = response;
       isLoading = false;
     });
+
+    // API se milne wali "_id" ko use kar rahe hain
+    if (booking != null && booking['booking_data'] != null) {
+      String fetchedBookingID = booking['booking_data']['_id'];
+
+      isSessionAboutToStart(fetchedBookingID);
+    }
   }
 
   isSessionAboutToStart(String id) async {
     final response = await ApiService.isSessionAboutToStart(id: id);
-
     setState(() {
-      canJoin = response['isAboutToStart'];
+      canJoin = response;
       isLoading = false;
     });
   }

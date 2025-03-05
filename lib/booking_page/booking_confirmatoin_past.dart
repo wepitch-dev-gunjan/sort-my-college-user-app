@@ -11,9 +11,8 @@ import '../utils/utils.dart';
 
 class BookingConfirmationPast extends StatefulWidget {
   final String id;
-  final String bookingID;
-  const BookingConfirmationPast(
-      {super.key, required this.id, required this.bookingID});
+
+  const BookingConfirmationPast({super.key, required this.id});
 
   @override
   State<BookingConfirmationPast> createState() =>
@@ -25,12 +24,11 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
   var booking;
   var canJoin = false;
 
-
   @override
   void initState() {
     super.initState();
     getpastBooking(widget.id);
-    isSessionAboutToStart(widget.bookingID);
+    // isSessionAboutToStart(widget.bookingID);
   }
 
   getpastBooking(String id) async {
@@ -40,6 +38,13 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
       booking = res;
       isLoading = false;
     });
+
+    // API se milne wali "_id" ko use kar rahe hain
+    if (booking != null && booking['booking_data'] != null) {
+      String fetchedBookingID = booking['booking_data']['_id'];
+     
+      isSessionAboutToStart(fetchedBookingID);
+    }
   }
 
   isSessionAboutToStart(String id) async {
@@ -229,7 +234,6 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                   const SizedBox(
                                     height: 4,
                                   ),
-                                
                                 ],
                               ),
                             ],
@@ -255,8 +259,7 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                               CircleAvatar(
                                 radius: 30,
                                 backgroundImage: NetworkImage(
-                                    "${booking['booked_entity']['profile_pic']}"
-                                    ),
+                                    "${booking['booked_entity']['profile_pic']}"),
                               ),
                               const SizedBox(
                                 width: 8,
@@ -401,7 +404,6 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-
                               Text(
                                 " : $sessionDate",
                                 style: SafeGoogleFont(
@@ -409,7 +411,6 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                   fontSize: 14,
                                 ),
                               )
-                             
                             ],
                           ),
                           const SizedBox(
@@ -425,7 +426,6 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-
                               Text(
                                 sessionTime,
                                 style: SafeGoogleFont(
@@ -433,8 +433,6 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                   fontSize: 14,
                                 ),
                               )
-
-                            
                             ],
                           ),
                           const SizedBox(height: 4),
@@ -558,7 +556,6 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-
                               Text(
                                 " : ${DateFormat('dd-MM-yyyy').format(DateTime.parse(booking['booking_data']['updatedAt']))}",
                                 style: SafeGoogleFont(
@@ -566,7 +563,6 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
                                   fontSize: 14,
                                 ),
                               )
-                            
                             ],
                           ),
                         ],
@@ -752,7 +748,6 @@ class _BookingConfirmationPastState extends State<BookingConfirmationPast> {
     );
   }
 }
-
 
 Widget customButton({
   required BuildContext context,

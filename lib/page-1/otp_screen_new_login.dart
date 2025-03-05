@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/notifications/notification_handler.dart';
@@ -10,7 +9,6 @@ import 'package:myapp/utils/utils.dart';
 import 'package:myapp/utils/common.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../home_page/homepagecontainer.dart';
 
 class OtpScreenNewLogin extends StatefulWidget {
@@ -247,51 +245,6 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
                                               "auth", value["token"]);
                                           prefs.setString(
                                               "token", value["token"]);
-
-//===========================================! Subscribe ALL Notification Topic !===================================================================
-
-                                          // ApiService.getUserFollowing()
-                                          //     .then((value) async {
-                                          //   // Pehle smc_users ko subscribe karo
-                                          //   await TopicManager.subscribe(
-                                          //       "smc_users");
-
-                                          //   // List to store all subscription futures
-                                          //   List<Future<void>>
-                                          //       subscriptionFutures = [];
-
-                                          //   // Subscribe to all institute topics
-                                          //   if (value.containsKey(
-                                          //       'followedInstituteIds')) {
-                                          //     for (var instituteId in value[
-                                          //         'followedInstituteIds']) {
-                                          //       String topic =
-                                          //           "ep_$instituteId";
-                                          //       subscriptionFutures.add(
-                                          //           TopicManager.subscribe(
-                                          //               topic));
-                                          //     }
-                                          //   }
-
-                                          //   // Subscribe to all counselor topics
-                                          //   if (value.containsKey(
-                                          //       'followedCounsellorIds')) {
-                                          //     for (var counsellorId in value[
-                                          //         'followedCounsellorIds']) {
-                                          //       String topic =
-                                          //           "counsellor_$counsellorId";
-                                          //       subscriptionFutures.add(
-                                          //           TopicManager.subscribe(
-                                          //               topic));
-                                          //     }
-                                          //   }
-
-                                          //   // Wait for all remaining subscriptions to complete in parallel
-                                          //   await Future.wait(
-                                          //       subscriptionFutures);
-
-                                          //   log("All topics subscribed successfully");
-                                          // });
 
                                           ApiService.getUserFollowing()
                                               .then((value) async {

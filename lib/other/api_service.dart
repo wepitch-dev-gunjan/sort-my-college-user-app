@@ -14,6 +14,7 @@ import '../model/announcements_model.dart';
 import '../model/counsellor_data.dart';
 import '../model/counsellor_sessions.dart';
 import '../model/course_model.dart';
+import '../notifications/notification_service.dart';
 import 'constants.dart';
 
 class ApiService {
@@ -32,6 +33,7 @@ class ApiService {
 
     if (response.statusCode == 201 || response.statusCode == 200) {
       var data = jsonDecode(response.body.toString());
+      log('Booking Conformed===>$data');
       return data;
     } else {
       return jsonDecode(response.body.toString());
@@ -394,15 +396,17 @@ class ApiService {
   }
 
   static Future<Map<String, dynamic>> save_profile(
-      String? name, String? dob, String? gender, String? edulevel) async {
+      {String? name, String? dob, String? gender, String? edulevel}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token").toString();
+    var fcmToken = await NotificationServices().getToken();
 
     final body = jsonEncode({
       "name": name,
       "date_of_birth": dob,
       "gender": gender,
       "education_level": edulevel,
+      "fcm_token": fcmToken
     });
 
     final headers = {
@@ -546,7 +550,9 @@ class ApiService {
       'Content-Type': 'application/json',
     };
     number = "91$number";
-    final body = {'otp': otp, 'phone_number': number};
+    var fcmToken = await NotificationServices().getToken();
+
+    final body = {'otp': otp, 'phone_number': number, 'fcm_token': fcmToken};
     var url = Uri.parse(AppConstants.baseUrl + AppConstants.verifyLogin);
     final response = await http.post(
       url,

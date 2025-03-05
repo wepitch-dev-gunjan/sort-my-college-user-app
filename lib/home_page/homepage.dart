@@ -59,9 +59,9 @@ class _HomePageState extends State<HomePage> {
     context.read<CounsellorDetailsProvider>().fetchBannerImage();
     context.read<CounsellorDetailsProvider>().fetchTrendingWebinar();
     context.read<CounsellorDetailsProvider>().fetchPopularWorkShop();
-    if (Platform.isAndroid) {
-      checkForAndroidUpdate();
-    }
+    // if (Platform.isAndroid) {
+    //   checkForAndroidUpdate();
+    // }
     imgUrlList.clear();
   }
 
@@ -160,22 +160,22 @@ class _HomePageState extends State<HomePage> {
               child: Container()),
           titleSpacing: 1,
           actions: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Notification2(),
-                  ),
-                );
-              },
-              child: Image.asset(
-                'assets/page-1/images/bell.png',
-                width: 18,
-                height: 18,
-                color: Colors.black,
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => const Notification2(),
+            //       ),
+            //     );
+            //   },
+            //   child: Image.asset(
+            //     'assets/page-1/images/bell.png',
+            //     width: 18,
+            //     height: 18,
+            //     color: Colors.black,
+            //   ),
+            // ),
             const SizedBox(width: 28),
           ],
         ),

@@ -11,6 +11,7 @@ import 'package:myapp/home_page/homepagecontainer.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/other/listcontroler.dart';
 import 'package:myapp/page-1/dashboard_session_page.dart';
+import 'package:myapp/utils/navigation.dart';
 import 'package:myapp/utils/utils.dart';
 import 'package:myapp/utils/share_links.dart';
 
@@ -1018,10 +1019,11 @@ class AppBar extends StatelessWidget {
           },
           child: IconButton(
             onPressed: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const HomePageContainer()));
+              navigationPop();
+              // Navigator.pushReplacement(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (context) => const HomePageContainer()));
               //
             },
             icon: const Icon(Icons.arrow_back_ios, color: Colors.black),

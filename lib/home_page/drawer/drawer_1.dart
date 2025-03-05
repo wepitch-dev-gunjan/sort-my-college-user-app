@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison
 import 'dart:developer';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/home_page/help_screen.dart';
 import 'package:myapp/page-1/splash_screen_n.dart';
@@ -9,7 +10,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../notifications/notification_handler.dart';
 import '../../other/api_service.dart';
-import '../../page-1/account_delete.dart';
+
 import '../homepagecontainer.dart';
 
 class Drawer1 extends StatefulWidget {
@@ -317,7 +318,8 @@ class _Drawer1State extends State<Drawer1> {
 
                               await prefs.remove('subscribedTopics');
                               await prefs.remove('allTopics');
-
+                              await FirebaseMessaging.instance.deleteToken();
+                            
                               // 🔹 Perform logout
                               await _logout();
 

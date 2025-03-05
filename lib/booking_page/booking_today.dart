@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:myapp/booking_page/booking_confirmatoin_today.dart';
@@ -41,7 +42,6 @@ class _BookingTodayState extends State<BookingToday> {
 
   @override
   Widget build(BuildContext context) {
-    
     var mWidth = MediaQuery.sizeOf(context).width;
 
     return isLoading
@@ -178,6 +178,7 @@ class _BookingTodayState extends State<BookingToday> {
                                               height: 24,
                                               child: GestureDetector(
                                                 onTap: () {
+                                                  log("djfkjdlfjds${bookings[index]['_id']}");
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
@@ -185,10 +186,10 @@ class _BookingTodayState extends State<BookingToday> {
                                                           BookingConfirmationToday(
                                                         id: bookings[index]
                                                             ['_id'],
-                                                        bookingID: bookings[
-                                                                    index]
-                                                                ['booking_data']
-                                                            ["_id"],
+                                                        // bookingID: bookings[
+                                                        //             index]
+                                                        //         ['booking_data']
+                                                        //     ["_id"],
                                                       ),
                                                     ),
                                                   );

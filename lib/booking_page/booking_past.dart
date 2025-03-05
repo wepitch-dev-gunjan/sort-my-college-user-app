@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:myapp/other/api_service.dart';
 import 'package:myapp/utils/utils.dart';
@@ -26,14 +26,15 @@ class _BookingPastState extends State<BookingPast> {
         past: true, today: false, upcoming: false);
 
     setState(() {
-      bookings = pastData.reversed.toList(); // Reverse the list to show latest booking at the top
+      bookings = pastData.reversed
+          .toList(); // Reverse the list to show latest booking at the top
       isLoading = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    log("Bookings=$bookings");
+    
     var mWidth = MediaQuery.sizeOf(context).width;
     return isLoading
         ? const Center(child: CircularProgressIndicator())
@@ -178,10 +179,6 @@ class _BookingPastState extends State<BookingPast> {
                                                         return BookingConfirmationPast(
                                                           id: bookings[index]
                                                               ['_id'],
-                                                          bookingID: bookings[
-                                                                      index][
-                                                                  'booking_data']
-                                                              ["_id"],
                                                         );
                                                       },
                                                     ),
