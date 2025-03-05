@@ -11,7 +11,6 @@ import 'package:myapp/home_page/drawer/drawer_1.dart';
 import 'package:myapp/home_page/homepagecontainer_2.dart';
 import 'package:myapp/home_page/model/popular_workshop_model.dart';
 import 'package:myapp/home_page/model/tranding_webinar_model.dart';
-import 'package:myapp/home_page/notification_page/noti.dart';
 import 'package:myapp/other/provider/counsellor_details_provider.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
@@ -59,9 +58,9 @@ class _HomePageState extends State<HomePage> {
     context.read<CounsellorDetailsProvider>().fetchBannerImage();
     context.read<CounsellorDetailsProvider>().fetchTrendingWebinar();
     context.read<CounsellorDetailsProvider>().fetchPopularWorkShop();
-    // if (Platform.isAndroid) {
-    //   checkForAndroidUpdate();
-    // }
+    if (Platform.isAndroid) {
+      checkForAndroidUpdate();
+    }
     imgUrlList.clear();
   }
 

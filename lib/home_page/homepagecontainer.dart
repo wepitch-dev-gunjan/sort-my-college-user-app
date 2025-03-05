@@ -30,11 +30,11 @@ class _HomePageContainerState extends State<HomePageContainer> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (Platform.isAndroid) {
-        checkForAndroidUpdate();
-      }
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   if (Platform.isAndroid) {
+    //     checkForAndroidUpdate();
+    //   }
+    // });
     retryPendingSubscriptions();
   }
 
