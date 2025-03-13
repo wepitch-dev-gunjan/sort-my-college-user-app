@@ -8,7 +8,6 @@ import 'package:myapp/webinar_page/webinar_model.dart';
 import 'package:myapp/webinar_page/widget/webinar_detail_page_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class WebinarPastDataPage extends StatefulWidget {
@@ -100,46 +99,10 @@ class WebinarPastDataWidget extends StatefulWidget {
 }
 
 class _WebinarPastDataWidgetState extends State<WebinarPastDataWidget> {
-  // // late SharedPreferences _prefs;
-  // String register_status = '';
-  // String webinarData = '';
-
   @override
   void initState() {
     super.initState();
-    // _initializeSharedPreferences();
   }
-
-  // Future<void> _initializeSharedPreferences() async {
-  //   _prefs = await SharedPreferences.getInstance();
-  //   bool isStarting = _prefs.getBool('isRegistrationStarting') ?? false;
-
-  //   if (isStarting) {
-  //     DateTime savedTime = DateTime.fromMillisecondsSinceEpoch(
-  //       _prefs.getInt('startingTimestamp') ?? 0,
-  //     );
-
-  //     DateTime currentTime = DateTime.now();
-  //     if (currentTime.difference(savedTime).inDays >= 3) {
-  //       await _updateRegistrationStatus(false);
-  //     } else {
-  //       setState(() {});
-  //     }
-  //   }
-  // }
-
-  // Future<void> _updateRegistrationStatus(bool isStarting) async {
-  //   setState(() {});
-
-  //   if (isStarting) {
-  //     await _prefs.setInt(
-  //         'startingTimestamp', DateTime.now().millisecondsSinceEpoch);
-  //   } else {
-  //     await _prefs.remove('startingTimestamp');
-  //   }
-
-  //   await _prefs.setBool('isRegistrationStarting', isStarting);
-  // }
 
   @override
   Widget build(BuildContext context) {

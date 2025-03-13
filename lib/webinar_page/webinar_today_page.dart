@@ -7,7 +7,6 @@ import 'package:myapp/webinar_page/webinar_model.dart';
 import 'package:myapp/webinar_page/widget/webinar_detail_page_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../home_page/homepage.dart';
 import 'widget/custom_webniar_card_widget.dart';

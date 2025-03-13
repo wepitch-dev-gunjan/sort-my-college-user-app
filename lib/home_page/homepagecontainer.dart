@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:myapp/booking_page/booking_page.dart';
 import 'package:myapp/home_page/counsellor_page/counsellor_screen.dart';
@@ -7,8 +5,6 @@ import 'package:myapp/news/ui/news_screen.dart';
 import 'package:myapp/profile_page/profile_page.dart';
 import 'package:myapp/home_page/homepage.dart';
 import 'package:myapp/webinar_page/webinar_page.dart';
-
-import '../app_update.dart';
 import '../notifications/notification_handler.dart';
 
 class HomePageContainer extends StatefulWidget {
@@ -29,12 +25,6 @@ class _HomePageContainerState extends State<HomePageContainer> {
   @override
   void initState() {
     super.initState();
-
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   if (Platform.isAndroid) {
-    //     checkForAndroidUpdate();
-    //   }
-    // });
     retryPendingSubscriptions();
   }
 

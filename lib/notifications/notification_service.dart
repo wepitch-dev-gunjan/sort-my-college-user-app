@@ -4,7 +4,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:myapp/home_page/homepagecontainer.dart';
-import 'package:myapp/home_page/notification_page/noti.dart';
 import 'package:myapp/utils/navigation.dart';
 import '../home_page/counsellor_page/counsellor_details_screen.dart';
 import '../home_page/entrance_preparation/screens/announcement_screen.dart';

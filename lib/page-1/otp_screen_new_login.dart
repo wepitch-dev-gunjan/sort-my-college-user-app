@@ -126,20 +126,7 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
                                     print("OTP Changed: $value");
                                   },
                                 ),
-                                // OTPTextField(
-                                //     controller: otpController,
-                                //     length: 4,
-                                //     width: MediaQuery.of(context).size.width,
-                                //     textFieldAlignment:
-                                //         MainAxisAlignment.spaceAround,
-                                //     fieldWidth: 40,
-                                //     //fieldStyle: FieldStyle.box,
-                                //     outlineBorderRadius: 15,
-                                //     style: const TextStyle(fontSize: 17),
-                                //     onCompleted: (pin) {
-                                //       print("Completed: $pin");
-                                //       otp = pin;
-                                //     }),
+                            
                                 const SizedBox(height: 16),
                                 Text(
                                     "${duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}"),
