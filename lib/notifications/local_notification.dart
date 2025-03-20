@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:typed_data';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:myapp/notifications/notification_service.dart';
@@ -39,29 +40,41 @@ class LocalNotification {
   // Method to send or show notifications
   Future<void> sendNotification(RemoteMessage message) async {
     try {
-      log("Preparing to send notification...");
-      log("Message data: ${message.data}");
-      log("Notification title: ${message.notification?.title}");
-      log("Notification body: ${message.notification?.body}");
+      // log("Preparing to send notification...");
+      // log("Message data: ${message.data}");
+      // log("Notification title: ${message.notification?.title}");
+      // log("Notification body: ${message.notification?.body}");
+      // log("Notification body: ${message.notification?.android}");
 
+      // const String customSound = 'alert';
+      // AndroidNotificationSound loadSound =
+      //     const RawResourceAndroidNotificationSound(customSound);
       // Android notification channel setup
       AndroidNotificationChannel channel = AndroidNotificationChannel(
-        message.notification?.android?.channelId ?? 'default_channel',
-        message.notification?.android?.channelId ?? 'Default Channel',
-        importance: Importance.max,
+        message.data['channelId'] ?? 'default_channel',
+        message.data['channelId'] ?? 'default_channel',
+        importance: Importance.high,
         showBadge: true,
         playSound: true,
+        enableVibration: true,
+        // sound: loadSound,
       );
 
       // Android notification details
       final AndroidNotificationDetails androidDetails =
-          AndroidNotificationDetails(channel.id, channel.name,
-              channelDescription: 'Your channel description',
-              importance: Importance.high,
-              priority: Priority.high,
-              playSound: true,
-              ticker: 'ticker',
-              icon: '@drawable/logo');
+          AndroidNotificationDetails(
+        channel.id,
+        channel.name,
+        // channelDescription: 'Your channel description',
+        importance: Importance.high,
+        priority: Priority.high,
+        playSound: true,
+        enableVibration: true,
+        ticker: 'ticker',
+        icon: '@drawable/logo',
+        // sound: loadSound,
+        // vibrationPattern: Int64List.fromList([0, 500, 1000, 500]),
+      );
 
       // iOS notification details
       const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
