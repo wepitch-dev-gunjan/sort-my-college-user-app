@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:myapp/common/web_view.dart';
 import 'package:myapp/home_page/counsellor_page/counsellor_details_screen.dart';
 import 'package:myapp/home_page/drawer/drawer_1.dart';
 import 'package:myapp/home_page/homepagecontainer_2.dart';
@@ -14,6 +15,7 @@ import 'package:myapp/home_page/model/tranding_webinar_model.dart';
 import 'package:myapp/other/provider/counsellor_details_provider.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:myapp/utils/navigation.dart';
 import 'package:myapp/utils/utils.dart';
 import 'package:myapp/utils/share_links.dart';
 import 'package:myapp/webinar_page/widget/webinar_detail_page_widget.dart';
@@ -237,178 +239,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-
                       const SizedBox(height: 15.0),
-
-                      // Padding(
-                      //   padding: const EdgeInsets.all(18.0),
-                      //   child: SizedBox(
-                      //     width: double.infinity,
-                      //     height: 110 * fem,
-                      //     child: Row(
-                      //       children: [
-                      //         Expanded(
-                      //           child: GestureDetector(
-                      //             onTap: () {
-                      //               onTapgotocounsellor(context);
-                      //             },
-                      //             child: Container(
-                      //               width: 110 * fem,
-                      //               height: 120 * fem,
-                      //               clipBehavior: Clip.antiAlias,
-                      //               decoration: BoxDecoration(
-                      //                 color: const Color(0xffffffff),
-                      //                 borderRadius: BorderRadius.circular(20),
-                      //                 boxShadow: [
-                      //                   BoxShadow(
-                      //                     offset: const Offset(0, 4),
-                      //                     blurRadius: 4,
-                      //                     color: Colors.black.withOpacity(0.1),
-                      //                   ),
-                      //                 ],
-                      //               ),
-                      //               child: Image.asset(
-                      //                 "assets/page-1/images/find_counsellor.png",
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //         const SizedBox(width: 34),
-                      //         Expanded(
-                      //           child: GestureDetector(
-                      //             onTap: () {
-                      //               // Navigator.push(
-                      //               //   context,
-                      //               //   MaterialPageRoute(
-                      //               //     builder: (context) =>
-                      //               //         const CommingSoonPage(),
-                      //               //   ),
-                      //               // );
-                      //               Navigator.push(
-                      //                 context,
-                      //                 MaterialPageRoute(
-                      //                   builder: (context) =>
-                      //                       const EpWithHomePage(),
-                      //                 ),
-                      //               );
-                      //             },
-                      //             child: Visibility(
-                      //               //visible: true,
-                      //               child: Container(
-                      //                 width: 110 * fem,
-                      //                 height: 120 * fem,
-                      //                 clipBehavior: Clip.antiAlias,
-                      //                 decoration: BoxDecoration(
-                      //                   color: const Color(0xffffffff),
-                      //                   borderRadius: BorderRadius.circular(20),
-                      //                   boxShadow: [
-                      //                     BoxShadow(
-                      //                       offset: const Offset(0, 4),
-                      //                       blurRadius: 4,
-                      //                       color: Colors.black.withOpacity(0.1),
-                      //                     ),
-                      //                   ],
-                      //                 ),
-                      //                 child: Image.asset(
-                      //                   "assets/page-1/images/Group 793.png",
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                      // Visibility(
-                      //   // visible: false,
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.all(18.0),
-                      //     child: SizedBox(
-                      //       width: double.infinity,
-                      //       height: 112 * fem,
-                      //       child: Row(
-                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //         children: [
-                      //           Expanded(
-                      //             child: GestureDetector(
-                      //               onTap: () {
-                      //                 Navigator.push(
-                      //                     context,
-                      //                     MaterialPageRoute(
-                      //                         builder: (context) =>
-                      //                             const ComingSoon()));
-                      //               },
-                      //               child: Container(
-                      //                 width: 110 * fem,
-                      //                 height: 120 * fem,
-                      //                 clipBehavior: Clip.antiAlias,
-                      //                 decoration: BoxDecoration(
-                      //                   color: const Color(0xff6450A8),
-                      //                   borderRadius: BorderRadius.circular(20),
-                      //                   boxShadow: [
-                      //                     BoxShadow(
-                      //                       offset: const Offset(0, 4),
-                      //                       blurRadius: 4,
-                      //                       color: Colors.black.withOpacity(0.1),
-                      //                     ),
-                      //                   ],
-                      //                 ),
-                      //                 child: Image.asset(
-                      //                   "assets/page-1/images/Group 794.png",
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ),
-                      //           const SizedBox(
-                      //             width: 34,
-                      //           ),
-                      //           Expanded(
-                      //             child: Row(
-                      //               crossAxisAlignment: CrossAxisAlignment.center,
-                      //               mainAxisAlignment: MainAxisAlignment.center,
-                      //               children: [
-                      //                 Expanded(
-                      //                   child: GestureDetector(
-                      //                     onTap: () {
-                      //                       Navigator.push(
-                      //                           context,
-                      //                           MaterialPageRoute(
-                      //                               builder: (context) =>
-                      //                                   const AccommodationWithHomePage()));
-                      //                     },
-                      //                     child: Container(
-                      //                       width: 140 * fem,
-                      //                       height: 140 * fem,
-                      //                       clipBehavior: Clip.antiAlias,
-                      //                       decoration: BoxDecoration(
-                      //                         color: const Color(0xff5273B4),
-                      //                         borderRadius:
-                      //                             BorderRadius.circular(20),
-                      //                         boxShadow: [
-                      //                           BoxShadow(
-                      //                             offset: const Offset(0, 4),
-                      //                             blurRadius: 4,
-                      //                             color: Colors.black
-                      //                                 .withOpacity(0.1),
-                      //                           ),
-                      //                         ],
-                      //                       ),
-                      //                       child: Image.asset(
-                      //                         "assets/page-1/images/Group 795.png",
-                      //                       ),
-                      //                     ),
-                      //                   ),
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ),),
-
-                      // const SizedBox(height: 10),
                       Align(
                         child: GestureDetector(
                           onTap: () async {
@@ -464,7 +295,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const SizedBox(height: 20),
-
                       counsellorSessionProvider.popularWorkShopList.isEmpty
                           ? const SizedBox()
                           : Column(
@@ -740,7 +570,6 @@ class _HomePageState extends State<HomePage> {
                                                                         RegisterNowWidget(
                                                                           onPressed:
                                                                               () async {
-                                                                            log("canJoin${trending.canJoin!}");
                                                                             var daysDifference =
                                                                                 calculateDaysDifference(
                                                                               registeredDate: trending.registeredDate!,
@@ -782,6 +611,8 @@ class _HomePageState extends State<HomePage> {
                                                                                 isRegistered &&
                                                                                 trending.canJoin == true) {
                                                                               await ApiService.webinarJoin(trending.id!);
+                                                                            
+
                                                                               launchUrlString(trending.webinarJoinUrl!);
                                                                             }
                                                                           },

@@ -35,11 +35,11 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-
+ namespace "com.sortmycollege" 
     aaptOptions {  
         cruncherEnabled = false  
     }
-    compileSdkVersion 34
+    compileSdkVersion 35
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -72,11 +72,14 @@ android {
         }
     }
 
-    buildTypes {
-        release {
-            signingConfig signingConfigs.release
-        }
+  buildTypes {
+    release {
+        signingConfig signingConfigs.release
+        minifyEnabled true   // For Code optimization
+        shrinkResources true // remove unused resources
+        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
+}
 }
 
 flutter {
