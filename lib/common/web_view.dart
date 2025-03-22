@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -6,8 +7,12 @@ import 'package:webview_flutter/webview_flutter.dart';
 class ZoomWebinarScreen extends StatefulWidget {
   final String webinarJoinUrl;
   final String userName;
-  const ZoomWebinarScreen(
-      {super.key, required this.webinarJoinUrl, required this.userName});
+
+  const ZoomWebinarScreen({
+    super.key,
+    required this.webinarJoinUrl,
+    required this.userName,
+  });
 
   @override
   ZoomWebinarScreenState createState() => ZoomWebinarScreenState();
@@ -25,17 +30,17 @@ class ZoomWebinarScreenState extends State<ZoomWebinarScreen> {
 
     _controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setUserAgent(Platform.isIOS
+          ? "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1"
+          : null)
       ..setNavigationDelegate(
         NavigationDelegate(
           onPageStarted: (String url) {
             setState(() => isLoading = true); // Show loader
-            log("Navigating to: $url");
-
             if (url.contains("zoom.us/postattendee") ||
                 url.contains("zoom.us/wc/leave") ||
                 url.contains("zoom.us/ended") ||
                 url.contains("app.zoom.us/wc")) {
-              log("✅ Meeting Ended, Redirecting to HomeScreen...");
               Navigator.pop(context);
             }
           },
@@ -58,12 +63,12 @@ class ZoomWebinarScreenState extends State<ZoomWebinarScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const SizedBox(
-                      width: 50, // Set size
+                      width: 50,
                       height: 50,
                       child: CircularProgressIndicator(
                         valueColor:
                             AlwaysStoppedAnimation<Color>(Color(0xff1F0A68)),
-                        strokeWidth: 4, // Thickness
+                        strokeWidth: 4,
                       ),
                     ),
                     const SizedBox(height: 16),
