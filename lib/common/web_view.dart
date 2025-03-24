@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -45,11 +43,21 @@ class ZoomWebinarScreenState extends State<ZoomWebinarScreen> {
             }
           },
           onPageFinished: (String url) {
-            setState(() => isLoading = false); // Hide loader
+            if (mounted) {
+              setState(() {
+                isLoading = false;
+              });
+            }
           },
         ),
       )
       ..loadRequest(Uri.parse(formattedUrl));
+  }
+
+@override
+  void dispose() {
+    _controller.clearCache(); // WebView cache clear karega
+    super.dispose();
   }
 
   @override
