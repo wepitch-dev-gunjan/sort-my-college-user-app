@@ -295,8 +295,8 @@ class _OtpScreenNewLoginState extends State<OtpScreenNewLogin> {
                                                 'subscribedTopics',
                                                 subscribedTopics);
 
-                                            // 📝 Log subscribed topics
-                                            log("✅ Successfully Subscribed Topics: $subscribedTopics");
+                                            // // 📝 Log subscribed topics
+                                            // log("✅ Successfully Subscribed Topics: $subscribedTopics");
                                           });
 
 //==============================================================================================================================================================

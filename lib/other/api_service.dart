@@ -1272,12 +1272,9 @@ class ApiService {
 
     final response = await http.get(url, headers: headers);
 
-    log("Resp==>>>${jsonDecode(response.body)}");
-
     if (response.statusCode == 200) {
       dynamic data = jsonDecode(response.body);
 
-      log("data===>>>$data");
       return data;
     }
     return [];

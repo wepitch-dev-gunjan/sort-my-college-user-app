@@ -22,6 +22,7 @@ import 'package:myapp/webinar_page/widget/webinar_detail_page_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../app_update.dart';
 import '../booking_page/checkout_screen.dart';
 import '../other/api_service.dart';
@@ -610,12 +611,12 @@ class _HomePageState extends State<HomePage> {
                                                                                 isRegistered &&
                                                                                 trending.canJoin == true) {
                                                                               await ApiService.webinarJoin(trending.id!);
-                                                                              navigateTo(ZoomWebinarScreen(
-                                                                                webinarJoinUrl: trending.webinarJoinUrl!,
-                                                                                userName: username,
-                                                                              ));
+                                                                              // navigateTo(ZoomWebinarScreen(
+                                                                              //   webinarJoinUrl: trending.webinarJoinUrl!,
+                                                                              //   userName: username,
+                                                                              // ));
 
-                                                                              // launchUrlString(trending.webinarJoinUrl!);
+                                                                              launchUrlString(trending.webinarJoinUrl!);
                                                                             }
                                                                           },
                                                                           regdate:
@@ -1156,14 +1157,6 @@ int calculateDaysDifference(
   DateTime today = truncateTime(DateTime.now());
   DateTime webinarDate = truncateTime(parseDate(registeredDate));
   int daysDifference = webinarDate.difference(today).inDays;
-
-  // if (daysDifference == 0 && webinarRegister && !canJoin) {
-  //   Fluttertoast.showToast(msg: 'The webinar will start 10 minutes early.');
-  // } else if (daysDifference > 0 && !canJoin && webinarRegister) {
-  //   Fluttertoast.showToast(msg: 'Webinar Starting in $daysDifference days');
-  // } else if (daysDifference < 0) {
-  //   Fluttertoast.showToast(msg: 'Webinar happened ${-daysDifference} days ago');
-  // }
 
   if (daysDifference == 0 && webinarRegister && !canJoin) {
     Fluttertoast.showToast(msg: 'The webinar will start 10 minutes early.');
