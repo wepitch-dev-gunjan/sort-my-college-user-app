@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/notifications/notification_handler.dart';

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:myapp/common/web_view.dart';
 import 'package:myapp/home_page/counsellor_page/counsellor_details_screen.dart';
 import 'package:myapp/home_page/drawer/drawer_1.dart';
 import 'package:myapp/home_page/homepagecontainer_2.dart';
@@ -15,7 +13,6 @@ import 'package:myapp/home_page/model/tranding_webinar_model.dart';
 import 'package:myapp/other/provider/counsellor_details_provider.dart';
 import 'package:myapp/shared/colors_const.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
-import 'package:myapp/utils/navigation.dart';
 import 'package:myapp/utils/utils.dart';
 import 'package:myapp/utils/share_links.dart';
 import 'package:myapp/webinar_page/widget/webinar_detail_page_widget.dart';
@@ -160,7 +157,7 @@ class _HomePageState extends State<HomePage> {
               preferredSize: const Size(double.infinity, 12),
               child: Container()),
           titleSpacing: 1,
-          actions: [
+          actions: const [
             // GestureDetector(
             //   onTap: () {
             //     Navigator.push(
@@ -177,7 +174,7 @@ class _HomePageState extends State<HomePage> {
             //     color: Colors.black,
             //   ),
             // ),
-            const SizedBox(width: 28),
+            SizedBox(width: 28),
           ],
         ),
         body: RefreshIndicator(
