@@ -176,74 +176,7 @@ class _ProfileEditDialogState extends State<ProfileEditDialog> {
     ).then((value) => Navigator.pop(context));
   }
 
-  // void showEducationDropdown(BuildContext context) async {
-  //   List<String> educationList = [
-  //     "School",
-  //     "College",
-  //     "Graduated",
-  //   ];
-
-  //   showDialog<String>(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return DropDownDialog(
-  //         callback: (value) {
-  //           setState(() {
-  //             if (value == "School") {
-  //               currentEducation = "Student";
-  //             } else {
-  //               currentEducation = value;
-  //             }
-  //             if (value == "Graduated") {
-  //               currentEducation = "Graduated";
-  //             } else {
-  //               currentEducation = value;
-  //             }
-  //           });
-  //         },
-  //         itemList: educationList,
-  //         label: 'Select Education',
-  //       );
-  //     },
-  //   );
-  // }
-
-  // void showGenderDropdown(BuildContext context) async {
-  //   List<String> genderList = ['Male', 'Female', 'Other'];
-  //   showDialog<String>(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return DropDownDialog(
-  //         callback: (value) {
-  //           setState(() {
-  //             currentGender = value;
-  //           });
-  //         },
-  //         itemList: genderList,
-  //         label: 'Select Gender',
-  //       );
-  //     },
-  //   );
-  // }
-
-  // itemProfile(
-  //   String title,
-  //   String subtitle,
-  //   IconData iconData,
-  // ) {
-  //   return Container(
-  //     height: MediaQuery.of(context).size.height * 0.08,
-  //     decoration: BoxDecoration(
-  //       color: Colors.white,
-  //       borderRadius: BorderRadius.circular(10),
-  //     ),
-  //     child: ListTile(
-  //       title: Text(title),
-  //       subtitle: Text(subtitle),
-  //       leading: Icon(iconData),
-  //     ),
-  //   );
-  // }
+  
 
   void showEducationDropdown(BuildContext context) async {
     List<String> educationList = [

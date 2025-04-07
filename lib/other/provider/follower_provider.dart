@@ -12,13 +12,6 @@ class FollowerProvider extends ChangeNotifier {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      /*if (_isFollowing) {
-        await ApiService.Unfollow_councellor(id);
-        _followCount--;
-      } else {
-        await ApiService.Follow_councellor(id);
-        _followCount++;
-      }*/
 
       await prefs.setInt('follow_count', _followCount);
       _isFollowing = !_isFollowing;

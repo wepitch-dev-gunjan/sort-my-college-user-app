@@ -38,21 +38,7 @@ class _SelectGenderState extends State<SelectGender> {
                   height: 80,
                 ),
               ),
-              // Container(
-              //   // sortyourentirecollegejourneyDQ (1115:271)
-              //   margin: const EdgeInsets.fromLTRB(0, 0, 0, 50),
-              //   // child: Text(
-              //   //   'All in one platform for student',
-              //   //   textAlign: TextAlign.center,
-              //   //   style: SafeGoogleFont(
-              //   //     'Roboto',
-              //   //     fontSize: 15,
-              //   //     fontWeight: FontWeight.w700,
-              //   //     height: 1.1725,
-              //   //     color: const Color(0xff1f0a68),
-              //   //   ),
-              //   // ),
-              // ),
+           
               Text(
                 "Select Your Gender",
                 style: SafeGoogleFont(

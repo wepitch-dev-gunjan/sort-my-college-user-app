@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:developer';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:myapp/home_page/homepagecontainer.dart';
@@ -53,11 +54,14 @@ class MessageService {
     log("Initializing Firebase Messaging...");
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      log('Got a message whilst in the foreground!');
-      log('Message title: ${message.notification?.title ?? "No title"}');
-      log('Message body: ${message.notification?.body ?? "No body"}');
-      log('Message data: ${message.data}');
 
+      if (kDebugMode) {
+        log('Got a message whilst in the foreground!');
+        log('Message title: ${message.notification?.title ?? "No title"}');
+        log('Message body: ${message.notification?.body ?? "No body"}');
+        log('Message data: ${message.data}');
+      }
+      
       if (message.notification != null) {
         if (Platform.isIOS) {
           forgroundMessage();

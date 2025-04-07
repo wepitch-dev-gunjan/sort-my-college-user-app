@@ -20,10 +20,7 @@ class _BookingUpcomingState extends State<BookingUpcoming> {
     getUpcomingData();
   }
 
-  // Future<void> _refresh() async {
-  //   return context.read<UserBookingProvider>().fetchUserBookings(past: false, today: false, upcoming: true);
-  //   //return context.read<UserBookingProvider>().fetchUserBookingsTest();
-  // }
+  
 
   getUpcomingData() async {
     final upcomingData = await ApiService.getUserBookings(
