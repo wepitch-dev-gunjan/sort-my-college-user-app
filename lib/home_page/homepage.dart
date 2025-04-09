@@ -22,6 +22,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../app_update.dart';
 import '../booking_page/checkout_screen.dart';
+import '../notifications/screens/home_page_notification.dart';
 import '../other/api_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -157,23 +158,23 @@ class _HomePageState extends State<HomePage> {
               preferredSize: const Size(double.infinity, 12),
               child: Container()),
           titleSpacing: 1,
-          actions: const [
-            // GestureDetector(
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //         builder: (context) => const Notification2(),
-            //       ),
-            //     );
-            //   },
-            //   child: Image.asset(
-            //     'assets/page-1/images/bell.png',
-            //     width: 18,
-            //     height: 18,
-            //     color: Colors.black,
-            //   ),
-            // ),
+          actions:  [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>  NotificationScreen(),
+                  ),
+                );
+              },
+              child: Image.asset(
+                'assets/page-1/images/bell.png',
+                width: 18,
+                height: 18,
+                color: Colors.black,
+              ),
+            ),
             SizedBox(width: 28),
           ],
         ),

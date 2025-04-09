@@ -50,7 +50,6 @@ dependencies:
   in_app_update: ^4.2.3
   flutter_dotenv: ^5.2.1
   webview_flutter: ^4.10.0
-  # truecaller_sdk: ^1.0.0
   # permission_handler: ^11.3.1
   
 
