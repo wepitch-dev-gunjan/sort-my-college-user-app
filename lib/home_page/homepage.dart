@@ -123,9 +123,7 @@ class _HomePageState extends State<HomePage> {
           surfaceTintColor: ColorsConst.whiteColor,
           title: Row(
             children: [
-              const SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               Expanded(
                 child: Text(
                   'Hello, $username',
@@ -158,13 +156,27 @@ class _HomePageState extends State<HomePage> {
               preferredSize: const Size(double.infinity, 12),
               child: Container()),
           titleSpacing: 1,
-          actions:  [
+          actions: [
+            // IconButton(
+            //     onPressed: () {
+            //       Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //           builder: (context) => NotificationScreen(),
+            //         ),
+            //       );
+            //     },
+            //     icon: const Icon(
+            //       Icons.notifications,
+            //       color: Colors.black87,
+            //       size: 24,
+            //     )),
             GestureDetector(
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>  NotificationScreen(),
+                    builder: (context) => NotificationScreen(),
                   ),
                 );
               },
@@ -175,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.black,
               ),
             ),
-            SizedBox(width: 28),
+           const SizedBox(width: 15),
           ],
         ),
         body: RefreshIndicator(

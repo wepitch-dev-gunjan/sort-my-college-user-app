@@ -35,7 +35,7 @@ class NotificationScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           final notification = notifications[index];
           return Card(
-            // color: Colors.red,
+            color: Colors.white,
             margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             elevation: 3,
             shape: RoundedRectangleBorder(
