@@ -1279,4 +1279,20 @@ class ApiService {
     }
     return [];
   }
+
+  static Future getUserNotification() async {
+    var url = Uri.parse(
+        "${AppConstants.baseUrl}/notification/get-notifications/users");
+
+    final response = await http.get(url);
+
+    dynamic data;
+
+    if (response.statusCode == 200) {
+      data = jsonDecode(response.body.toString());
+
+      return data;
+    }
+    return [];
+  }
 }
