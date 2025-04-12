@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:myapp/model/cousnellor_list_model.dart';
 import 'package:myapp/model/follower_model.dart';
 import 'package:myapp/other/provider/counsellor_details_provider.dart';
 import 'package:myapp/other/provider/follower_provider.dart';
@@ -34,13 +33,11 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
   TextEditingController controller = TextEditingController();
 
   bool visible = false;
-  List<CounsellorModel> counsellorModel = [];
   bool isFollowLoading = false;
   bool isFollowing = false;
   int followerCount = 0;
   bool isLoading = true;
 
-  // bool hasFollowedBefore = false;
   double ratingVal = 5;
   String feedbackMsg = '';
 
@@ -154,7 +151,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                                 StackTrace? stackTrace) {
                                               return Image.network(
                                                 counsellor['cover_image'],
-                                                // 'assets/page-1/images/comming_soon.png',
                                                 fit: BoxFit.fill,
                                               );
                                             },
@@ -198,9 +194,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                           const SizedBox(width: 6),
                                           Text(
                                             "${counsellor['average_rating']}",
-                                            // (counsellor['average_rating'] == '')
-                                            //     ? '${counsellor['average_rating'].toStringAsFixed(2)} (${counsellor['client_testimonials']!.where((testimonial) => testimonial.rating != 0).length})'
-                                            //     : '0',
                                             style:
                                                 const TextStyle(fontSize: 12),
                                           ),
@@ -240,13 +233,10 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                         ),
                                         child: TextButton(
                                           onPressed: () async {
-                                            log("Following => ${counsellor['following']}");
-
                                             String topicName =
                                                 "counsellor_${counsellor['_id']}"; // Topic name
 
                                             if (isFollowing) {
-                                              // Unfollow counsellor
                                               var value = await ApiService
                                                   .unfollowCouncellor(
                                                       counsellor['_id'],
@@ -257,8 +247,7 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
         // ======================================! Topic Subscribe !================================
                                               await TopicManager.unsubscribe(
                                                   topicName);
-                                              log("Unsubscribed from $topicName");
-
+                                             
                                               setState(() {});
                                             } else {
                                               // Follow counsellor
@@ -266,14 +255,10 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                                   .followCouncellor(
                                                       counsellor['_id'],
                                                       setIsFollowingLoading);
-                                              log("value1$value");
-
                                               isFollowing =
                                                   value["data"]["followed"];
-                                              log("Isfollow$isFollowing");
 
                                               followerCount = followerCount + 1;
-
                                               // Subscribe to the topic
                                               await TopicManager.subscribe(
                                                   topicName);
@@ -283,38 +268,6 @@ class _CounsellorDetailsScreenState extends State<CounsellorDetailsScreen>
                                             }
                                           },
 
-                                          // onPressed: () async {
-                                          //   log("Following => ${counsellor['following']}");
-                                          //   if (isFollowing) {
-                                          //     var value = await ApiService
-                                          //         .unfollowCouncellor(
-                                          //             counsellor['_id'],
-                                          //             setIsFollowingLoading);
-
-                                          //     log("value$isFollowing");
-
-                                          //     isFollowing =
-                                          //         value["data"]["followed"];
-
-                                          //     log("Isfollow$value");
-                                          //     followerCount = followerCount - 1;
-
-                                          //     setState(() {});
-                                          //   } else {
-                                          //     var value = await ApiService
-                                          //         .followCouncellor(
-                                          //             counsellor['_id'],
-                                          //             setIsFollowingLoading);
-                                          //     log("value1$value");
-
-                                          //     isFollowing =
-                                          //         value["data"]["followed"];
-                                          //     log("Isfollow$isFollowing");
-                                          //     followerCount = followerCount + 1;
-
-                                          //     setState(() {});
-                                          //   }
-                                          // },
                                           style: TextButton.styleFrom(
                                             padding: EdgeInsets.zero,
                                             backgroundColor: isFollowing
@@ -1324,7 +1277,6 @@ class _CounsellorReviewCardState extends State<CounsellorReviewCard> {
 
   @override
   Widget build(BuildContext context) {
-    // log("cou=nsellorReviews${widget.reviews}");
     if (widget.reviews == null || widget.reviews!.isEmpty) {
       return const SizedBox.shrink();
     }

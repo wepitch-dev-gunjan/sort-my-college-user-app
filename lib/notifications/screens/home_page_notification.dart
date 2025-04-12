@@ -1,11 +1,10 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/other/api_service.dart';
 
 class NotificationScreen extends StatefulWidget {
-  NotificationScreen({super.key});
+  const NotificationScreen({super.key});
 
   @override
   State<NotificationScreen> createState() => _NotificationScreenState();
@@ -31,7 +30,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log("Notifications$data");
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -50,6 +48,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   itemCount: data['notifications'].length,
                   itemBuilder: (context, index) {
                     final notification = data['notifications'][index];
+                    log("Dataa=>>>${DateTime.now()}");
                     return Card(
                       color: Colors.white,
                       margin: const EdgeInsets.symmetric(
@@ -59,23 +58,23 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: ListTile(
-                        leading: const Icon(Icons.notifications,
-                            color: Colors.deepPurple),
+                        // leading: const Icon(Icons.notifications,
+                        //     color: Colors.deepPurple),
                         title: Text(
-                          notification['title'],
+                          notification['title'] ?? "N/A",
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(notification['messege']),
+                            Text(notification['message'] ?? "N/A"),
                             const SizedBox(height: 4),
-                            // Text(
-                            //   DateFormat('dd MMM yyyy, hh:mm a')
-                            //       .format(notification.dateTime),
-                            //   style: TextStyle(
-                            //       fontSize: 12, color: Colors.grey[600]),
-                            // ),
+                            Text(
+                              DateFormat('dd MMM yyyy, hh:mm a')
+                                  .format(DateTime.now()),
+                              style: TextStyle(
+                                  fontSize: 12, color: Colors.grey[600]),
+                            ),
                           ],
                         ),
                       ),

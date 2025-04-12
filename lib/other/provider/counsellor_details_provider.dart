@@ -19,7 +19,7 @@ import '../api_service.dart';
 class CounsellorDetailsProvider extends ChangeNotifier {
   List<CounsellorDetail> cousnellorlist_detail = [];
   List<ClientTestimonials> clientList = [];
-  List<CounsellorModel> counsellorModel = [];
+  // List<CounsellorModel> counsellorModel = [];
   List<CounsellorData> counsellorData = [];
   List<WebinarModel> webinarList = [];
   List<BannerImageModel> bannerImageList = [];
@@ -197,7 +197,7 @@ class CounsellorDetailsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<CounsellorModel> cousnellorlist = [];
+  // List<CounsellorModel> cousnellorlist = [];
   List<CounsellorData> cousnellorlist_data = [];
 
   // void fetchCounsellor_data () async {
