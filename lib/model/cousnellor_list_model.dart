@@ -1,4 +1,4 @@
-import 'dart:convert';
+
 
 // List<CounsellorModel> counsellorModelFromJson(String str) =>
 //     List<CounsellorModel>.from(
@@ -117,54 +117,54 @@ import 'dart:convert';
 //       };
 // }
 
-class PersonalInfo {
-  Location location;
-  String name;
-  String profilePic;
-  String gender;
+// class PersonalInfo {
+//   Location location;
+//   String name;
+//   String profilePic;
+//   String gender;
 
-  PersonalInfo({
-    required this.location,
-    required this.name,
-    required this.profilePic,
-    required this.gender,
-  });
+//   PersonalInfo({
+//     required this.location,
+//     required this.name,
+//     required this.profilePic,
+//     required this.gender,
+//   });
 
-  factory PersonalInfo.fromJson(Map<String, dynamic> json) => PersonalInfo(
-        location: Location.fromJson(json["location"]),
-        name: json["name"],
-        profilePic: json["profile_pic"],
-        gender: json["gender"],
-      );
+//   factory PersonalInfo.fromJson(Map<String, dynamic> json) => PersonalInfo(
+//         location: Location.fromJson(json["location"]),
+//         name: json["name"],
+//         profilePic: json["profile_pic"],
+//         gender: json["gender"],
+//       );
 
-  Map<String, dynamic> toJson() => {
-        "location": location.toJson(),
-        "name": name,
-        "profile_pic": profilePic,
-        "gender": gender,
-      };
-}
+//   Map<String, dynamic> toJson() => {
+//         "location": location.toJson(),
+//         "name": name,
+//         "profile_pic": profilePic,
+//         "gender": gender,
+//       };
+// }
 
-class Location {
-  String city;
-  String state;
-  String country;
+// class Location {
+//   String city;
+//   String state;
+//   String country;
 
-  Location({
-    required this.city,
-    required this.state,
-    required this.country,
-  });
+//   Location({
+//     required this.city,
+//     required this.state,
+//     required this.country,
+//   });
 
-  factory Location.fromJson(Map<String, dynamic> json) => Location(
-        city: json["city"],
-        state: json["state"],
-        country: json["country"],
-      );
+//   factory Location.fromJson(Map<String, dynamic> json) => Location(
+//         city: json["city"],
+//         state: json["state"],
+//         country: json["country"],
+//       );
 
-  Map<String, dynamic> toJson() => {
-        "city": city,
-        "state": state,
-        "country": country,
-      };
-}
+//   Map<String, dynamic> toJson() => {
+//         "city": city,
+//         "state": state,
+//         "country": country,
+//       };
+// }

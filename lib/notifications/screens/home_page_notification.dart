@@ -58,8 +58,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: ListTile(
-                        // leading: const Icon(Icons.notifications,
-                        //     color: Colors.deepPurple),
+                        // leading: const CircleAvatar(
+                        //   child: Center(
+                        //     child: Icon(Icons.notifications,
+                        //         color: Colors.deepPurple),
+                        //   ),
+                        // ),
                         title: Text(
                           notification['title'] ?? "N/A",
                           style: const TextStyle(fontWeight: FontWeight.bold),

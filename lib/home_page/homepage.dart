@@ -176,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => NotificationScreen(),
+                    builder: (context) =>const NotificationScreen(),
                   ),
                 );
               },

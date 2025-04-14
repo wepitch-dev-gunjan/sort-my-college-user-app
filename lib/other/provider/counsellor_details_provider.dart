@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:myapp/home_page/model/banner_image_model.dart';
 import 'package:myapp/home_page/model/popular_workshop_model.dart';
 import 'package:myapp/home_page/model/tranding_webinar_model.dart';
@@ -9,7 +8,6 @@ import 'package:myapp/model/check_out_details_model.dart';
 import 'package:myapp/model/counsellor_data.dart';
 import 'package:myapp/model/counsellor_detail.dart';
 import 'package:myapp/model/counsellor_sessions.dart';
-import 'package:myapp/model/cousnellor_list_model.dart';
 import 'package:myapp/model/key_features_model.dart';
 import 'package:myapp/webinar_page/webinar_model.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -179,62 +177,7 @@ class CounsellorDetailsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void fetchCounsellor_session_all(
-      {required String id, String? date, String? sessionType}) async {
-    try {
-      isLoading = true;
-      if (date != null) {
-        var counsellor = await ApiService.getCounsellor_sessions_all(
-            date: date, sessionType: sessionType, id: id);
-        details = counsellor;
-      } else {
-        var counsellor = await ApiService.getCounsellor_sessions_all(id: id);
-        allDetails = counsellor;
-      }
-    } finally {
-      isLoading = false;
-    }
-    notifyListeners();
-  }
 
-  // List<CounsellorModel> cousnellorlist = [];
-  List<CounsellorData> cousnellorlist_data = [];
+  List<CounsellorData> cousnellorlistData = [];
 
-  // void fetchCounsellor_data () async {
-  //   try{
-  //     isLoading(true);
-  //     var counsellor = await ApiService.getCounsellorData();
-  //     cousnellorlist_data.assignAll(counsellor);
-  //   }
-  //   finally{
-  //     isLoading(false);
-  //   }
-  // }
-
-  void fetchCourses(String id) async {
-    var courses = await ApiService.getCourse(id);
-    isLoading = true;
-    if (courses.isEmpty) {
-      isLoading = true;
-    } else {
-      courseList = courses;
-      isLoading = false;
-    }
-    notifyListeners();
-  }
-
-  refresh() {
-    return Future.delayed(const Duration(seconds: 1), () {
-      ApiService.getCounsellorData().then((value) {
-        if (value.isNotEmpty) {
-          notifyListeners();
-        }
-        if (value[0].name == "none") {
-          EasyLoading.showToast("404 Page Not Found",
-              toastPosition: EasyLoadingToastPosition.bottom);
-        }
-        notifyListeners();
-      });
-    });
-  }
 }
