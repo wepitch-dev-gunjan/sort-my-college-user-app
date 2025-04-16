@@ -1241,9 +1241,10 @@ class ApiService {
   }
 
   //=========================! Get Colleges !===========================
-  static Future getColleges() async {
+  static Future getColleges({required dynamic citys}) async {
+    final cityParam = citys.join(',');
     var url = Uri.parse(
-        "${AppConstants.baseUrl}/admin/accommodation/user/get-nearby-colleges");
+        "${AppConstants.baseUrl}/admin/accommodation/user/get-nearby-colleges?city=$cityParam");
 
     final response = await http.get(url);
 

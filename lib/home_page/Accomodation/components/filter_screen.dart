@@ -4,19 +4,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:developer' as developer;
+
+import '../../../other/api_service.dart';
+
+// Assume ApiService is defined elsewhere
+// import 'package:your_app/services/api_service.dart';
 
 class FilterScreen extends StatefulWidget {
   final List<String> cities;
-  final List<String> colleges;
 
-  const FilterScreen({super.key, required this.cities, required this.colleges});
+  const FilterScreen({super.key, required this.cities});
 
   @override
   FilterScreenState createState() => FilterScreenState();
 }
 
-class FilterScreenState extends State<FilterScreen>
-    with WidgetsBindingObserver {
+class FilterScreenState extends State<FilterScreen> with WidgetsBindingObserver {
   bool isLoading = true;
   String selectedCategory = 'City';
   String searchQuery = '';
@@ -30,6 +39,7 @@ class FilterScreenState extends State<FilterScreen>
 
   late Map<String, List<bool>> selectedOptions;
   RangeValues budgetRange = const RangeValues(1000, 100000);
+  bool isFetchingColleges = false;
 
   @override
   void initState() {
@@ -37,12 +47,10 @@ class FilterScreenState extends State<FilterScreen>
     WidgetsBinding.instance.addObserver(this);
 
     filterOptions['City'] = widget.cities;
-    filterOptions['Near By Colleges'] = widget.colleges;
 
     selectedOptions = {};
     for (var category in filterOptions.keys) {
-      selectedOptions[category] =
-          List<bool>.filled(filterOptions[category]!.length, false);
+      selectedOptions[category] = List<bool>.filled(filterOptions[category]!.length, false);
     }
 
     _loadFilters();
@@ -56,9 +64,8 @@ class FilterScreenState extends State<FilterScreen>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused ||
-        state == AppLifecycleState.detached) {
-      _clearFilters(); // Clear filters when app is terminated or goes to background
+    if (state == AppLifecycleState.paused || state == AppLifecycleState.detached) {
+      _clearFilters();
     }
   }
 
@@ -107,6 +114,51 @@ class FilterScreenState extends State<FilterScreen>
     await prefs.remove('budgetRange');
   }
 
+  // Modified to use ApiService.getColleges
+  Future<List<String>> _fetchColleges() async {
+    // Get selected cities
+    List<String> selectedCities = [];
+    for (int i = 0; i < selectedOptions['City']!.length; i++) {
+      if (selectedOptions['City']![i]) {
+        selectedCities.add(filterOptions['City']![i]);
+      }
+    }
+    try {
+      final res = await ApiService.getColleges(citys: selectedCities);
+      return res['colleges'].cast<String>();
+    } catch (e) {
+      developer.log('Error fetching colleges: $e');
+      return [];
+    }
+  }
+
+  Future<void> _loadColleges() async {
+    if (filterOptions['Near By Colleges']!.isEmpty || selectedCategory == 'Near By Colleges') {
+      setState(() {
+        isFetchingColleges = true;
+      });
+      try {
+        final colleges = await _fetchColleges();
+        if (!mounted) return; // Check if widget is still mounted
+        setState(() {
+          filterOptions['Near By Colleges'] = colleges;
+          selectedOptions['Near By Colleges'] = List<bool>.filled(colleges.length, false);
+          isFetchingColleges = false;
+        });
+      } catch (e) {
+        if (!mounted) return;
+        setState(() {
+          isFetchingColleges = false;
+        });
+        developer.log('Error in _loadColleges: $e');
+        // Optionally show a snackbar or error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to load colleges: $e')),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 460;
@@ -114,8 +166,7 @@ class FilterScreenState extends State<FilterScreen>
     double ffem = fem * 0.97;
 
     List<String> filteredOptions = filterOptions[selectedCategory]!
-        .where((option) =>
-            option.toLowerCase().contains(searchQuery.toLowerCase()))
+        .where((option) => option.toLowerCase().contains(searchQuery.toLowerCase()))
         .toList();
 
     return Scaffold(
@@ -136,18 +187,17 @@ class FilterScreenState extends State<FilterScreen>
                   selectedOptions[key] =
                       List<bool>.filled(selectedOptions[key]!.length, false);
                 }
-                // Reset budget range and clear budget options
                 budgetRange = const RangeValues(1000, 100000);
                 filterOptions['Budget'] = [];
+                filterOptions['Near By Colleges'] = [];
+                selectedOptions['Near By Colleges'] = [];
               });
               await _clearFilters();
             },
             child: Text(
               'CLEAR ALL',
               style: GoogleFonts.inter(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700),
+                  color: Colors.black, fontSize: 14, fontWeight: FontWeight.w700),
             ),
           ),
         ],
@@ -175,19 +225,19 @@ class FilterScreenState extends State<FilterScreen>
                                   title: Text(
                                     category,
                                     style: TextStyle(
-                                      color: isSelected
-                                          ? Colors.white
-                                          : Colors.black,
+                                      color: isSelected ? Colors.white : Colors.black,
                                     ),
                                   ),
-                                  tileColor: isSelected
-                                      ? const Color(0xff1F0A68)
-                                      : Colors.white,
-                                  onTap: () {
+                                  tileColor:
+                                      isSelected ? const Color(0xff1F0A68) : Colors.white,
+                                  onTap: () async {
                                     setState(() {
                                       selectedCategory = category;
                                       searchQuery = '';
                                     });
+                                    if (category == 'Near By Colleges') {
+                                      await _loadColleges();
+                                    }
                                   },
                                 ),
                                 Container(
@@ -238,8 +288,8 @@ class FilterScreenState extends State<FilterScreen>
                                   ),
                                   const SizedBox(height: 5.0),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15.0),
+                                    padding:
+                                        const EdgeInsets.symmetric(horizontal: 15.0),
                                     child: Text(
                                       '₹${budgetRange.start.toInt()} - ₹${budgetRange.end.toInt()}',
                                       style: GoogleFonts.inter(
@@ -273,28 +323,33 @@ class FilterScreenState extends State<FilterScreen>
                               ),
                             if (selectedCategory != 'Budget')
                               Expanded(
-                                child: ListView.builder(
-                                  itemCount: filteredOptions.length,
-                                  itemBuilder: (context, index) {
-                                    String option = filteredOptions[index];
-                                    int originalIndex =
-                                        filterOptions[selectedCategory]!
-                                            .indexOf(option);
-                                    return CheckboxListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.leading,
-                                      value: selectedOptions[selectedCategory]![
-                                          originalIndex],
-                                      title: Text(option),
-                                      onChanged: (bool? value) {
-                                        setState(() {
-                                          selectedOptions[selectedCategory]![
-                                              originalIndex] = value!;
-                                        });
-                                      },
-                                    );
-                                  },
-                                ),
+                                child: isFetchingColleges &&
+                                        selectedCategory == 'Near By Colleges'
+                                    ? const Center(
+                                        child:
+                                            CircularProgressIndicator(strokeWidth: 2))
+                                    : ListView.builder(
+                                        itemCount: filteredOptions.length,
+                                        itemBuilder: (context, index) {
+                                          String option = filteredOptions[index];
+                                          int originalIndex =
+                                              filterOptions[selectedCategory]!
+                                                  .indexOf(option);
+                                          return CheckboxListTile(
+                                            controlAffinity:
+                                                ListTileControlAffinity.leading,
+                                            value: selectedOptions[selectedCategory]![
+                                                originalIndex],
+                                            title: Text(option),
+                                            onChanged: (bool? value) {
+                                              setState(() {
+                                                selectedOptions[selectedCategory]![
+                                                    originalIndex] = value!;
+                                              });
+                                            },
+                                          );
+                                        },
+                                      ),
                               ),
                           ],
                         ),
@@ -356,7 +411,7 @@ class FilterScreenState extends State<FilterScreen>
                     selectedItems['Budget'] = filterOptions['Budget']!;
                   }
 
-                  log("Selected Items =>> $selectedItems");
+                  developer.log("Selected Items =>> $selectedItems");
                   await _saveFilters();
                   Navigator.pop(context, selectedItems);
                 },

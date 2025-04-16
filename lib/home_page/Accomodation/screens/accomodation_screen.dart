@@ -53,8 +53,10 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
     });
   }
 
+  // yha se fir se update krna hai 
+
   Future<void> getColleges() async {
-    final res = await ApiService.getColleges();
+    final res = await ApiService.getColleges(citys: ["Delhi","Jaipur"]);
     if (!mounted) return; // Check if widget is still mounted
     setState(() {
       colleges = res['colleges'].cast<String>();
@@ -165,7 +167,7 @@ class AccommodationCard extends StatelessWidget {
               MaterialPageRoute(
                   builder: (context) => FilterScreen(
                         cities: cities,
-                        colleges: colleges,
+                        // colleges: colleges,
                       )),
             ).then((result) {
               if (result != null) {
