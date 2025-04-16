@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/home_page/Accomodation/components/filter_screen.dart';
@@ -20,14 +19,12 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
   bool isLoading = true;
   List data = [];
   List<String> cities = [];
-  List<String> colleges = [];
   Map<String, List<String>> appliedFilters = {}; // Applied filters
 
   @override
   void initState() {
     super.initState();
     getCities();
-    getColleges();
     fetchAccommodations(); // Fetch data with filters
   }
 
@@ -53,16 +50,6 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
     });
   }
 
-  // yha se fir se update krna hai 
-
-  Future<void> getColleges() async {
-    final res = await ApiService.getColleges(citys: ["Delhi","Jaipur"]);
-    if (!mounted) return; // Check if widget is still mounted
-    setState(() {
-      colleges = res['colleges'].cast<String>();
-    });
-  }
-
   void _applyFilters(Map<String, List<String>> filters) {
     if (!mounted) return; // Check if widget is still mounted
     setState(() {
@@ -79,13 +66,11 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
   void dispose() {
     data.clear();
     cities.clear();
-    colleges.clear();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: ColorsConst.whiteColor,
       appBar: const CusAppBar(
@@ -111,7 +96,6 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
                     children: [
                       AccommodationCard(
                         cities: cities,
-                        colleges: colleges,
                         data: data,
                         onRefresh: _refreshAccommodations,
                         appliedFilters: appliedFilters,
@@ -125,8 +109,7 @@ class _AccomodationScreenState extends State<AccomodationScreen> {
 }
 
 class AccommodationCard extends StatelessWidget {
-  final List<String> cities, colleges;
-
+  final List<String> cities;
   final dynamic data;
   final Function onRefresh;
   final Map<String, List<String>> appliedFilters;
@@ -139,7 +122,6 @@ class AccommodationCard extends StatelessWidget {
     required this.appliedFilters,
     required this.onFiltersUpdated,
     required this.cities,
-    required this.colleges,
   });
 
   @override
@@ -167,7 +149,6 @@ class AccommodationCard extends StatelessWidget {
               MaterialPageRoute(
                   builder: (context) => FilterScreen(
                         cities: cities,
-                        // colleges: colleges,
                       )),
             ).then((result) {
               if (result != null) {
