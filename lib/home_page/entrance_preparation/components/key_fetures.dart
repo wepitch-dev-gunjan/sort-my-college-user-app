@@ -43,8 +43,6 @@ class KeyFeatures extends StatelessWidget {
                 elevation: 3,
                 borderRadius: BorderRadius.circular(21),
                 child: Container(
-                  // height: 50,
-                  // width: 65,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(21)),
@@ -61,17 +59,6 @@ class KeyFeatures extends StatelessWidget {
                           height: 40,
                           width: 40,
                         ),
-
-                        // SvgPicture.network(
-                        //   "${keyFeatures[index]['key_features_icon']}",
-                        //   placeholderBuilder: (BuildContext context) =>
-                        //       const CircularProgressIndicator(),
-                        // ),
-                        // const Icon(
-                        //   Icons.account_balance_sharp,
-                        //   size: 40,
-                        // ),
-                        // const SizedBox(height: 4.0),
 
                         Expanded(
                           child: Text(

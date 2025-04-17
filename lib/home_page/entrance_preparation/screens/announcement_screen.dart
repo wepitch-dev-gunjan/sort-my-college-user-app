@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/home_page/entrance_preparation/components/commons.dart';
 import 'package:intl/intl.dart';
-import 'package:myapp/other/api_service.dart'; // Import the intl package
+import 'package:myapp/other/api_service.dart'; 
 
 class AnnouncementScreen extends StatefulWidget {
   final String id;

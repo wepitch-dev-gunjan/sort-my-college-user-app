@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'ep_comp.dart';
 
 class CourseSection extends StatelessWidget {

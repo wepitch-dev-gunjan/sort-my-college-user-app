@@ -1,5 +1,3 @@
-// import 'dart:developer';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
@@ -181,6 +179,7 @@ class _CounsellorScreenState extends State<CounsellorScreen> {
                                                     offset: const Offset(0, 1),
                                                     blurRadius: 2,
                                                     color: Colors.black
+                                                        // ignore: deprecated_member_use
                                                         .withOpacity(0.1),
                                                   ),
                                                 ],
@@ -955,25 +954,12 @@ class _CounsellorScreenState extends State<CounsellorScreen> {
                                       padding: const EdgeInsets.all(10),
                                       child: Center(
                                         child: hasMoreData
-                                            ? CircularProgressIndicator()
-                                            : SizedBox.shrink(),
+                                            ? const CircularProgressIndicator()
+                                            : const SizedBox.shrink(),
                                       ),
                                     ),
 
-                                  // if (isMoreDataLoading)
-                                  //   const Padding(
-                                  //     padding: EdgeInsets.all(10),
-                                  //     child: Center(
-                                  //       child: CircularProgressIndicator(),
-                                  //     ),
-                                  //   ),
-                                  // if (!isMoreDataLoading && !hasMoreData)
-                                  //   const Padding(
-                                  //     padding: EdgeInsets.all(10),
-                                  //     child: Center(
-                                  //       child: Text("No more counsellors"),
-                                  //     ),
-                                  //   ),
+                               
                                 ],
                               ),
                             ),
@@ -988,13 +974,6 @@ class _CounsellorScreenState extends State<CounsellorScreen> {
     );
   }
 
-  /*void onTapgotocounsellor(BuildContext context,
-      {required String name, required String id}) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => CounsellingSessionPage(name: name, id: id)));
-  }*/
 
   Future<bool> _onBackPressed() async {
     Navigator.pushReplacement(context,
@@ -1020,36 +999,11 @@ class AppBar extends StatelessWidget {
           child: IconButton(
             onPressed: () {
               navigationPop();
-              // Navigator.pushReplacement(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) => const HomePageContainer()));
-              //
             },
             icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           ),
         ),
-        // GestureDetector(
-        //   onTap: () {
-        //     Navigator.pop(context);
-        //   },
-        //   child: GestureDetector(
-        //     onTap: () {
-        //       Navigator.pushReplacement(
-        //           context,
-        //           MaterialPageRoute(
-        //               builder: (context) => const HomePageContainer()));
-        //     },
-        //     child: const Padding(
-        //       padding: EdgeInsets.only(left: 10),
-        //       child: Icon(
-        //         Icons.arrow_back_ios,
-        //         color: Color(0xff1f0a68),
-        //         size: 25,
-        //       ),
-        //     ),
-        //   ),
-        // ),
+      
         const Text(
           'Find Counsellors',
           style: TextStyle(

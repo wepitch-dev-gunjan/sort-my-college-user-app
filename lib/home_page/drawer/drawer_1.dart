@@ -1,4 +1,3 @@
-// ignore_for_file: unnecessary_null_comparison
 import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -249,64 +248,6 @@ class _Drawer1State extends State<Drawer1> {
                                 Navigator.pop(context);
                               },
                               child: const Text('Cancel')),
-
-                          // TextButton(
-                          //   onPressed: () async {
-                          //     // Fetch the list of followed counsellors
-                          //     var followedCounsellors =
-                          //         await ApiService.getUserFollowing();
-
-                          //     // Perform unsubscription in the background
-                          //     Future.microtask(() async {
-                          //       List<Future<void>> unsubscriptionFutures = [];
-
-                          //       for (var counselor in followedCounsellors) {
-                          //         if (counselor.containsKey('id')) {
-                          //           String topic =
-                          //               "counsellor_${counselor['id']}";
-                          //           unsubscriptionFutures
-                          //               .add(TopicManager.unsubscribe(topic));
-                          //         }
-                          //       }
-
-                          //       // Unsubscribe from "smc_users"
-                          //       unsubscriptionFutures
-                          //           .add(TopicManager.unsubscribe("smc_users"));
-
-                          //       // Wait for unsubscriptions to complete
-                          //       await Future.wait(unsubscriptionFutures);
-
-                          //       log("All topics unsubscribed successfully");
-                          //     });
-
-                          //     // Proceed with logout immediately
-                          //     await _logout();
-                          //     if (mounted) {
-                          //       Navigator.pushReplacement(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //             builder: (context) =>
-                          //                 const SplashScreenNew()),
-                          //       );
-                          //     }
-                          //   },
-                          //   child: const Text('Logout'),
-                          // )
-
-                          // TextButton(
-                          //   onPressed: () async {
-                          //     await _logout();
-                          //     if (mounted) {
-                          //       Navigator.pushReplacement(
-                          //           context,
-                          //           MaterialPageRoute(
-                          //               builder: (context) =>
-                          //                   const SplashScreenNew()));
-                          //     }
-                          //   },
-                          //   child: const Text('Logout'),
-                          // ),
-
                           TextButton(
                             onPressed: () async {
                               SharedPreferences prefs =

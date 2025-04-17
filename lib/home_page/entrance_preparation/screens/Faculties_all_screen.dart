@@ -62,17 +62,6 @@ class FacultiesCard extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Container(
-                    //   height: 110,
-                    //   width: 100,
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(5),
-                    //     image: DecorationImage(
-                    //       image: NetworkImage(data['display_pic']),
-                    //     ),
-                    //     color: Colors.white,
-                    //   ),
-                    // ),
                     SizedBox(
                       width: 95 * fem,
                       height: 104 * fem,
