@@ -97,25 +97,24 @@ class _Drawer1State extends State<Drawer1> {
                                   'assets/page-1/images/profilepic.jpg',
                                   fit: BoxFit.cover,
                                 ),
-                                if (path != null)
-                                  Image.network(
-                                    path,
-                                    fit: BoxFit.cover,
-                                    filterQuality: FilterQuality.none,
-                                    loadingBuilder: (BuildContext context,
-                                        Widget child,
-                                        ImageChunkEvent? loadingProgress) {
-                                      if (loadingProgress == null) {
-                                        return child;
-                                      } else {
-                                        return const SizedBox();
-                                      }
-                                    },
-                                    errorBuilder: (BuildContext context,
-                                        Object error, StackTrace? stackTrace) {
+                                Image.network(
+                                  path,
+                                  fit: BoxFit.cover,
+                                  filterQuality: FilterQuality.none,
+                                  loadingBuilder: (BuildContext context,
+                                      Widget child,
+                                      ImageChunkEvent? loadingProgress) {
+                                    if (loadingProgress == null) {
+                                      return child;
+                                    } else {
                                       return const SizedBox();
-                                    },
-                                  ),
+                                    }
+                                  },
+                                  errorBuilder: (BuildContext context,
+                                      Object error, StackTrace? stackTrace) {
+                                    return const SizedBox();
+                                  },
+                                ),
                               ],
                             ),
                           ),
@@ -123,9 +122,7 @@ class _Drawer1State extends State<Drawer1> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 11,
-                  ),
+                  const SizedBox(height: 11),
                   Text(
                     name,
                     style: SafeGoogleFont(
@@ -145,7 +142,6 @@ class _Drawer1State extends State<Drawer1> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      //Navigator.pop(context);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -260,7 +256,7 @@ class _Drawer1State extends State<Drawer1> {
                               await prefs.remove('subscribedTopics');
                               await prefs.remove('allTopics');
                               await FirebaseMessaging.instance.deleteToken();
-                            
+
                               // 🔹 Perform logout
                               await _logout();
 

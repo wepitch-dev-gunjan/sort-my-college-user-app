@@ -176,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>const NotificationScreen(),
+                    builder: (context) => const NotificationScreen(),
                   ),
                 );
               },
@@ -187,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.black,
               ),
             ),
-           const SizedBox(width: 15),
+            const SizedBox(width: 15),
           ],
         ),
         body: RefreshIndicator(
@@ -383,272 +383,280 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 14, right: 14, bottom: 0, top: 2),
-                                    child:
-                                        counsellorSessionProvider
-                                                .trendingWebinarList.isEmpty
-                                            ? const Padding(
-                                                padding:
-                                                    EdgeInsets.only(top: 100),
-                                                child: Center(
-                                                    child:
-                                                        CircularProgressIndicator()),
-                                              )
-                                            : ListView.builder(
-                                                shrinkWrap: true,
-                                                physics:
-                                                    const NeverScrollableScrollPhysics(),
-                                                itemCount:
+                                  padding: const EdgeInsets.only(
+                                      left: 14, right: 14, bottom: 0, top: 2),
+                                  child:
+                                      counsellorSessionProvider
+                                              .trendingWebinarList.isEmpty
+                                          ? const Padding(
+                                              padding:
+                                                  EdgeInsets.only(top: 100),
+                                              child: Center(
+                                                  child:
+                                                      CircularProgressIndicator()),
+                                            )
+                                          : ListView.builder(
+                                              shrinkWrap: true,
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              itemCount:
+                                                  counsellorSessionProvider
+                                                      .trendingWebinarList
+                                                      .length,
+                                              itemBuilder: (context, index) {
+                                                TrandingWebinarModel trending =
                                                     counsellorSessionProvider
                                                         .trendingWebinarList
-                                                        .length,
-                                                itemBuilder: (context, index) {
-                                                  TrandingWebinarModel
-                                                      trending =
-                                                      counsellorSessionProvider
-                                                          .trendingWebinarList
-                                                          .reversed
-                                                          .toList()[index];
+                                                        .reversed
+                                                        .toList()[index];
 
-                                                  DateTime webinarDate =
-                                                      DateTime.parse(trending
-                                                          .registeredDate!);
+                                                DateTime webinarDate =
+                                                    DateTime.parse(trending
+                                                        .registeredDate!);
 
-                                                  // log("WEBINAR DATE$webinarDate");
+                                                // log("WEBINAR DATE$webinarDate");
 
-                                                  DateTime currentDate =
-                                                      DateTime.now();
-                                                  if (webinarDate
-                                                      .isBefore(currentDate)) {
-                                                    return const SizedBox
-                                                        .shrink();
-                                                  }
+                                                DateTime currentDate =
+                                                    DateTime.now();
+                                                if (webinarDate
+                                                    .isBefore(currentDate)) {
+                                                  return const SizedBox
+                                                      .shrink();
+                                                }
 
-                                                  currentDate
-                                                      .difference(webinarDate);
-                                                  bool isRegistered =
-                                                      trending.registered!;
+                                                currentDate
+                                                    .difference(webinarDate);
+                                                bool isRegistered =
+                                                    trending.registered!;
 
-                                                  return Column(
-                                                    children: [
-                                                      GestureDetector(
-                                                        onTap: () async {
-                                                          bool?
-                                                              registrationStatus =
-                                                              await Navigator
-                                                                  .push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) {
-                                                              return WebinarDetailsPageWidget(
-                                                                webinarId:
-                                                                    trending.id,
-                                                              );
-                                                            }),
-                                                          );
-                                                          if (registrationStatus ==
-                                                              true) {
-                                                            // Refresh the data by calling fetch methods again
-                                                            context
-                                                                .read<
-                                                                    CounsellorDetailsProvider>()
-                                                                .fetchTrendingWebinar();
-                                                            // context
-                                                            //     .read<
-                                                            //         CounsellorDetailsProvider>()
-                                                            //     .fetchPopularWorkShop();
-                                                          }
-                                                        },
-                                                        child: Card(
-                                                          shadowColor:
-                                                              ColorsConst
-                                                                  .whiteColor,
-                                                          color: Colors.white,
-                                                          surfaceTintColor:
-                                                              Colors.white,
-                                                          elevation: 2,
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10)),
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Container(
-                                                                height: 190,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10),
-                                                                  image:
-                                                                      DecorationImage(
-                                                                    image: NetworkImage(
-                                                                        trending
-                                                                            .webinarImage!),
-                                                                    fit: BoxFit
-                                                                        .fill,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .fromLTRB(
-                                                                        10,
-                                                                        8,
-                                                                        20,
-                                                                        10),
-                                                                child: Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Text(
+                                                return Column(
+                                                  children: [
+                                                    GestureDetector(
+                                                      onTap: () async {
+                                                        bool?
+                                                            registrationStatus =
+                                                            await Navigator
+                                                                .push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) {
+                                                            return WebinarDetailsPageWidget(
+                                                              webinarId:
+                                                                  trending.id,
+                                                            );
+                                                          }),
+                                                        );
+                                                        if (registrationStatus ==
+                                                            true) {
+                                                          context
+                                                              .read<
+                                                                  CounsellorDetailsProvider>()
+                                                              .fetchTrendingWebinar();
+                                                        }
+                                                      },
+                                                      child: Card(
+                                                        shadowColor: ColorsConst
+                                                            .whiteColor,
+                                                        color: Colors.white,
+                                                        surfaceTintColor:
+                                                            Colors.white,
+                                                        elevation: 2,
+                                                        shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10)),
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Container(
+                                                              height: 190,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10),
+                                                                image:
+                                                                    DecorationImage(
+                                                                  image: NetworkImage(
                                                                       trending
-                                                                          .webinarTitle!,
-                                                                      style: SafeGoogleFont(
-                                                                          "Inter",
-                                                                          fontSize:
-                                                                              16,
-                                                                          fontWeight:
-                                                                              FontWeight.w600),
-                                                                    ),
-                                                                    const SizedBox(
-                                                                        height:
-                                                                            4),
-                                                                    Row(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: [
-                                                                        Column(
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.start,
-                                                                          children: [
-                                                                            Text(
-                                                                              trending.webinarDate!.replaceAll(RegExp(r'\s*@\s*'), " "),
-                                                                              style: SafeGoogleFont("Inter", fontSize: 12, fontWeight: FontWeight.w500),
-                                                                            ),
-                                                                            const SizedBox(height: 3),
-                                                                            Text(
-                                                                              trending.webinarBy!,
-                                                                              style: SafeGoogleFont("Inter", fontSize: 11, fontWeight: FontWeight.w500),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    const SizedBox(
-                                                                        height:
-                                                                            12),
-                                                                    Container(
-                                                                      height: 1,
-                                                                      width: double
-                                                                          .infinity,
-                                                                      color: const Color(
-                                                                          0xffAFAFAF),
-                                                                    ),
-                                                                    const SizedBox(
-                                                                        height:
-                                                                            14),
-                                                                    Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: [
-                                                                        IconButton(
-                                                                            onPressed:
-                                                                                () {
-                                                                              webinarShareLinks(id: trending.id.toString());
-                                                                            },
-                                                                            icon:
-                                                                                const Icon(
-                                                                              Icons.share,
-                                                                              size: 26,
-                                                                              color: Color(0xff1F0A68),
-                                                                            )),
-                                                                        RegisterNowWidget(
-                                                                          onPressed:
-                                                                              () async {
-                                                                            var daysDifference =
-                                                                                calculateDaysDifference(
-                                                                              registeredDate: trending.registeredDate!,
-                                                                              webinarRegister: trending.registered!,
-                                                                              canJoin: trending.canJoin!,
-                                                                            );
-
-                                                                            if (!trending
-                                                                                .registered!) {
-                                                                              showDialog(
-                                                                                context: context,
-                                                                                builder: (BuildContext context) {
-                                                                                  return AlertDialog(
-                                                                                    backgroundColor: Colors.white,
-                                                                                    title: const Text("Register"),
-                                                                                    content: const Text("Are you sure you want to register for this webinar?"),
-                                                                                    actions: [
-                                                                                      TextButton(
-                                                                                        child: const Text("Cancel"),
-                                                                                        onPressed: () {
-                                                                                          Navigator.of(context).pop();
-                                                                                        },
-                                                                                      ),
-                                                                                      TextButton(
-                                                                                        child: const Text("Yes"),
-                                                                                        onPressed: () async {
-                                                                                          await ApiService.webinarRegister(trending.id!);
-                                                                                          setState(() {
-                                                                                            trending.registered = true;
-                                                                                          });
-                                                                                          Navigator.of(context).pop();
-                                                                                        },
-                                                                                      ),
-                                                                                    ],
-                                                                                  );
-                                                                                },
-                                                                              );
-                                                                            } else if (daysDifference == 0 &&
-                                                                                isRegistered &&
-                                                                                trending.canJoin == true) {
-                                                                              await ApiService.webinarJoin(trending.id!);
-                                                                              // navigateTo(ZoomWebinarScreen(
-                                                                              //   webinarJoinUrl: trending.webinarJoinUrl!,
-                                                                              //   userName: username,
-                                                                              // ));
-
-                                                                              launchUrlString(trending.webinarJoinUrl!);
-                                                                            }
-                                                                          },
-                                                                          regdate:
-                                                                              trending.registeredDate,
-                                                                          isRegisterNow:
-                                                                              trending.registered!,
-                                                                          canJoin:
-                                                                              trending.canJoin!,
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                  ],
+                                                                          .webinarImage!),
+                                                                  fit: BoxFit
+                                                                      .fill,
                                                                 ),
                                                               ),
-                                                            ],
-                                                          ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .fromLTRB(
+                                                                      10,
+                                                                      8,
+                                                                      20,
+                                                                      10),
+                                                              child: Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Text(
+                                                                    trending
+                                                                        .webinarTitle!,
+                                                                    style: SafeGoogleFont(
+                                                                        "Inter",
+                                                                        fontSize:
+                                                                            16,
+                                                                        fontWeight:
+                                                                            FontWeight.w600),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                      height:
+                                                                          4),
+                                                                  Row(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    children: [
+                                                                      Column(
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: [
+                                                                          Text(
+                                                                            trending.webinarDate!.replaceAll(RegExp(r'\s*@\s*'),
+                                                                                " "),
+                                                                            style: SafeGoogleFont("Inter",
+                                                                                fontSize: 12,
+                                                                                fontWeight: FontWeight.w500),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              height: 3),
+                                                                          Text(
+                                                                            trending.webinarBy!,
+                                                                            style: SafeGoogleFont("Inter",
+                                                                                fontSize: 11,
+                                                                                fontWeight: FontWeight.w500),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  const SizedBox(
+                                                                      height:
+                                                                          12),
+                                                                  Container(
+                                                                    height: 1,
+                                                                    width: double
+                                                                        .infinity,
+                                                                    color: const Color(
+                                                                        0xffAFAFAF),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                      height:
+                                                                          14),
+                                                                  Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    children: [
+                                                                      IconButton(
+                                                                        onPressed:
+                                                                            () {
+                                                                          webinarShareLinks(
+                                                                              id: trending.id.toString());
+                                                                        },
+                                                                        icon:
+                                                                            const Icon(
+                                                                          Icons
+                                                                              .share,
+                                                                          size:
+                                                                              26,
+                                                                          color:
+                                                                              Color(0xff1F0A68),
+                                                                        ),
+                                                                      ),
+                                                                      RegisterNowWidget(
+                                                                        onPressed:
+                                                                            () async {
+                                                                          var daysDifference =
+                                                                              calculateDaysDifference(
+                                                                            registeredDate:
+                                                                                trending.registeredDate!,
+                                                                            webinarRegister:
+                                                                                trending.registered!,
+                                                                            canJoin:
+                                                                                trending.canJoin!,
+                                                                          );
+
+                                                                          if (!trending
+                                                                              .registered!) {
+                                                                            showDialog(
+                                                                              context: context,
+                                                                              builder: (BuildContext context) {
+                                                                                return AlertDialog(
+                                                                                  backgroundColor: Colors.white,
+                                                                                  title: const Text("Register"),
+                                                                                  content: const Text("Are you sure you want to register for this webinar?"),
+                                                                                  actions: [
+                                                                                    TextButton(
+                                                                                      child: const Text("Cancel"),
+                                                                                      onPressed: () {
+                                                                                        Navigator.of(context).pop();
+                                                                                      },
+                                                                                    ),
+                                                                                    TextButton(
+                                                                                      child: const Text("Yes"),
+                                                                                      onPressed: () async {
+                                                                                        await ApiService.webinarRegister(trending.id!);
+                                                                                        setState(() {
+                                                                                          trending.registered = true;
+                                                                                        });
+                                                                                        Navigator.of(context).pop();
+                                                                                      },
+                                                                                    ),
+                                                                                  ],
+                                                                                );
+                                                                              },
+                                                                            );
+                                                                          } else if (daysDifference == 0 &&
+                                                                              isRegistered &&
+                                                                              trending.canJoin == true) {
+                                                                            await ApiService.webinarJoin(trending.id!);
+                                                                            // navigateTo(ZoomWebinarScreen(
+                                                                            //   webinarJoinUrl: trending.webinarJoinUrl!,
+                                                                            //   userName: username,
+                                                                            // ));
+
+                                                                            launchUrlString(trending.webinarJoinUrl!);
+                                                                          }
+                                                                        },
+                                                                        regdate:
+                                                                            trending.registeredDate,
+                                                                        isRegisterNow:
+                                                                            trending.registered!,
+                                                                        canJoin:
+                                                                            trending.canJoin!,
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ),
-                                                    ],
-                                                  );
-                                                },
-                                              )),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            ),
+                                ),
                               ],
                             )
                     ],
@@ -659,13 +667,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // CustomWebinarCard buildCustomWebinarCard(
-  //   TrandingWebinarModel trending,
-  // ) {
-  //   return CustomWebinarCard(
-  //     trandingWebinarModel: trending,
-  //   );
-  // }
 
   Widget profileCard(
       LatestSessionsModel latestSessionsModel, int cardIndex, int totalCards) {
