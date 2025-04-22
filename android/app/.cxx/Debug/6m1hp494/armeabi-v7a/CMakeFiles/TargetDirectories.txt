@@ -1,0 +1,2 @@
+D:/Wepitch/new/sort-my-college-user-app/prakash_dev/android/app/.cxx/Debug/6m1hp494/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/Wepitch/new/sort-my-college-user-app/prakash_dev/android/app/.cxx/Debug/6m1hp494/armeabi-v7a/CMakeFiles/rebuild_cache.dir
