@@ -25,6 +25,7 @@ import '../booking_page/checkout_screen.dart';
 import '../notifications/screens/home_page_notification.dart';
 import '../other/api_service.dart';
 
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -628,11 +629,7 @@ class _HomePageState extends State<HomePage> {
                                                                               isRegistered &&
                                                                               trending.canJoin == true) {
                                                                             await ApiService.webinarJoin(trending.id!);
-                                                                            // navigateTo(ZoomWebinarScreen(
-                                                                            //   webinarJoinUrl: trending.webinarJoinUrl!,
-                                                                            //   userName: username,
-                                                                            // ));
-
+//============================================================! Zoom Launch !====================================================
                                                                             launchUrlString(trending.webinarJoinUrl!);
                                                                           }
                                                                         },
@@ -666,7 +663,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
 
   Widget profileCard(
       LatestSessionsModel latestSessionsModel, int cardIndex, int totalCards) {

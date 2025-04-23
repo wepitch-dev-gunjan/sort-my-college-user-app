@@ -30,6 +30,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    log("Isloading==>>>>>$isLoading");
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -38,11 +39,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
       ),
       body: isLoading
           ? const Center(
-              child: SingleChildScrollView(),
+              child: CircularProgressIndicator(),
             )
           : data['notifications'].isEmpty
               ? const Center(
-                  child: Text("No Data"),
+                  child: Text("No data available"),
                 )
               : ListView.builder(
                   itemCount: data['notifications'].length,
