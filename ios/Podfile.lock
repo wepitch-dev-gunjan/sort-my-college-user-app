@@ -3,69 +3,69 @@ PODS:
     - Flutter
   - app_settings (5.1.1):
     - Flutter
-  - Firebase/Analytics (11.8.0):
+  - Firebase/Analytics (11.10.0):
     - Firebase/Core
-  - Firebase/Core (11.8.0):
+  - Firebase/Core (11.10.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (~> 11.8.0)
-  - Firebase/CoreOnly (11.8.0):
-    - FirebaseCore (~> 11.8.0)
-  - Firebase/Messaging (11.8.0):
+    - FirebaseAnalytics (~> 11.10.0)
+  - Firebase/CoreOnly (11.10.0):
+    - FirebaseCore (~> 11.10.0)
+  - Firebase/Messaging (11.10.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 11.8.0)
-  - Firebase/Performance (11.8.0):
+    - FirebaseMessaging (~> 11.10.0)
+  - Firebase/Performance (11.10.0):
     - Firebase/CoreOnly
-    - FirebasePerformance (~> 11.8.0)
-  - firebase_analytics (11.4.1):
-    - Firebase/Analytics (= 11.8.0)
+    - FirebasePerformance (~> 11.10.0)
+  - firebase_analytics (11.4.5):
+    - Firebase/Analytics (= 11.10.0)
     - firebase_core
     - Flutter
-  - firebase_core (3.12.1):
-    - Firebase/CoreOnly (= 11.8.0)
+  - firebase_core (3.13.0):
+    - Firebase/CoreOnly (= 11.10.0)
     - Flutter
-  - firebase_messaging (15.2.4):
-    - Firebase/Messaging (= 11.8.0)
+  - firebase_messaging (15.2.5):
+    - Firebase/Messaging (= 11.10.0)
     - firebase_core
     - Flutter
-  - firebase_performance (0.10.1-1):
-    - Firebase/Performance (= 11.8.0)
+  - firebase_performance (0.10.1-5):
+    - Firebase/Performance (= 11.10.0)
     - firebase_core
     - Flutter
-  - FirebaseABTesting (11.8.0):
-    - FirebaseCore (~> 11.8.0)
-  - FirebaseAnalytics (11.8.0):
-    - FirebaseAnalytics/AdIdSupport (= 11.8.0)
-    - FirebaseCore (~> 11.8.0)
+  - FirebaseABTesting (11.10.0):
+    - FirebaseCore (~> 11.10.0)
+  - FirebaseAnalytics (11.10.0):
+    - FirebaseAnalytics/AdIdSupport (= 11.10.0)
+    - FirebaseCore (~> 11.10.0)
     - FirebaseInstallations (~> 11.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
     - GoogleUtilities/MethodSwizzler (~> 8.0)
     - GoogleUtilities/Network (~> 8.0)
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
     - nanopb (~> 3.30910.0)
-  - FirebaseAnalytics/AdIdSupport (11.8.0):
-    - FirebaseCore (~> 11.8.0)
+  - FirebaseAnalytics/AdIdSupport (11.10.0):
+    - FirebaseCore (~> 11.10.0)
     - FirebaseInstallations (~> 11.0)
-    - GoogleAppMeasurement (= 11.8.0)
+    - GoogleAppMeasurement (= 11.10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
     - GoogleUtilities/MethodSwizzler (~> 8.0)
     - GoogleUtilities/Network (~> 8.0)
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
     - nanopb (~> 3.30910.0)
-  - FirebaseCore (11.8.1):
-    - FirebaseCoreInternal (~> 11.8.0)
+  - FirebaseCore (11.10.0):
+    - FirebaseCoreInternal (~> 11.10.0)
     - GoogleUtilities/Environment (~> 8.0)
     - GoogleUtilities/Logger (~> 8.0)
-  - FirebaseCoreExtension (11.8.0):
-    - FirebaseCore (~> 11.8.0)
-  - FirebaseCoreInternal (11.8.0):
+  - FirebaseCoreExtension (11.10.0):
+    - FirebaseCore (~> 11.10.0)
+  - FirebaseCoreInternal (11.10.0):
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
-  - FirebaseInstallations (11.8.0):
-    - FirebaseCore (~> 11.8.0)
+  - FirebaseInstallations (11.10.0):
+    - FirebaseCore (~> 11.10.0)
     - GoogleUtilities/Environment (~> 8.0)
     - GoogleUtilities/UserDefaults (~> 8.0)
     - PromisesObjC (~> 2.4)
-  - FirebaseMessaging (11.8.0):
-    - FirebaseCore (~> 11.8.0)
+  - FirebaseMessaging (11.10.0):
+    - FirebaseCore (~> 11.10.0)
     - FirebaseInstallations (~> 11.0)
     - GoogleDataTransport (~> 10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
@@ -73,8 +73,8 @@ PODS:
     - GoogleUtilities/Reachability (~> 8.0)
     - GoogleUtilities/UserDefaults (~> 8.0)
     - nanopb (~> 3.30910.0)
-  - FirebasePerformance (11.8.0):
-    - FirebaseCore (~> 11.8.0)
+  - FirebasePerformance (11.10.0):
+    - FirebaseCore (~> 11.10.0)
     - FirebaseInstallations (~> 11.0)
     - FirebaseRemoteConfig (~> 11.0)
     - FirebaseSessions (~> 11.0)
@@ -83,25 +83,25 @@ PODS:
     - GoogleUtilities/MethodSwizzler (~> 8.0)
     - GoogleUtilities/UserDefaults (~> 8.0)
     - nanopb (~> 3.30910.0)
-  - FirebaseRemoteConfig (11.8.0):
+  - FirebaseRemoteConfig (11.10.0):
     - FirebaseABTesting (~> 11.0)
-    - FirebaseCore (~> 11.8.0)
+    - FirebaseCore (~> 11.10.0)
     - FirebaseInstallations (~> 11.0)
     - FirebaseRemoteConfigInterop (~> 11.0)
     - FirebaseSharedSwift (~> 11.0)
     - GoogleUtilities/Environment (~> 8.0)
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
-  - FirebaseRemoteConfigInterop (11.10.0)
-  - FirebaseSessions (11.8.0):
-    - FirebaseCore (~> 11.8.0)
-    - FirebaseCoreExtension (~> 11.8.0)
+  - FirebaseRemoteConfigInterop (11.12.0)
+  - FirebaseSessions (11.10.0):
+    - FirebaseCore (~> 11.10.0)
+    - FirebaseCoreExtension (~> 11.10.0)
     - FirebaseInstallations (~> 11.0)
     - GoogleDataTransport (~> 10.0)
     - GoogleUtilities/Environment (~> 8.0)
     - GoogleUtilities/UserDefaults (~> 8.0)
     - nanopb (~> 3.30910.0)
     - PromisesSwift (~> 2.1)
-  - FirebaseSharedSwift (11.10.0)
+  - FirebaseSharedSwift (11.12.0)
   - Flutter (1.0.0)
   - flutter_email_sender (0.0.1):
     - Flutter
@@ -109,22 +109,21 @@ PODS:
     - Flutter
   - fluttertoast (0.0.2):
     - Flutter
-    - Toast
-  - GoogleAppMeasurement (11.8.0):
-    - GoogleAppMeasurement/AdIdSupport (= 11.8.0)
+  - GoogleAppMeasurement (11.10.0):
+    - GoogleAppMeasurement/AdIdSupport (= 11.10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
     - GoogleUtilities/MethodSwizzler (~> 8.0)
     - GoogleUtilities/Network (~> 8.0)
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
     - nanopb (~> 3.30910.0)
-  - GoogleAppMeasurement/AdIdSupport (11.8.0):
-    - GoogleAppMeasurement/WithoutAdIdSupport (= 11.8.0)
+  - GoogleAppMeasurement/AdIdSupport (11.10.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 11.10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
     - GoogleUtilities/MethodSwizzler (~> 8.0)
     - GoogleUtilities/Network (~> 8.0)
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
     - nanopb (~> 3.30910.0)
-  - GoogleAppMeasurement/WithoutAdIdSupport (11.8.0):
+  - GoogleAppMeasurement/WithoutAdIdSupport (11.10.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
     - GoogleUtilities/MethodSwizzler (~> 8.0)
     - GoogleUtilities/Network (~> 8.0)
@@ -184,7 +183,6 @@ PODS:
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - Toast (4.1.1)
   - url_launcher_ios (0.0.1):
     - Flutter
   - webview_flutter_wkwebview (0.0.1):
@@ -233,7 +231,6 @@ SPEC REPOS:
     - PromisesObjC
     - PromisesSwift
     - razorpay-pod
-    - Toast
 
 EXTERNAL SOURCES:
   app_links:
@@ -274,30 +271,30 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/darwin"
 
 SPEC CHECKSUMS:
-  app_links: e7a6750a915a9e161c58d91bc610e8cd1d4d0ad0
-  app_settings: 017320c6a680cdc94c799949d95b84cb69389ebc
-  Firebase: d80354ed7f6df5f9aca55e9eb47cc4b634735eaf
-  firebase_analytics: 2b64e9da98909e45be4180bf9d9c0417b7c9565a
-  firebase_core: ac395f994af4e28f6a38b59e05a88ca57abeb874
-  firebase_messaging: 7e223f4ee7ca053bf4ce43748e84a6d774ec9728
-  firebase_performance: 6fc6608200964bd24ab096322070aba872730974
-  FirebaseABTesting: 7d6eee42b9137541eac2610e5fea3568d956707a
-  FirebaseAnalytics: 4fd42def128146e24e480e89f310e3d8534ea42b
-  FirebaseCore: 99fe0c4b44a39f37d99e6404e02009d2db5d718d
-  FirebaseCoreExtension: 3d3f2017a00d06e09ab4ebe065391b0bb642565e
-  FirebaseCoreInternal: df24ce5af28864660ecbd13596fc8dd3a8c34629
-  FirebaseInstallations: 6c963bd2a86aca0481eef4f48f5a4df783ae5917
-  FirebaseMessaging: 487b634ccdf6f7b7ff180fdcb2a9935490f764e8
-  FirebasePerformance: 4db21c8ac5a967d38ca8625ce77f58a7abb59bc0
-  FirebaseRemoteConfig: f63724461fd97f0d62f20021314b59388f3e8ef8
-  FirebaseRemoteConfigInterop: 7c9a9c65eff32cbb0f7bf8d18140612ad57dfcc6
-  FirebaseSessions: c4d40a97f88f9eaff2834d61b4fea0a522d62123
-  FirebaseSharedSwift: 1baacae75939499b5def867cbe34129464536a38
+  app_links: f3e17e4ee5e357b39d8b95290a9b2c299fca71c6
+  app_settings: 58017cd26b604ae98c3e65acbdd8ba173703cc82
+  Firebase: 1fe1c0a7d9aaea32efe01fbea5f0ebd8d70e53a2
+  firebase_analytics: 4b8609ce8d2e0c8928472bec8d9753a8f1835eb6
+  firebase_core: 432718558359a8c08762151b5f49bb0f093eb6e0
+  firebase_messaging: 3b99522baf7480dfb4b7683d2b34e842d577c362
+  firebase_performance: c047897b19a2e07c3b227efe4802c4646d30fdd5
+  FirebaseABTesting: dfc10eb6cc08fe3b391ac9e5aa40396d43ea6675
+  FirebaseAnalytics: 4e42333f02cf78ed93703a5c36f36dd518aebdef
+  FirebaseCore: 8344daef5e2661eb004b177488d6f9f0f24251b7
+  FirebaseCoreExtension: 6f357679327f3614e995dc7cf3f2d600bdc774ac
+  FirebaseCoreInternal: ef4505d2afb1d0ebbc33162cb3795382904b5679
+  FirebaseInstallations: 9980995bdd06ec8081dfb6ab364162bdd64245c3
+  FirebaseMessaging: 2b9f56aa4ed286e1f0ce2ee1d413aabb8f9f5cb9
+  FirebasePerformance: f0bd14be05aaa1136cbb1c9aaaf87d213d0e6fbf
+  FirebaseRemoteConfig: 10695bc0ce3b103e3706a5578c43f2a9f69d5aaa
+  FirebaseRemoteConfigInterop: 82b81fd06ee550cbeff40004e2c106daedf73e38
+  FirebaseSessions: 9b3b30947b97a15370e0902ee7a90f50ef60ead6
+  FirebaseSharedSwift: d2475748a2d2a36242ed13baa34b2acda846c925
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_email_sender: 10a22605f92809a11ef52b2f412db806c6082d40
   flutter_local_notifications: df98d66e515e1ca797af436137b4459b160ad8c9
-  fluttertoast: e9a18c7be5413da53898f660530c56f35edfba9c
-  GoogleAppMeasurement: fc0817122bd4d4189164f85374e06773b9561896
+  fluttertoast: 21eecd6935e7064cc1fcb733a4c5a428f3f24f0f
+  GoogleAppMeasurement: 36684bfb3ee034e2b42b4321eb19da3a1b81e65d
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
   image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
@@ -310,7 +307,6 @@ SPEC CHECKSUMS:
   razorpay_flutter: 84b3bfd206ae9c9c2a9ba585524a1b3d8102b6c1
   share_plus: 8b6f8b3447e494cca5317c8c3073de39b3600d1f
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
-  Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e
   url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
   webview_flutter_wkwebview: a4af96a051138e28e29f60101d094683b9f82188
 
