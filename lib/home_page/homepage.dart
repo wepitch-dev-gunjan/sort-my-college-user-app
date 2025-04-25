@@ -25,7 +25,6 @@ import '../booking_page/checkout_screen.dart';
 import '../notifications/screens/home_page_notification.dart';
 import '../other/api_service.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -159,19 +158,21 @@ class _HomePageState extends State<HomePage> {
           titleSpacing: 1,
           actions: [
             // IconButton(
-            //     onPressed: () {
-            //       Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => NotificationScreen(),
-            //         ),
-            //       );
-            //     },
-            //     icon: const Icon(
-            //       Icons.notifications,
-            //       color: Colors.black87,
-            //       size: 24,
-            //     )),
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => NotificationScreen(),
+            //       ),
+            //     );
+            //   },
+            //   icon: Badge.count(
+            //       count: 9999,
+            //       child: const Icon(
+            //         Icons.notifications,
+            //         color: Colors.black,
+            //       )),
+            // ),
             GestureDetector(
               onTap: () {
                 Navigator.push(

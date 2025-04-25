@@ -7,6 +7,7 @@ import 'package:myapp/other/api_service.dart';
 import 'package:myapp/page-1/otp_screen_new_login.dart';
 import 'package:myapp/page-1/sign_up_screen_new.dart';
 import 'package:myapp/shared/colors_const.dart';
+import 'package:myapp/utils/common.dart';
 import 'package:myapp/utils/utils.dart';
 import '../other/constants.dart';
 
@@ -117,8 +118,12 @@ class LoginScreenNewState extends State<LoginScreen> {
                             controller: phoneController,
                             keyboardType: TextInputType.phone,
                             inputFormatters: [
-                              LengthLimitingTextInputFormatter(14),
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'[0-9]')),
+                              LengthLimitingTextInputFormatter(10),
                             ],
+
+                            // maxLength: 10,
                             decoration: const InputDecoration(
                               hintStyle: TextStyle(
                                   color: Colors.black54, fontSize: 15.0),
@@ -243,13 +248,31 @@ class LoginScreenNewState extends State<LoginScreen> {
     });
   }
 
+  // bool check_val() {
+  //   bool isvaluevalid = true;
+  //   if (phoneController.text.toString().isEmpty) {
+  //     EasyLoading.showToast(AppConstants.phoneerror,
+  //         toastPosition: EasyLoadingToastPosition.bottom);
+  //     isvaluevalid = false;
+  //   }
+  //   return isvaluevalid;
+  // }
+
   bool check_val() {
-    bool isvaluevalid = true;
-    if (phoneController.text.toString().isEmpty) {
-      EasyLoading.showToast(AppConstants.phoneerror,
-          toastPosition: EasyLoadingToastPosition.bottom);
-      isvaluevalid = false;
+    bool isValueValid = true;
+    String phone = phoneController.text.trim();
+
+    if (phone.isEmpty) {
+      EasyLoading.showToast(
+        AppConstants.phoneerror,
+        toastPosition: EasyLoadingToastPosition.bottom,
+      );
+      isValueValid = false;
+    } else if (phone.length != 10 || !RegExp(r'^[0-9]+$').hasMatch(phone)) {
+      showSnackBarMsg("Please enter a valid 10-digit mobile number");
+      isValueValid = false;
     }
-    return isvaluevalid;
+
+    return isValueValid;
   }
 }

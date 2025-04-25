@@ -4,6 +4,7 @@ import 'package:myapp/other/api_service.dart';
 import 'package:myapp/page-1/otp_screen_new.dart';
 import 'package:myapp/phone/login_screen.dart';
 import 'package:myapp/shared/colors_const.dart';
+import 'package:myapp/utils/common.dart';
 import 'package:myapp/utils/utils.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -158,7 +159,9 @@ class Signup extends State<SignupScreenNew> {
                                 keyboardType: TextInputType.phone,
                                 // keyboardType: TextInputType.phone, changed for testing purpose
                                 inputFormatters: [
-                                  LengthLimitingTextInputFormatter(14),
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp(r'[0-9]')),
+                                  LengthLimitingTextInputFormatter(10),
                                 ],
                                 decoration: const InputDecoration(
                                   hintStyle: TextStyle(
@@ -284,26 +287,45 @@ class Signup extends State<SignupScreenNew> {
     );
   }
 
-  bool validateMobile(String value) {
-    String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-    RegExp regExp = RegExp(patttern);
-    if (!regExp.hasMatch(value)) {
-      return true;
-    }
-    return false;
-  }
+  // bool validateMobile(String value) {
+  //   String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+  //   RegExp regExp = RegExp(patttern);
+  //   if (!regExp.hasMatch(value)) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
+
+  // bool check_val() {
+  //   bool isvaluevalid = true;
+  //   if (_nameController.text.toString().trim().isEmpty) {
+  //     Fluttertoast.showToast(msg: "Please enter full name");
+  //     isvaluevalid = false;
+  //   } else if (phonecontroller.text.toString().trim().isEmpty) {
+  //     Fluttertoast.showToast(msg: "Please enter phone number");
+  //     isvaluevalid = false;
+  //   }
+
+  //   return isvaluevalid;
+  // }
 
   bool check_val() {
-    bool isvaluevalid = true;
-    if (_nameController.text.toString().trim().isEmpty) {
-      Fluttertoast.showToast(msg: "Please enter full name");
-      isvaluevalid = false;
-    } else if (phonecontroller.text.toString().trim().isEmpty) {
-      Fluttertoast.showToast(msg: "Please enter phone number");
-      isvaluevalid = false;
+    bool isValueValid = true;
+    String name = _nameController.text.trim();
+    String phone = phonecontroller.text.trim();
+
+    if (name.isEmpty) {
+      showSnackBarMsg("Please enter full name");
+      isValueValid = false;
+    } else if (phone.isEmpty) {
+      showSnackBarMsg("Please enter phone number");
+      isValueValid = false;
+    } else if (phone.length != 10 || !RegExp(r'^[0-9]{10}$').hasMatch(phone)) {
+      showSnackBarMsg("Please enter a valid 10-digit phone number");
+      isValueValid = false;
     }
 
-    return isvaluevalid;
+    return isValueValid;
   }
 
   void configLoading() {
