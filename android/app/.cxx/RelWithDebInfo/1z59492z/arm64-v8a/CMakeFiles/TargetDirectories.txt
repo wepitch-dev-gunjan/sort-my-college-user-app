@@ -1,2 +1,0 @@
-D:/Wepitch/new/sort-my-college-user-app/prakash_dev/android/app/.cxx/RelWithDebInfo/1z59492z/arm64-v8a/CMakeFiles/edit_cache.dir
-D:/Wepitch/new/sort-my-college-user-app/prakash_dev/android/app/.cxx/RelWithDebInfo/1z59492z/arm64-v8a/CMakeFiles/rebuild_cache.dir
